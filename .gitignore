@@ -3,5 +3,5 @@ node_modules/**/*
 .vscode
 .DS_Store
 .idea
-.GoogleService-Info.plist
-.google-services.json
+GoogleService-Info.plist
+google-services.json
