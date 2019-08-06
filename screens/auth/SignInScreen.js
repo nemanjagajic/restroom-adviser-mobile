@@ -12,9 +12,6 @@ import CustomButton from '../../components/shared/button/CustomButton';
 class SignInScreen extends React.Component {
   static navigationOptions = {
     title: $t('auth.signIn'),
-    headerStyle: {
-      backgroundColor: 'transparent'
-    },
     headerTintColor: '#e6e6e6',
     headerTransparent: true
   };

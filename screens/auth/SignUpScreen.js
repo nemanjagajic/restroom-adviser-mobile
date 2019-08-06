@@ -1,7 +1,6 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, KeyboardAvoidingView } from 'react-native';
 import PropTypes from 'prop-types';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import $t from 'i18n';
 
 import { connect } from 'react-redux';
@@ -12,7 +11,9 @@ import { signUpErrorsSelector } from '../../store/selectors/ErrorSelector';
 
 class SignUpScreen extends React.Component {
   static navigationOptions = {
-    title: $t('auth.signUp')
+    title: $t('auth.signUp'),
+    headerTintColor: '#e6e6e6',
+    headerTransparent: true
   };
 
   static propTypes = {
@@ -35,20 +36,13 @@ class SignUpScreen extends React.Component {
 
     return (
       <View style={styles.container}>
-        <KeyboardAwareScrollView enableOnAndroid>
+        <KeyboardAvoidingView behavior="padding">
           <SignUpForm onSubmit={this.signUp} signUpErrors={signUpErrors} />
-        </KeyboardAwareScrollView>
+        </KeyboardAvoidingView>
       </View>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: '#fff',
-    flex: 1
-  }
-});
 
 const mapStateToProps = state => {
   return {
@@ -65,3 +59,12 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(SignUpScreen);
+
+const styles = StyleSheet.create({
+  container: {
+    alignItems: 'center',
+    backgroundColor: '#333',
+    flex: 1,
+    justifyContent: 'center'
+  }
+});
