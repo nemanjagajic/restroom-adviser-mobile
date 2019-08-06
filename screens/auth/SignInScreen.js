@@ -1,17 +1,22 @@
 import React from 'react';
-import { StyleSheet, Button, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import PropTypes from 'prop-types';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { connect } from 'react-redux';
 import $t from 'i18n';
 
 import { login, facebookLogin, googleLogin } from '../../store/actions/UserActions';
 import { SignInForm } from '../../components/auth/SignInForm';
 import { signInErrorSelector } from '../../store/selectors/ErrorSelector';
+import CustomButton from '../../components/shared/button/CustomButton';
 
 class SignInScreen extends React.Component {
   static navigationOptions = {
-    title: $t('auth.signIn')
+    title: $t('auth.signIn'),
+    headerStyle: {
+      backgroundColor: 'transparent'
+    },
+    headerTintColor: '#e6e6e6',
+    headerTransparent: true
   };
 
   static propTypes = {
@@ -30,23 +35,31 @@ class SignInScreen extends React.Component {
     this.props.navigation.navigate('SignUp');
   };
 
-  goToForgotPassword = () => {
-    this.props.navigation.navigate('ForgotPassword');
-  };
-
   render() {
     const { signInError, facebookLogin, googleLogin } = this.props;
 
     return (
       <View style={styles.container}>
-        <KeyboardAwareScrollView enableOnAndroid>
-          <SignInForm onSubmit={this.onSubmit} signInError={signInError} />
+        <SignInForm onSubmit={this.onSubmit} signInError={signInError} />
 
-          <Button title="Sign in with Facebook!" onPress={facebookLogin} />
-          <Button title="Sign in with Google!" onPress={googleLogin} />
-          <Button title="Sign up!" onPress={this.goToSignUp} />
-          <Button title="Forgot password" onPress={this.goToForgotPassword} />
-        </KeyboardAwareScrollView>
+        <CustomButton
+          title={'Log in with Facebook'}
+          style={styles.button}
+          textStyle={styles.white}
+          onPress={facebookLogin}
+        />
+        <CustomButton
+          title={'Log in with Google'}
+          style={styles.button}
+          textStyle={styles.white}
+          onPress={googleLogin}
+        />
+        <CustomButton
+          title={'Sign up'}
+          style={styles.button}
+          textStyle={styles.white}
+          onPress={this.goToSignUp}
+        />
       </View>
     );
   }
@@ -70,8 +83,25 @@ export default connect(
 )(SignInScreen);
 
 const styles = StyleSheet.create({
+  button: {
+    alignItems: 'center',
+    backgroundColor: '#404040',
+    borderColor: '#595959',
+    borderRadius: 20,
+    borderWidth: 1,
+    display: 'flex',
+    height: 40,
+    justifyContent: 'center',
+    margin: 5,
+    width: 300
+  },
   container: {
-    backgroundColor: '#fff',
-    flex: 1
+    alignItems: 'center',
+    backgroundColor: '#333333',
+    flex: 1,
+    paddingBottom: 20
+  },
+  white: {
+    color: '#FFF'
   }
 });

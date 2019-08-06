@@ -8,7 +8,6 @@ import {
 
 const config = {
   API_BASE_URL,
-
   IMAGE_BASE_URL,
   FACEBOOK_APP_ID,
   ANDROID_GOOGLE_CLIENT_ID,
