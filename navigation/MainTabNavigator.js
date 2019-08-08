@@ -1,5 +1,4 @@
 import React from 'react';
-import { Platform } from 'react-native';
 import {
   createStackNavigator,
   createBottomTabNavigator,
@@ -8,36 +7,20 @@ import {
 
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/main/HomeScreen';
-import SettingsScreen from '../screens/main/SettingsScreen';
 import LeftSliderScreen from '../screens/main/LeftSliderScreen';
 import { addHeaderLeftNavigator } from '../helpers';
 import ChangePassword from '../screens/main/profile/ChangePassword';
 import EditProfile from '../screens/main/profile/EditProfile';
-
+import FeedsHome from '../screens/main/feeds/FeedsHome';
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
   ChangePassword,
   EditProfile
 });
 
-/* eslint-disable react/prop-types, react/display-name */
-HomeStack.navigationOptions = {
-  tabBarLabel: 'Home',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={
-        Platform.OS === 'ios'
-          ? `ios-information-circle${focused ? '' : '-outline'}`
-          : 'md-information-circle'
-      }
-    />
-  )
-};
-
 const SettingsStack = createStackNavigator({
   Settings: {
-    screen: SettingsScreen,
+    screen: FeedsHome,
     navigationOptions: ({ navigation }) => {
       const headerLeftNav = addHeaderLeftNavigator(navigation);
       return { ...headerLeftNav, title: 'Settings' };
@@ -45,17 +28,36 @@ const SettingsStack = createStackNavigator({
   }
 });
 
-SettingsStack.navigationOptions = {
-  tabBarLabel: 'Settings',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'} />
-  )
+/* eslint-disable react/prop-types, react/display-name */
+HomeStack.navigationOptions = {
+  tabBarLabel: 'Home',
+  tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name={'md-map'} />,
+  tabBarOptions: {
+    activeTintColor: '#FFB300'
+  }
 };
 
-const BottomTabNavigator = createBottomTabNavigator({
-  HomeStack,
-  SettingsStack
-});
+SettingsStack.navigationOptions = {
+  tabBarLabel: 'Feeds',
+  tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name={'ios-list'} />,
+  tabBarOptions: {
+    activeTintColor: '#FFB300'
+  }
+};
+
+const BottomTabNavigator = createBottomTabNavigator(
+  {
+    HomeStack,
+    SettingsStack
+  },
+  {
+    tabBarOptions: {
+      style: {
+        backgroundColor: '#333'
+      }
+    }
+  }
+);
 
 export default createDrawerNavigator(
   {
