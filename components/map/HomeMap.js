@@ -11,10 +11,10 @@ class HomeMap extends Component {
   };
 
   componentDidMount() {
-    this._getLocationAsync();
+    this.getLocationAsync();
   }
 
-  _getLocationAsync = async () => {
+  getLocationAsync = async () => {
     let { status } = await Permissions.askAsync(Permissions.LOCATION);
     if (status !== 'granted') {
       this.setState({

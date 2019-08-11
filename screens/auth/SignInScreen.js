@@ -7,7 +7,7 @@ import $t from 'i18n';
 import { login, facebookLogin, googleLogin } from '../../store/actions/UserActions';
 import { SignInForm } from '../../components/auth/SignInForm';
 import { signInErrorSelector } from '../../store/selectors/ErrorSelector';
-import CustomButton from '../../components/shared/button/CustomButton';
+import ButtonCustom from '../../components/shared/button/ButtonCustom';
 
 class SignInScreen extends React.Component {
   static navigationOptions = {
@@ -39,19 +39,19 @@ class SignInScreen extends React.Component {
       <View style={styles.container}>
         <SignInForm onSubmit={this.onSubmit} signInError={signInError} />
 
-        <CustomButton
+        <ButtonCustom
           title={'Log in with Facebook'}
           style={styles.button}
           textStyle={styles.white}
           onPress={facebookLogin}
         />
-        <CustomButton
+        <ButtonCustom
           title={'Log in with Google'}
           style={styles.button}
           textStyle={styles.white}
           onPress={googleLogin}
         />
-        <CustomButton
+        <ButtonCustom
           title={'Sign up'}
           style={styles.button}
           textStyle={styles.white}

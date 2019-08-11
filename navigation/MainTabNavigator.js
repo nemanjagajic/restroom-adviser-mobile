@@ -12,13 +12,15 @@ import { addHeaderLeftNavigator } from '../helpers';
 import ChangePassword from '../screens/main/profile/ChangePassword';
 import EditProfile from '../screens/main/profile/EditProfile';
 import FeedsHome from '../screens/main/feeds/FeedsHome';
+import AddRestroomStack from './AddRestroom';
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
   ChangePassword,
-  EditProfile
+  EditProfile,
+  AddRestroomStack
 });
 
-const SettingsStack = createStackNavigator({
+const FeedsStack = createStackNavigator({
   Settings: {
     screen: FeedsHome,
     navigationOptions: ({ navigation }) => {
@@ -37,7 +39,7 @@ HomeStack.navigationOptions = {
   }
 };
 
-SettingsStack.navigationOptions = {
+FeedsStack.navigationOptions = {
   tabBarLabel: 'Feeds',
   tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name={'ios-list'} />,
   tabBarOptions: {
@@ -48,7 +50,7 @@ SettingsStack.navigationOptions = {
 const BottomTabNavigator = createBottomTabNavigator(
   {
     HomeStack,
-    SettingsStack
+    SettingsStack: FeedsStack
   },
   {
     tabBarOptions: {

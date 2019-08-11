@@ -7,7 +7,7 @@ import { TextInputField } from '../shared/FormFields';
 import { signInValidationRules } from '../../validation /auth';
 import $t from 'i18n';
 import ErrorText from '../shared/Text/ErrorText';
-import CustomButton from '../shared/button/CustomButton';
+import ButtonCustom from '../shared/button/ButtonCustom';
 import logo from '../../assets/images/logo.png';
 
 export const SignInForm = props => (
@@ -31,7 +31,7 @@ export const SignInForm = props => (
           error={!!props.signInError}
           message={$t('auth.invalidCredentials')}
         />
-        <CustomButton title={'Log in'} onPress={handleSubmit} style={styles.button} />
+        <ButtonCustom title={'Log in'} onPress={handleSubmit} style={styles.button} />
       </View>
     )}
   </Formik>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Button } from 'react-native';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { addHeaderLeftNavigator } from '../../helpers';
@@ -9,7 +9,14 @@ import HomeMap from '../../components/map/HomeMap';
 class HomeScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     const headerLeftNav = addHeaderLeftNavigator(navigation);
-    return { ...headerLeftNav, title: 'Home' };
+    const headerRight = (
+      <Button
+        onPress={() => navigation.navigate('AddRestroomStack')}
+        title="Add Restroom"
+        color="#FFB300"
+      />
+    );
+    return { ...headerLeftNav, headerRight, title: 'Home' };
   };
 
   static propTypes = {

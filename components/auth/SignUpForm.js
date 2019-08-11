@@ -7,7 +7,7 @@ import { TextInputField } from '../shared/FormFields';
 import { signUpValidationRules } from '../../validation /auth';
 import $t from 'i18n';
 import ErrorText from '../shared/Text/ErrorText';
-import CustomButton from '../shared/button/CustomButton';
+import ButtonCustom from '../shared/button/ButtonCustom';
 
 export const SignUpForm = props => (
   <View>
@@ -48,7 +48,7 @@ export const SignUpForm = props => (
             secureTextEntry
             placeholder={$t('auth.confirmPassword')}
           />
-          <CustomButton title={$t('auth.signUp')} onPress={handleSubmit} style={styles.button} />
+          <ButtonCustom title={$t('auth.signUp')} onPress={handleSubmit} style={styles.button} />
         </View>
       )}
     </Formik>
