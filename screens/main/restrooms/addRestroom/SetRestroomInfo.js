@@ -62,7 +62,6 @@ const styles = StyleSheet.create({
   },
   container: {
     alignItems: 'center',
-    backgroundColor: '#333333',
     display: 'flex',
     flex: 1,
     height: Dimensions.get('window').height * 0.7,

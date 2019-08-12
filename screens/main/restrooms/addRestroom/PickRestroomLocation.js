@@ -3,8 +3,8 @@ import { Dimensions, StyleSheet, Text, View } from 'react-native';
 import { Location, MapView, Permissions } from 'expo';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-
-import { addingRestromInfoSelector } from '../../../../store/selectors/RestroomSelector';
+import { addRestroom } from '../../../../store/actions/RestroomActions';
+import ButtonCustom from '../../../../components/shared/button/ButtonCustom';
 
 class PickRestroomLocation extends Component {
   static navigationOptions = {
@@ -75,7 +75,7 @@ class PickRestroomLocation extends Component {
     this.setState({ locationInfo: locationInfo[0] });
   }
 
-  printLocationInfo = () => {
+  getFormattedLocationInfo = () => {
     const { street, name, city, country } = this.state.locationInfo;
     return `${street} ${name} ${city} ${country}`;
   };
@@ -104,19 +104,35 @@ class PickRestroomLocation extends Component {
             />
           </MapView>
         )}
-        <View>{this.state.locationInfo && <Text>{this.printLocationInfo()}</Text>}</View>
+        <View>{this.state.locationInfo && <Text>{this.getFormattedLocationInfo()}</Text>}</View>
+        <ButtonCustom
+          title={'Add restroom'}
+          onPress={() =>
+            this.props.addRestroom({
+              name: this.props.navigation.getParam('name'),
+              description: this.props.navigation.getParam('description'),
+              latitude: this.state.focusedLocation.latitude,
+              longitude: this.state.focusedLocation.longitude,
+              location_text: this.getFormattedLocationInfo()
+            })
+          }
+        />
       </View>
     );
   }
 }
 
 PickRestroomLocation.propTypes = {
-  addingRestroomInfo: PropTypes.object
+  addingRestroomInfo: PropTypes.object,
+  addRestroom: PropTypes.func,
+  navigation: PropTypes.func
 };
 
-const mapStateToProps = state => ({
-  addingRestroomInfo: addingRestromInfoSelector(state)
-});
+const mapStateToProps = () => ({});
+
+const mapDispatchToProps = {
+  addRestroom
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -128,4 +144,7 @@ const styles = StyleSheet.create({
   }
 });
 
-export default connect(mapStateToProps)(PickRestroomLocation);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(PickRestroomLocation);
