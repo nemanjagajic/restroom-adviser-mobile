@@ -1,10 +1,13 @@
 import React from 'react';
-import { StyleSheet, View, Button } from 'react-native';
+import { StyleSheet, View, Button, Text, Dimensions } from 'react-native';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { addHeaderLeftNavigator } from '../../helpers';
 import { userSelector } from '../../store/selectors/UserSelector';
-import HomeMap from '../../components/map/HomeMap';
+import { Location, MapView, Permissions } from 'expo';
+import logo from '../../assets/images/logo.png';
+import { fetchRestrooms } from '../../store/actions/RestroomActions';
+import { restroomsSelector } from '../../store/selectors/RestroomSelector';
 
 class HomeScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -19,30 +22,94 @@ class HomeScreen extends React.Component {
     return { ...headerLeftNav, headerRight, title: 'Home' };
   };
 
-  static propTypes = {
-    navigation: PropTypes.object,
-    user: PropTypes.object,
-    logout: PropTypes.func
+  state = {
+    modalVisible: false,
+    mapRegion: null,
+    hasLocationPermissions: false,
+    locationResult: null
   };
 
-  state = {
-    modalVisible: false
+  componentDidMount() {
+    this.getLocationAsync();
+    this.props.fetchRestrooms();
+  }
+
+  getLocationAsync = async () => {
+    let { status } = await Permissions.askAsync(Permissions.LOCATION);
+    if (status !== 'granted') {
+      this.setState({
+        locationResult: 'Permission to access location was denied'
+      });
+    } else {
+      this.setState({ hasLocationPermissions: true });
+    }
+
+    let location = await Location.getCurrentPositionAsync({});
+    this.setState({ locationResult: JSON.stringify(location) });
+
+    // Center the map on the location we just fetched.
+    this.setState({
+      mapRegion: {
+        latitude: location.coords.latitude,
+        longitude: location.coords.longitude,
+        latitudeDelta: 0.05,
+        longitudeDelta: 0.02
+      }
+    });
   };
 
   render() {
     return (
       <View style={styles.container}>
-        <HomeMap />
+        <View style={styles.mapContainer}>
+          {this.state.locationResult === null ? (
+            <Text>Finding your current location...</Text>
+          ) : this.state.hasLocationPermissions === false ? (
+            <Text>Location permissions are not granted.</Text>
+          ) : this.state.mapRegion === null ? (
+            <Text>Map region does not exist.</Text>
+          ) : (
+            <MapView style={styles.map} region={this.state.mapRegion}>
+              <MapView.Marker
+                coordinate={{
+                  latitude: this.state.mapRegion.latitude,
+                  longitude: this.state.mapRegion.longitude
+                }}
+                image={logo}
+              />
+              {this.props.restrooms.map(restroom => (
+                <MapView.Marker
+                  key={restroom.id}
+                  coordinate={{
+                    latitude: restroom.latitude,
+                    longitude: restroom.longitude
+                  }}
+                />
+              ))}
+            </MapView>
+          )}
+        </View>
       </View>
     );
   }
 }
 
-const mapStateToProps = state => {
-  return { user: userSelector(state) };
+const mapStateToProps = state => ({
+  user: userSelector(state),
+  restrooms: restroomsSelector(state)
+});
+
+const mapDispatchToProps = {
+  fetchRestrooms
 };
 
-const mapDispatchToProps = {};
+HomeScreen.propTypes = {
+  fetchRestrooms: PropTypes.func,
+  navigation: PropTypes.object,
+  user: PropTypes.object,
+  logout: PropTypes.func,
+  restrooms: PropTypes.array
+};
 
 export default connect(
   mapStateToProps,
@@ -53,5 +120,16 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: '#fff',
     flex: 1
+  },
+  map: {
+    flex: 1,
+    height: Dimensions.get('window').height,
+    width: Dimensions.get('window').width
+  },
+  mapContainer: {
+    alignItems: 'center',
+    backgroundColor: '#ecf0f1',
+    flex: 1,
+    justifyContent: 'center'
   }
 });

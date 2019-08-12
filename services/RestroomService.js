@@ -5,7 +5,11 @@ const ENDPOINTS = {
 };
 
 class RestroomService extends ApiService {
-  createRestroom = ({ user, restroom }) => {
+  fetchAll = user => {
+    return this.apiClient.get(ENDPOINTS.RESTROOM.replace('{userId}', user.id));
+  };
+
+  create = ({ user, restroom }) => {
     return this.apiClient.post(ENDPOINTS.RESTROOM.replace('{userId}', user.id), {
       ...restroom
     });
