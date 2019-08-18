@@ -7,6 +7,7 @@ import { addRestroom } from '../../../../store/actions/RestroomActions';
 import ButtonCustom from '../../../../components/shared/button/ButtonCustom';
 import mapMarkerIcon from '../../../../assets/images/map-marker-icon.png';
 import Colors from '../../../../constants/Colors';
+import { isAddingRestroomSelector } from '../../../../store/selectors/RestroomSelector';
 class PickRestroomLocation extends Component {
   static navigationOptions = {
     headerTitle: 'Pick restroom location'
@@ -107,6 +108,7 @@ class PickRestroomLocation extends Component {
             value={this.state.locationInfo || 'Loading current location'}
           />
         </View>
+        {this.props.isAddingRestroom && <Text>Adding restroom...</Text>}
         <ButtonCustom
           title={'Add restroom'}
           style={styles.buttonAddRestroom}
@@ -129,10 +131,13 @@ class PickRestroomLocation extends Component {
 PickRestroomLocation.propTypes = {
   addingRestroomInfo: PropTypes.object,
   addRestroom: PropTypes.func,
-  navigation: PropTypes.object
+  navigation: PropTypes.object,
+  isAddingRestroom: PropTypes.bool
 };
 
-const mapStateToProps = () => ({});
+const mapStateToProps = state => ({
+  isAddingRestroom: isAddingRestroomSelector(state)
+});
 
 const mapDispatchToProps = {
   addRestroom

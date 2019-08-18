@@ -1,7 +1,12 @@
-import { SET_RESTROOMS } from '../actions/ActionTypes';
+import {
+  SET_ADDING_RESTROOM,
+  SET_FINISHED_ADDING_RESTROOM,
+  SET_RESTROOMS
+} from '../actions/ActionTypes';
 
 const initialState = {
-  restrooms: []
+  restrooms: [],
+  isAddingRestroom: false
 };
 
 export default (state = initialState, action) => {
@@ -11,6 +16,16 @@ export default (state = initialState, action) => {
       return {
         ...state,
         restrooms: action.payload
+      };
+    case SET_ADDING_RESTROOM:
+      return {
+        ...state,
+        isAddingRestroom: true
+      };
+    case SET_FINISHED_ADDING_RESTROOM:
+      return {
+        ...state,
+        isAddingRestroom: false
       };
     default:
       return state;
