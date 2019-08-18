@@ -1,23 +1,26 @@
 import React from 'react';
-import { StyleSheet, View, Button, Text, Dimensions } from 'react-native';
+import { StyleSheet, View, TouchableOpacity, Text, Dimensions } from 'react-native';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { addHeaderLeftNavigator } from '../../helpers';
 import { userSelector } from '../../store/selectors/UserSelector';
 import { Location, MapView, Permissions } from 'expo';
-import logo from '../../assets/images/logo.png';
+import poopEmojiIcon from '../../assets/images/poop-emoji.png';
+import mapMarkerIcon from '../../assets/images/map-marker-icon.png';
 import { fetchRestrooms } from '../../store/actions/RestroomActions';
 import { restroomsSelector } from '../../store/selectors/RestroomSelector';
+import Colors from '../../constants/Colors';
 
 class HomeScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     const headerLeftNav = addHeaderLeftNavigator(navigation);
     const headerRight = (
-      <Button
-        onPress={() => navigation.navigate('AddRestroomStack')}
-        title="Add Restroom"
-        color="#FFB300"
-      />
+      <TouchableOpacity
+        onPress={() => navigation.navigate('SetRestroomInfo')}
+        style={styles.buttonHeaderRight}
+      >
+        <Text style={styles.buttonHeaderRightText}>Add restroom</Text>
+      </TouchableOpacity>
     );
     return { ...headerLeftNav, headerRight, title: 'Home' };
   };
@@ -75,7 +78,8 @@ class HomeScreen extends React.Component {
                   latitude: this.state.mapRegion.latitude,
                   longitude: this.state.mapRegion.longitude
                 }}
-                image={logo}
+                image={poopEmojiIcon}
+                zIndex={1}
               />
               {this.props.restrooms.map(restroom => (
                 <MapView.Marker
@@ -84,6 +88,7 @@ class HomeScreen extends React.Component {
                     latitude: restroom.latitude,
                     longitude: restroom.longitude
                   }}
+                  image={mapMarkerIcon}
                 />
               ))}
             </MapView>
@@ -117,6 +122,18 @@ export default connect(
 )(HomeScreen);
 
 const styles = StyleSheet.create({
+  buttonHeaderRight: {
+    alignItems: 'center',
+    backgroundColor: Colors.mainColor,
+    borderRadius: 5,
+    display: 'flex',
+    marginRight: 10,
+    padding: 7,
+    width: 110
+  },
+  buttonHeaderRightText: {
+    color: '#fff'
+  },
   container: {
     backgroundColor: '#fff',
     flex: 1

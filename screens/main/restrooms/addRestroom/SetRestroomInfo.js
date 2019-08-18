@@ -5,9 +5,10 @@ import PropTypes from 'prop-types';
 import ButtonCustom from '../../../../components/shared/button/ButtonCustom';
 import { Field, Formik } from 'formik';
 import { TextInputField } from '../../../../components/shared/FormFields';
+import Colors from '../../../../constants/Colors';
 class SetRestroomInfo extends Component {
   static navigationOptions = {
-    headerTitle: 'Add location info'
+    headerTitle: 'Set restroom info'
   };
 
   handleNext = values => {
@@ -32,7 +33,12 @@ class SetRestroomInfo extends Component {
               <View>
                 <Field name="name" component={TextInputField} placeholder={'Name'} />
                 <Field name="description" component={TextInputField} placeholder={'Description'} />
-                <ButtonCustom title={'Next'} style={styles.button} onPress={handleSubmit} />
+                <ButtonCustom
+                  title={'Next'}
+                  style={styles.button}
+                  textStyle={styles.white}
+                  onPress={handleSubmit}
+                />
               </View>
             )}
           </Formik>
@@ -52,7 +58,7 @@ SetRestroomInfo.propTypes = {
 const styles = StyleSheet.create({
   button: {
     alignItems: 'center',
-    backgroundColor: '#FFB300',
+    backgroundColor: Colors.mainColor,
     borderRadius: 20,
     display: 'flex',
     height: 50,
@@ -62,10 +68,14 @@ const styles = StyleSheet.create({
   },
   container: {
     alignItems: 'center',
+    backgroundColor: '#fff',
     display: 'flex',
     flex: 1,
     height: Dimensions.get('window').height * 0.7,
     justifyContent: 'center'
+  },
+  white: {
+    color: '#fff'
   }
 });
 

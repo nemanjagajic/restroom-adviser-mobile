@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { Dimensions, StyleSheet, Text, View } from 'react-native';
+import { Dimensions, StyleSheet, Text, View, TextInput, Image } from 'react-native';
 import { Location, MapView, Permissions } from 'expo';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { addRestroom } from '../../../../store/actions/RestroomActions';
 import ButtonCustom from '../../../../components/shared/button/ButtonCustom';
-
+import mapMarkerIcon from '../../../../assets/images/map-marker-icon.png';
+import Colors from '../../../../constants/Colors';
 class PickRestroomLocation extends Component {
   static navigationOptions = {
     headerTitle: 'Pick restroom location'
@@ -41,42 +42,35 @@ class PickRestroomLocation extends Component {
         focusedLocation: {
           latitude: location.coords.latitude,
           longitude: location.coords.longitude,
-          latitudeDelta: 0.05,
-          longitudeDelta: 0.02
+          latitudeDelta: 0.01,
+          longitudeDelta: 0.005
         }
       },
       () => this.setLocationInformation(this.state.focusedLocation)
     );
   };
 
-  handlePickLocation = event => {
-    const coords = event.nativeEvent.coordinate;
-    this.map.animateToRegion({
-      ...this.state.focusedLocation,
-      latitude: coords.latitude,
-      longitude: coords.longitude
-    });
-
+  handleRegionChanged = region => {
     this.setState(prevState => ({
       focusedLocation: {
-        ...prevState.focusedLocation,
-        latitude: coords.latitude,
-        longitude: coords.longitude
+        ...prevState,
+        latitude: region.latitude,
+        longitude: region.longitude
       }
     }));
 
-    this.setLocationInformation(coords);
+    this.setLocationInformation();
   };
 
-  async setLocationInformation(coords) {
-    const { latitude, longitude } = coords;
+  async setLocationInformation() {
+    const { latitude, longitude } = this.state.focusedLocation;
     let locationInfo = await Location.reverseGeocodeAsync({ latitude, longitude });
 
-    this.setState({ locationInfo: locationInfo[0] });
+    this.setState({ locationInfo: this.getFormattedLocationInfo(locationInfo[0]) });
   }
 
-  getFormattedLocationInfo = () => {
-    const { street, name, city, country } = this.state.locationInfo;
+  getFormattedLocationInfo = locationInfo => {
+    const { street, name, city, country } = locationInfo;
     return `${street} ${name} ${city} ${country}`;
   };
 
@@ -84,36 +78,46 @@ class PickRestroomLocation extends Component {
     return (
       <View style={styles.container}>
         {this.state.locationResult === null ? (
-          <Text>Finding your current location...</Text>
+          <View style={styles.map}>
+            <Text>Finding your current location...</Text>
+          </View>
         ) : this.state.hasLocationPermissions === false ? (
           <Text>Location permissions are not granted.</Text>
         ) : this.state.focusedLocation === null ? (
           <Text>Map region does not exist.</Text>
         ) : (
-          <MapView
-            ref={ref => (this.map = ref)}
-            style={styles.map}
-            region={this.state.focusedLocation}
-            onPress={this.handlePickLocation}
-          >
-            <MapView.Marker
-              coordinate={{
-                latitude: this.state.focusedLocation.latitude,
-                longitude: this.state.focusedLocation.longitude
+          <View style={styles.map}>
+            <MapView
+              style={styles.map}
+              initialRegion={{
+                ...this.state.focusedLocation,
+                latitudeDelta: 0.01,
+                longitudeDelta: 0.005
               }}
+              onRegionChangeComplete={this.handleRegionChanged}
             />
-          </MapView>
+            <View style={styles.markerFixed}>
+              <Image source={mapMarkerIcon} style={styles.mapMarkerIcon} />
+            </View>
+          </View>
         )}
-        <View>{this.state.locationInfo && <Text>{this.getFormattedLocationInfo()}</Text>}</View>
+        <View style={styles.locationText}>
+          <TextInput
+            onChangeText={text => this.setState({ locationInfo: text })}
+            value={this.state.locationInfo || 'Loading current location'}
+          />
+        </View>
         <ButtonCustom
           title={'Add restroom'}
+          style={styles.buttonAddRestroom}
+          textStyle={styles.white}
           onPress={() =>
             this.props.addRestroom({
               name: this.props.navigation.getParam('name'),
               description: this.props.navigation.getParam('description'),
               latitude: this.state.focusedLocation.latitude,
               longitude: this.state.focusedLocation.longitude,
-              location_text: this.getFormattedLocationInfo()
+              location_text: this.state.locationInfo
             })
           }
         />
@@ -125,7 +129,7 @@ class PickRestroomLocation extends Component {
 PickRestroomLocation.propTypes = {
   addingRestroomInfo: PropTypes.object,
   addRestroom: PropTypes.func,
-  navigation: PropTypes.func
+  navigation: PropTypes.object
 };
 
 const mapStateToProps = () => ({});
@@ -135,12 +139,56 @@ const mapDispatchToProps = {
 };
 
 const styles = StyleSheet.create({
+  buttonAddRestroom: {
+    alignItems: 'center',
+    backgroundColor: Colors.mainColor,
+    borderRadius: 20,
+    display: 'flex',
+    height: 50,
+    justifyContent: 'center',
+    marginTop: 40,
+    width: 250
+  },
   container: {
-    backgroundColor: '#fff'
+    alignItems: 'center',
+    backgroundColor: '#fff',
+    display: 'flex'
+  },
+  locationText: {
+    alignItems: 'center',
+    backgroundColor: '#fff',
+    borderColor: '#b3b3b3',
+    borderRadius: 10,
+    borderWidth: 1,
+    color: '#808080',
+    marginTop: 15,
+    padding: 10,
+    position: 'absolute',
+    width: Dimensions.get('window').width * 0.9
   },
   map: {
+    alignItems: 'center',
+    backgroundColor: '#f2f2f2',
+    borderBottomWidth: 1,
+    borderColor: '#b3b3b3',
+    display: 'flex',
     height: Dimensions.get('window').height * 0.6,
+    justifyContent: 'center',
     width: Dimensions.get('window').width
+  },
+  mapMarkerIcon: {
+    height: 40,
+    width: 40
+  },
+  markerFixed: {
+    left: '50%',
+    marginLeft: -24,
+    marginTop: -48,
+    position: 'absolute',
+    top: '50%'
+  },
+  white: {
+    color: '#fff'
   }
 });
 

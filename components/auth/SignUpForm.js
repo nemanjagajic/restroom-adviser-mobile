@@ -8,6 +8,7 @@ import { signUpValidationRules } from '../../validation /auth';
 import $t from 'i18n';
 import ErrorText from '../shared/Text/ErrorText';
 import ButtonCustom from '../shared/button/ButtonCustom';
+import Colors from '../../constants/Colors';
 
 export const SignUpForm = props => (
   <View>
@@ -63,7 +64,7 @@ SignUpForm.propTypes = {
 const styles = StyleSheet.create({
   button: {
     alignItems: 'center',
-    backgroundColor: '#FFB300',
+    backgroundColor: Colors.mainColor,
     borderRadius: 20,
     display: 'flex',
     height: 40,

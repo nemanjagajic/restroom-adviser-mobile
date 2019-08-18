@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import PropTypes from 'prop-types';
+import Colors from '../../../constants/Colors';
 
 const ButtonCustom = ({ title, onPress, style = styles.button, textStyle = {} }) => {
   return (
@@ -20,7 +21,7 @@ ButtonCustom.propTypes = {
 const styles = StyleSheet.create({
   button: {
     alignItems: 'center',
-    backgroundColor: '#FFB300',
+    backgroundColor: Colors.mainColor,
     borderRadius: 20,
     display: 'flex',
     height: 50,

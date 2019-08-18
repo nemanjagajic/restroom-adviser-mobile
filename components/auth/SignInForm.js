@@ -9,6 +9,7 @@ import $t from 'i18n';
 import ErrorText from '../shared/Text/ErrorText';
 import ButtonCustom from '../shared/button/ButtonCustom';
 import logo from '../../assets/images/logo.png';
+import Colors from '../../constants/Colors';
 
 export const SignInForm = props => (
   <Formik
@@ -45,7 +46,7 @@ SignInForm.propTypes = {
 const styles = StyleSheet.create({
   button: {
     alignItems: 'center',
-    backgroundColor: '#FFB300',
+    backgroundColor: Colors.mainColor,
     borderRadius: 20,
     display: 'flex',
     height: 50,

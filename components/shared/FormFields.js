@@ -3,9 +3,10 @@ import { TextInput, View, Text, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
 
 import { ErrorMessage } from 'formik';
+import Colors from '../../constants/Colors';
 
 export const TextInputField = ({ field, form, ...props }) => {
-  const [borderColor, setBorderColor] = useState('#595959');
+  const [borderColor, setBorderColor] = useState('#b3b3b3');
 
   return (
     <View style={[styles.container, { borderColor: borderColor }]}>
@@ -14,11 +15,11 @@ export const TextInputField = ({ field, form, ...props }) => {
         onChangeText={form.handleChange(field.name)}
         onBlur={() => {
           form.handleBlur(field.name);
-          setBorderColor('#595959');
+          setBorderColor('#b3b3b3');
         }}
-        onFocus={() => setBorderColor('#FFB300')}
+        onFocus={() => setBorderColor(Colors.mainColor)}
         {...props}
-        selectionColor={'#FFB300'}
+        selectionColor={Colors.mainColor}
         style={styles.input}
       />
       <ErrorMessage style={styles.error} name={field.name} component={Text} />
@@ -45,7 +46,7 @@ const styles = StyleSheet.create({
     paddingTop: 5
   },
   input: {
-    color: 'white',
+    color: '#666666',
     fontSize: 16
   }
 });

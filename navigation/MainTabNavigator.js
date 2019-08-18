@@ -6,18 +6,22 @@ import {
 } from 'react-navigation';
 
 import TabBarIcon from '../components/TabBarIcon';
-import HomeScreen from '../screens/main/HomeScreen';
 import LeftSliderScreen from '../screens/main/LeftSliderScreen';
 import { addHeaderLeftNavigator } from '../helpers';
 import ChangePassword from '../screens/main/profile/ChangePassword';
 import EditProfile from '../screens/main/profile/EditProfile';
 import FeedsHome from '../screens/main/feeds/FeedsHome';
-import AddRestroomStack from './AddRestroom';
+import Colors from '../constants/Colors';
+import HomeScreen from '../screens/main/HomeScreen';
+// import AddRestroomStack from './AddRestroom';
+import SetRestroomInfo from '../screens/main/restrooms/addRestroom/SetRestroomInfo';
+import PickRestroomLocation from '../screens/main/restrooms/addRestroom/PickRestroomLocation';
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
   ChangePassword,
   EditProfile,
-  AddRestroomStack
+  SetRestroomInfo,
+  PickRestroomLocation
 });
 
 const FeedsStack = createStackNavigator({
@@ -35,7 +39,7 @@ HomeStack.navigationOptions = {
   tabBarLabel: 'Home',
   tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name={'md-map'} />,
   tabBarOptions: {
-    activeTintColor: '#FFB300'
+    activeTintColor: Colors.mainColor
   }
 };
 
@@ -43,7 +47,7 @@ FeedsStack.navigationOptions = {
   tabBarLabel: 'Feeds',
   tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name={'ios-list'} />,
   tabBarOptions: {
-    activeTintColor: '#FFB300'
+    activeTintColor: Colors.mainColor
   }
 };
 
@@ -55,7 +59,7 @@ const BottomTabNavigator = createBottomTabNavigator(
   {
     tabBarOptions: {
       style: {
-        backgroundColor: '#333'
+        backgroundColor: '#333333'
       }
     }
   }

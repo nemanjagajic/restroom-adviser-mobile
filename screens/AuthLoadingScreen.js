@@ -1,5 +1,5 @@
 import React from 'react';
-import { ActivityIndicator, View, StyleSheet, StatusBar } from 'react-native';
+import { View, StyleSheet, StatusBar } from 'react-native';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { setActiveUser, getUser } from '../store/actions/UserActions';
@@ -43,7 +43,6 @@ class AuthLoadingScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <ActivityIndicator style={styles.loading} />
         <StatusBar barStyle="default" />
       </View>
     );
@@ -54,10 +53,6 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: '#fff',
     flex: 1
-  },
-
-  loading: {
-    marginTop: 30
   }
 });
 
