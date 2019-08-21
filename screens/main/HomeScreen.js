@@ -29,7 +29,9 @@ class HomeScreen extends React.Component {
     modalVisible: false,
     mapRegion: null,
     hasLocationPermissions: false,
-    locationResult: null
+    locationResult: null,
+    isRestroomModalVisible: false,
+    pickedRestroom: null
   };
 
   componentDidMount() {
@@ -50,7 +52,6 @@ class HomeScreen extends React.Component {
     let location = await Location.getCurrentPositionAsync({});
     this.setState({ locationResult: JSON.stringify(location) });
 
-    // Center the map on the location we just fetched.
     this.setState({
       mapRegion: {
         latitude: location.coords.latitude,
@@ -89,7 +90,18 @@ class HomeScreen extends React.Component {
                     longitude: restroom.longitude
                   }}
                   image={mapMarkerIcon}
-                />
+                >
+                  <MapView.Callout tooltip={true}>
+                    <TouchableOpacity style={styles.mapMarkerCallout}>
+                      <Text>
+                        <Text style={styles.calloutTitle}>{restroom.name} </Text>
+                        <Text style={styles.calloutTitleRating}>4.2</Text>
+                      </Text>
+                      <Text style={styles.calloutStreet}>{restroom.location_text}</Text>
+                      <Text style={styles.calloutTap}>Tap to open details</Text>
+                    </TouchableOpacity>
+                  </MapView.Callout>
+                </MapView.Marker>
               ))}
             </MapView>
           )}
@@ -134,6 +146,22 @@ const styles = StyleSheet.create({
   buttonHeaderRightText: {
     color: '#fff'
   },
+  calloutStreet: {
+    color: '#fff',
+    fontSize: 12
+  },
+  calloutTap: {
+    color: '#cccccc',
+    fontSize: 10
+  },
+  calloutTitle: {
+    color: '#fff',
+    fontSize: 20
+  },
+  calloutTitleRating: {
+    color: '#cccccc',
+    fontSize: 18
+  },
   container: {
     backgroundColor: '#fff',
     flex: 1
@@ -148,5 +176,16 @@ const styles = StyleSheet.create({
     backgroundColor: '#ecf0f1',
     flex: 1,
     justifyContent: 'center'
+  },
+  mapMarkerCallout: {
+    alignItems: 'center',
+    backgroundColor: Colors.mainColor,
+    borderColor: '#fff',
+    borderRadius: 10,
+    borderWidth: 1,
+    display: 'flex',
+    justifyContent: 'center',
+    marginBottom: 5,
+    padding: 10
   }
 });
