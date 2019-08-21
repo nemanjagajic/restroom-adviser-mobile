@@ -147,19 +147,19 @@ const styles = StyleSheet.create({
     color: '#fff'
   },
   calloutStreet: {
-    color: '#fff',
+    color: Colors.mainColor,
     fontSize: 12
   },
   calloutTap: {
-    color: '#cccccc',
+    color: '#b3b3b3',
     fontSize: 10
   },
   calloutTitle: {
-    color: '#fff',
+    color: Colors.mainColor,
     fontSize: 20
   },
   calloutTitleRating: {
-    color: '#cccccc',
+    color: '#b3b3b3',
     fontSize: 18
   },
   container: {
@@ -179,8 +179,8 @@ const styles = StyleSheet.create({
   },
   mapMarkerCallout: {
     alignItems: 'center',
-    backgroundColor: Colors.mainColor,
-    borderColor: '#fff',
+    backgroundColor: '#fff',
+    borderColor: Colors.mainColor,
     borderRadius: 10,
     borderWidth: 1,
     display: 'flex',

@@ -108,7 +108,9 @@ class PickRestroomLocation extends Component {
             value={this.state.locationInfo || 'Loading current location'}
           />
         </View>
-        {this.props.isAddingRestroom && <Text>Adding restroom...</Text>}
+        <Text style={styles.addingRestroomIndicator}>
+          {this.props.isAddingRestroom && 'Adding restroom...'}
+        </Text>
         <ButtonCustom
           title={'Add restroom'}
           style={styles.buttonAddRestroom}
@@ -144,6 +146,11 @@ const mapDispatchToProps = {
 };
 
 const styles = StyleSheet.create({
+  addingRestroomIndicator: {
+    color: '#808080',
+    fontSize: 18,
+    marginTop: 10
+  },
   buttonAddRestroom: {
     alignItems: 'center',
     backgroundColor: Colors.mainColor,
