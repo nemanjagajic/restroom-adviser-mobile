@@ -13,15 +13,16 @@ import EditProfile from '../screens/main/profile/EditProfile';
 import FeedsHome from '../screens/main/feeds/FeedsHome';
 import Colors from '../constants/Colors';
 import HomeScreen from '../screens/main/HomeScreen';
-// import AddRestroomStack from './AddRestroom';
 import SetRestroomInfo from '../screens/main/restrooms/addRestroom/SetRestroomInfo';
 import PickRestroomLocation from '../screens/main/restrooms/addRestroom/PickRestroomLocation';
+import PickRestroomImages from '../screens/main/restrooms/addRestroom/PickRestroomImages';
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
   ChangePassword,
   EditProfile,
   SetRestroomInfo,
-  PickRestroomLocation
+  PickRestroomLocation,
+  PickRestroomImages
 });
 
 const FeedsStack = createStackNavigator({

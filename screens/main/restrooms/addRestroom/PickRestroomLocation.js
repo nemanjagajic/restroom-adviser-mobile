@@ -8,6 +8,7 @@ import ButtonCustom from '../../../../components/shared/button/ButtonCustom';
 import mapMarkerIcon from '../../../../assets/images/map-marker-icon.png';
 import Colors from '../../../../constants/Colors';
 import { isAddingRestroomSelector } from '../../../../store/selectors/RestroomSelector';
+
 class PickRestroomLocation extends Component {
   static navigationOptions = {
     headerTitle: 'Pick restroom location'
@@ -37,7 +38,6 @@ class PickRestroomLocation extends Component {
     let location = await Location.getCurrentPositionAsync({});
     this.setState({ locationResult: JSON.stringify(location) });
 
-    // Center the map on the location we just fetched.
     this.setState(
       {
         focusedLocation: {
@@ -73,6 +73,17 @@ class PickRestroomLocation extends Component {
   getFormattedLocationInfo = locationInfo => {
     const { street, name, city, country } = locationInfo;
     return `${street} ${name} ${city} ${country}`;
+  };
+
+  addRestroom = () => {
+    this.props.addRestroom({
+      name: this.props.navigation.getParam('name'),
+      description: this.props.navigation.getParam('description'),
+      images: this.props.navigation.getParam('images'),
+      latitude: this.state.focusedLocation.latitude,
+      longitude: this.state.focusedLocation.longitude,
+      location_text: this.state.locationInfo
+    });
   };
 
   render() {
@@ -115,15 +126,7 @@ class PickRestroomLocation extends Component {
           title={'Add restroom'}
           style={styles.buttonAddRestroom}
           textStyle={styles.white}
-          onPress={() =>
-            this.props.addRestroom({
-              name: this.props.navigation.getParam('name'),
-              description: this.props.navigation.getParam('description'),
-              latitude: this.state.focusedLocation.latitude,
-              longitude: this.state.focusedLocation.longitude,
-              location_text: this.state.locationInfo
-            })
-          }
+          onPress={this.addRestroom}
         />
       </View>
     );

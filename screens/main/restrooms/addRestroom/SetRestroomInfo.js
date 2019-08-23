@@ -6,13 +6,14 @@ import ButtonCustom from '../../../../components/shared/button/ButtonCustom';
 import { Field, Formik } from 'formik';
 import { TextInputField } from '../../../../components/shared/FormFields';
 import Colors from '../../../../constants/Colors';
+
 class SetRestroomInfo extends Component {
   static navigationOptions = {
     headerTitle: 'Set restroom info'
   };
 
   handleNext = values => {
-    this.props.navigation.navigate('PickRestroomLocation', {
+    this.props.navigation.navigate('PickRestroomImages', {
       name: values.name,
       description: values.description
     });
