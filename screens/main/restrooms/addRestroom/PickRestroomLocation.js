@@ -83,16 +83,19 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: Colors.mainColor,
     borderRadius: 20,
+    bottom: 20,
     display: 'flex',
     height: 50,
     justifyContent: 'center',
     marginTop: 40,
+    position: 'absolute',
     width: 250
   },
   container: {
     alignItems: 'center',
     backgroundColor: '#fff',
-    display: 'flex'
+    display: 'flex',
+    flex: 1
   },
   white: {
     color: '#fff'

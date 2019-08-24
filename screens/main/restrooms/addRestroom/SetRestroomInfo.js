@@ -6,6 +6,7 @@ import ButtonCustom from '../../../../components/shared/button/ButtonCustom';
 import { Field, Formik } from 'formik';
 import { TextInputField } from '../../../../components/shared/FormFields';
 import Colors from '../../../../constants/Colors';
+import { setRestroomInfoRules } from '../../../../validation /restroom';
 
 class SetRestroomInfo extends Component {
   static navigationOptions = {
@@ -21,30 +22,29 @@ class SetRestroomInfo extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <KeyboardAvoidingView behavior={'padding'}>
-          <Formik
-            initialValues={{ name: '', description: '' }}
-            onSubmit={(values, { resetForm }) => {
-              this.handleNext(values);
-              resetForm({});
-            }}
-          >
-            {({ handleSubmit }) => (
-              <View>
-                <Field name="name" component={TextInputField} placeholder={'Name'} />
-                <Field name="description" component={TextInputField} placeholder={'Description'} />
-                <ButtonCustom
-                  title={'Next'}
-                  style={styles.button}
-                  textStyle={styles.white}
-                  onPress={handleSubmit}
-                />
-              </View>
-            )}
-          </Formik>
-        </KeyboardAvoidingView>
-      </View>
+      <KeyboardAvoidingView behavior={'padding'} style={styles.container}>
+        <Formik
+          initialValues={{ name: '', description: '' }}
+          onSubmit={(values, { resetForm }) => {
+            this.handleNext(values);
+            resetForm({});
+          }}
+          validationSchema={setRestroomInfoRules}
+        >
+          {({ handleSubmit }) => (
+            <View>
+              <Field name="name" component={TextInputField} placeholder={'Name*'} />
+              <Field name="description" component={TextInputField} placeholder={'Description'} />
+              <ButtonCustom
+                title={'Next'}
+                style={styles.button}
+                textStyle={styles.white}
+                onPress={handleSubmit}
+              />
+            </View>
+          )}
+        </Formik>
+      </KeyboardAvoidingView>
     );
   }
 }
