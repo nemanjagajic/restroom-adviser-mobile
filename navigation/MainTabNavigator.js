@@ -16,13 +16,15 @@ import HomeScreen from '../screens/main/HomeScreen';
 import SetRestroomInfo from '../screens/main/restrooms/addRestroom/SetRestroomInfo';
 import PickRestroomLocation from '../screens/main/restrooms/addRestroom/PickRestroomLocation';
 import PickRestroomImages from '../screens/main/restrooms/addRestroom/PickRestroomImages';
+import RestroomDetails from '../screens/main/restrooms/RestroomDetails';
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
   ChangePassword,
   EditProfile,
   SetRestroomInfo,
   PickRestroomLocation,
-  PickRestroomImages
+  PickRestroomImages,
+  RestroomDetails
 });
 
 const FeedsStack = createStackNavigator({

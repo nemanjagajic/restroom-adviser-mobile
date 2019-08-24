@@ -91,15 +91,20 @@ class HomeScreen extends React.Component {
                   }}
                   image={mapMarkerIcon}
                 >
-                  <MapView.Callout tooltip={true}>
-                    <TouchableOpacity style={styles.mapMarkerCallout}>
+                  <MapView.Callout
+                    tooltip={true}
+                    onPress={() => {
+                      this.props.navigation.navigate('RestroomDetails', { restroom });
+                    }}
+                  >
+                    <View style={styles.mapMarkerCallout}>
                       <Text>
                         <Text style={styles.calloutTitle}>{restroom.name} </Text>
                         <Text style={styles.calloutTitleRating}>4.2</Text>
                       </Text>
                       <Text style={styles.calloutStreet}>{restroom.location_text}</Text>
                       <Text style={styles.calloutTap}>Tap to open details</Text>
-                    </TouchableOpacity>
+                    </View>
                   </MapView.Callout>
                 </MapView.Marker>
               ))}
