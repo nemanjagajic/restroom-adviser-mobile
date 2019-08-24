@@ -15,8 +15,6 @@ class PickRestroomLocation extends Component {
 
   state = {
     focusedLocation: null,
-    hasLocationPermissions: false,
-    locationResult: null,
     locationInfo: null
   };
 
