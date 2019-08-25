@@ -8,12 +8,12 @@ import Colors from '../../../../constants/Colors';
 import AddImage from '../../../../components/image/AddImage';
 
 class PickRestroomImages extends Component {
-  state = {
-    images: []
-  };
-
   static navigationOptions = {
     headerTitle: 'Pick restroom images'
+  };
+
+  state = {
+    images: []
   };
 
   handleNext = () => {
