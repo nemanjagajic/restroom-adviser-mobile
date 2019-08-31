@@ -16,7 +16,8 @@ import HomeScreen from '../screens/main/HomeScreen';
 import SetRestroomInfo from '../screens/main/restrooms/addRestroom/SetRestroomInfo';
 import PickRestroomLocation from '../screens/main/restrooms/addRestroom/PickRestroomLocation';
 import PickRestroomImages from '../screens/main/restrooms/addRestroom/PickRestroomImages';
-import RestroomDetails from '../screens/main/restrooms/RestroomDetails';
+import RestroomDetails from '../screens/main/restrooms/restroomDetails/RestroomDetails';
+import RestroomComments from '../screens/main/restrooms/restroomDetails/RestroomComments';
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
   ChangePassword,
@@ -24,7 +25,8 @@ const HomeStack = createStackNavigator({
   SetRestroomInfo,
   PickRestroomLocation,
   PickRestroomImages,
-  RestroomDetails
+  RestroomDetails,
+  RestroomComments
 });
 
 const FeedsStack = createStackNavigator({

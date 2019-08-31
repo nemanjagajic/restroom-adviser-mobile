@@ -9,8 +9,9 @@ import {
 import NavigationService from '../../services/NavigationService';
 
 export function* fetchRestrooms() {
+  const user = yield select(userSelector);
+
   try {
-    const user = yield select(userSelector);
     const restrooms = yield call(restroomService.fetchAll, user);
     yield put(setRestrooms(restrooms.data));
   } catch (error) {
@@ -34,5 +35,20 @@ export function* addRestroom({ payload }) {
     console.log(error);
   } finally {
     yield put(setFinishedAddingRestroom());
+  }
+}
+
+export function* addRestroomComment({ payload }) {
+  const user = yield select(userSelector);
+
+  try {
+    yield call(restroomService.addComment, {
+      user,
+      restroom: payload.restroom,
+      content: payload.content
+    });
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.log(error);
   }
 }

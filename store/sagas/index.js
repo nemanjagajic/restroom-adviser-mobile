@@ -11,7 +11,8 @@ import {
   PASSWORD_CHANGE,
   USER_UPDATE,
   ADD_RESTROOM,
-  FETCH_RESTROOMS
+  FETCH_RESTROOMS,
+  ADD_RESTROOM_COMMENT
 } from '../actions/ActionTypes';
 import {
   userLogin,
@@ -25,7 +26,7 @@ import {
   passwordChange,
   updateUser
 } from '../sagas/ActiveUserSagas';
-import { addRestroom, fetchRestrooms } from './RestroomSaga';
+import { addRestroom, addRestroomComment, fetchRestrooms } from './RestroomSaga';
 
 export default function* rootSaga() {
   yield all([
@@ -40,6 +41,7 @@ export default function* rootSaga() {
     takeLatest(PASSWORD_CHANGE, passwordChange),
     takeLatest(USER_UPDATE, updateUser),
     takeLatest(ADD_RESTROOM, addRestroom),
-    takeLatest(FETCH_RESTROOMS, fetchRestrooms)
+    takeLatest(FETCH_RESTROOMS, fetchRestrooms),
+    takeLatest(ADD_RESTROOM_COMMENT, addRestroomComment)
   ]);
 }

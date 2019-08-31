@@ -9,10 +9,10 @@ import {
   Dimensions
 } from 'react-native';
 import PropTypes from 'prop-types';
-import config from '../../../config';
-import { Ionicons } from '@expo/vector-icons';
-import Colors from '../../../constants/Colors';
-import ButtonCustom from '../../../components/shared/button/ButtonCustom';
+import config from '../../../../config';
+import { Ionicons } from '@expo/vector-icons/build/Icons';
+import Colors from '../../../../constants/Colors';
+import ButtonCustom from '../../../../components/shared/button/ButtonCustom';
 
 class RestroomDetails extends Component {
   static navigationOptions = {
@@ -103,7 +103,11 @@ class RestroomDetails extends Component {
           style={styles.buttonComment}
           textStyle={styles.buttonCommentText}
           title={'Open comments (4)'}
-          onPress={this.pickImage}
+          onPress={() =>
+            this.props.navigation.navigate('RestroomComments', {
+              restroom: this.props.navigation.getParam('restroom')
+            })
+          }
         />
       </ScrollView>
     );

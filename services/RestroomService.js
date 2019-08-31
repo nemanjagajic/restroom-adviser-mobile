@@ -1,7 +1,8 @@
 import ApiService from './ApiService';
 
 const ENDPOINTS = {
-  RESTROOM: '/user/{userId}/restroom'
+  RESTROOM: '/user/{userId}/restroom',
+  RESTROOM_COMMENT: '/user/{userId}/restroom/{restroomId}/addComment'
 };
 
 class RestroomService extends ApiService {
@@ -28,6 +29,13 @@ class RestroomService extends ApiService {
     formData.append('location_text', restroom.location_text);
 
     return this.apiClient.post(ENDPOINTS.RESTROOM.replace('{userId}', user.id), formData);
+  };
+
+  addComment = ({ user, restroom, content }) => {
+    return this.apiClient.post(
+      ENDPOINTS.RESTROOM_COMMENT.replace('{userId}', user.id).replace('{restroomId}', restroom.id),
+      { content }
+    );
   };
 }
 
