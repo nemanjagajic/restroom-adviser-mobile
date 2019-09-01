@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
   },
   postButtonInactive: {
     alignItems: 'center',
-    backgroundColor: '#999999',
+    backgroundColor: '#b3b3b3',
     borderRadius: 10,
     padding: 10,
     width: Dimensions.get('window').width * 0.9

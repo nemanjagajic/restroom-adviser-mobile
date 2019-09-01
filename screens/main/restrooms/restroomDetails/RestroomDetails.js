@@ -139,15 +139,15 @@ const styles = StyleSheet.create({
     fontSize: 16
   },
   descriptionContainer: {
-    borderColor: '#ccc',
-    borderLeftWidth: 1,
+    backgroundColor: '#f7f7f7',
+    borderRadius: 10,
     marginBottom: 20,
     marginTop: 20,
     padding: 10,
     width: Dimensions.get('window').width * 0.9
   },
   emptyDescriptionText: {
-    color: '#b3b3b3',
+    color: '#a6a6a6',
     fontStyle: 'italic'
   },
   image: {
