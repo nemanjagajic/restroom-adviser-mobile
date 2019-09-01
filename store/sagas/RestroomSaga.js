@@ -2,9 +2,15 @@ import { call, put, select } from 'redux-saga/effects';
 import { restroomService } from '../../services/RestroomService';
 import { userSelector } from '../selectors/UserSelector';
 import {
+  setAddingComment,
+  setAddingCommentFinished,
   setAddingRestroom,
+  setFetchingComments,
+  setFetchingCommentsFinished,
   setFinishedAddingRestroom,
-  setRestrooms
+  setRestroomComments,
+  setRestrooms,
+  getRestroomComments as getRestroomCommentsAction
 } from '../actions/RestroomActions';
 import NavigationService from '../../services/NavigationService';
 
@@ -40,6 +46,7 @@ export function* addRestroom({ payload }) {
 
 export function* addRestroomComment({ payload }) {
   const user = yield select(userSelector);
+  yield put(setAddingComment());
 
   try {
     yield call(restroomService.addComment, {
@@ -47,8 +54,30 @@ export function* addRestroomComment({ payload }) {
       restroom: payload.restroom,
       content: payload.content
     });
+    yield put(getRestroomCommentsAction(payload.restroom));
   } catch (error) {
     // eslint-disable-next-line no-console
     console.log(error);
+  } finally {
+    yield put(setAddingCommentFinished());
+  }
+}
+
+export function* getRestroomComments({ payload }) {
+  const user = yield select(userSelector);
+  yield put(setFetchingComments());
+
+  try {
+    const response = yield call(restroomService.getComments, {
+      user,
+      restroom: payload
+    });
+
+    yield put(setRestroomComments(response.data));
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.log(error);
+  } finally {
+    yield put(setFetchingCommentsFinished());
   }
 }

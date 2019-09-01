@@ -2,7 +2,7 @@ import ApiService from './ApiService';
 
 const ENDPOINTS = {
   RESTROOM: '/user/{userId}/restroom',
-  RESTROOM_COMMENT: '/user/{userId}/restroom/{restroomId}/addComment'
+  RESTROOM_COMMENT: '/user/{userId}/restroom/{restroomId}/comments'
 };
 
 class RestroomService extends ApiService {
@@ -35,6 +35,12 @@ class RestroomService extends ApiService {
     return this.apiClient.post(
       ENDPOINTS.RESTROOM_COMMENT.replace('{userId}', user.id).replace('{restroomId}', restroom.id),
       { content }
+    );
+  };
+
+  getComments = ({ user, restroom }) => {
+    return this.apiClient.get(
+      ENDPOINTS.RESTROOM_COMMENT.replace('{userId}', user.id).replace('{restroomId}', restroom.id)
     );
   };
 }

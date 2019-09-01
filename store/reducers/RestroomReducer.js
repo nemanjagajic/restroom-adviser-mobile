@@ -1,12 +1,20 @@
 import {
+  SET_ADDING_COMMENT_FINISHED,
+  SET_ADDING_COMMENT,
   SET_ADDING_RESTROOM,
   SET_FINISHED_ADDING_RESTROOM,
-  SET_RESTROOMS
+  SET_RESTROOMS,
+  SET_RESTROOM_COMMENTS,
+  SET_FETCHING_COMMENTS,
+  SET_FETCHING_COMMENTS_FINISHED
 } from '../actions/ActionTypes';
 
 const initialState = {
   restrooms: [],
-  isAddingRestroom: false
+  isAddingRestroom: false,
+  isAddingComment: false,
+  comments: [],
+  isFetchingComments: false
 };
 
 export default (state = initialState, action) => {
@@ -26,6 +34,32 @@ export default (state = initialState, action) => {
       return {
         ...state,
         isAddingRestroom: false
+      };
+    case SET_ADDING_COMMENT:
+      return {
+        ...state,
+        isAddingComment: true
+      };
+    case SET_ADDING_COMMENT_FINISHED:
+      return {
+        ...state,
+        isAddingComment: false
+      };
+
+    case SET_RESTROOM_COMMENTS:
+      return {
+        ...state,
+        comments: action.payload
+      };
+    case SET_FETCHING_COMMENTS:
+      return {
+        ...state,
+        isFetchingComments: true
+      };
+    case SET_FETCHING_COMMENTS_FINISHED:
+      return {
+        ...state,
+        isFetchingComments: false
       };
     default:
       return state;

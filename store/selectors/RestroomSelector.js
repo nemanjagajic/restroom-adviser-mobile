@@ -11,3 +11,18 @@ export const isAddingRestroomSelector = createSelector(
   restroomStateSelector,
   restrooms => restrooms.isAddingRestroom
 );
+
+export const isAddingComment = createSelector(
+  restroomStateSelector,
+  restrooms => restrooms.isAddingComment
+);
+
+export const restroomCommentsSelector = createSelector(
+  restroomStateSelector,
+  restrooms => restrooms.comments
+);
+
+export const isFetchingCommentsSelector = createSelector(
+  restroomStateSelector,
+  restrooms => restrooms.isFetchingComments
+);
