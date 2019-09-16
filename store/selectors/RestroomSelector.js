@@ -26,3 +26,13 @@ export const isFetchingCommentsSelector = createSelector(
   restroomStateSelector,
   restrooms => restrooms.isFetchingComments
 );
+
+export const restroomRatingsSelector = createSelector(
+  restroomStateSelector,
+  restrooms => restrooms.ratings
+);
+
+export const isFetchingRatingsSelector = createSelector(
+  restroomStateSelector,
+  restrooms => restrooms.isFetchingRatings
+);

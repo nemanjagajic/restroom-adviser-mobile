@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import {
   View,
   Text,
@@ -13,11 +14,22 @@ import config from '../../../../config';
 import { Ionicons } from '@expo/vector-icons/build/Icons';
 import Colors from '../../../../constants/Colors';
 import ButtonCustom from '../../../../components/shared/button/ButtonCustom';
+import { getRestroomRatings } from '../../../../store/actions/RestroomActions';
+import {
+  restroomRatingsSelector,
+  isFetchingRatingsSelector
+} from '../../../../store/selectors/RestroomSelector';
+import StarRating from 'react-native-star-rating';
 
 class RestroomDetails extends Component {
   static navigationOptions = {
     headerTitle: 'Restroom details'
   };
+
+  componentDidMount() {
+    const restroom = this.props.navigation.getParam('restroom');
+    this.props.getRestroomRatings(restroom);
+  }
 
   state = {
     currentImageIndex: 0
@@ -44,6 +56,8 @@ class RestroomDetails extends Component {
       location_text: locationText,
       images
     } = this.props.navigation.getParam('restroom');
+    const ratings = this.props.ratings;
+    const isFetchingRatings = this.props.isFetchingRatings;
 
     return (
       <ScrollView contentContainerStyle={styles.container}>
@@ -90,6 +104,20 @@ class RestroomDetails extends Component {
         </View>
         <Text style={styles.name}>{name}</Text>
         <Text style={styles.location}>{locationText}</Text>
+        {!isFetchingRatings && (
+          <View style={styles.ratings}>
+            <Text style={styles.ratingsNumber}>{ratings.rating}</Text>
+            <StarRating
+              disabled={true}
+              maxStars={5}
+              rating={ratings.rating}
+              starSize={32}
+              emptyStarColor={Colors.mainColor}
+              fullStarColor={Colors.mainColor}
+            />
+            <Text style={styles.ratingsText}>Tap to open voting or view rating details</Text>
+          </View>
+        )}
         <View style={styles.descriptionContainer}>
           <Text style={styles.description}>
             {description || (
@@ -113,6 +141,22 @@ class RestroomDetails extends Component {
     );
   }
 }
+
+RestroomDetails.propTypes = {
+  navigation: PropTypes.object,
+  getRestroomRatings: PropTypes.func,
+  ratings: PropTypes.object,
+  isFetchingRatings: PropTypes.bool
+};
+
+const mapStateToProps = state => ({
+  ratings: restroomRatingsSelector(state),
+  isFetchingRatings: isFetchingRatingsSelector(state)
+});
+
+const mapDispatchToProps = {
+  getRestroomRatings
+};
 
 const styles = StyleSheet.create({
   buttonComment: {
@@ -178,10 +222,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   location: {
+    borderBottomWidth: 1,
+    borderColor: '#ccc',
     color: Colors.mainColor,
     fontSize: 14,
     marginLeft: 20,
-    marginRight: 20
+    marginRight: 20,
+    paddingBottom: 10
   },
   name: {
     color: '#808080',
@@ -207,11 +254,24 @@ const styles = StyleSheet.create({
   noImagesText: {
     color: '#b3b3b3',
     textAlign: 'center'
+  },
+  ratings: {
+    marginTop: 15
+  },
+  ratingsNumber: {
+    color: '#999999',
+    fontSize: 24,
+    textAlign: 'center'
+  },
+  ratingsText: {
+    color: '#999999',
+    fontSize: 12,
+    marginTop: 5,
+    textAlign: 'center'
   }
 });
 
-RestroomDetails.propTypes = {
-  navigation: PropTypes.object
-};
-
-export default RestroomDetails;
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(RestroomDetails);

@@ -10,7 +10,11 @@ import {
   GET_RESTROOM_COMMENTS,
   SET_RESTROOM_COMMENTS,
   SET_FETCHING_COMMENTS,
-  SET_FETCHING_COMMENTS_FINISHED
+  SET_FETCHING_COMMENTS_FINISHED,
+  GET_RESTROOM_RATINGS,
+  SET_FETCHING_RATINGS,
+  SET_FETCHING_RATINGS_FINISHED,
+  SET_RESTROOM_RATINGS
 } from './ActionTypes';
 
 export const addRestroom = payload => ({
@@ -64,4 +68,22 @@ export const setFetchingComments = () => ({
 
 export const setFetchingCommentsFinished = () => ({
   type: SET_FETCHING_COMMENTS_FINISHED
+});
+
+export const getRestroomRatings = payload => ({
+  type: GET_RESTROOM_RATINGS,
+  payload
+});
+
+export const setRestroomRatings = payload => ({
+  type: SET_RESTROOM_RATINGS,
+  payload
+});
+
+export const setFetchingRatings = () => ({
+  type: SET_FETCHING_RATINGS
+});
+
+export const setFetchingRatingsFinished = () => ({
+  type: SET_FETCHING_RATINGS_FINISHED
 });

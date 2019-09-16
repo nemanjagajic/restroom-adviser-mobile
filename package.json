@@ -40,6 +40,7 @@
     "react-native-in-app-notification": "git+https://git@github.com/AlexSensei/react-native-in-app-notification.git",
     "react-native-keyboard-aware-scroll-view": "^0.8.0",
     "react-native-maps": "~0.24.0",
+    "react-native-star-rating": "^1.1.0",
     "react-navigation": "^3.11.0",
     "react-redux": "^5.0.7",
     "redux": "^4.0.1",
