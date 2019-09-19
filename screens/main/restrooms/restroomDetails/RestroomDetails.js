@@ -104,13 +104,30 @@ class RestroomDetails extends Component {
         </View>
         <Text style={styles.name}>{name}</Text>
         <Text style={styles.location}>{locationText}</Text>
-        {!isFetchingRatings && (
+        {!isFetchingRatings ? (
           <View style={styles.ratings}>
-            <Text style={styles.ratingsNumber}>{ratings.rating}</Text>
+            {ratings.rating !== 0 ? (
+              <Text style={styles.ratingsNumber}>{ratings.rating}</Text>
+            ) : (
+              <Text style={styles.ratingsTitle}>No ratings left yet</Text>
+            )}
             <StarRating
               disabled={true}
               maxStars={5}
               rating={ratings.rating}
+              starSize={32}
+              emptyStarColor={Colors.mainColor}
+              fullStarColor={Colors.mainColor}
+            />
+            <Text style={styles.ratingsText}>Tap to open voting or view rating details</Text>
+          </View>
+        ) : (
+          <View style={styles.ratings}>
+            <Text style={styles.ratingsTitle}>Fetching rating...</Text>
+            <StarRating
+              disabled={true}
+              maxStars={5}
+              rating={0}
               starSize={32}
               emptyStarColor={Colors.mainColor}
               fullStarColor={Colors.mainColor}
@@ -260,12 +277,20 @@ const styles = StyleSheet.create({
   },
   ratingsNumber: {
     color: '#999999',
-    fontSize: 24,
+    fontSize: 20,
+    height: 30,
     textAlign: 'center'
   },
   ratingsText: {
     color: '#999999',
     fontSize: 12,
+    marginTop: 5,
+    textAlign: 'center'
+  },
+  ratingsTitle: {
+    color: '#999999',
+    fontSize: 16,
+    height: 30,
     marginTop: 5,
     textAlign: 'center'
   }
