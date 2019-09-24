@@ -11,9 +11,12 @@ import {
   setRestroomComments,
   setRestrooms,
   getRestroomComments as getRestroomCommentsAction,
+  getRestroomRatings as getRestroomRatingsAction,
   setFetchingRatings,
   setFetchingRatingsFinished,
-  setRestroomRatings
+  setRestroomRatings,
+  setAddingRating,
+  setAddingRatingFinished
 } from '../actions/RestroomActions';
 import NavigationService from '../../services/NavigationService';
 
@@ -82,6 +85,25 @@ export function* getRestroomComments({ payload }) {
     console.log(error);
   } finally {
     yield put(setFetchingCommentsFinished());
+  }
+}
+
+export function* addRestroomRating({ payload }) {
+  const user = yield select(userSelector);
+  yield put(setAddingRating());
+
+  try {
+    yield call(restroomService.addRating, {
+      user,
+      restroom: payload.restroom,
+      rating: payload.rating
+    });
+    yield put(getRestroomRatingsAction(payload.restroom));
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.log(error);
+  } finally {
+    yield put(setAddingRatingFinished());
   }
 }
 

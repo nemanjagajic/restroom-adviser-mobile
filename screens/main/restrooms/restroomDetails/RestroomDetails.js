@@ -108,8 +108,7 @@ class RestroomDetails extends Component {
           onPress={() => {
             if (!isFetchingRatings) {
               this.props.navigation.navigate('RatingDetails', {
-                ratings,
-                restroomName: name
+                restroom: this.props.navigation.getParam('restroom')
               });
             }
           }}

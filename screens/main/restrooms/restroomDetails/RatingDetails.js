@@ -1,16 +1,20 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { View, Text, StyleSheet, Dimensions, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, Dimensions, ScrollView, ActivityIndicator } from 'react-native';
 import Colors from '../../../../constants/Colors';
 import { userSelector } from '../../../../store/selectors/UserSelector';
 import StarRating from 'react-native-star-rating';
 import ButtonCustom from '../../../../components/shared/button/ButtonCustom';
+import {
+  isAddingRatingSelector,
+  restroomRatingsSelector
+} from '../../../../store/selectors/RestroomSelector';
+import { addRestroomRating } from '../../../../store/actions/RestroomActions';
 
 class RatingDetails extends Component {
   state = {
     ratingWidths: [],
-    myRating: 0,
     starCount: 0
   };
 
@@ -19,8 +23,14 @@ class RatingDetails extends Component {
     this.populateChart();
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.ratings !== this.props.ratings) {
+      this.populateChart();
+    }
+  }
+
   populateChart = () => {
-    const { ratings, numberOfRatings } = this.props.navigation.getParam('ratings');
+    const { ratings, numberOfRatings } = this.props.ratings;
     const singleItemPercentage = (Dimensions.get('window').width * 0.7) / numberOfRatings;
     const ratingWidths = [0, 0, 0, 0, 0];
 
@@ -32,15 +42,19 @@ class RatingDetails extends Component {
   };
 
   setMyVote = () => {
-    const { ratings } = this.props.navigation.getParam('ratings');
+    const { myRating } = this.props.ratings;
+    this.setState({ starCount: myRating });
+  };
 
-    const myVote = ratings.find(rating => rating.user_id === this.props.user.id);
-
-    if (myVote) this.setState({ starCount: myVote.rating, myRating: myVote.rating });
+  addRating = () => {
+    this.props.addRestroomRating({
+      restroom: this.props.navigation.getParam('restroom'),
+      rating: this.state.starCount
+    });
   };
 
   render() {
-    const { rating, numberOfRatings } = this.props.navigation.getParam('ratings');
+    const { rating, numberOfRatings, myRating } = this.props.ratings;
 
     return (
       <ScrollView contentContainerStyle={styles.container}>
@@ -73,20 +87,30 @@ class RatingDetails extends Component {
             fullStarColor={Colors.mainColor}
             containerStyle={styles.stars}
           />
-          {this.state.myRating !== this.state.starCount && (
-            <View style={styles.buttonsContainer}>
-              <ButtonCustom
-                style={styles.button}
-                textStyle={styles.buttonText}
-                title={'Set rating'}
-                onPress={this.pickImage}
-              />
-              <ButtonCustom
-                style={styles.button}
-                textStyle={styles.buttonText}
-                title={'Reset'}
-                onPress={() => this.setState(prevState => ({ starCount: prevState.myRating }))}
-              />
+          {myRating !== this.state.starCount && (
+            <View>
+              {this.props.isAddingRating ? (
+                <ActivityIndicator
+                  style={styles.loading}
+                  animating={this.state.loader}
+                  size="large"
+                />
+              ) : (
+                <View style={styles.buttonsContainer}>
+                  <ButtonCustom
+                    style={styles.button}
+                    textStyle={styles.buttonText}
+                    title={'Set rating'}
+                    onPress={this.addRating}
+                  />
+                  <ButtonCustom
+                    style={styles.button}
+                    textStyle={styles.buttonText}
+                    title={'Reset'}
+                    onPress={() => this.setState({ starCount: myRating })}
+                  />
+                </View>
+              )}
             </View>
           )}
         </View>
@@ -97,12 +121,21 @@ class RatingDetails extends Component {
 
 RatingDetails.propTypes = {
   navigation: PropTypes.object,
-  user: PropTypes.object
+  user: PropTypes.object,
+  ratings: PropTypes.object,
+  addRestroomRating: PropTypes.func,
+  isAddingRating: PropTypes.bool
 };
 
 const mapStateToProps = state => ({
-  user: userSelector(state)
+  user: userSelector(state),
+  ratings: restroomRatingsSelector(state),
+  isAddingRating: isAddingRatingSelector(state)
 });
+
+const mapDispatchToProps = {
+  addRestroomRating
+};
 
 const styles = StyleSheet.create({
   button: {
@@ -149,6 +182,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginBottom: 10,
     marginTop: 10
+  },
+  loading: {
+    marginTop: 5
   },
   myRatingContainer: {
     alignItems: 'center',
@@ -198,4 +234,7 @@ const styles = StyleSheet.create({
   }
 });
 
-export default connect(mapStateToProps)(RatingDetails);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(RatingDetails);

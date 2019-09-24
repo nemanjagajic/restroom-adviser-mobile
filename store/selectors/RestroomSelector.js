@@ -36,3 +36,8 @@ export const isFetchingRatingsSelector = createSelector(
   restroomStateSelector,
   restrooms => restrooms.isFetchingRatings
 );
+
+export const isAddingRatingSelector = createSelector(
+  restroomStateSelector,
+  restrooms => restrooms.isFetchingRatings
+);

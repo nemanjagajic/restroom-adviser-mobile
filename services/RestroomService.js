@@ -45,6 +45,13 @@ class RestroomService extends ApiService {
     );
   };
 
+  addRating = ({ user, restroom, rating }) => {
+    return this.apiClient.post(
+      ENDPOINTS.RESTROOM_RATING.replace('{userId}', user.id).replace('{restroomId}', restroom.id),
+      { rating }
+    );
+  };
+
   getRatings = ({ user, restroom }) => {
     return this.apiClient.get(
       ENDPOINTS.RESTROOM_RATING.replace('{userId}', user.id).replace('{restroomId}', restroom.id)

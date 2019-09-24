@@ -14,7 +14,10 @@ import {
   GET_RESTROOM_RATINGS,
   SET_FETCHING_RATINGS,
   SET_FETCHING_RATINGS_FINISHED,
-  SET_RESTROOM_RATINGS
+  SET_RESTROOM_RATINGS,
+  SET_ADDING_RATING,
+  SET_ADDING_RATING_FINISHED,
+  ADD_RESTROOM_RATING
 } from './ActionTypes';
 
 export const addRestroom = payload => ({
@@ -86,4 +89,17 @@ export const setFetchingRatings = () => ({
 
 export const setFetchingRatingsFinished = () => ({
   type: SET_FETCHING_RATINGS_FINISHED
+});
+
+export const setAddingRating = () => ({
+  type: SET_ADDING_RATING
+});
+
+export const setAddingRatingFinished = () => ({
+  type: SET_ADDING_RATING_FINISHED
+});
+
+export const addRestroomRating = payload => ({
+  type: ADD_RESTROOM_RATING,
+  payload
 });

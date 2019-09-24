@@ -9,7 +9,9 @@ import {
   SET_FETCHING_COMMENTS_FINISHED,
   SET_FETCHING_RATINGS,
   SET_FETCHING_RATINGS_FINISHED,
-  SET_RESTROOM_RATINGS
+  SET_RESTROOM_RATINGS,
+  SET_ADDING_RATING,
+  SET_ADDING_RATING_FINISHED
 } from '../actions/ActionTypes';
 
 const initialState = {
@@ -19,7 +21,8 @@ const initialState = {
   comments: [],
   isFetchingComments: false,
   isFetchingRatings: false,
-  ratings: {}
+  ratings: {},
+  isAddingRating: false
 };
 
 export default (state = initialState, action) => {
@@ -80,6 +83,16 @@ export default (state = initialState, action) => {
       return {
         ...state,
         ratings: action.payload
+      };
+    case SET_ADDING_RATING:
+      return {
+        ...state,
+        isAddingRating: true
+      };
+    case SET_ADDING_RATING_FINISHED:
+      return {
+        ...state,
+        isAddingRating: false
       };
     default:
       return state;
