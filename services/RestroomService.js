@@ -3,12 +3,21 @@ import ApiService from './ApiService';
 const ENDPOINTS = {
   RESTROOM: '/user/{userId}/restroom',
   RESTROOM_COMMENT: '/user/{userId}/restroom/{restroomId}/comments',
-  RESTROOM_RATING: '/user/{userId}/restroom/{restroomId}/ratings'
+  RESTROOM_RATING: '/user/{userId}/restroom/{restroomId}/ratings',
+  FEED_RESTROOMS: 'user/{userId}/restroom/feedRestrooms?offset={offset}&limit={limit}'
 };
 
 class RestroomService extends ApiService {
   fetchAll = user => {
     return this.apiClient.get(ENDPOINTS.RESTROOM.replace('{userId}', user.id));
+  };
+
+  getFeedRestrooms = ({ user, offset, limit }) => {
+    return this.apiClient.get(
+      ENDPOINTS.FEED_RESTROOMS.replace('{userId}', user.id)
+        .replace('{offset}', offset)
+        .replace('{limit}', limit)
+    );
   };
 
   create = ({ user, restroom }) => {

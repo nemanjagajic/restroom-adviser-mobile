@@ -17,7 +17,12 @@ import {
   SET_RESTROOM_RATINGS,
   SET_ADDING_RATING,
   SET_ADDING_RATING_FINISHED,
-  ADD_RESTROOM_RATING
+  ADD_RESTROOM_RATING,
+  GET_FEED_RESTROOMS,
+  ADD_FEED_RESTROOMS,
+  RESET_FEED_RESTROOMS,
+  SET_FETCHING_FEED_RESTROOMS,
+  SET_FETCHING_FEED_RESTROOMS_FINISHED
 } from './ActionTypes';
 
 export const addRestroom = payload => ({
@@ -102,4 +107,26 @@ export const setAddingRatingFinished = () => ({
 export const addRestroomRating = payload => ({
   type: ADD_RESTROOM_RATING,
   payload
+});
+
+export const getFeedRestrooms = payload => ({
+  type: GET_FEED_RESTROOMS,
+  payload
+});
+
+export const addFeedRestrooms = payload => ({
+  type: ADD_FEED_RESTROOMS,
+  payload
+});
+
+export const resetFeedRestrooms = () => ({
+  type: RESET_FEED_RESTROOMS
+});
+
+export const setFetchingFeedRestrooms = () => ({
+  type: SET_FETCHING_FEED_RESTROOMS
+});
+
+export const setFetchingFeedRestroomsFinished = () => ({
+  type: SET_FETCHING_FEED_RESTROOMS_FINISHED
 });

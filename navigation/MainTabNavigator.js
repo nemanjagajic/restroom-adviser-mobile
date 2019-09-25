@@ -32,11 +32,11 @@ const HomeStack = createStackNavigator({
 });
 
 const FeedsStack = createStackNavigator({
-  Settings: {
+  Feeds: {
     screen: FeedsHome,
     navigationOptions: ({ navigation }) => {
       const headerLeftNav = addHeaderLeftNavigator(navigation);
-      return { ...headerLeftNav, title: 'Settings' };
+      return { ...headerLeftNav, title: 'Feeds' };
     }
   }
 });
@@ -61,7 +61,7 @@ FeedsStack.navigationOptions = {
 const BottomTabNavigator = createBottomTabNavigator(
   {
     HomeStack,
-    SettingsStack: FeedsStack
+    FeedsStack
   },
   {
     tabBarOptions: {

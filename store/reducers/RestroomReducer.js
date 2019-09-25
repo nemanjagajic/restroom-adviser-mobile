@@ -11,18 +11,25 @@ import {
   SET_FETCHING_RATINGS_FINISHED,
   SET_RESTROOM_RATINGS,
   SET_ADDING_RATING,
-  SET_ADDING_RATING_FINISHED
+  SET_ADDING_RATING_FINISHED,
+  ADD_FEED_RESTROOMS,
+  RESET_FEED_RESTROOMS,
+  SET_FETCHING_FEED_RESTROOMS,
+  SET_FETCHING_FEED_RESTROOMS_FINISHED
 } from '../actions/ActionTypes';
 
 const initialState = {
   restrooms: [],
+  feedRestrooms: [],
+  feedRestroomsTotalNumber: 0,
   isAddingRestroom: false,
   isAddingComment: false,
   comments: [],
   isFetchingComments: false,
   isFetchingRatings: false,
   ratings: {},
-  isAddingRating: false
+  isAddingRating: false,
+  isFetchingFeedRestrooms: false
 };
 
 export default (state = initialState, action) => {
@@ -93,6 +100,27 @@ export default (state = initialState, action) => {
       return {
         ...state,
         isAddingRating: false
+      };
+    case ADD_FEED_RESTROOMS:
+      return {
+        ...state,
+        feedRestrooms: state.feedRestrooms.concat(action.payload.restrooms),
+        feedRestroomsTotalNumber: action.payload.totalNumber
+      };
+    case RESET_FEED_RESTROOMS:
+      return {
+        ...state,
+        feedRestrooms: []
+      };
+    case SET_FETCHING_FEED_RESTROOMS:
+      return {
+        ...state,
+        isFetchingFeedRestrooms: true
+      };
+    case SET_FETCHING_FEED_RESTROOMS_FINISHED:
+      return {
+        ...state,
+        isFetchingFeedRestrooms: false
       };
     default:
       return state;

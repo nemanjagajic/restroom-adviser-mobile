@@ -8,7 +8,7 @@ import { signInValidationRules } from '../../validation /auth';
 import $t from 'i18n';
 import ErrorText from '../shared/Text/ErrorText';
 import ButtonCustom from '../shared/button/ButtonCustom';
-import logo from '../../assets/images/logo.png';
+import logo from '../../assets/images/poop-emoji.png';
 import Colors from '../../constants/Colors';
 
 export const SignInForm = props => (
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
     paddingTop: 5
   },
   image: {
-    height: 120,
-    width: 120
+    height: 80,
+    width: 80
   }
 });

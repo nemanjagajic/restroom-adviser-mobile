@@ -16,7 +16,10 @@ import {
   setFetchingRatingsFinished,
   setRestroomRatings,
   setAddingRating,
-  setAddingRatingFinished
+  setAddingRatingFinished,
+  addFeedRestrooms,
+  setFetchingFeedRestrooms,
+  setFetchingFeedRestroomsFinished
 } from '../actions/RestroomActions';
 import NavigationService from '../../services/NavigationService';
 
@@ -29,6 +32,25 @@ export function* fetchRestrooms() {
   } catch (error) {
     // eslint-disable-next-line no-console
     console.log(error);
+  }
+}
+
+export function* getFeedRestrooms({ payload }) {
+  const user = yield select(userSelector);
+  yield put(setFetchingFeedRestrooms());
+
+  try {
+    const response = yield call(restroomService.getFeedRestrooms, {
+      user,
+      offset: payload.offset,
+      limit: payload.limit
+    });
+    yield put(addFeedRestrooms(response.data));
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.log(error);
+  } finally {
+    yield put(setFetchingFeedRestroomsFinished());
   }
 }
 
