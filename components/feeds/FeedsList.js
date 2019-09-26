@@ -45,7 +45,7 @@ class FeedsList extends Component {
           )}
           onScroll={this.handleScroll}
           progressViewOffset={1000}
-          refreshControl={<RefreshControl onRefresh={this.props.reloadRestaurants} />}
+          refreshControl={<RefreshControl onRefresh={this.props.reloadRestrooms} />}
         />
         {this.props.isFetchingRestrooms && (
           <ActivityIndicator style={styles.indicator} size="large" />
@@ -69,7 +69,7 @@ FeedsList.propTypes = {
   isFetchingRestrooms: PropTypes.bool,
   fetchNewIssues: PropTypes.func,
   restroomsTotalNumber: PropTypes.number,
-  reloadRestaurants: PropTypes.func
+  reloadRestrooms: PropTypes.func
 };
 
 export default FeedsList;

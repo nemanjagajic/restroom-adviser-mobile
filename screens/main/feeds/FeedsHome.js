@@ -17,15 +17,15 @@ class FeedsHome extends Component {
   };
 
   componentDidMount() {
-    this.handleFetchNewRestaurants();
+    this.handleFetchNewRestrooms();
   }
 
-  reloadRestaurants = () => {
+  reloadRestrooms = () => {
     this.props.resetFeedRestrooms();
-    this.setState({ offset: 0 }, this.handleFetchNewRestaurants);
+    this.setState({ offset: 0 }, this.handleFetchNewRestrooms);
   };
 
-  handleFetchNewRestaurants = () => {
+  handleFetchNewRestrooms = () => {
     this.props.getFeedRestrooms({
       offset: this.state.offset,
       limit: FETCHING_LIMIT
@@ -46,8 +46,8 @@ class FeedsHome extends Component {
             restrooms={this.props.restrooms}
             restroomsTotalNumber={this.props.restroomsTotalNumber}
             isFetchingRestrooms={this.props.isFetchingRestrooms}
-            fetchNewIssues={this.handleFetchNewRestaurants}
-            reloadRestaurants={this.reloadRestaurants}
+            fetchNewIssues={this.handleFetchNewRestrooms}
+            reloadRestrooms={this.reloadRestrooms}
           />
         )}
       </View>

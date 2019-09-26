@@ -81,9 +81,7 @@ class RestroomDetails extends Component {
             ) : (
               <View style={styles.noImages}>
                 <Ionicons name="md-images" color={'#ccc'} size={100} />
-                <Text style={styles.noImagesText}>
-                  No images have been added for this restaurant
-                </Text>
+                <Text style={styles.noImagesText}>No images have been added for this restroom</Text>
               </View>
             )}
             <TouchableOpacity style={styles.imageArrows} onPress={this.handleImageForward}>
@@ -149,7 +147,7 @@ class RestroomDetails extends Component {
           <Text style={styles.description}>
             {description || (
               <Text style={styles.emptyDescriptionText}>
-                {'Description hasn\'t been written for this restaurant'}
+                {'Description hasn\'t been written for this restroom'}
               </Text>
             )}
           </Text>
