@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { StyleSheet, View } from 'react-native';
+import { ActivityIndicator, StyleSheet, View } from 'react-native';
 import PropTypes from 'prop-types';
-import { getFeedRestrooms } from '../../../store/actions/RestroomActions';
+import { getFeedRestrooms, resetFeedRestrooms } from '../../../store/actions/RestroomActions';
 import {
   feedRestroomsSelector,
   feedRestroomsTotalNumberSelector,
@@ -17,10 +17,15 @@ class FeedsHome extends Component {
   };
 
   componentDidMount() {
-    this.handleFetchNewIssues();
+    this.handleFetchNewRestaurants();
   }
 
-  handleFetchNewIssues = () => {
+  reloadRestaurants = () => {
+    this.props.resetFeedRestrooms();
+    this.setState({ offset: 0 }, this.handleFetchNewRestaurants);
+  };
+
+  handleFetchNewRestaurants = () => {
     this.props.getFeedRestrooms({
       offset: this.state.offset,
       limit: FETCHING_LIMIT
@@ -29,14 +34,22 @@ class FeedsHome extends Component {
   };
 
   render() {
+    const shouldShowList =
+      this.props.restrooms && this.props.restrooms.length === 0 && this.props.isFetchingRestrooms;
+
     return (
       <View style={styles.container}>
-        <FeedsList
-          restrooms={this.props.restrooms}
-          restroomsTotalNumber={this.props.restroomsTotalNumber}
-          isFetchingRestrooms={this.props.isFetchingRestrooms}
-          fetchNewIssues={this.handleFetchNewIssues}
-        />
+        {shouldShowList ? (
+          <ActivityIndicator style={styles.indicator} size="large" />
+        ) : (
+          <FeedsList
+            restrooms={this.props.restrooms}
+            restroomsTotalNumber={this.props.restroomsTotalNumber}
+            isFetchingRestrooms={this.props.isFetchingRestrooms}
+            fetchNewIssues={this.handleFetchNewRestaurants}
+            reloadRestaurants={this.reloadRestaurants}
+          />
+        )}
       </View>
     );
   }
@@ -49,12 +62,19 @@ FeedsHome.propTypes = {
   getFeedRestrooms: PropTypes.func,
   restrooms: PropTypes.array,
   isFetchingRestrooms: PropTypes.bool,
-  restroomsTotalNumber: PropTypes.number
+  restroomsTotalNumber: PropTypes.number,
+  resetFeedRestrooms: PropTypes.func
 };
 
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#fff'
+  },
+  indicator: {
+    left: 0,
+    position: 'absolute',
+    right: 0,
+    top: 20
   }
 });
 
@@ -65,7 +85,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  getFeedRestrooms
+  getFeedRestrooms,
+  resetFeedRestrooms
 };
 
 export default connect(

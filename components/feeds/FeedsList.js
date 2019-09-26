@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, ActivityIndicator, FlatList, StyleSheet } from 'react-native';
+import { View, ActivityIndicator, FlatList, StyleSheet, RefreshControl } from 'react-native';
 import PropTypes from 'prop-types';
 import FeedItem from './FeedItem';
 
@@ -45,6 +45,7 @@ class FeedsList extends Component {
           )}
           onScroll={this.handleScroll}
           progressViewOffset={1000}
+          refreshControl={<RefreshControl onRefresh={this.props.reloadRestaurants} />}
         />
         {this.props.isFetchingRestrooms && (
           <ActivityIndicator style={styles.indicator} size="large" />
@@ -67,7 +68,8 @@ FeedsList.propTypes = {
   restrooms: PropTypes.array,
   isFetchingRestrooms: PropTypes.bool,
   fetchNewIssues: PropTypes.func,
-  restroomsTotalNumber: PropTypes.number
+  restroomsTotalNumber: PropTypes.number,
+  reloadRestaurants: PropTypes.func
 };
 
 export default FeedsList;
