@@ -41,6 +41,7 @@ class FeedsList extends Component {
               isFirst={index === 0}
               isLast={index === this.props.restrooms.length - 1}
               restroom={item}
+              navigation={this.props.navigation}
             />
           )}
           onScroll={this.handleScroll}
@@ -69,7 +70,8 @@ FeedsList.propTypes = {
   isFetchingRestrooms: PropTypes.bool,
   fetchNewIssues: PropTypes.func,
   restroomsTotalNumber: PropTypes.number,
-  reloadRestrooms: PropTypes.func
+  reloadRestrooms: PropTypes.func,
+  navigation: PropTypes.object
 };
 
 export default FeedsList;

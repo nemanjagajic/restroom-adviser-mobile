@@ -48,6 +48,7 @@ class FeedsHome extends Component {
             isFetchingRestrooms={this.props.isFetchingRestrooms}
             fetchNewIssues={this.handleFetchNewRestrooms}
             reloadRestrooms={this.reloadRestrooms}
+            navigation={this.props.navigation}
           />
         )}
       </View>

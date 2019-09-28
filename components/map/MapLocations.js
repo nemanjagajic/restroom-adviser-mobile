@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { Location, MapView, Permissions } from 'expo';
 import poopEmojiIcon from '../../assets/images/poop-emoji.png';
 import mapMarkerIcon from '../../assets/images/map-marker-icon.png';
+import mapMarkerIconRed from '../../assets/images/map-marker-icon-red.png';
 import Colors from '../../constants/Colors';
 
 class MapLocations extends React.Component {
@@ -70,7 +71,9 @@ class MapLocations extends React.Component {
                     latitude: restroom.latitude,
                     longitude: restroom.longitude
                   }}
-                  image={mapMarkerIcon}
+                  image={
+                    this.props.selectedRestroomId === restroom.id ? mapMarkerIconRed : mapMarkerIcon
+                  }
                 >
                   <MapView.Callout
                     tooltip={true}
@@ -101,7 +104,8 @@ MapLocations.propTypes = {
   navigation: PropTypes.object,
   user: PropTypes.object,
   restrooms: PropTypes.array,
-  onCalloutPressed: PropTypes.func
+  onCalloutPressed: PropTypes.func,
+  selectedRestroomId: PropTypes.number
 };
 
 const styles = StyleSheet.create({

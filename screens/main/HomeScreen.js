@@ -7,6 +7,7 @@ import { fetchRestrooms } from '../../store/actions/RestroomActions';
 import { restroomsSelector } from '../../store/selectors/RestroomSelector';
 import Colors from '../../constants/Colors';
 import MapLocations from '../../components/map/MapLocations';
+import ButtonCustom from '../../components/shared/button/ButtonCustom';
 
 class HomeScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -30,12 +31,36 @@ class HomeScreen extends React.Component {
     this.props.navigation.navigate('RestroomDetails', { restroom });
   };
 
+  openRestroomDetails = restroomId => {
+    const restroom = this.props.restrooms.find(restroom => restroom.id === restroomId);
+    this.props.navigation.navigate('RestroomDetails', { restroom });
+  };
+
   render() {
+    const selectedRestroomId = this.props.navigation.getParam('selectedRestroomId');
+
     return (
       <View style={styles.container}>
+        {selectedRestroomId && (
+          <View style={styles.buttonsWrapper}>
+            <ButtonCustom
+              title={'Clear selected'}
+              onPress={() => this.props.navigation.setParams({ selectedRestroomId: null })}
+              style={styles.button}
+              textStyle={styles.buttonText}
+            />
+            <ButtonCustom
+              title={'Open selected'}
+              onPress={() => this.openRestroomDetails(selectedRestroomId)}
+              style={styles.buttonOpen}
+              textStyle={styles.buttonText}
+            />
+          </View>
+        )}
         <MapLocations
           restrooms={this.props.restrooms}
           onCalloutPressed={this.handleCalloutPressed}
+          selectedRestroomId={selectedRestroomId}
         />
       </View>
     );
@@ -63,6 +88,15 @@ export default connect(
 )(HomeScreen);
 
 const styles = StyleSheet.create({
+  button: {
+    backgroundColor: '#f2f2f2',
+    borderColor: '#ccc',
+    borderRadius: 15,
+    borderWidth: 1,
+    marginBottom: 5,
+    padding: 10,
+    zIndex: 1
+  },
   buttonHeaderRight: {
     alignItems: 'center',
     backgroundColor: Colors.mainColor,
@@ -74,6 +108,24 @@ const styles = StyleSheet.create({
   },
   buttonHeaderRightText: {
     color: '#fff'
+  },
+  buttonOpen: {
+    backgroundColor: '#fff',
+    borderColor: '#ccc',
+    borderRadius: 15,
+    borderWidth: 1,
+    marginBottom: 5,
+    padding: 10,
+    zIndex: 1
+  },
+  buttonText: {
+    color: '#808080',
+    fontSize: 14
+  },
+  buttonsWrapper: {
+    position: 'absolute',
+    right: 10,
+    top: 15
   },
   container: {
     backgroundColor: '#fff',

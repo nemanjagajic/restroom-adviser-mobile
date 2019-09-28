@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Dimensions, Image, Text } from 'react-native';
+import { View, StyleSheet, Dimensions, Image, Text, TouchableOpacity } from 'react-native';
 import PropTypes from 'prop-types';
 import config from '../../config';
 import Colors from '../../constants/Colors';
@@ -7,10 +7,11 @@ import StarRating from 'react-native-star-rating';
 import { Ionicons } from '@expo/vector-icons';
 
 const FeedItem = props => {
-  const { image, rating, name, location_text: locationText } = props.restroom;
+  const { id, image, rating, name, location_text: locationText } = props.restroom;
 
   return (
-    <View
+    <TouchableOpacity
+      onPress={() => props.navigation.navigate('Home', { selectedRestroomId: id })}
       style={[
         styles.container,
         // eslint-disable-next-line react-native/no-inline-styles
@@ -46,14 +47,15 @@ const FeedItem = props => {
           {`${rating.totalRating} (${rating.numberOfRatings} votes)`}
         </Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
 FeedItem.propTypes = {
   restroom: PropTypes.object,
   isFirst: PropTypes.bool,
-  isLast: PropTypes.bool
+  isLast: PropTypes.bool,
+  navigation: PropTypes.object
 };
 
 const styles = StyleSheet.create({
