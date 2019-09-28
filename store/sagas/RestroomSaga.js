@@ -43,7 +43,8 @@ export function* getFeedRestrooms({ payload }) {
     const response = yield call(restroomService.getFeedRestrooms, {
       user,
       offset: payload.offset,
-      limit: payload.limit
+      limit: payload.limit,
+      searchValue: payload.searchValue
     });
     yield put(addFeedRestrooms(response.data));
   } catch (error) {

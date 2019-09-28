@@ -12,12 +12,16 @@ class RestroomService extends ApiService {
     return this.apiClient.get(ENDPOINTS.RESTROOM.replace('{userId}', user.id));
   };
 
-  getFeedRestrooms = ({ user, offset, limit }) => {
-    return this.apiClient.get(
-      ENDPOINTS.FEED_RESTROOMS.replace('{userId}', user.id)
-        .replace('{offset}', offset)
-        .replace('{limit}', limit)
-    );
+  getFeedRestrooms = ({ user, offset, limit, searchValue }) => {
+    let request = ENDPOINTS.FEED_RESTROOMS.replace('{userId}', user.id)
+      .replace('{offset}', offset)
+      .replace('{limit}', limit);
+
+    if (searchValue) {
+      request += `&searchValue=${searchValue}`;
+    }
+
+    return this.apiClient.get(request);
   };
 
   create = ({ user, restroom }) => {

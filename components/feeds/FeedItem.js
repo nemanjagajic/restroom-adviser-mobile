@@ -15,7 +15,7 @@ const FeedItem = props => {
       style={[
         styles.container,
         // eslint-disable-next-line react-native/no-inline-styles
-        { marginTop: props.isFirst ? 20 : 0, marginBottom: props.isLast ? 55 : 15 }
+        { marginTop: props.isFirst ? 90 : 0, marginBottom: props.isLast ? 55 : 15 }
       ]}
     >
       {!image ? (
