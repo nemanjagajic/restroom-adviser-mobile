@@ -44,7 +44,8 @@ export function* getFeedRestrooms({ payload }) {
       user,
       offset: payload.offset,
       limit: payload.limit,
-      searchValue: payload.searchValue
+      searchValue: payload.searchValue,
+      minimalRating: payload.minimalRating
     });
     yield put(addFeedRestrooms(response.data));
   } catch (error) {
