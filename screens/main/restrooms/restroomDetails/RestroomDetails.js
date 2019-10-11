@@ -10,6 +10,8 @@ import {
   Dimensions
 } from 'react-native';
 import PropTypes from 'prop-types';
+import ContentLoader from 'react-native-content-loader';
+import { Rect } from 'react-native-svg';
 import config from '../../../../config';
 import { Ionicons } from '@expo/vector-icons/build/Icons';
 import Colors from '../../../../constants/Colors';
@@ -18,7 +20,8 @@ import { getRestroomComments, getRestroomRatings } from '../../../../store/actio
 import {
   restroomRatingsSelector,
   isFetchingRatingsSelector,
-  restroomCommentsSelector
+  restroomCommentsSelector,
+  isFetchingCommentsSelector
 } from '../../../../store/selectors/RestroomSelector';
 import StarRating from 'react-native-star-rating';
 
@@ -63,7 +66,6 @@ class RestroomDetails extends Component {
       images
     } = this.props.navigation.getParam('restroom');
     const ratings = this.props.ratings;
-    const isFetchingRatings = this.props.isFetchingRatings;
 
     return (
       <ScrollView contentContainerStyle={styles.container}>
@@ -106,68 +108,65 @@ class RestroomDetails extends Component {
             </Text>
           )}
         </View>
+
         <Text style={styles.name}>{name}</Text>
         <Text style={styles.location}>{locationText}</Text>
-        <TouchableOpacity
-          onPress={() => {
-            if (!isFetchingRatings) {
-              this.props.navigation.navigate('RatingDetails', {
-                restroom: this.props.navigation.getParam('restroom')
-              });
-            }
-          }}
-        >
-          {!isFetchingRatings ? (
-            <View style={styles.ratings}>
-              {ratings.rating !== 0 ? (
+        {this.props.isFetchingRatings || this.props.isFetchingComments ? (
+          <ContentLoader style={styles.contentLoader} height={270} duration={1000}>
+            <Rect x="0" y="33" rx="4" ry="4" width="250" height="14" />
+            <Rect x="0" y="57" rx="4" ry="4" width="220" height="8" />
+            <Rect x="0" y="68" rx="4" ry="4" width="290" height="18" />
+            <Rect x="0" y="95" rx="4" ry="4" width="160" height="9" />
+            <Rect x="0" y="112" rx="4" ry="4" width="280" height="15" />
+            <Rect x="0" y="141" rx="4" ry="4" width="120" height="17" />
+            <Rect x="0" y="165" rx="4" ry="4" width="230" height="9" />
+            <Rect x="0" y="180" rx="4" ry="4" width="170" height="14" />
+            <Rect x="0" y="200" rx="4" ry="4" width="240" height="12" />
+            <Rect x="0" y="215" rx="4" ry="4" width="270" height="14" />
+          </ContentLoader>
+        ) : (
+          <View style={styles.contentContainer}>
+            <TouchableOpacity
+              onPress={() => {
+                this.props.navigation.navigate('RatingDetails', {
+                  restroom: this.props.navigation.getParam('restroom')
+                });
+              }}
+            >
+              <View style={styles.ratings}>
                 <Text style={styles.ratingsNumber}>{ratings.rating}</Text>
-              ) : (
-                <Text style={styles.ratingsTitle}>No ratings left yet</Text>
-              )}
-              <StarRating
-                disabled={true}
-                maxStars={5}
-                rating={ratings.rating}
-                starSize={32}
-                emptyStarColor={Colors.mainColor}
-                fullStarColor={Colors.mainColor}
-              />
-              <Text style={styles.ratingsText}>Tap to open voting or view rating details</Text>
-            </View>
-          ) : (
-            <View style={styles.ratings}>
-              <Text style={styles.ratingsTitle}>Fetching rating...</Text>
-              <StarRating
-                disabled={true}
-                maxStars={5}
-                rating={0}
-                starSize={32}
-                emptyStarColor={Colors.mainColor}
-                fullStarColor={Colors.mainColor}
-              />
-              <Text style={styles.ratingsText}>Tap to open voting or view rating details</Text>
-            </View>
-          )}
-        </TouchableOpacity>
-        <View style={styles.descriptionContainer}>
-          <Text style={styles.description}>
-            {description || (
-              <Text style={styles.emptyDescriptionText}>
-                {'Description hasn\'t been written for this restroom'}
+                <StarRating
+                  disabled={true}
+                  maxStars={5}
+                  rating={ratings.rating}
+                  starSize={32}
+                  emptyStarColor={Colors.mainColor}
+                  fullStarColor={Colors.mainColor}
+                />
+                <Text style={styles.ratingsText}>Tap to open voting or view rating details</Text>
+              </View>
+            </TouchableOpacity>
+            <View style={styles.descriptionContainer}>
+              <Text style={styles.description}>
+                {description || (
+                  <Text style={styles.emptyDescriptionText}>
+                    {'Description hasn\'t been written for this restroom'}
+                  </Text>
+                )}
               </Text>
-            )}
-          </Text>
-        </View>
-        <ButtonCustom
-          style={styles.buttonComment}
-          textStyle={styles.buttonCommentText}
-          title={`Open comments ${this.props.comments.length}`}
-          onPress={() =>
-            this.props.navigation.navigate('RestroomComments', {
-              restroom: this.props.navigation.getParam('restroom')
-            })
-          }
-        />
+            </View>
+            <ButtonCustom
+              style={styles.buttonComment}
+              textStyle={styles.buttonCommentText}
+              title={`Open comments ${this.props.comments.length}`}
+              onPress={() =>
+                this.props.navigation.navigate('RestroomComments', {
+                  restroom: this.props.navigation.getParam('restroom')
+                })
+              }
+            />
+          </View>
+        )}
       </ScrollView>
     );
   }
@@ -179,13 +178,15 @@ RestroomDetails.propTypes = {
   ratings: PropTypes.object,
   isFetchingRatings: PropTypes.bool,
   getRestroomComments: PropTypes.func,
-  comments: PropTypes.array
+  comments: PropTypes.array,
+  isFetchingComments: PropTypes.bool
 };
 
 const mapStateToProps = state => ({
   ratings: restroomRatingsSelector(state),
   isFetchingRatings: isFetchingRatingsSelector(state),
-  comments: restroomCommentsSelector(state)
+  comments: restroomCommentsSelector(state),
+  isFetchingComments: isFetchingCommentsSelector(state)
 });
 
 const mapDispatchToProps = {
@@ -212,6 +213,15 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     display: 'flex'
+  },
+  contentContainer: {
+    alignItems: 'center',
+    display: 'flex',
+    justifyContent: 'center'
+  },
+  contentLoader: {
+    marginBottom: 10,
+    marginTop: 10
   },
   description: {
     color: '#808080',
@@ -302,13 +312,6 @@ const styles = StyleSheet.create({
   ratingsText: {
     color: '#999999',
     fontSize: 12,
-    marginTop: 5,
-    textAlign: 'center'
-  },
-  ratingsTitle: {
-    color: '#999999',
-    fontSize: 16,
-    height: 30,
     marginTop: 5,
     textAlign: 'center'
   }
