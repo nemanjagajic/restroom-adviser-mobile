@@ -112,7 +112,7 @@ class RestroomDetails extends Component {
         <Text style={styles.name}>{name}</Text>
         <Text style={styles.location}>{locationText}</Text>
         {this.props.isFetchingRatings || this.props.isFetchingComments ? (
-          <ContentLoader style={styles.contentLoader} height={270} duration={1000}>
+          <ContentLoader style={styles.contentLoader} height={240} duration={1000}>
             <Rect x="0" y="33" rx="4" ry="4" width="250" height="14" />
             <Rect x="0" y="57" rx="4" ry="4" width="220" height="8" />
             <Rect x="0" y="68" rx="4" ry="4" width="290" height="18" />
