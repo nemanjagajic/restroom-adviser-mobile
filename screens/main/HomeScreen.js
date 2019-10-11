@@ -20,7 +20,15 @@ class HomeScreen extends React.Component {
         <Text style={styles.buttonHeaderRightText}>Add restroom</Text>
       </TouchableOpacity>
     );
-    return { ...headerLeftNav, headerRight, title: 'Home' };
+    return {
+      ...headerLeftNav,
+      headerRight,
+      title: 'Home',
+      headerTintColor: Colors.headerTintColor,
+      headerStyle: {
+        backgroundColor: '#fff'
+      }
+    };
   };
 
   componentDidMount() {
@@ -82,11 +90,6 @@ HomeScreen.propTypes = {
   restrooms: PropTypes.array
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(HomeScreen);
-
 const styles = StyleSheet.create({
   button: {
     backgroundColor: '#f2f2f2',
@@ -132,3 +135,8 @@ const styles = StyleSheet.create({
     flex: 1
   }
 });
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(HomeScreen);

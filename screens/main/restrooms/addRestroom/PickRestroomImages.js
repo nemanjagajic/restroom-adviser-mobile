@@ -9,7 +9,11 @@ import AddImage from '../../../../components/image/AddImage';
 
 class PickRestroomImages extends Component {
   static navigationOptions = {
-    headerTitle: 'Pick restroom images'
+    headerTitle: 'Pick restroom images',
+    headerTintColor: Colors.headerTintColor,
+    headerStyle: {
+      backgroundColor: '#fff'
+    }
   };
 
   state = {

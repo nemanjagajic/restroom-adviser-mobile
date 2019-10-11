@@ -23,7 +23,11 @@ import StarRating from 'react-native-star-rating';
 
 class RestroomDetails extends Component {
   static navigationOptions = {
-    headerTitle: 'Restroom details'
+    headerTitle: 'Restroom details',
+    headerTintColor: Colors.headerTintColor,
+    headerStyle: {
+      backgroundColor: '#fff'
+    }
   };
 
   componentDidMount() {

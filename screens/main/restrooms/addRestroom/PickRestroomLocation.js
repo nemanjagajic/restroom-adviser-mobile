@@ -10,7 +10,11 @@ import MapPickLocation from '../../../../components/map/MapPickLocation';
 
 class PickRestroomLocation extends Component {
   static navigationOptions = {
-    headerTitle: 'Pick restroom location'
+    headerTitle: 'Pick restroom location',
+    headerTintColor: Colors.headerTintColor,
+    headerStyle: {
+      backgroundColor: '#fff'
+    }
   };
 
   state = {

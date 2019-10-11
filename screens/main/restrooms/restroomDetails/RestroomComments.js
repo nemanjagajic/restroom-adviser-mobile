@@ -10,10 +10,15 @@ import {
   restroomCommentsSelector
 } from '../../../../store/selectors/RestroomSelector';
 import CommentsList from '../../../../components/comments/CommentList';
+import Colors from '../../../../constants/Colors';
 
 class RestroomComments extends Component {
   static navigationOptions = {
-    headerTitle: 'Comments'
+    headerTitle: 'Comments',
+    headerTintColor: Colors.headerTintColor,
+    headerStyle: {
+      backgroundColor: '#fff'
+    }
   };
 
   componentDidMount() {

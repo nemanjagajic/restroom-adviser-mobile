@@ -10,7 +10,11 @@ import { setRestroomInfoRules } from '../../../../validation /restroom';
 
 class SetRestroomInfo extends Component {
   static navigationOptions = {
-    headerTitle: 'Set restroom info'
+    headerTitle: 'Set restroom info',
+    headerTintColor: Colors.headerTintColor,
+    headerStyle: {
+      backgroundColor: '#fff'
+    }
   };
 
   handleNext = values => {

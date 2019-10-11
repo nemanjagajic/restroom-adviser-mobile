@@ -1,11 +1,13 @@
 import React from 'react';
 import { Icon } from 'expo';
+import Colors from '../constants/Colors';
 
 export const addHeaderLeftNavigator = navigation => {
   const styles = {
     menuIcon: {
       marginLeft: 10,
-      marginTop: 10
+      marginTop: 10,
+      color: Colors.headerTintColor
     }
   };
 

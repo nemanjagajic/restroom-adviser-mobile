@@ -23,6 +23,14 @@ import ButtonCustom from '../../../components/shared/button/ButtonCustom';
 import Colors from '../../../constants/Colors';
 
 class FeedsHome extends Component {
+  static navigationOptions = {
+    headerTitle: 'Feeds',
+    headerTintColor: Colors.headerTintColor,
+    headerStyle: {
+      backgroundColor: '#fff'
+    }
+  };
+
   state = {
     offset: 0,
     searchValue: '',

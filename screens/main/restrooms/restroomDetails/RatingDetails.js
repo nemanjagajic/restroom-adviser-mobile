@@ -13,6 +13,14 @@ import {
 import { addRestroomRating } from '../../../../store/actions/RestroomActions';
 
 class RatingDetails extends Component {
+  static navigationOptions = {
+    headerTitle: 'Rating details',
+    headerTintColor: Colors.headerTintColor,
+    headerStyle: {
+      backgroundColor: '#fff'
+    }
+  };
+
   state = {
     ratingWidths: [],
     starCount: 0
