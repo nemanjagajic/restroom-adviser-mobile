@@ -104,6 +104,7 @@ class MapPickLocation extends Component {
         )}
         <View style={styles.locationText}>
           <TextInput
+            style={styles.locationTextInput}
             onChangeText={text => this.setState({ locationInfo: text })}
             value={this.state.locationInfo || 'Loading current location'}
           />
@@ -135,6 +136,9 @@ const styles = StyleSheet.create({
     padding: 10,
     position: 'absolute',
     width: Dimensions.get('window').width * 0.9
+  },
+  locationTextInput: {
+    color: '#808080'
   },
   map: {
     alignItems: 'center',
