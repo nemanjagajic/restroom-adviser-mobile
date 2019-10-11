@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
   buttonHeaderRight: {
     alignItems: 'center',
     backgroundColor: Colors.mainColor,
-    borderRadius: 5,
+    borderRadius: 10,
     display: 'flex',
     marginRight: 10,
     padding: 7,
