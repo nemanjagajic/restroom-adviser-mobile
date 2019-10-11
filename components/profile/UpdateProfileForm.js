@@ -22,6 +22,7 @@ export const UpdateProfileForm = props => (
           placeholder={$t('profile.updateUser.firstName')}
         />
         <Field
+          style={styles.input}
           name="last_name"
           component={TextInputField}
           placeholder={$t('profile.updateUser.lastName')}

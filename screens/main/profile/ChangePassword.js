@@ -7,8 +7,17 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { ChangePasswordForm } from '../../../components/profile/ChangePasswordForm';
 import { changePassword } from '../../../store/actions/UserActions';
 import { changePasswordErrorSelector } from '../../../store/selectors/ErrorSelector';
+import Colors from '../../../constants/Colors';
 
 class ChangePassword extends Component {
+  static navigationOptions = {
+    headerTitle: 'Change password',
+    headerTintColor: Colors.headerTintColor,
+    headerStyle: {
+      backgroundColor: '#fff'
+    }
+  };
+
   static propTypes = {
     navigation: PropTypes.object,
     changePassword: PropTypes.func,
