@@ -14,10 +14,11 @@ import config from '../../../../config';
 import { Ionicons } from '@expo/vector-icons/build/Icons';
 import Colors from '../../../../constants/Colors';
 import ButtonCustom from '../../../../components/shared/button/ButtonCustom';
-import { getRestroomRatings } from '../../../../store/actions/RestroomActions';
+import { getRestroomComments, getRestroomRatings } from '../../../../store/actions/RestroomActions';
 import {
   restroomRatingsSelector,
-  isFetchingRatingsSelector
+  isFetchingRatingsSelector,
+  restroomCommentsSelector
 } from '../../../../store/selectors/RestroomSelector';
 import StarRating from 'react-native-star-rating';
 
@@ -33,6 +34,7 @@ class RestroomDetails extends Component {
   componentDidMount() {
     const restroom = this.props.navigation.getParam('restroom');
     this.props.getRestroomRatings(restroom);
+    this.props.getRestroomComments(restroom);
   }
 
   state = {
@@ -159,7 +161,7 @@ class RestroomDetails extends Component {
         <ButtonCustom
           style={styles.buttonComment}
           textStyle={styles.buttonCommentText}
-          title={'Open comments (4)'}
+          title={`Open comments ${this.props.comments.length}`}
           onPress={() =>
             this.props.navigation.navigate('RestroomComments', {
               restroom: this.props.navigation.getParam('restroom')
@@ -175,16 +177,20 @@ RestroomDetails.propTypes = {
   navigation: PropTypes.object,
   getRestroomRatings: PropTypes.func,
   ratings: PropTypes.object,
-  isFetchingRatings: PropTypes.bool
+  isFetchingRatings: PropTypes.bool,
+  getRestroomComments: PropTypes.func,
+  comments: PropTypes.array
 };
 
 const mapStateToProps = state => ({
   ratings: restroomRatingsSelector(state),
-  isFetchingRatings: isFetchingRatingsSelector(state)
+  isFetchingRatings: isFetchingRatingsSelector(state),
+  comments: restroomCommentsSelector(state)
 });
 
 const mapDispatchToProps = {
-  getRestroomRatings
+  getRestroomRatings,
+  getRestroomComments
 };
 
 const styles = StyleSheet.create({

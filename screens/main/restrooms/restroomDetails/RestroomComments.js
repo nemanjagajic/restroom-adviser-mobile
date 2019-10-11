@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { ScrollView, ActivityIndicator } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { addRestroomComment, getRestroomComments } from '../../../../store/actions/RestroomActions';
+import { addRestroomComment } from '../../../../store/actions/RestroomActions';
 import CommentInput from '../../../../components/comments/CommentInput';
 import {
   isAddingComment,
@@ -20,10 +20,6 @@ class RestroomComments extends Component {
       backgroundColor: '#fff'
     }
   };
-
-  componentDidMount() {
-    this.props.getRestroomComments(this.props.navigation.getParam('restroom'));
-  }
 
   handleAddComment = commentContent => {
     if (commentContent) {
@@ -53,20 +49,18 @@ RestroomComments.propTypes = {
   navigation: PropTypes.object,
   addRestroomComment: PropTypes.func,
   isAddingComment: PropTypes.bool,
-  getRestroomComments: PropTypes.func,
-  comments: PropTypes.array,
-  isFetchingComments: PropTypes.bool
+  isFetchingComments: PropTypes.bool,
+  comments: PropTypes.array
 };
 
 const mapStateToProps = state => ({
   isAddingComment: isAddingComment(state),
-  comments: restroomCommentsSelector(state),
-  isFetchingComments: isFetchingCommentsSelector(state)
+  isFetchingComments: isFetchingCommentsSelector(state),
+  comments: restroomCommentsSelector(state)
 });
 
 const mapDispatchToProps = {
-  addRestroomComment,
-  getRestroomComments
+  addRestroomComment
 };
 
 export default connect(
