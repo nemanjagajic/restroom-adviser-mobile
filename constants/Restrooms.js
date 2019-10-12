@@ -1,1 +1,1 @@
-export const FETCHING_LIMIT = 10;
+export const FETCHING_LIMIT = 20;

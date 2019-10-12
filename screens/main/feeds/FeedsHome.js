@@ -79,8 +79,12 @@ class FeedsHome extends Component {
           <View style={styles.searchInputWrapper}>
             <TextInput
               style={styles.searchInput}
+              placeholder={'Search restrooms'}
               onChangeText={text => this.setState({ searchValue: text })}
               value={this.state.searchValue}
+              returnKeyType={'search'}
+              onSubmitEditing={this.reloadRestrooms}
+              clearButtonMode="always"
             />
             <TouchableOpacity
               style={
@@ -94,9 +98,6 @@ class FeedsHome extends Component {
               }
             >
               <Ionicons name="ios-funnel" color="#fff" size={25} />
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.searchButton} onPress={this.reloadRestrooms}>
-              <Ionicons name="ios-search" color="#fff" size={25} />
             </TouchableOpacity>
           </View>
           <Text style={styles.numberOfRestroomsText}>
@@ -114,7 +115,16 @@ class FeedsHome extends Component {
             navigation={this.props.navigation}
           />
         ) : (
-          <View style={styles.emptyListContainer} />
+          <View style={styles.emptyListContainer}>
+            {!this.props.isFetchingRestrooms && (
+              <View style={styles.emptyList}>
+                <Ionicons name="md-planet" color="#ccc" size={100} />
+                <Text style={styles.emptyListText}>
+                  {'There are no results that match your search'}
+                </Text>
+              </View>
+            )}
+          </View>
         )}
         {this.state.isFilterModalVisible && (
           <View style={styles.filterModalWrapper}>
@@ -193,9 +203,20 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     flex: 1
   },
+  emptyList: {
+    alignItems: 'center',
+    display: 'flex',
+    justifyContent: 'center'
+  },
   emptyListContainer: {
+    alignItems: 'center',
+    display: 'flex',
     height: Dimensions.get('window').height,
+    paddingTop: 200,
     width: Dimensions.get('window').width
+  },
+  emptyListText: {
+    color: '#ccc'
   },
   filterModal: {
     alignItems: 'center',
@@ -302,7 +323,7 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     height: 35,
     padding: 10,
-    width: Dimensions.get('window').width * 0.7
+    width: Dimensions.get('window').width * 0.8
   },
   searchInputWrapper: {
     alignItems: 'center',

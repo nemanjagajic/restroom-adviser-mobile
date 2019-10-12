@@ -1,24 +1,15 @@
 import React, { Component } from 'react';
-import {
-  View,
-  StyleSheet,
-  TouchableOpacity,
-  Text,
-  KeyboardAvoidingView,
-  Keyboard
-} from 'react-native';
+import { View, StyleSheet, TouchableOpacity, KeyboardAvoidingView, Keyboard } from 'react-native';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { ImagePicker, Permissions } from 'expo';
+import { Icon, ImagePicker } from 'expo';
 
 import { updateUser } from '../../../store/actions/UserActions';
 import { userSelector } from '../../../store/selectors/UserSelector';
 import { UpdateProfileForm } from '../../../components/profile/UpdateProfileForm';
 import Picture from '../../../components/shared/Picture';
 import NoPermissionsForCameraModal from '../../../components/shared/modal/NoPermissionsForCameraModal';
-import ImagePickerModal from '../../../components/shared/modal/ImagePickerModal';
-import { PERMISSIONS_STATUS } from '../../../constants';
 import defaultAvatar from '../../../assets/images/robot-dev.png';
 import Colors from '../../../constants/Colors';
 
@@ -39,7 +30,6 @@ class EditProfile extends Component {
 
   state = {
     image: '',
-    imagePickerModalVisible: false,
     permissionsModalVisible: false,
     isKeyboardOpened: false
   };
@@ -73,31 +63,15 @@ class EditProfile extends Component {
     this.props.updateUser({ ...updateUserData, avatar: this.state.image });
   };
 
-  openImagePickerModal = async () => {
-    const cameraRollPermissions = await Permissions.askAsync(Permissions.CAMERA_ROLL);
-    const hasCameraRollPermission = cameraRollPermissions.status === PERMISSIONS_STATUS.GRANTED;
-    const cameraPermissions = await Permissions.askAsync(Permissions.CAMERA);
-    const hasCameraPermission = cameraPermissions.status === PERMISSIONS_STATUS.GRANTED;
-
-    this.setState({
-      imagePickerModalVisible: hasCameraPermission && hasCameraRollPermission,
-      permissionsModalVisible: !(hasCameraPermission && hasCameraRollPermission)
-    });
-  };
-
   closePermissionsModal = () => {
     this.setState({ permissionsModalVisible: false });
-  };
-
-  closeImagePickerModal = () => {
-    this.setState({ imagePickerModalVisible: false });
   };
 
   openCamera = async () => {
     const result = await ImagePicker.launchCameraAsync({
       mediaTypes: 'Images',
       allowsEditing: true,
-      aspect: [4, 4]
+      aspect: [3, 4]
     });
 
     this.setImage(result);
@@ -106,7 +80,7 @@ class EditProfile extends Component {
   openImagePicker = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({
       allowsEditing: true,
-      aspect: [4, 4]
+      aspect: [3, 4]
     });
 
     this.setImage(result);
@@ -117,13 +91,12 @@ class EditProfile extends Component {
       this.setState({
         image: image
       });
-      this.closeImagePickerModal();
     }
   };
 
   render() {
     const { user } = this.props;
-    const { imagePickerModalVisible, permissionsModalVisible, image } = this.state;
+    const { permissionsModalVisible, image } = this.state;
 
     return (
       <KeyboardAvoidingView behavior={'padding'} style={styles.container}>
@@ -134,13 +107,14 @@ class EditProfile extends Component {
             ) : (
               <Picture style={styles.image} source={defaultAvatar} />
             )}
-            <TouchableOpacity
-              style={styles.changeImageBanner}
-              title={'Add image'}
-              onPress={this.openImagePickerModal}
-            >
-              <Text style={styles.changeImageText}>Change profile image </Text>
-            </TouchableOpacity>
+            <View style={styles.changeImageContainer}>
+              <TouchableOpacity onPress={this.openImagePicker}>
+                <Icon.Ionicons name="md-images" size={28} style={styles.icon} color={'#fff'} />
+              </TouchableOpacity>
+              <TouchableOpacity onPress={this.openCamera}>
+                <Icon.Ionicons name="md-camera" size={28} style={styles.icon} color={'#fff'} />
+              </TouchableOpacity>
+            </View>
           </View>
         )}
         <View style={styles.borderLine} />
@@ -150,12 +124,6 @@ class EditProfile extends Component {
         <NoPermissionsForCameraModal
           isVisible={permissionsModalVisible}
           closeModal={this.closePermissionsModal}
-        />
-        <ImagePickerModal
-          isVisible={imagePickerModalVisible}
-          closeModal={this.closeImagePickerModal}
-          galleryImport={this.openImagePicker}
-          openCamera={this.openCamera}
         />
       </KeyboardAvoidingView>
     );
@@ -176,19 +144,16 @@ export default connect(
 const styles = StyleSheet.create({
   borderLine: {
     backgroundColor: Colors.mainColorDarker,
-    height: 50,
+    height: 40,
     marginBottom: 30,
     width: '100%'
   },
-  changeImageBanner: {
-    alignItems: 'center',
-    backgroundColor: '#26A69A',
-    marginTop: 10,
-    width: '100%'
-  },
-  changeImageText: {
-    color: '#fff',
-    fontSize: 16
+  changeImageContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 15,
+    width: 100
   },
   container: {
     alignItems: 'center',
