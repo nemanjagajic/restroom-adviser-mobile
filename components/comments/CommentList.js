@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     color: '#b3b3b3'
   },
   list: {
-    marginBottom: 40
+    marginBottom: 50
   }
 });
 

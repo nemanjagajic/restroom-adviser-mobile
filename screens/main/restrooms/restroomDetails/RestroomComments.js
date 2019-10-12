@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
     flex: 1
   },
   indicator: {
-    marginTop: 10
+    marginTop: 20
   }
 });
 

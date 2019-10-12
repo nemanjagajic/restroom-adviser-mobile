@@ -1,15 +1,17 @@
 import React from 'react';
 import { StyleSheet, View, Dimensions, Text, Image } from 'react-native';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 
 import Colors from '../../constants/Colors';
 import poopEmojiIcon from '../../assets/images/poop-emoji.png';
 
 class Comment extends React.Component {
   render() {
-    const { content, user } = this.props.item;
+    const { content, user, created_at: createdAt } = this.props.item;
     return (
-      <View style={styles.container}>
+      // eslint-disable-next-line react-native/no-inline-styles
+      <View style={[styles.container, { marginTop: this.props.index === 0 ? 10 : 0 }]}>
         <Image
           style={user.avatar ? styles.image : styles.imageWithBorder}
           source={user.avatar ? { uri: user.avatar } : poopEmojiIcon}
@@ -17,6 +19,7 @@ class Comment extends React.Component {
         <View style={styles.commentWrapper}>
           <Text style={styles.userFullName}>{`${user.first_name}  ${user.last_name}`}</Text>
           <Text style={styles.content}>{content}</Text>
+          <Text style={styles.createdAtText}>{moment(createdAt).fromNow()}</Text>
         </View>
       </View>
     );
@@ -24,7 +27,8 @@ class Comment extends React.Component {
 }
 
 Comment.propTypes = {
-  item: PropTypes.object
+  item: PropTypes.object,
+  index: PropTypes.number
 };
 
 const styles = StyleSheet.create({
@@ -46,6 +50,13 @@ const styles = StyleSheet.create({
   },
   content: {
     color: '#666666'
+  },
+  createdAtText: {
+    alignSelf: 'flex-end',
+    color: '#b3b3b3',
+    fontSize: 12,
+    paddingRight: 10,
+    paddingTop: 10
   },
   image: {
     borderRadius: 50,
