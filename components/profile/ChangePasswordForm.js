@@ -26,6 +26,7 @@ export const ChangePasswordForm = props => (
         <ErrorText
           error={!!props.invalidOldPasswordError}
           message={$t('profile.changePassword.invalidOldPassword')}
+          style={styles.invalidOldPasswordText}
         />
         <Field
           style={styles.input}
@@ -75,6 +76,10 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     width: '80%'
   },
+  invalidOldPasswordText: {
+    color: '#808080',
+    paddingTop: 10
+  },
   saveButton: {
     alignItems: 'center',
     backgroundColor: '#26A69A',
@@ -83,7 +88,7 @@ const styles = StyleSheet.create({
     height: 40,
     justifyContent: 'center',
     marginBottom: 40,
-    marginTop: 40,
+    marginTop: 70,
     padding: 10,
     width: 140
   }
