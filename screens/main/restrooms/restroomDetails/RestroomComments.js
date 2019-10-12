@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView, ActivityIndicator } from 'react-native';
+import { ScrollView, ActivityIndicator, View, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { addRestroomComment } from '../../../../store/actions/RestroomActions';
@@ -32,15 +32,18 @@ class RestroomComments extends Component {
 
   render() {
     return (
-      <ScrollView>
+      <View style={styles.container}>
+        <ScrollView>
+          {!this.props.isFetchingComments && <CommentsList comments={this.props.comments} />}
+          {this.props.isFetchingComments && (
+            <ActivityIndicator style={styles.indicator} size="large" color="#009688" />
+          )}
+        </ScrollView>
         <CommentInput
           onAddComment={this.handleAddComment}
           isAddingDisabled={this.props.isAddingComment}
         />
-
-        {!this.props.isFetchingComments && <CommentsList comments={this.props.comments} />}
-        {this.props.isFetchingComments && <ActivityIndicator size="large" color="#009688" />}
-      </ScrollView>
+      </View>
     );
   }
 }
@@ -62,6 +65,15 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
   addRestroomComment
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1
+  },
+  indicator: {
+    marginTop: 10
+  }
+});
 
 export default connect(
   mapStateToProps,

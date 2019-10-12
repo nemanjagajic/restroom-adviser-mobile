@@ -9,6 +9,7 @@ const CommentsList = props => (
   <View>
     {props.comments.length > 0 ? (
       <FlatList
+        style={styles.list}
         contentContainerStyle={styles.container}
         data={props.comments}
         renderItem={comment => <Comment {...comment} />}
@@ -36,6 +37,9 @@ const styles = StyleSheet.create({
   },
   emptyListText: {
     color: '#b3b3b3'
+  },
+  list: {
+    marginBottom: 40
   }
 });
 

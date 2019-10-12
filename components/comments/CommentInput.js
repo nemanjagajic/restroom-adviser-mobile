@@ -1,17 +1,53 @@
 import React, { Component } from 'react';
-import { Dimensions, StyleSheet, TextInput, View, TouchableOpacity, Text } from 'react-native';
+import { Dimensions, Keyboard, StyleSheet, TextInput, TouchableOpacity, View } from 'react-native';
 import PropTypes from 'prop-types';
 
 import Colors from '../../constants/Colors';
+import { Icon } from 'expo';
 
 class CommentInput extends Component {
   state = {
-    text: ''
+    text: '',
+    isKeyboardOpened: false,
+    keyboardEndCoordinates: 0
   };
+
+  constructor(props) {
+    super(props);
+    this.keyboardDidShow = this.keyboardDidShow.bind(this);
+    this.keyboardDidHide = this.keyboardDidHide.bind(this);
+  }
+
+  // eslint-disable-next-line react/no-deprecated
+  componentWillMount() {
+    this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this.keyboardDidShow);
+    this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this.keyboardDidHide);
+  }
+
+  componentWillUnmount() {
+    this.keyboardDidShowListener.remove();
+    this.keyboardDidHideListener.remove();
+  }
+
+  keyboardDidShow(e) {
+    this.setState({ isKeyboardOpened: true, keyboardEndCoordinates: e.endCoordinates.height });
+  }
+
+  keyboardDidHide() {
+    this.setState({ isKeyboardOpened: false, keyboardEndCoordinates: 0 });
+  }
 
   render() {
     return (
-      <View style={styles.container}>
+      <View
+        style={[
+          styles.container,
+          // eslint-disable-next-line react-native/no-inline-styles
+          {
+            bottom: this.state.isKeyboardOpened ? this.state.keyboardEndCoordinates - 50 : 0
+          }
+        ]}
+      >
         <TextInput
           style={styles.textInput}
           placeholder={'Leave a comment...'}
@@ -20,17 +56,18 @@ class CommentInput extends Component {
           onChangeText={text => this.setState({ text })}
         />
         <TouchableOpacity
-          style={
-            this.props.isAddingDisabled || this.state.text === ''
-              ? styles.postButtonInactive
-              : styles.postButtonActive
-          }
           onPress={() => {
             this.props.onAddComment(this.state.text);
             this.setState({ text: '' });
           }}
         >
-          <Text style={styles.text}>Post</Text>
+          <Icon.Ionicons
+            name="md-send"
+            size={28}
+            color={
+              this.props.isAddingDisabled || this.state.text === '' ? '#ccc' : Colors.mainColor
+            }
+          />
         </TouchableOpacity>
       </View>
     );
@@ -45,38 +82,22 @@ CommentInput.propTypes = {
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
-    marginBottom: 10,
-    marginLeft: '5%',
-    marginRight: '5%',
-    marginTop: 15,
-    width: Dimensions.get('window').width * 0.9
-  },
-  postButtonActive: {
-    alignItems: 'center',
-    backgroundColor: Colors.mainColor,
-    borderRadius: 10,
-    padding: 10,
-    width: Dimensions.get('window').width * 0.9
-  },
-  postButtonInactive: {
-    alignItems: 'center',
-    backgroundColor: '#b3b3b3',
-    borderRadius: 10,
-    padding: 10,
-    width: Dimensions.get('window').width * 0.9
-  },
-  text: {
-    color: '#FFF',
-    fontSize: 14,
-    marginLeft: 5
+    backgroundColor: '#FFF',
+    borderColor: '#e6e6e6',
+    borderLeftWidth: 1,
+    borderRightWidth: 1,
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
+    borderTopWidth: 1,
+    bottom: 0,
+    display: 'flex',
+    flexDirection: 'row',
+    position: 'absolute',
+    width: Dimensions.get('window').width,
+    zIndex: 1
   },
   textInput: {
-    backgroundColor: '#FFF',
-    borderColor: '#bfbfbf',
-    borderRadius: 10,
-    borderWidth: 1,
     color: '#737373',
-    marginBottom: 5,
     padding: 10,
     width: Dimensions.get('window').width * 0.9
   }
