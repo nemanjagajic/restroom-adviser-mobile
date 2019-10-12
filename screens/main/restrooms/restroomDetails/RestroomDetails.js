@@ -14,6 +14,7 @@ import ContentLoader from 'react-native-content-loader';
 import { Rect } from 'react-native-svg';
 import config from '../../../../config';
 import { Ionicons } from '@expo/vector-icons/build/Icons';
+import GestureRecognizer from 'react-native-swipe-gestures';
 import Colors from '../../../../constants/Colors';
 import ButtonCustom from '../../../../components/shared/button/ButtonCustom';
 import { getRestroomComments, getRestroomRatings } from '../../../../store/actions/RestroomActions';
@@ -79,13 +80,22 @@ class RestroomDetails extends Component {
               />
             </TouchableOpacity>
             {images.length > 0 ? (
-              <Image
-                style={styles.image}
-                key={images[this.state.currentImageIndex].id}
-                source={{
-                  uri: `${config.IMAGE_BASE_URL}${images[this.state.currentImageIndex].path}`
+              <GestureRecognizer
+                onSwipeLeft={this.handleImageForward}
+                onSwipeRight={this.handleImageBack}
+                config={{
+                  velocityThreshold: 0.3,
+                  directionalOffsetThreshold: 80
                 }}
-              />
+              >
+                <Image
+                  style={styles.image}
+                  key={images[this.state.currentImageIndex].id}
+                  source={{
+                    uri: `${config.IMAGE_BASE_URL}${images[this.state.currentImageIndex].path}`
+                  }}
+                />
+              </GestureRecognizer>
             ) : (
               <View style={styles.noImages}>
                 <Ionicons name="md-images" color={'#ccc'} size={100} />
