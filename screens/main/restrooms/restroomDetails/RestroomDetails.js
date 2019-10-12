@@ -113,16 +113,9 @@ class RestroomDetails extends Component {
         <Text style={styles.location}>{locationText}</Text>
         {this.props.isFetchingRatings || this.props.isFetchingComments ? (
           <ContentLoader style={styles.contentLoader} height={240} duration={1000}>
-            <Rect x="0" y="33" rx="4" ry="4" width="250" height="14" />
-            <Rect x="0" y="57" rx="4" ry="4" width="220" height="8" />
-            <Rect x="0" y="68" rx="4" ry="4" width="290" height="18" />
-            <Rect x="0" y="95" rx="4" ry="4" width="160" height="9" />
-            <Rect x="0" y="112" rx="4" ry="4" width="280" height="15" />
-            <Rect x="0" y="141" rx="4" ry="4" width="120" height="17" />
-            <Rect x="0" y="165" rx="4" ry="4" width="230" height="9" />
-            <Rect x="0" y="180" rx="4" ry="4" width="170" height="14" />
-            <Rect x="0" y="200" rx="4" ry="4" width="240" height="12" />
-            <Rect x="0" y="215" rx="4" ry="4" width="270" height="14" />
+            <Rect x="130" y="15" rx="10" ry="10" width="40" height="25" />
+            <Rect x="40" y="45" rx="15" ry="15" width="220" height="50" />
+            <Rect x="0" y="120" rx="10" ry="10" width="300" height="60" />
           </ContentLoader>
         ) : (
           <View style={styles.contentContainer}>
