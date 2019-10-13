@@ -1,39 +1,33 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Dimensions, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import Colors from '../../constants/Colors';
 import PropTypes from 'prop-types';
 
-class FeedSearchHeader extends Component {
-  render() {
-    return (
-      <View style={styles.searchWrapper}>
-        <View style={styles.searchInputWrapper}>
-          <TextInput
-            style={styles.searchInput}
-            placeholder={'Search restrooms'}
-            onChangeText={text => this.props.onChangeText(text)}
-            value={this.props.searchValue}
-            returnKeyType={'search'}
-            onSubmitEditing={() => this.props.onSubmitEditing(this.props.searchValue)}
-            clearButtonMode="always"
-          />
-          <TouchableOpacity
-            style={
-              this.props.appliedFilterRating ? styles.searchButtonApplied : styles.searchButton
-            }
-            onPress={this.props.onFilterButtonPressed}
-          >
-            <Ionicons name="ios-funnel" color="#fff" size={25} />
-          </TouchableOpacity>
-        </View>
-        <Text style={styles.numberOfRestroomsText}>
-          {`Number of restrooms: ${this.props.restroomsTotalNumber}`}
-        </Text>
-      </View>
-    );
-  }
-}
+const FeedSearchHeader = props => (
+  <View style={styles.searchWrapper}>
+    <View style={styles.searchInputWrapper}>
+      <TextInput
+        style={styles.searchInput}
+        placeholder={'Search restrooms'}
+        onChangeText={text => props.onChangeText(text)}
+        value={props.searchValue}
+        returnKeyType={'search'}
+        onSubmitEditing={() => props.onSubmitEditing(props.searchValue)}
+        clearButtonMode="always"
+      />
+      <TouchableOpacity
+        style={props.appliedFilterRating ? styles.searchButtonApplied : styles.searchButton}
+        onPress={props.onFilterButtonPressed}
+      >
+        <Ionicons name="ios-funnel" color="#fff" size={25} />
+      </TouchableOpacity>
+    </View>
+    <Text style={styles.numberOfRestroomsText}>
+      {`Number of restrooms: ${props.restroomsTotalNumber}`}
+    </Text>
+  </View>
+);
 
 FeedSearchHeader.propTypes = {
   restroomsTotalNumber: PropTypes.number,

@@ -1,65 +1,57 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Dimensions, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import ButtonCustom from '../shared/button/ButtonCustom';
 import Colors from '../../constants/Colors';
 import PropTypes from 'prop-types';
 
-class FeedFiltersModal extends Component {
-  render() {
-    const ratings = [1, 2, 3, 4, 5];
+const FeedFiltersModal = props => {
+  const ratings = [1, 2, 3, 4, 5];
 
-    return (
-      <View style={styles.filterModalWrapper}>
-        <View style={styles.filterModal}>
-          <Text style={styles.filterModalTitle}>Minimal rating:</Text>
-          <View style={styles.minimalRatingWrapper}>
-            {ratings.map(rating => (
-              <TouchableOpacity
-                style={
-                  this.props.selectedFilterRating === rating
-                    ? styles.ratingButtonSelected
-                    : styles.ratingButton
-                }
-                key={rating}
-                onPress={() => this.props.onSelectFilterRating(rating)}
-              >
-                <Text
-                  style={this.props.selectedFilterRating === rating ? styles.white : styles.gray}
-                >
-                  {rating}
-                </Text>
-              </TouchableOpacity>
-            ))}
+  return (
+    <View style={styles.filterModalWrapper}>
+      <View style={styles.filterModal}>
+        <Text style={styles.filterModalTitle}>Minimal rating:</Text>
+        <View style={styles.minimalRatingWrapper}>
+          {ratings.map(rating => (
             <TouchableOpacity
               style={
-                !this.props.selectedFilterRating ? styles.ratingButtonSelected : styles.ratingButton
+                props.selectedFilterRating === rating
+                  ? styles.ratingButtonSelected
+                  : styles.ratingButton
               }
-              onPress={() => this.props.onSelectFilterRating(null)}
+              key={rating}
+              onPress={() => props.onSelectFilterRating(rating)}
             >
-              <Text style={!this.props.selectedFilterRating ? styles.white : styles.gray}>
-                Show All
+              <Text style={props.selectedFilterRating === rating ? styles.white : styles.gray}>
+                {rating}
               </Text>
             </TouchableOpacity>
-          </View>
-          <View style={styles.modalButtons}>
-            <ButtonCustom
-              title={'Apply'}
-              style={styles.modalButton}
-              textStyle={styles.modalButtonText}
-              onPress={this.props.onApplyFilters}
-            />
-            <ButtonCustom
-              title={'Close'}
-              onPress={this.props.onCloseFiltersModal}
-              style={styles.modalButton}
-              textStyle={styles.modalButtonText}
-            />
-          </View>
+          ))}
+          <TouchableOpacity
+            style={!props.selectedFilterRating ? styles.ratingButtonSelected : styles.ratingButton}
+            onPress={() => props.onSelectFilterRating(null)}
+          >
+            <Text style={!props.selectedFilterRating ? styles.white : styles.gray}>Show All</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.modalButtons}>
+          <ButtonCustom
+            title={'Apply'}
+            style={styles.modalButton}
+            textStyle={styles.modalButtonText}
+            onPress={props.onApplyFilters}
+          />
+          <ButtonCustom
+            title={'Close'}
+            onPress={props.onCloseFiltersModal}
+            style={styles.modalButton}
+            textStyle={styles.modalButtonText}
+          />
         </View>
       </View>
-    );
-  }
-}
+    </View>
+  );
+};
 
 FeedFiltersModal.propTypes = {
   onSelectFilterRating: PropTypes.func,
