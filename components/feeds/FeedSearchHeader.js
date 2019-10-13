@@ -5,10 +5,6 @@ import Colors from '../../constants/Colors';
 import PropTypes from 'prop-types';
 
 class FeedSearchHeader extends Component {
-  state = {
-    searchValue: ''
-  };
-
   render() {
     return (
       <View style={styles.searchWrapper}>
@@ -16,10 +12,10 @@ class FeedSearchHeader extends Component {
           <TextInput
             style={styles.searchInput}
             placeholder={'Search restrooms'}
-            onChangeText={text => this.setState({ searchValue: text })}
-            value={this.state.searchValue}
+            onChangeText={text => this.props.onChangeText(text)}
+            value={this.props.searchValue}
             returnKeyType={'search'}
-            onSubmitEditing={() => this.props.onSubmitEditing(this.state.searchValue)}
+            onSubmitEditing={() => this.props.onSubmitEditing(this.props.searchValue)}
             clearButtonMode="always"
           />
           <TouchableOpacity
@@ -43,7 +39,9 @@ FeedSearchHeader.propTypes = {
   restroomsTotalNumber: PropTypes.number,
   appliedFilterRating: PropTypes.any,
   onFilterButtonPressed: PropTypes.func,
-  onSubmitEditing: PropTypes.func
+  onSubmitEditing: PropTypes.func,
+  searchValue: PropTypes.any,
+  onChangeText: PropTypes.func
 };
 
 const styles = StyleSheet.create({
