@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { StyleSheet, View, TextInput, Dimensions, TouchableOpacity, Text } from 'react-native';
+import { StyleSheet, View, Dimensions, TouchableOpacity, Text } from 'react-native';
 import PropTypes from 'prop-types';
 import { getFeedRestrooms, resetFeedRestrooms } from '../../../store/actions/RestroomActions';
 import {
@@ -14,6 +14,7 @@ import { FETCHING_LIMIT } from '../../../constants/Restrooms';
 import { Ionicons } from '@expo/vector-icons';
 import ButtonCustom from '../../../components/shared/button/ButtonCustom';
 import Colors from '../../../constants/Colors';
+import FeedSearchHeader from '../../../components/feeds/FeedSearchHeader';
 
 class FeedsHome extends Component {
   static navigationOptions = {
@@ -26,18 +27,18 @@ class FeedsHome extends Component {
 
   state = {
     offset: 0,
-    searchValue: '',
     isFilterModalVisible: false,
     selectedFilterRating: null,
-    appliedFilterRating: null
+    appliedFilterRating: null,
+    searchValue: ''
   };
 
   componentDidMount() {
     this.reloadRestrooms();
   }
 
-  reloadRestrooms = () => {
-    this.setState({ offset: 0 }, () => this.handleFetchNewRestrooms(true));
+  reloadRestrooms = (searchValue = this.state.searchValue) => {
+    this.setState({ offset: 0, searchValue }, () => this.handleFetchNewRestrooms(true));
   };
 
   handleFetchNewRestrooms = (isInitial = false) => {
@@ -61,40 +62,24 @@ class FeedsHome extends Component {
     );
   };
 
+  handleFilterButtonPressed = () => {
+    this.setState({
+      isFilterModalVisible: true,
+      selectedFilterRating: this.state.appliedFilterRating
+    });
+  };
+
   render() {
     const ratings = [1, 2, 3, 4, 5];
 
     return (
       <View style={styles.container}>
-        <View style={styles.searchWrapper}>
-          <View style={styles.searchInputWrapper}>
-            <TextInput
-              style={styles.searchInput}
-              placeholder={'Search restrooms'}
-              onChangeText={text => this.setState({ searchValue: text })}
-              value={this.state.searchValue}
-              returnKeyType={'search'}
-              onSubmitEditing={this.reloadRestrooms}
-              clearButtonMode="always"
-            />
-            <TouchableOpacity
-              style={
-                this.state.appliedFilterRating ? styles.searchButtonApplied : styles.searchButton
-              }
-              onPress={() =>
-                this.setState({
-                  isFilterModalVisible: true,
-                  selectedFilterRating: this.state.appliedFilterRating
-                })
-              }
-            >
-              <Ionicons name="ios-funnel" color="#fff" size={25} />
-            </TouchableOpacity>
-          </View>
-          <Text style={styles.numberOfRestroomsText}>
-            {`Number of restrooms: ${this.props.restroomsTotalNumber}`}
-          </Text>
-        </View>
+        <FeedSearchHeader
+          restroomsTotalNumber={this.props.restroomsTotalNumber}
+          appliedFilterRating={this.state.appliedFilterRating}
+          onFilterButtonPressed={this.handleFilterButtonPressed}
+          onSubmitEditing={this.reloadRestrooms}
+        />
         {!this.props.isFetchingRestrooms && this.props.restrooms.length === 0 ? (
           <View style={styles.emptyListContainer}>
             {!this.props.isFetchingRestrooms && (
@@ -273,11 +258,6 @@ const styles = StyleSheet.create({
     marginTop: 40,
     width: Dimensions.get('window').width * 0.7
   },
-  numberOfRestroomsText: {
-    color: '#b3b3b3',
-    fontSize: 14,
-    marginTop: 5
-  },
   ratingButton: {
     backgroundColor: '#f2f2f2',
     borderRadius: 50,
@@ -295,48 +275,6 @@ const styles = StyleSheet.create({
     paddingLeft: 15,
     paddingRight: 15,
     paddingTop: 10
-  },
-  searchButton: {
-    alignItems: 'center',
-    backgroundColor: '#ccc',
-    borderRadius: 50,
-    display: 'flex',
-    height: 35,
-    justifyContent: 'center',
-    marginLeft: 5,
-    width: 35
-  },
-  searchButtonApplied: {
-    alignItems: 'center',
-    backgroundColor: Colors.mainColor,
-    borderRadius: 50,
-    display: 'flex',
-    height: 35,
-    justifyContent: 'center',
-    marginLeft: 5,
-    width: 35
-  },
-  searchInput: {
-    backgroundColor: '#f2f2f2',
-    borderRadius: 15,
-    height: 35,
-    padding: 10,
-    width: Dimensions.get('window').width * 0.8
-  },
-  searchInputWrapper: {
-    alignItems: 'center',
-    display: 'flex',
-    flexDirection: 'row'
-  },
-  searchWrapper: {
-    alignItems: 'center',
-    backgroundColor: '#fff',
-    display: 'flex',
-    height: 75,
-    justifyContent: 'center',
-    position: 'absolute',
-    width: Dimensions.get('window').width,
-    zIndex: 1
   },
   white: {
     color: '#fff'
