@@ -1,5 +1,14 @@
 import React from 'react';
-import { FlatList, StyleSheet, Dimensions, View, Text, RefreshControl } from 'react-native';
+import {
+  FlatList,
+  StyleSheet,
+  Dimensions,
+  View,
+  Text,
+  RefreshControl,
+  TouchableOpacity,
+  ActivityIndicator
+} from 'react-native';
 import Comment from './Comment';
 import PropTypes from 'prop-types';
 
@@ -25,8 +34,12 @@ const CommentsList = props => (
       />
     ) : (
       <View style={styles.container}>
-        <Ionicons name="ios-chatbubbles" color="#bfbfbf" size={40} />
-        <Text style={styles.emptyListText}>No comments added yet</Text>
+        <TouchableOpacity style={styles.emptyListIcon} onPress={props.getRestroomComments}>
+          <Ionicons name="ios-chatbubbles" color="#bfbfbf" size={40} />
+          <Text style={styles.emptyListText}>No comments added yet</Text>
+          <Text style={styles.emptyListText}>tap to reload</Text>
+        </TouchableOpacity>
+        {props.isFetchingComments && <ActivityIndicator style={styles.indicator} size="large" />}
       </View>
     )}
   </View>
@@ -40,13 +53,21 @@ CommentsList.propTypes = {
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: 'center',
     paddingBottom: 15,
     paddingTop: 10,
     width: Dimensions.get('window').width
   },
+  emptyListIcon: {
+    alignItems: 'center',
+    display: 'flex',
+    justifyContent: 'center',
+    marginTop: 20
+  },
   emptyListText: {
     color: '#b3b3b3'
+  },
+  indicator: {
+    marginTop: 10
   },
   list: {
     marginBottom: 50
