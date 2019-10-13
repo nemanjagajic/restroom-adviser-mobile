@@ -14,7 +14,6 @@ import ContentLoader from 'react-native-content-loader';
 import { Rect } from 'react-native-svg';
 import config from '../../../../config';
 import { Ionicons } from '@expo/vector-icons/build/Icons';
-import GestureRecognizer from 'react-native-swipe-gestures';
 import Colors from '../../../../constants/Colors';
 import ButtonCustom from '../../../../components/shared/button/ButtonCustom';
 import { getRestroomComments, getRestroomRatings } from '../../../../store/actions/RestroomActions';
@@ -25,6 +24,7 @@ import {
   isFetchingCommentsSelector
 } from '../../../../store/selectors/RestroomSelector';
 import StarRating from 'react-native-star-rating';
+import Swiper from 'react-native-swiper';
 
 class RestroomDetails extends Component {
   static navigationOptions = {
@@ -45,20 +45,6 @@ class RestroomDetails extends Component {
     currentImageIndex: 0
   };
 
-  handleImageBack = () => {
-    if (this.state.currentImageIndex > 0) {
-      this.setState(prevState => ({ currentImageIndex: prevState.currentImageIndex - 1 }));
-    }
-  };
-
-  handleImageForward = () => {
-    const images = this.props.navigation.getParam('restroom').images;
-
-    if (this.state.currentImageIndex < images.length - 1) {
-      this.setState(prevState => ({ currentImageIndex: prevState.currentImageIndex + 1 }));
-    }
-  };
-
   render() {
     const {
       name,
@@ -70,54 +56,42 @@ class RestroomDetails extends Component {
 
     return (
       <ScrollView contentContainerStyle={styles.container}>
-        <View style={styles.imagePreview}>
-          <View style={styles.imageGallery}>
-            <TouchableOpacity style={styles.imageArrows} onPress={this.handleImageBack}>
-              <Ionicons
-                name="ios-arrow-back"
-                color={this.state.currentImageIndex > 0 ? Colors.mainColor : '#b3b3b3'}
-                size={30}
-              />
-            </TouchableOpacity>
-            {images.length > 0 ? (
-              <GestureRecognizer
-                onSwipeLeft={this.handleImageForward}
-                onSwipeRight={this.handleImageBack}
-                config={{
-                  velocityThreshold: 0.3,
-                  directionalOffsetThreshold: 80
+        <Swiper
+          style={styles.imageSwiper}
+          showsButtons={images.length > 1}
+          activeDotColor={Colors.mainColor}
+          nextButton={
+            <Ionicons
+              name="ios-arrow-forward"
+              color={this.state.currentImageIndex > 0 ? Colors.mainColor : Colors.mainColor}
+              size={30}
+            />
+          }
+          prevButton={
+            <Ionicons
+              name="ios-arrow-back"
+              color={this.state.currentImageIndex > 0 ? Colors.mainColor : Colors.mainColor}
+              size={30}
+            />
+          }
+        >
+          {images.length > 0 ? (
+            images.map(image => (
+              <Image
+                style={styles.image}
+                key={images[this.state.currentImageIndex].id}
+                source={{
+                  uri: `${config.IMAGE_BASE_URL}${image.path}`
                 }}
-              >
-                <Image
-                  style={styles.image}
-                  key={images[this.state.currentImageIndex].id}
-                  source={{
-                    uri: `${config.IMAGE_BASE_URL}${images[this.state.currentImageIndex].path}`
-                  }}
-                />
-              </GestureRecognizer>
-            ) : (
-              <View style={styles.noImages}>
-                <Ionicons name="md-images" color={'#ccc'} size={100} />
-                <Text style={styles.noImagesText}>No images have been added for this restroom</Text>
-              </View>
-            )}
-            <TouchableOpacity style={styles.imageArrows} onPress={this.handleImageForward}>
-              <Ionicons
-                name="ios-arrow-forward"
-                color={
-                  this.state.currentImageIndex < images.length - 1 ? Colors.mainColor : '#b3b3b3'
-                }
-                size={30}
               />
-            </TouchableOpacity>
-          </View>
-          {images.length > 0 && (
-            <Text style={styles.imageNumberIndicator}>
-              {`${this.state.currentImageIndex + 1}/${images.length}`}
-            </Text>
+            ))
+          ) : (
+            <View style={styles.image}>
+              <Ionicons name="md-images" color={'#ccc'} size={100} />
+              <Text style={styles.noImagesText}>No images have been added for this restroom</Text>
+            </View>
           )}
-        </View>
+        </Swiper>
 
         <Text style={styles.name}>{name}</Text>
         <Text style={styles.location}>{locationText}</Text>
@@ -243,31 +217,14 @@ const styles = StyleSheet.create({
     fontStyle: 'italic'
   },
   image: {
-    borderRadius: 10,
-    height: 300,
-    marginLeft: 10,
-    marginRight: 10,
-    width: 225
-  },
-  imageArrows: {
-    padding: 20
-  },
-  imageGallery: {
     alignItems: 'center',
-    display: 'flex',
-    flexDirection: 'row',
+    flex: 1,
     justifyContent: 'center'
   },
-  imageNumberIndicator: {
-    color: '#808080',
-    marginTop: 10
-  },
-  imagePreview: {
-    alignItems: 'center',
+  imageSwiper: {
     backgroundColor: '#f2f2f2',
-    display: 'flex',
     height: 360,
-    justifyContent: 'center'
+    width: Dimensions.get('window').width
   },
   location: {
     borderBottomWidth: 1,
@@ -284,20 +241,6 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     marginRight: 20,
     marginTop: 20
-  },
-  noImages: {
-    alignItems: 'center',
-    backgroundColor: '#fff',
-    borderColor: '#ccc',
-    borderRadius: 10,
-    borderWidth: 1,
-    display: 'flex',
-    height: 300,
-    justifyContent: 'center',
-    marginLeft: 10,
-    marginRight: 10,
-    padding: 20,
-    width: 225
   },
   noImagesText: {
     color: '#b3b3b3',

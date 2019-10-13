@@ -44,6 +44,7 @@
     "react-native-maps": "~0.24.0",
     "react-native-star-rating": "^1.1.0",
     "react-native-swipe-gestures": "^1.0.4",
+    "react-native-swiper": "^1.5.14",
     "react-navigation": "^3.11.0",
     "react-redux": "^5.0.7",
     "redux": "^4.0.1",
