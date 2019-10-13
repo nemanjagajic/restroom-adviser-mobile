@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { ScrollView, ActivityIndicator, View, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { addRestroomComment } from '../../../../store/actions/RestroomActions';
+import { addRestroomComment, getRestroomComments } from '../../../../store/actions/RestroomActions';
 import CommentInput from '../../../../components/comments/CommentInput';
 import {
   isAddingComment,
@@ -33,12 +33,13 @@ class RestroomComments extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <ScrollView>
-          {!this.props.isFetchingComments && <CommentsList comments={this.props.comments} />}
-          {this.props.isFetchingComments && (
-            <ActivityIndicator style={styles.indicator} size="large" color="#009688" />
-          )}
-        </ScrollView>
+        <CommentsList
+          comments={this.props.comments}
+          getRestroomComments={() =>
+            this.props.getRestroomComments(this.props.navigation.getParam('restroom'))
+          }
+          isFetchingComments={this.props.isFetchingComments}
+        />
         <CommentInput
           onAddComment={this.handleAddComment}
           isAddingDisabled={this.props.isAddingComment}
@@ -53,7 +54,8 @@ RestroomComments.propTypes = {
   addRestroomComment: PropTypes.func,
   isAddingComment: PropTypes.bool,
   isFetchingComments: PropTypes.bool,
-  comments: PropTypes.array
+  comments: PropTypes.array,
+  getRestroomComments: PropTypes.func
 };
 
 const mapStateToProps = state => ({
@@ -63,15 +65,13 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  addRestroomComment
+  addRestroomComment,
+  getRestroomComments
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1
-  },
-  indicator: {
-    marginTop: 20
   }
 });
 

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { View, ActivityIndicator, FlatList, StyleSheet, RefreshControl } from 'react-native';
+import { ActivityIndicator, FlatList, RefreshControl, StyleSheet, View } from 'react-native';
 import PropTypes from 'prop-types';
 import FeedItem from './FeedItem';
+import Colors from '../../constants/Colors';
 
 class FeedsList extends Component {
   state = {
@@ -20,7 +21,7 @@ class FeedsList extends Component {
     const shouldHandleScroll =
       this.isCloseToBottom(nativeEvent) &&
       !this.state.scrollFetchingDisabled &&
-      !this.props.isFetchingRestrooms &&
+      !this.props.isFetchingNewRestrooms &&
       this.props.restrooms.length < this.props.restroomsTotalNumber;
 
     if (shouldHandleScroll) {
@@ -30,39 +31,46 @@ class FeedsList extends Component {
     }
   };
 
+  renderFooter = () => {
+    return (
+      <View style={styles.indicatorPlaceholder}>
+        {this.props.isFetchingNewRestrooms && <ActivityIndicator size="large" />}
+      </View>
+    );
+  };
+
   render() {
     return (
-      <View>
-        <FlatList
-          data={this.props.restrooms}
-          keyExtractor={restroom => restroom.id.toString()}
-          renderItem={({ item, index }) => (
-            <FeedItem
-              isFirst={index === 0}
-              isLast={index === this.props.restrooms.length - 1}
-              restroom={item}
-              navigation={this.props.navigation}
-            />
-          )}
-          onScroll={this.handleScroll}
-          progressViewOffset={1000}
-          refreshControl={<RefreshControl onRefresh={this.props.reloadRestrooms} />}
-        />
-        {this.props.isFetchingRestrooms && (
-          <ActivityIndicator style={styles.indicator} size="large" />
+      <FlatList
+        data={this.props.restrooms}
+        keyExtractor={restroom => restroom.id.toString()}
+        renderItem={({ item, index }) => (
+          <FeedItem
+            isFirst={index === 0}
+            isLast={index === this.props.restrooms.length - 1}
+            restroom={item}
+            navigation={this.props.navigation}
+          />
         )}
-      </View>
+        onScroll={this.handleScroll}
+        progressViewOffset={1000}
+        refreshControl={
+          <RefreshControl
+            progressViewOffset={60}
+            refreshing={this.props.isFetchingRestrooms && !this.props.isFetchingNewRestrooms}
+            onRefresh={this.props.reloadRestrooms}
+            colors={[Colors.mainColor]}
+          />
+        }
+        ListFooterComponent={this.renderFooter}
+      />
     );
   }
 }
 
 const styles = StyleSheet.create({
-  indicator: {
-    bottom: 10,
-    left: 0,
-    position: 'absolute',
-    right: 0,
-    zIndex: -1
+  indicatorPlaceholder: {
+    height: 50
   }
 });
 
@@ -72,7 +80,8 @@ FeedsList.propTypes = {
   fetchNewIssues: PropTypes.func,
   restroomsTotalNumber: PropTypes.number,
   reloadRestrooms: PropTypes.func,
-  navigation: PropTypes.object
+  navigation: PropTypes.object,
+  isFetchingNewRestrooms: PropTypes.bool
 };
 
 export default FeedsList;

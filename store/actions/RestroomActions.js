@@ -22,7 +22,9 @@ import {
   ADD_FEED_RESTROOMS,
   RESET_FEED_RESTROOMS,
   SET_FETCHING_FEED_RESTROOMS,
-  SET_FETCHING_FEED_RESTROOMS_FINISHED
+  SET_FETCHING_FEED_RESTROOMS_FINISHED,
+  SET_FETCHING_NEW_FEED_RESTROOMS_FINISHED,
+  SET_FETCHING_NEW_FEED_RESTROOMS
 } from './ActionTypes';
 
 export const addRestroom = payload => ({
@@ -129,4 +131,12 @@ export const setFetchingFeedRestrooms = () => ({
 
 export const setFetchingFeedRestroomsFinished = () => ({
   type: SET_FETCHING_FEED_RESTROOMS_FINISHED
+});
+
+export const setFetchingNewFeedRestrooms = () => ({
+  type: SET_FETCHING_NEW_FEED_RESTROOMS
+});
+
+export const setFetchingNewFeedRestroomsFinished = () => ({
+  type: SET_FETCHING_NEW_FEED_RESTROOMS_FINISHED
 });

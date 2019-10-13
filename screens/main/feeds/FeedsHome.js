@@ -1,20 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {
-  ActivityIndicator,
-  StyleSheet,
-  View,
-  TextInput,
-  Dimensions,
-  TouchableOpacity,
-  Text
-} from 'react-native';
+import { StyleSheet, View, TextInput, Dimensions, TouchableOpacity, Text } from 'react-native';
 import PropTypes from 'prop-types';
 import { getFeedRestrooms, resetFeedRestrooms } from '../../../store/actions/RestroomActions';
 import {
   feedRestroomsSelector,
   feedRestroomsTotalNumberSelector,
-  isFetchingFeedRestroomsSelector
+  isFetchingFeedRestroomsSelector,
+  isFetchingNewFeedRestroomsSelector
 } from '../../../store/selectors/RestroomSelector';
 import FeedsList from '../../../components/feeds/FeedsList';
 import { FETCHING_LIMIT } from '../../../constants/Restrooms';
@@ -40,20 +33,20 @@ class FeedsHome extends Component {
   };
 
   componentDidMount() {
-    this.handleFetchNewRestrooms();
+    this.reloadRestrooms();
   }
 
   reloadRestrooms = () => {
-    this.props.resetFeedRestrooms();
-    this.setState({ offset: 0 }, this.handleFetchNewRestrooms);
+    this.setState({ offset: 0 }, () => this.handleFetchNewRestrooms(true));
   };
 
-  handleFetchNewRestrooms = () => {
+  handleFetchNewRestrooms = (isInitial = false) => {
     this.props.getFeedRestrooms({
       offset: this.state.offset,
       limit: FETCHING_LIMIT,
       searchValue: this.state.searchValue === '' ? null : this.state.searchValue,
-      minimalRating: this.state.appliedFilterRating
+      minimalRating: this.state.appliedFilterRating,
+      isInitial
     });
     this.setState(prevState => ({ offset: prevState.offset + FETCHING_LIMIT }));
   };
@@ -69,8 +62,6 @@ class FeedsHome extends Component {
   };
 
   render() {
-    const shouldShowIndicator =
-      this.props.restrooms && this.props.restrooms.length === 0 && this.props.isFetchingRestrooms;
     const ratings = [1, 2, 3, 4, 5];
 
     return (
@@ -104,17 +95,7 @@ class FeedsHome extends Component {
             {`Number of restrooms: ${this.props.restroomsTotalNumber}`}
           </Text>
         </View>
-        {shouldShowIndicator && <ActivityIndicator style={styles.indicator} size="large" />}
-        {this.props.restrooms && this.props.restrooms.length !== 0 ? (
-          <FeedsList
-            restrooms={this.props.restrooms}
-            restroomsTotalNumber={this.props.restroomsTotalNumber}
-            isFetchingRestrooms={this.props.isFetchingRestrooms}
-            fetchNewIssues={this.handleFetchNewRestrooms}
-            reloadRestrooms={this.reloadRestrooms}
-            navigation={this.props.navigation}
-          />
-        ) : (
+        {!this.props.isFetchingRestrooms && this.props.restrooms.length === 0 ? (
           <View style={styles.emptyListContainer}>
             {!this.props.isFetchingRestrooms && (
               <View style={styles.emptyList}>
@@ -125,6 +106,16 @@ class FeedsHome extends Component {
               </View>
             )}
           </View>
+        ) : (
+          <FeedsList
+            restrooms={this.props.restrooms}
+            restroomsTotalNumber={this.props.restroomsTotalNumber}
+            isFetchingRestrooms={this.props.isFetchingRestrooms}
+            isFetchingNewRestrooms={this.props.isFetchingNewRestrooms}
+            fetchNewIssues={this.handleFetchNewRestrooms}
+            reloadRestrooms={this.reloadRestrooms}
+            navigation={this.props.navigation}
+          />
         )}
         {this.state.isFilterModalVisible && (
           <View style={styles.filterModalWrapper}>
@@ -195,7 +186,20 @@ FeedsHome.propTypes = {
   restrooms: PropTypes.array,
   isFetchingRestrooms: PropTypes.bool,
   restroomsTotalNumber: PropTypes.number,
-  resetFeedRestrooms: PropTypes.func
+  resetFeedRestrooms: PropTypes.func,
+  isFetchingNewRestrooms: PropTypes.bool
+};
+
+const mapStateToProps = state => ({
+  restrooms: feedRestroomsSelector(state),
+  restroomsTotalNumber: feedRestroomsTotalNumberSelector(state),
+  isFetchingRestrooms: isFetchingFeedRestroomsSelector(state),
+  isFetchingNewRestrooms: isFetchingNewFeedRestroomsSelector(state)
+});
+
+const mapDispatchToProps = {
+  getFeedRestrooms,
+  resetFeedRestrooms
 };
 
 const styles = StyleSheet.create({
@@ -244,12 +248,6 @@ const styles = StyleSheet.create({
   },
   gray: {
     color: '#b3b3b3'
-  },
-  indicator: {
-    left: 0,
-    position: 'absolute',
-    right: 0,
-    top: 80
   },
   minimalRatingWrapper: {
     alignItems: 'center',
@@ -344,17 +342,6 @@ const styles = StyleSheet.create({
     color: '#fff'
   }
 });
-
-const mapStateToProps = state => ({
-  restrooms: feedRestroomsSelector(state),
-  restroomsTotalNumber: feedRestroomsTotalNumberSelector(state),
-  isFetchingRestrooms: isFetchingFeedRestroomsSelector(state)
-});
-
-const mapDispatchToProps = {
-  getFeedRestrooms,
-  resetFeedRestrooms
-};
 
 export default connect(
   mapStateToProps,

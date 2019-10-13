@@ -15,7 +15,9 @@ import {
   ADD_FEED_RESTROOMS,
   RESET_FEED_RESTROOMS,
   SET_FETCHING_FEED_RESTROOMS,
-  SET_FETCHING_FEED_RESTROOMS_FINISHED
+  SET_FETCHING_FEED_RESTROOMS_FINISHED,
+  SET_FETCHING_NEW_FEED_RESTROOMS_FINISHED,
+  SET_FETCHING_NEW_FEED_RESTROOMS
 } from '../actions/ActionTypes';
 
 const initialState = {
@@ -29,7 +31,8 @@ const initialState = {
   isFetchingRatings: false,
   ratings: {},
   isAddingRating: false,
-  isFetchingFeedRestrooms: false
+  isFetchingFeedRestrooms: false,
+  isFetchingNewFeedRestrooms: false
 };
 
 export default (state = initialState, action) => {
@@ -121,6 +124,16 @@ export default (state = initialState, action) => {
       return {
         ...state,
         isFetchingFeedRestrooms: false
+      };
+    case SET_FETCHING_NEW_FEED_RESTROOMS:
+      return {
+        ...state,
+        isFetchingNewFeedRestrooms: true
+      };
+    case SET_FETCHING_NEW_FEED_RESTROOMS_FINISHED:
+      return {
+        ...state,
+        isFetchingNewFeedRestrooms: false
       };
     default:
       return state;

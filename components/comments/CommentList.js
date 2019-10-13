@@ -1,9 +1,10 @@
 import React from 'react';
-import { FlatList, StyleSheet, Dimensions, View, Text } from 'react-native';
+import { FlatList, StyleSheet, Dimensions, View, Text, RefreshControl } from 'react-native';
 import Comment from './Comment';
 import PropTypes from 'prop-types';
 
 import { Ionicons } from '@expo/vector-icons';
+import Colors from '../../constants/Colors';
 
 const CommentsList = props => (
   <View>
@@ -14,6 +15,13 @@ const CommentsList = props => (
         data={props.comments}
         renderItem={comment => <Comment {...comment} />}
         keyExtractor={comment => comment.id.toString()}
+        refreshControl={
+          <RefreshControl
+            refreshing={props.isFetchingComments}
+            onRefresh={props.getRestroomComments}
+            colors={[Colors.mainColor]}
+          />
+        }
       />
     ) : (
       <View style={styles.container}>
@@ -25,7 +33,9 @@ const CommentsList = props => (
 );
 
 CommentsList.propTypes = {
-  comments: PropTypes.array
+  comments: PropTypes.array,
+  getRestroomComments: PropTypes.func,
+  isFetchingComments: PropTypes.bool
 };
 
 const styles = StyleSheet.create({

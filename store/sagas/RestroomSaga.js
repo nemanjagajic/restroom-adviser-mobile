@@ -19,7 +19,10 @@ import {
   setAddingRatingFinished,
   addFeedRestrooms,
   setFetchingFeedRestrooms,
-  setFetchingFeedRestroomsFinished
+  setFetchingFeedRestroomsFinished,
+  resetFeedRestrooms,
+  setFetchingNewFeedRestrooms,
+  setFetchingNewFeedRestroomsFinished
 } from '../actions/RestroomActions';
 import NavigationService from '../../services/NavigationService';
 
@@ -37,7 +40,11 @@ export function* fetchRestrooms() {
 
 export function* getFeedRestrooms({ payload }) {
   const user = yield select(userSelector);
-  yield put(setFetchingFeedRestrooms());
+  if (payload.isInitial) {
+    yield put(setFetchingFeedRestrooms());
+  } else {
+    yield put(setFetchingNewFeedRestrooms());
+  }
 
   try {
     const response = yield call(restroomService.getFeedRestrooms, {
@@ -47,12 +54,19 @@ export function* getFeedRestrooms({ payload }) {
       searchValue: payload.searchValue,
       minimalRating: payload.minimalRating
     });
+    if (payload.isInitial) {
+      yield put(resetFeedRestrooms());
+    }
     yield put(addFeedRestrooms(response.data));
   } catch (error) {
     // eslint-disable-next-line no-console
     console.log(error);
   } finally {
-    yield put(setFetchingFeedRestroomsFinished());
+    if (payload.isInitial) {
+      yield put(setFetchingFeedRestroomsFinished());
+    } else {
+      yield put(setFetchingNewFeedRestroomsFinished());
+    }
   }
 }
 
