@@ -34,7 +34,7 @@ class CommentInput extends Component {
   }
 
   keyboardDidHide() {
-    this.setState({ isKeyboardOpened: false, keyboardEndCoordinates: 0 });
+    this.setState({ isKeyboardOpened: false, keyboardEndCoordinates: 1 });
   }
 
   render() {
@@ -44,7 +44,7 @@ class CommentInput extends Component {
           styles.container,
           // eslint-disable-next-line react-native/no-inline-styles
           {
-            bottom: this.state.isKeyboardOpened ? this.state.keyboardEndCoordinates - 50 : 0
+            bottom: this.state.isKeyboardOpened ? this.state.keyboardEndCoordinates - 50 : 1
           }
         ]}
       >
