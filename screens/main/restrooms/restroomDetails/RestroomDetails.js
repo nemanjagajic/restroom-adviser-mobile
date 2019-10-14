@@ -59,21 +59,9 @@ class RestroomDetails extends Component {
         <Swiper
           style={styles.imageSwiper}
           showsButtons={images.length > 1}
-          activeDotColor={Colors.mainColor}
-          nextButton={
-            <Ionicons
-              name="ios-arrow-forward"
-              color={this.state.currentImageIndex > 0 ? Colors.mainColor : Colors.mainColor}
-              size={30}
-            />
-          }
-          prevButton={
-            <Ionicons
-              name="ios-arrow-back"
-              color={this.state.currentImageIndex > 0 ? Colors.mainColor : Colors.mainColor}
-              size={30}
-            />
-          }
+          activeDotColor={'#f5f5f5'}
+          nextButton={<Ionicons name="ios-arrow-forward" color={'#f5f5f5'} size={30} />}
+          prevButton={<Ionicons name="ios-arrow-back" color={'#f5f5f5'} size={30} />}
         >
           {images.length > 0 ? (
             images.map(image => (
