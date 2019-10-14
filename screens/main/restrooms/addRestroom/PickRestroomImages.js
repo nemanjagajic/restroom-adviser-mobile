@@ -63,7 +63,7 @@ class PickRestroomImages extends Component {
                   <View key={index}>
                     <Image source={image} style={styles.image} />
                     <TouchableOpacity style={styles.close} onPress={() => this.removeImage(image)}>
-                      <Ionicons color={'#666666'} name="ios-close-circle" size={34} />
+                      <Ionicons color={'#555'} name="ios-close-circle" size={34} />
                     </TouchableOpacity>
                   </View>
                 ))}
@@ -109,9 +109,16 @@ const styles = StyleSheet.create({
     width: 300
   },
   close: {
+    alignItems: 'center',
+    backgroundColor: '#fff',
+    borderRadius: 50,
+    display: 'flex',
+    height: 29,
+    justifyContent: 'center',
     position: 'absolute',
     right: 0,
-    top: -2
+    top: 0,
+    width: 29
   },
   container: {
     alignItems: 'center',
