@@ -1,5 +1,13 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Dimensions, Image, ScrollView, Text } from 'react-native';
+import {
+  View,
+  StyleSheet,
+  Dimensions,
+  Image,
+  ScrollView,
+  Text,
+  TouchableOpacity
+} from 'react-native';
 import PropTypes from 'prop-types';
 import { Ionicons } from '@expo/vector-icons';
 
@@ -34,15 +42,30 @@ class PickRestroomImages extends Component {
     }));
   };
 
+  removeImage = image => {
+    this.setState(prevState => ({
+      images: prevState.images.filter(currentImage => currentImage.uri !== image.uri)
+    }));
+  };
+
   render() {
     return (
       <View style={styles.container}>
         <View style={styles.imageArea}>
           <View style={styles.imagePresentation}>
             {this.state.images.length > 0 ? (
-              <ScrollView horizontal contentContainerStyle={styles.scrollView}>
+              <ScrollView
+                horizontal
+                contentContainerStyle={styles.scrollView}
+                showsHorizontalScrollIndicator={false}
+              >
                 {this.state.images.map((image, index) => (
-                  <Image source={image} key={index} style={styles.image} />
+                  <View key={index}>
+                    <Image source={image} style={styles.image} />
+                    <TouchableOpacity style={styles.close} onPress={() => this.removeImage(image)}>
+                      <Ionicons color={'#666666'} name="ios-close-circle" size={34} />
+                    </TouchableOpacity>
+                  </View>
                 ))}
               </ScrollView>
             ) : (
@@ -85,6 +108,11 @@ const styles = StyleSheet.create({
     position: 'absolute',
     width: 300
   },
+  close: {
+    position: 'absolute',
+    right: 0,
+    top: -2
+  },
   container: {
     alignItems: 'center',
     backgroundColor: '#fff',
@@ -113,15 +141,15 @@ const styles = StyleSheet.create({
   imagePresentation: {
     alignItems: 'center',
     backgroundColor: '#f2f2f2',
-    borderBottomColor: '#cccccc',
+    borderBottomColor: '#d9d9d9',
     borderBottomWidth: 1,
     flex: 1,
     justifyContent: 'center'
   },
   scrollView: {
     marginTop: 30,
-    paddingLeft: 5,
-    paddingRight: 5
+    paddingLeft: 10,
+    paddingRight: 10
   },
   white: {
     color: '#fff'
