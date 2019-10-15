@@ -18,7 +18,8 @@ class AddImage extends Component {
   pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       allowsEditing: true,
-      aspect: [3, 4]
+      aspect: [3, 4],
+      quality: 0.9
     });
 
     if (!result.cancelled) {
@@ -30,7 +31,8 @@ class AddImage extends Component {
   openCamera = async () => {
     let result = await ImagePicker.launchCameraAsync({
       allowsEditing: true,
-      aspect: [3, 4]
+      aspect: [3, 4],
+      quality: 0.8
     });
 
     if (!result.cancelled) {
