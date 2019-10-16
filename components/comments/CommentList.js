@@ -35,7 +35,7 @@ const CommentsList = props => (
     ) : (
       <View style={styles.container}>
         <TouchableOpacity style={styles.emptyListIcon} onPress={props.getRestroomComments}>
-          <Ionicons name="ios-chatbubbles" color="#bfbfbf" size={40} />
+          <Ionicons name="ios-chatbubbles" color="#cccccc" size={40} />
           <Text style={styles.emptyListText}>No comments added yet</Text>
           <Text style={styles.emptyListText}>tap to reload</Text>
         </TouchableOpacity>
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
     marginTop: 20
   },
   emptyListText: {
-    color: '#b3b3b3'
+    color: '#bfbfbf'
   },
   indicator: {
     marginTop: 10

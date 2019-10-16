@@ -34,18 +34,17 @@ const FeedItem = props => {
       <View style={styles.contentRight}>
         <Text style={styles.name}>{name}</Text>
         <Text style={styles.location}>{locationText}</Text>
-        <StarRating
-          disabled={true}
-          maxStars={5}
-          rating={rating.totalRating}
-          starSize={18}
-          emptyStarColor={Colors.mainColor}
-          fullStarColor={Colors.mainColor}
-        />
-        <Text style={styles.totalRating}>
-          {' '}
-          {`${rating.totalRating} (${rating.numberOfRatings} votes)`}
-        </Text>
+        <View style={styles.voteWrapper}>
+          <StarRating
+            disabled={true}
+            maxStars={5}
+            rating={rating.totalRating}
+            starSize={18}
+            emptyStarColor={Colors.mainColor}
+            fullStarColor={Colors.mainColor}
+          />
+          <Text style={styles.totalRating}>{`${rating.numberOfRatings} votes`}</Text>
+        </View>
       </View>
     </TouchableOpacity>
   );
@@ -60,10 +59,6 @@ FeedItem.propTypes = {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#f5f5f5',
-    borderColor: '#e6e6e6',
-    borderRadius: 10,
-    borderWidth: 1,
     display: 'flex',
     flexDirection: 'row',
     height: 120,
@@ -73,42 +68,51 @@ const styles = StyleSheet.create({
     width: Dimensions.get('window').width * 0.9
   },
   contentRight: {
-    alignItems: 'center',
+    alignItems: 'flex-start',
     display: 'flex',
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     marginLeft: 10,
-    marginRight: 10
+    marginRight: 10,
+    paddingTop: 5
   },
   emptyImage: {
     alignItems: 'center',
     backgroundColor: '#cccccc',
-    borderBottomLeftRadius: 10,
-    borderTopLeftRadius: 10,
+    borderRadius: 5,
     display: 'flex',
     height: 118,
     justifyContent: 'center',
     width: 118
   },
   image: {
-    borderBottomLeftRadius: 10,
-    borderTopLeftRadius: 10,
+    // borderBottomLeftRadius: 10,
+    // borderTopLeftRadius: 10,
+    borderRadius: 5,
     height: 118,
     width: 118
   },
   location: {
     color: '#999999',
     fontSize: 12,
-    marginBottom: 5,
-    textAlign: 'center'
+    marginBottom: 5
+    // textAlign: 'center'
   },
   name: {
     color: '#808080',
-    fontSize: 14
+    fontSize: 16
   },
   totalRating: {
     color: Colors.mainColor,
     fontSize: 12
+  },
+  voteWrapper: {
+    bottom: 10,
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    position: 'absolute',
+    width: '100%'
   }
 });
 
