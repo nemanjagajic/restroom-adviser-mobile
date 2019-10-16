@@ -3,7 +3,6 @@ import { StyleSheet, View, Dimensions, Text, Image } from 'react-native';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 
-import Colors from '../../constants/Colors';
 import poopEmojiIcon from '../../assets/images/poop-emoji.png';
 // import likeFilled from '../../assets/images/filled.png';
 import likeOutlined from '../../assets/images/outlined.png';
@@ -55,6 +54,7 @@ const styles = StyleSheet.create({
   },
   content: {
     color: '#666666',
+    paddingRight: 5,
     paddingTop: 10
   },
   createdAtText: {
@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
     paddingLeft: 5
   },
   userFullName: {
-    color: Colors.mainColor
+    color: '#a6a6a6'
   }
 });
 

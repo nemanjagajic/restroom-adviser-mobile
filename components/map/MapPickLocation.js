@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Dimensions, StyleSheet, Text, View, TextInput, Image } from 'react-native';
 import { Location, MapView, Permissions } from 'expo';
-import mapMarkerIcon from '../../assets/images/map-marker-icon.png';
+import mapMarkerIcon from '../../assets/images/map-marker-icon-filled.png';
 import PropTypes from 'prop-types';
 
 class MapPickLocation extends Component {

@@ -3,7 +3,7 @@ import { StyleSheet, View, Text, Dimensions } from 'react-native';
 import PropTypes from 'prop-types';
 import { Location, MapView, Permissions } from 'expo';
 import poopEmojiIcon from '../../assets/images/poop-emoji.png';
-import mapMarkerIcon from '../../assets/images/map-marker-icon.png';
+import mapMarkerIcon from '../../assets/images/map-marker-icon-filled.png';
 import mapMarkerIconRed from '../../assets/images/map-marker-icon-red.png';
 import Colors from '../../constants/Colors';
 
