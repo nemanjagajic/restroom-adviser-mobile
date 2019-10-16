@@ -84,9 +84,9 @@ class MapLocations extends React.Component {
                     <View style={styles.mapMarkerCallout}>
                       <Text>
                         <Text style={styles.calloutTitle}>{restroom.name} </Text>
-                        <Text style={styles.calloutTitleRating}>4.2</Text>
                       </Text>
                       <Text style={styles.calloutStreet}>{restroom.location_text}</Text>
+                      <Text style={styles.calloutTitleRating}>4.2</Text>
                       <Text style={styles.calloutTap}>Tap to open details</Text>
                     </View>
                   </MapView.Callout>
@@ -111,14 +111,15 @@ MapLocations.propTypes = {
 const styles = StyleSheet.create({
   calloutStreet: {
     color: Colors.mainColor,
-    fontSize: 12
+    fontSize: 12,
+    marginBottom: 5
   },
   calloutTap: {
     color: '#b3b3b3',
     fontSize: 10
   },
   calloutTitle: {
-    color: Colors.mainColor,
+    color: '#999999',
     fontSize: 20
   },
   calloutTitleRating: {
@@ -143,7 +144,7 @@ const styles = StyleSheet.create({
   mapMarkerCallout: {
     alignItems: 'center',
     backgroundColor: '#fff',
-    borderColor: Colors.mainColor,
+    borderColor: '#bfbfbf',
     borderRadius: 10,
     borderWidth: 1,
     display: 'flex',
