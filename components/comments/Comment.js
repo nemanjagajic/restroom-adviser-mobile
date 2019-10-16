@@ -5,6 +5,8 @@ import moment from 'moment';
 
 import Colors from '../../constants/Colors';
 import poopEmojiIcon from '../../assets/images/poop-emoji.png';
+// import likeFilled from '../../assets/images/filled.png';
+import likeOutlined from '../../assets/images/outlined.png';
 
 class Comment extends React.Component {
   render() {
@@ -21,6 +23,10 @@ class Comment extends React.Component {
           <Text style={styles.content}>{content}</Text>
           <Text style={styles.createdAtText}>{moment(createdAt).fromNow()}</Text>
         </View>
+        <View style={styles.likeWrapper}>
+          <Image style={styles.likeButton} source={likeOutlined} />
+          <Text style={styles.likeNumberText}>0</Text>
+        </View>
       </View>
     );
   }
@@ -33,13 +39,12 @@ Comment.propTypes = {
 
 const styles = StyleSheet.create({
   commentWrapper: {
-    width: Dimensions.get('window').width * 0.7
+    width: Dimensions.get('window').width * 0.6
   },
   container: {
-    backgroundColor: '#f7f7f7',
-    borderColor: '#d9d9d9',
+    borderBottomWidth: 1,
+    borderColor: '#f5f5f5',
     borderRadius: 10,
-    borderWidth: 1,
     display: 'flex',
     flexDirection: 'row',
     marginBottom: 10,
@@ -49,10 +54,10 @@ const styles = StyleSheet.create({
     width: Dimensions.get('window').width * 0.9
   },
   content: {
-    color: '#666666'
+    color: '#666666',
+    paddingTop: 10
   },
   createdAtText: {
-    alignSelf: 'flex-end',
     color: '#b3b3b3',
     fontSize: 12,
     paddingRight: 10,
@@ -71,6 +76,19 @@ const styles = StyleSheet.create({
     height: 50,
     marginRight: 10,
     width: 50
+  },
+  likeButton: {
+    height: 30,
+    width: 30
+  },
+  likeNumberText: {
+    color: '#ccc'
+  },
+  likeWrapper: {
+    alignItems: 'center',
+    display: 'flex',
+    justifyContent: 'center',
+    paddingLeft: 5
   },
   userFullName: {
     color: Colors.mainColor
