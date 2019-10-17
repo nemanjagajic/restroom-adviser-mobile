@@ -121,12 +121,19 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderColor: '#cccccc',
     borderRadius: 50,
-    borderWidth: 1,
     display: 'flex',
+    elevation: 2,
     height: 40,
     justifyContent: 'center',
     position: 'absolute',
     right: 10,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 1
+    },
+    shadowOpacity: 0.22,
+    shadowRadius: 2.22,
     top: 125,
     width: 40,
     zIndex: 1
