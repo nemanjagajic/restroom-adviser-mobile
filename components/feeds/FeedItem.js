@@ -5,13 +5,13 @@ import config from '../../config';
 import Colors from '../../constants/Colors';
 import StarRating from 'react-native-star-rating';
 import { Ionicons } from '@expo/vector-icons';
+import { Icon } from 'expo';
 
 const FeedItem = props => {
   const { id, image, rating, name, location_text: locationText } = props.restroom;
 
   return (
-    <TouchableOpacity
-      onPress={() => props.navigation.navigate('Home', { selectedRestroomId: id })}
+    <View
       style={[
         styles.container,
         // eslint-disable-next-line react-native/no-inline-styles
@@ -31,22 +31,31 @@ const FeedItem = props => {
           }}
         />
       )}
-      <View style={styles.contentRight}>
+      <TouchableOpacity
+        onPress={() => props.navigation.navigate('Home', { selectedRestroomId: id })}
+        style={styles.open}
+      >
+        <Icon.Ionicons name="md-open" size={22} style={styles.icon} color={'#ccc'} />
+      </TouchableOpacity>
+      <View style={styles.contentBottom}>
         <Text style={styles.name}>{name}</Text>
         <Text style={styles.location}>{locationText}</Text>
         <View style={styles.voteWrapper}>
-          <StarRating
-            disabled={true}
-            maxStars={5}
-            rating={rating.totalRating}
-            starSize={18}
-            emptyStarColor={Colors.mainColor}
-            fullStarColor={Colors.mainColor}
-          />
-          <Text style={styles.totalRating}>{`${rating.numberOfRatings} votes`}</Text>
+          <View style={styles.voteStars}>
+            <StarRating
+              disabled={true}
+              maxStars={5}
+              rating={rating.totalRating}
+              starSize={18}
+              emptyStarColor={Colors.mainColor}
+              fullStarColor={Colors.mainColor}
+            />
+            <Text style={styles.voteNumber}>{rating.totalRating}</Text>
+          </View>
+          <Text style={styles.numberOfVotes}>{`${rating.numberOfRatings} votes`}</Text>
         </View>
       </View>
-    </TouchableOpacity>
+    </View>
   );
 };
 
@@ -60,59 +69,85 @@ FeedItem.propTypes = {
 const styles = StyleSheet.create({
   container: {
     display: 'flex',
-    flexDirection: 'row',
-    height: 120,
-    marginBottom: 15,
+    height: 230,
+    marginBottom: 20,
     marginLeft: 'auto',
     marginRight: 'auto',
     width: Dimensions.get('window').width * 0.9
   },
-  contentRight: {
+  contentBottom: {
     alignItems: 'flex-start',
+    backgroundColor: '#f5f5f5',
+    borderBottomLeftRadius: 5,
+    borderBottomRightRadius: 5,
     display: 'flex',
     flex: 1,
     justifyContent: 'flex-start',
-    marginLeft: 10,
-    marginRight: 10,
+    paddingLeft: 10,
+    paddingRight: 10,
     paddingTop: 5
   },
   emptyImage: {
     alignItems: 'center',
     backgroundColor: '#cccccc',
-    borderRadius: 5,
+    borderTopLeftRadius: 5,
+    borderTopRightRadius: 5,
     display: 'flex',
-    height: 118,
+    height: 140,
     justifyContent: 'center',
-    width: 118
+    width: Dimensions.get('window').width * 0.9
   },
   image: {
-    // borderBottomLeftRadius: 10,
-    // borderTopLeftRadius: 10,
-    borderRadius: 5,
-    height: 118,
-    width: 118
+    borderTopLeftRadius: 5,
+    borderTopRightRadius: 5,
+    height: 140,
+    width: Dimensions.get('window').width * 0.9
   },
   location: {
     color: '#999999',
     fontSize: 12,
     marginBottom: 5
-    // textAlign: 'center'
   },
   name: {
     color: '#808080',
     fontSize: 16
   },
-  totalRating: {
-    color: Colors.mainColor,
+  numberOfVotes: {
+    color: '#999999',
     fontSize: 12
+  },
+  open: {
+    alignItems: 'center',
+    backgroundColor: '#fff',
+    borderColor: '#cccccc',
+    borderRadius: 50,
+    borderWidth: 1,
+    display: 'flex',
+    height: 40,
+    justifyContent: 'center',
+    position: 'absolute',
+    right: 10,
+    top: 125,
+    width: 40,
+    zIndex: 1
+  },
+  voteNumber: {
+    color: Colors.mainColor,
+    marginLeft: 5
+  },
+  voteStars: {
+    display: 'flex',
+    flexDirection: 'row'
   },
   voteWrapper: {
     bottom: 10,
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
+    paddingLeft: 10,
+    paddingRight: 10,
     position: 'absolute',
-    width: '100%'
+    width: Dimensions.get('window').width * 0.9
   }
 });
 
