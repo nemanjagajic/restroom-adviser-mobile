@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, TouchableOpacity, Text, Dimensions } from 'react-native';
+import { StyleSheet, View, TouchableOpacity, Text } from 'react-native';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { addHeaderLeftNavigator } from '../../helpers';
@@ -7,10 +7,7 @@ import { fetchRestrooms } from '../../store/actions/RestroomActions';
 import { restroomsSelector } from '../../store/selectors/RestroomSelector';
 import Colors from '../../constants/Colors';
 import MapLocations from '../../components/map/MapLocations';
-import ButtonCustom from '../../components/shared/button/ButtonCustom';
-// import { Ionicons } from '@expo/vector-icons';
-// import config from '../../config';
-import StarRating from 'react-native-star-rating';
+import SelectedRestroomModal from '../../components/home/SelectedRestroomModal';
 
 class HomeScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -42,17 +39,13 @@ class HomeScreen extends React.Component {
     this.props.fetchRestrooms();
   }
 
-  handleCalloutPressed = restroom => {
-    this.props.navigation.navigate('RestroomDetails', { restroom });
-  };
-
   openRestroomDetails = restroomId => {
     const restroom = this.props.restrooms.find(restroom => restroom.id === restroomId);
     this.props.navigation.navigate('RestroomDetails', { restroom });
   };
 
   handleMarkerPressed = restroom => {
-    this.props.navigation.setParams({ restroom, from: 'home' });
+    this.props.navigation.setParams({ restroom, from: 'HomeScreen' });
   };
 
   clearSelectedRestroom = () => {
@@ -62,17 +55,17 @@ class HomeScreen extends React.Component {
         latitude: restroom.latitude,
         longitude: restroom.longitude
       };
-      this.props.navigation.setParams({ restroom: null, from: 'home' });
+      this.props.navigation.setParams({ restroom: null, from: 'HomeScreen' });
       this.setState({ lastSelectedLocation });
     }
   };
 
   getCenterLocation = () => {
     const selectedRestroom = this.props.navigation.getParam('restroom');
-    const fromFeeds = this.props.navigation.getParam('from') === 'feeds';
+    const isSelectedFromFeeds = this.props.navigation.getParam('from') === 'FeedItem';
 
     if (selectedRestroom) {
-      return fromFeeds
+      return isSelectedFromFeeds
         ? {
           latitude: selectedRestroom.latitude,
           longitude: selectedRestroom.longitude,
@@ -95,46 +88,16 @@ class HomeScreen extends React.Component {
       <View style={styles.container}>
         <MapLocations
           restrooms={this.props.restrooms}
-          onCalloutPressed={this.handleCalloutPressed}
           selectedRestroomId={selectedRestroom ? selectedRestroom.id : -1}
           onMarkerPressed={this.handleMarkerPressed}
           centerLocation={this.getCenterLocation()}
         />
         {selectedRestroom && (
-          <View style={styles.selectedRestroom}>
-            <View style={styles.restroomDetails}>
-              <Text style={styles.name}>{selectedRestroom.name}</Text>
-              <Text style={styles.location}>{selectedRestroom.location_text}</Text>
-              <View style={styles.voteStars}>
-                {/*<Text style={styles.voteNumber}>{selectedRestroom.rating.totalRating}</Text>*/}
-                <StarRating
-                  disabled={true}
-                  maxStars={5}
-                  // rating={selectedRestroom.rating.totalRating}
-                  starSize={18}
-                  emptyStarColor={Colors.mainColor}
-                  fullStarColor={Colors.mainColor}
-                />
-                <Text style={styles.numberOfVotes}>
-                  {/*{` (${selectedRestroom.rating.numberOfRatings} votes)`}*/}
-                </Text>
-              </View>
-            </View>
-            <View style={styles.buttonsWrapper}>
-              <ButtonCustom
-                title={'Open details'}
-                onPress={() => this.openRestroomDetails(selectedRestroom.id)}
-                style={styles.buttonOpen}
-                textStyle={styles.buttonOpenText}
-              />
-              <ButtonCustom
-                title={'Close'}
-                onPress={this.clearSelectedRestroom}
-                style={styles.button}
-                textStyle={styles.buttonText}
-              />
-            </View>
-          </View>
+          <SelectedRestroomModal
+            selectedRestroom={selectedRestroom}
+            openRestroomDetails={this.openRestroomDetails}
+            clearSelectedRestroom={this.clearSelectedRestroom}
+          />
         )}
       </View>
     );
@@ -157,15 +120,6 @@ HomeScreen.propTypes = {
 };
 
 const styles = StyleSheet.create({
-  button: {
-    borderColor: '#ccc',
-    borderRadius: 15,
-    borderWidth: 1,
-    marginBottom: 5,
-    marginLeft: 5,
-    padding: 10,
-    zIndex: 1
-  },
   buttonHeaderRight: {
     alignItems: 'center',
     backgroundColor: Colors.mainColor,
@@ -178,77 +132,9 @@ const styles = StyleSheet.create({
   buttonHeaderRightText: {
     color: '#fff'
   },
-  buttonOpen: {
-    backgroundColor: Colors.mainColor,
-    borderRadius: 15,
-    marginBottom: 5,
-    marginRight: 5,
-    padding: 10,
-    zIndex: 1
-  },
-  buttonOpenText: {
-    color: '#fff',
-    fontSize: 14
-  },
-  buttonText: {
-    color: '#999999',
-    fontSize: 14
-  },
-  buttonsWrapper: {
-    bottom: 5,
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    marginLeft: 10,
-    position: 'absolute',
-    width: Dimensions.get('window').width * 0.95
-  },
   container: {
     backgroundColor: '#fff',
     flex: 1
-  },
-  location: {
-    color: '#999999',
-    fontSize: 12,
-    marginBottom: 5
-  },
-  name: {
-    color: '#808080',
-    fontSize: 18
-  },
-  numberOfVotes: {
-    color: '#999999',
-    fontSize: 12
-  },
-  restroomDetails: {
-    marginLeft: 10,
-    marginTop: 5
-  },
-  selectedRestroom: {
-    alignSelf: 'center',
-    backgroundColor: '#fff',
-    borderRadius: 10,
-    bottom: 5,
-    elevation: 3,
-    height: Dimensions.get('window').height * 0.2,
-    position: 'absolute',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 1
-    },
-    shadowOpacity: 0.22,
-    shadowRadius: 2.22,
-    width: Dimensions.get('window').width * 0.95,
-    zIndex: 2
-  },
-  // voteNumber: {
-  //   color: Colors.mainColor,
-  //   marginRight: 5
-  // },
-  voteStars: {
-    display: 'flex',
-    flexDirection: 'row'
   }
 });
 

@@ -90,7 +90,6 @@ MapLocations.propTypes = {
   navigation: PropTypes.object,
   user: PropTypes.object,
   restrooms: PropTypes.array,
-  onCalloutPressed: PropTypes.func,
   selectedRestroomId: PropTypes.number,
   onMarkerPressed: PropTypes.func,
   centerLocation: PropTypes.object

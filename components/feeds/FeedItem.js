@@ -35,7 +35,7 @@ const FeedItem = props => {
         onPress={() =>
           props.navigation.navigate('Home', {
             restroom: props.restroom,
-            from: 'feeds'
+            from: 'FeedItem'
           })
         }
         style={styles.open}
