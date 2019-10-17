@@ -8,7 +8,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { Icon } from 'expo';
 
 const FeedItem = props => {
-  const { id, image, rating, name, location_text: locationText } = props.restroom;
+  const { image, rating, name, location_text: locationText } = props.restroom;
 
   return (
     <View
@@ -32,7 +32,7 @@ const FeedItem = props => {
         />
       )}
       <TouchableOpacity
-        onPress={() => props.navigation.navigate('Home', { selectedRestroomId: id })}
+        onPress={() => props.navigation.navigate('Home', { restroom: props.restroom })}
         style={styles.open}
       >
         <Icon.Ionicons name="md-open" size={22} style={styles.icon} color={'#ccc'} />
@@ -42,6 +42,7 @@ const FeedItem = props => {
         <Text style={styles.location}>{locationText}</Text>
         <View style={styles.voteWrapper}>
           <View style={styles.voteStars}>
+            <Text style={styles.voteNumber}>{rating.totalRating}</Text>
             <StarRating
               disabled={true}
               maxStars={5}
@@ -50,7 +51,6 @@ const FeedItem = props => {
               emptyStarColor={Colors.mainColor}
               fullStarColor={Colors.mainColor}
             />
-            <Text style={styles.voteNumber}>{rating.totalRating}</Text>
           </View>
           <Text style={styles.numberOfVotes}>{`${rating.numberOfRatings} votes`}</Text>
         </View>
@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
   },
   voteNumber: {
     color: Colors.mainColor,
-    marginLeft: 5
+    marginRight: 5
   },
   voteStars: {
     display: 'flex',

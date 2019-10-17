@@ -5,7 +5,6 @@ import { Location, MapView, Permissions } from 'expo';
 import poopEmojiIcon from '../../assets/images/poop-emoji.png';
 import mapMarkerIcon from '../../assets/images/map-marker-icon-filled.png';
 import mapMarkerIconRed from '../../assets/images/map-marker-icon-red.png';
-import Colors from '../../constants/Colors';
 
 class MapLocations extends React.Component {
   state = {
@@ -55,7 +54,7 @@ class MapLocations extends React.Component {
           ) : this.state.mapRegion === null ? (
             <Text>Map region does not exist.</Text>
           ) : (
-            <MapView style={styles.map} region={this.state.mapRegion}>
+            <MapView style={styles.map} region={this.state.mapRegion} moveOnMarkerPress={false}>
               <MapView.Marker
                 coordinate={{
                   latitude: this.state.mapRegion.latitude,
@@ -74,23 +73,8 @@ class MapLocations extends React.Component {
                   image={
                     this.props.selectedRestroomId === restroom.id ? mapMarkerIconRed : mapMarkerIcon
                   }
-                >
-                  <MapView.Callout
-                    tooltip={true}
-                    onPress={() => {
-                      this.props.onCalloutPressed(restroom);
-                    }}
-                  >
-                    <View style={styles.mapMarkerCallout}>
-                      <Text>
-                        <Text style={styles.calloutTitle}>{restroom.name} </Text>
-                      </Text>
-                      <Text style={styles.calloutStreet}>{restroom.location_text}</Text>
-                      <Text style={styles.calloutTitleRating}>4.2</Text>
-                      <Text style={styles.calloutTap}>Tap to open details</Text>
-                    </View>
-                  </MapView.Callout>
-                </MapView.Marker>
+                  onPress={() => this.props.onMarkerPressed(restroom)}
+                />
               ))}
             </MapView>
           )}
@@ -105,27 +89,11 @@ MapLocations.propTypes = {
   user: PropTypes.object,
   restrooms: PropTypes.array,
   onCalloutPressed: PropTypes.func,
-  selectedRestroomId: PropTypes.number
+  selectedRestroomId: PropTypes.number,
+  onMarkerPressed: PropTypes.func
 };
 
 const styles = StyleSheet.create({
-  calloutStreet: {
-    color: Colors.mainColor,
-    fontSize: 12,
-    marginBottom: 5
-  },
-  calloutTap: {
-    color: '#b3b3b3',
-    fontSize: 10
-  },
-  calloutTitle: {
-    color: '#999999',
-    fontSize: 20
-  },
-  calloutTitleRating: {
-    color: '#b3b3b3',
-    fontSize: 18
-  },
   container: {
     backgroundColor: '#fff',
     flex: 1
@@ -140,17 +108,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#ecf0f1',
     flex: 1,
     justifyContent: 'center'
-  },
-  mapMarkerCallout: {
-    alignItems: 'center',
-    backgroundColor: '#fff',
-    borderColor: '#bfbfbf',
-    borderRadius: 10,
-    borderWidth: 1,
-    display: 'flex',
-    justifyContent: 'center',
-    marginBottom: 5,
-    padding: 10
   }
 });
 
