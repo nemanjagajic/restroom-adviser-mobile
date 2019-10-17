@@ -32,8 +32,14 @@ const FeedItem = props => {
         />
       )}
       <TouchableOpacity
-        onPress={() => props.navigation.navigate('Home', { restroom: props.restroom })}
+        onPress={() =>
+          props.navigation.navigate('Home', {
+            restroom: props.restroom,
+            from: 'feeds'
+          })
+        }
         style={styles.open}
+        hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
       >
         <Icon.Ionicons name="md-open" size={22} style={styles.icon} color={'#ccc'} />
       </TouchableOpacity>

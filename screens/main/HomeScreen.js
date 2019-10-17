@@ -34,6 +34,10 @@ class HomeScreen extends React.Component {
     };
   };
 
+  state = {
+    lastSelectedLocation: null
+  };
+
   componentDidMount() {
     this.props.fetchRestrooms();
   }
@@ -48,32 +52,56 @@ class HomeScreen extends React.Component {
   };
 
   handleMarkerPressed = restroom => {
-    this.props.navigation.setParams({ restroom });
+    this.props.navigation.setParams({ restroom, from: 'home' });
   };
 
   clearSelectedRestroom = () => {
-    if (this.props.navigation.getParam('restroom') !== null) {
-      this.props.navigation.setParams({ restroom: null });
+    const restroom = this.props.navigation.getParam('restroom');
+    if (restroom !== null) {
+      const lastSelectedLocation = {
+        latitude: restroom.latitude,
+        longitude: restroom.longitude
+      };
+      this.props.navigation.setParams({ restroom: null, from: 'home' });
+      this.setState({ lastSelectedLocation });
     }
+  };
+
+  getCenterLocation = () => {
+    const selectedRestroom = this.props.navigation.getParam('restroom');
+    const fromFeeds = this.props.navigation.getParam('from') === 'feeds';
+
+    if (selectedRestroom) {
+      return fromFeeds
+        ? {
+          latitude: selectedRestroom.latitude,
+          longitude: selectedRestroom.longitude,
+          latitudeDelta: 0.05,
+          longitudeDelta: 0.02
+        }
+        : {
+          latitude: selectedRestroom.latitude,
+          longitude: selectedRestroom.longitude
+        };
+    }
+
+    return this.state.lastSelectedLocation;
   };
 
   render() {
     const selectedRestroom = this.props.navigation.getParam('restroom');
 
     return (
-      <TouchableOpacity
-        style={styles.container}
-        onPress={this.clearSelectedRestroom}
-        activeOpacity={1}
-      >
+      <View style={styles.container}>
         <MapLocations
           restrooms={this.props.restrooms}
           onCalloutPressed={this.handleCalloutPressed}
           selectedRestroomId={selectedRestroom ? selectedRestroom.id : -1}
           onMarkerPressed={this.handleMarkerPressed}
+          centerLocation={this.getCenterLocation()}
         />
         {selectedRestroom && (
-          <TouchableOpacity style={styles.selectedRestroom} activeOpacity={1}>
+          <View style={styles.selectedRestroom}>
             <View style={styles.restroomDetails}>
               <Text style={styles.name}>{selectedRestroom.name}</Text>
               <Text style={styles.location}>{selectedRestroom.location_text}</Text>
@@ -97,18 +125,18 @@ class HomeScreen extends React.Component {
                 title={'Open details'}
                 onPress={() => this.openRestroomDetails(selectedRestroom.id)}
                 style={styles.buttonOpen}
-                textStyle={styles.buttonText}
+                textStyle={styles.buttonOpenText}
               />
               <ButtonCustom
-                title={'Clear selected'}
+                title={'Close'}
                 onPress={this.clearSelectedRestroom}
                 style={styles.button}
                 textStyle={styles.buttonText}
               />
             </View>
-          </TouchableOpacity>
+          </View>
         )}
-      </TouchableOpacity>
+      </View>
     );
   }
 }
@@ -130,13 +158,12 @@ HomeScreen.propTypes = {
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: '#f5f5f5',
     borderColor: '#ccc',
     borderRadius: 15,
     borderWidth: 1,
     marginBottom: 5,
     marginLeft: 5,
-    padding: 7,
+    padding: 10,
     zIndex: 1
   },
   buttonHeaderRight: {
@@ -152,14 +179,16 @@ const styles = StyleSheet.create({
     color: '#fff'
   },
   buttonOpen: {
-    backgroundColor: '#fff',
-    borderColor: '#ccc',
+    backgroundColor: Colors.mainColor,
     borderRadius: 15,
-    borderWidth: 1,
     marginBottom: 5,
     marginRight: 5,
-    padding: 7,
+    padding: 10,
     zIndex: 1
+  },
+  buttonOpenText: {
+    color: '#fff',
+    fontSize: 14
   },
   buttonText: {
     color: '#999999',

@@ -20,6 +20,9 @@ if (!__DEV__) {
 }
 
 YellowBox.ignoreWarnings(['react-native-i18n module is not correctly linked']);
+YellowBox.ignoreWarnings(['Warning: Failed prop type']);
+// eslint-disable-next-line max-len
+YellowBox.ignoreWarnings(['Warning: Can\'t perform a React state update on an unmounted component']);
 
 export default class App extends React.Component {
   state = {

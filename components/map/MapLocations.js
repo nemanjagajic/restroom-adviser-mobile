@@ -44,6 +44,8 @@ class MapLocations extends React.Component {
   };
 
   render() {
+    const location = this.props.centerLocation;
+
     return (
       <View style={styles.container}>
         <View style={styles.mapContainer}>
@@ -54,7 +56,7 @@ class MapLocations extends React.Component {
           ) : this.state.mapRegion === null ? (
             <Text>Map region does not exist.</Text>
           ) : (
-            <MapView style={styles.map} region={this.state.mapRegion} moveOnMarkerPress={false}>
+            <MapView style={styles.map} region={location || this.state.mapRegion}>
               <MapView.Marker
                 coordinate={{
                   latitude: this.state.mapRegion.latitude,
@@ -90,7 +92,8 @@ MapLocations.propTypes = {
   restrooms: PropTypes.array,
   onCalloutPressed: PropTypes.func,
   selectedRestroomId: PropTypes.number,
-  onMarkerPressed: PropTypes.func
+  onMarkerPressed: PropTypes.func,
+  centerLocation: PropTypes.object
 };
 
 const styles = StyleSheet.create({
