@@ -1,5 +1,12 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, TouchableOpacity, KeyboardAvoidingView, Keyboard } from 'react-native';
+import {
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  KeyboardAvoidingView,
+  Keyboard,
+  Image
+} from 'react-native';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
@@ -8,10 +15,11 @@ import { Icon, ImagePicker } from 'expo';
 import { updateUser } from '../../../store/actions/UserActions';
 import { userSelector } from '../../../store/selectors/UserSelector';
 import { UpdateProfileForm } from '../../../components/profile/UpdateProfileForm';
-import Picture from '../../../components/shared/Picture';
 import NoPermissionsForCameraModal from '../../../components/shared/modal/NoPermissionsForCameraModal';
-import defaultAvatar from '../../../assets/images/robot-dev.png';
+import defaultAvatar from '../../../assets/images/poop-emoji.png';
 import Colors from '../../../constants/Colors';
+import config from '../../../config';
+const { IMAGE_BASE_URL } = config;
 
 class EditProfile extends Component {
   static navigationOptions = {
@@ -71,7 +79,8 @@ class EditProfile extends Component {
     const result = await ImagePicker.launchCameraAsync({
       mediaTypes: 'Images',
       allowsEditing: true,
-      aspect: [3, 4]
+      aspect: [3, 4],
+      quality: 0.8
     });
 
     this.setImage(result);
@@ -80,7 +89,8 @@ class EditProfile extends Component {
   openImagePicker = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({
       allowsEditing: true,
-      aspect: [3, 4]
+      aspect: [3, 4],
+      quality: 0.8
     });
 
     this.setImage(result);
@@ -103,9 +113,18 @@ class EditProfile extends Component {
         {!this.state.isKeyboardOpened && (
           <View style={styles.header}>
             {image !== '' || user.avatar !== null ? (
-              <Picture style={styles.image} source={image} uri={user.avatar} />
+              <Image
+                style={styles.image}
+                source={
+                  image || {
+                    uri: user.avatar.startsWith('http')
+                      ? user.avatar
+                      : `${IMAGE_BASE_URL}${user.avatar}?${new Date()}`
+                  }
+                }
+              />
             ) : (
-              <Picture style={styles.image} source={defaultAvatar} />
+              <Image style={styles.image} source={defaultAvatar} />
             )}
             <View style={styles.changeImageContainer}>
               <TouchableOpacity onPress={this.openImagePicker}>

@@ -19,7 +19,7 @@ class AddImage extends Component {
     let result = await ImagePicker.launchImageLibraryAsync({
       allowsEditing: true,
       aspect: [3, 4],
-      quality: 0.9
+      quality: 0.8
     });
 
     if (!result.cancelled) {

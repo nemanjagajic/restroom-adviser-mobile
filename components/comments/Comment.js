@@ -6,6 +6,8 @@ import moment from 'moment';
 import poopEmojiIcon from '../../assets/images/poop-emoji.png';
 // import likeFilled from '../../assets/images/filled.png';
 import likeOutlined from '../../assets/images/outlined.png';
+import config from '../../config';
+const { IMAGE_BASE_URL } = config;
 
 class Comment extends React.Component {
   render() {
@@ -15,7 +17,15 @@ class Comment extends React.Component {
       <View style={[styles.container, { marginTop: this.props.index === 0 ? 10 : 0 }]}>
         <Image
           style={user.avatar ? styles.image : styles.imageWithBorder}
-          source={user.avatar ? { uri: user.avatar } : poopEmojiIcon}
+          source={
+            user.avatar
+              ? {
+                uri: user.avatar.startsWith('http')
+                  ? user.avatar
+                  : `${IMAGE_BASE_URL}${user.avatar}?${new Date()}`
+              }
+              : poopEmojiIcon
+          }
         />
         <View style={styles.commentWrapper}>
           <Text style={styles.userFullName}>{`${user.first_name}  ${user.last_name}`}</Text>
