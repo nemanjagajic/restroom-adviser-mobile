@@ -2,7 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { StyleSheet, View, Dimensions, Text } from 'react-native';
 import PropTypes from 'prop-types';
-import { getFeedRestrooms, resetFeedRestrooms } from '../../../store/actions/RestroomActions';
+import {
+  getFeedRestrooms,
+  getRestroomRatings,
+  resetFeedRestrooms
+} from '../../../store/actions/RestroomActions';
 import {
   feedRestroomsSelector,
   feedRestroomsTotalNumberSelector,
@@ -112,6 +116,7 @@ class FeedsHome extends Component {
             fetchNewIssues={this.handleFetchNewRestrooms}
             reloadRestrooms={this.reloadRestrooms}
             navigation={this.props.navigation}
+            getRestroomRatings={this.props.getRestroomRatings}
           />
         )}
         {this.state.isFilterModalVisible && (
@@ -136,7 +141,8 @@ FeedsHome.propTypes = {
   isFetchingRestrooms: PropTypes.bool,
   restroomsTotalNumber: PropTypes.number,
   resetFeedRestrooms: PropTypes.func,
-  isFetchingNewRestrooms: PropTypes.bool
+  isFetchingNewRestrooms: PropTypes.bool,
+  getRestroomRatings: PropTypes.func
 };
 
 const mapStateToProps = state => ({
@@ -148,7 +154,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   getFeedRestrooms,
-  resetFeedRestrooms
+  resetFeedRestrooms,
+  getRestroomRatings
 };
 
 const styles = StyleSheet.create({

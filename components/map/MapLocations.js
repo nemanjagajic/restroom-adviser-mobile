@@ -1,3 +1,6 @@
+{
+  /* eslint-disable react-native/no-inline-styles */
+}
 import React from 'react';
 import { StyleSheet, View, Text, Dimensions } from 'react-native';
 import PropTypes from 'prop-types';
@@ -76,6 +79,7 @@ class MapLocations extends React.Component {
                     this.props.selectedRestroomId === restroom.id ? mapMarkerIconRed : mapMarkerIcon
                   }
                   onPress={() => this.props.onMarkerPressed(restroom)}
+                  style={{ zIndex: this.props.selectedRestroomId === restroom.id ? 2 : 0 }}
                 />
               ))}
             </MapView>

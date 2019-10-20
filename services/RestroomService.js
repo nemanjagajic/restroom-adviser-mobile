@@ -69,10 +69,14 @@ class RestroomService extends ApiService {
     );
   };
 
-  getRatings = ({ user, restroom }) => {
-    return this.apiClient.get(
-      ENDPOINTS.RESTROOM_RATING.replace('{userId}', user.id).replace('{restroomId}', restroom.id)
-    );
+  getRatings = ({ user, restroom, includeRatings }) => {
+    let request = ENDPOINTS.RESTROOM_RATING.replace('{userId}', user.id)
+      .replace('{restroomId}', restroom.id)
+      .replace('{includeRatings}', includeRatings);
+
+    if (includeRatings) request += '?includeRatings=true';
+
+    return this.apiClient.get(request);
   };
 }
 

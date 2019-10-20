@@ -3,8 +3,12 @@ import { StyleSheet, View, TouchableOpacity, Text } from 'react-native';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { addHeaderLeftNavigator } from '../../helpers';
-import { fetchRestrooms } from '../../store/actions/RestroomActions';
-import { restroomsSelector } from '../../store/selectors/RestroomSelector';
+import { fetchRestrooms, getRestroomRatings } from '../../store/actions/RestroomActions';
+import {
+  isFetchingRatingsSelector,
+  restroomRatingsSelector,
+  restroomsSelector
+} from '../../store/selectors/RestroomSelector';
 import Colors from '../../constants/Colors';
 import MapLocations from '../../components/map/MapLocations';
 import SelectedRestroomModal from '../../components/home/SelectedRestroomModal';
@@ -46,6 +50,7 @@ class HomeScreen extends React.Component {
 
   handleMarkerPressed = restroom => {
     this.props.navigation.setParams({ restroom, from: 'HomeScreen' });
+    this.props.getRestroomRatings(restroom, false);
   };
 
   clearSelectedRestroom = () => {
@@ -62,7 +67,7 @@ class HomeScreen extends React.Component {
 
   getCenterLocation = () => {
     const selectedRestroom = this.props.navigation.getParam('restroom');
-    const isSelectedFromFeeds = this.props.navigation.getParam('from') === 'FeedItem';
+    const isSelectedFromFeeds = this.props.navigation.getParam('from') !== 'HomeScreen';
 
     if (selectedRestroom) {
       return isSelectedFromFeeds
@@ -78,7 +83,7 @@ class HomeScreen extends React.Component {
         };
     }
 
-    return this.state.lastSelectedLocation;
+    return this.props.navigation.getParam('centerLocation') || this.state.lastSelectedLocation;
   };
 
   render() {
@@ -97,6 +102,8 @@ class HomeScreen extends React.Component {
             selectedRestroom={selectedRestroom}
             openRestroomDetails={this.openRestroomDetails}
             clearSelectedRestroom={this.clearSelectedRestroom}
+            ratings={this.props.ratings}
+            isFetchingRatings={this.props.isFetchingRatings}
           />
         )}
       </View>
@@ -105,18 +112,24 @@ class HomeScreen extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  restrooms: restroomsSelector(state)
+  ratings: restroomRatingsSelector(state),
+  restrooms: restroomsSelector(state),
+  isFetchingRatings: isFetchingRatingsSelector(state)
 });
 
 const mapDispatchToProps = {
-  fetchRestrooms
+  fetchRestrooms,
+  getRestroomRatings
 };
 
 HomeScreen.propTypes = {
   fetchRestrooms: PropTypes.func,
   navigation: PropTypes.object,
   logout: PropTypes.func,
-  restrooms: PropTypes.array
+  restrooms: PropTypes.array,
+  getRestroomRatings: PropTypes.func,
+  ratings: PropTypes.object,
+  isFetchingRatings: PropTypes.bool
 };
 
 const styles = StyleSheet.create({

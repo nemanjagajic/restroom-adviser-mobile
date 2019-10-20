@@ -74,12 +74,22 @@ export function* addRestroom({ payload }) {
   yield put(setAddingRestroom());
   try {
     const user = yield select(userSelector);
-    yield call(restroomService.create, {
+    const response = yield call(restroomService.create, {
       user,
       restroom: payload
     });
     yield call(fetchRestrooms);
-    NavigationService.navigate('Home');
+    yield call(() => getRestroomRatings({ payload: response.data, includeRatings: false }));
+    NavigationService.navigate('Home', {
+      restroom: response.data,
+      from: 'PickRestroomLocation',
+      centerLocation: {
+        latitude: response.data.latitude,
+        longitude: response.data.longitude,
+        latitudeDelta: 0.05,
+        longitudeDelta: 0.02
+      }
+    });
   } catch (error) {
     // eslint-disable-next-line no-console
     console.log(error);
@@ -145,14 +155,15 @@ export function* addRestroomRating({ payload }) {
   }
 }
 
-export function* getRestroomRatings({ payload }) {
+export function* getRestroomRatings({ payload, includeRatings }) {
   const user = yield select(userSelector);
   yield put(setFetchingRatings());
 
   try {
     const response = yield call(restroomService.getRatings, {
       user,
-      restroom: payload
+      restroom: payload,
+      includeRatings
     });
 
     yield put(setRestroomRatings(response.data));

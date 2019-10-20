@@ -80,9 +80,10 @@ export const setFetchingCommentsFinished = () => ({
   type: SET_FETCHING_COMMENTS_FINISHED
 });
 
-export const getRestroomRatings = payload => ({
+export const getRestroomRatings = (payload, includeRatings = true) => ({
   type: GET_RESTROOM_RATINGS,
-  payload
+  payload,
+  includeRatings
 });
 
 export const setRestroomRatings = payload => ({

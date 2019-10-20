@@ -4,6 +4,7 @@ import StarRating from 'react-native-star-rating';
 import Colors from '../../constants/Colors';
 import ButtonCustom from '../shared/button/ButtonCustom';
 import PropTypes from 'prop-types';
+import ContentLoader from 'react-native-content-loader';
 
 const SelectedRestroomModal = props => {
   return (
@@ -11,20 +12,24 @@ const SelectedRestroomModal = props => {
       <View style={styles.restroomDetails}>
         <Text style={styles.name}>{props.selectedRestroom.name}</Text>
         <Text style={styles.location}>{props.selectedRestroom.location_text}</Text>
-        <View style={styles.voteStars}>
-          {/*<Text style={styles.voteNumber}>{selectedRestroom.rating.totalRating}</Text>*/}
-          <StarRating
-            disabled={true}
-            maxStars={5}
-            // rating={selectedRestroom.rating.totalRating}
-            starSize={18}
-            emptyStarColor={Colors.mainColor}
-            fullStarColor={Colors.mainColor}
-          />
-          <Text style={styles.numberOfVotes}>
-            {/*{` (${selectedRestroom.rating.numberOfRatings} votes)`}*/}
-          </Text>
-        </View>
+        {props.isFetchingRatings ? (
+          <ContentLoader style={styles.contentLoader} height={240} duration={1000}>
+            <Text style={styles.loadingRatingText}>Loading rating...</Text>
+          </ContentLoader>
+        ) : (
+          <View style={styles.voteStars}>
+            <Text style={styles.voteNumber}>{props.ratings.totalRating}</Text>
+            <StarRating
+              disabled={true}
+              maxStars={5}
+              rating={props.ratings.totalRating}
+              starSize={18}
+              emptyStarColor={Colors.mainColor}
+              fullStarColor={Colors.mainColor}
+            />
+            <Text style={styles.numberOfVotes}>{` (${props.ratings.numberOfRatings} votes)`}</Text>
+          </View>
+        )}
       </View>
       <View style={styles.buttonsWrapper}>
         <ButtonCustom
@@ -47,7 +52,9 @@ const SelectedRestroomModal = props => {
 SelectedRestroomModal.propTypes = {
   selectedRestroom: PropTypes.object,
   openRestroomDetails: PropTypes.func,
-  clearSelectedRestroom: PropTypes.func
+  clearSelectedRestroom: PropTypes.func,
+  ratings: PropTypes.object,
+  isFetchingRatings: PropTypes.bool
 };
 
 const styles = StyleSheet.create({
@@ -85,6 +92,10 @@ const styles = StyleSheet.create({
     position: 'absolute',
     width: Dimensions.get('window').width * 0.95
   },
+  loadingRatingText: {
+    color: '#b3b3b3',
+    fontSize: 14
+  },
   location: {
     color: '#999999',
     fontSize: 12,
@@ -120,10 +131,10 @@ const styles = StyleSheet.create({
     width: Dimensions.get('window').width * 0.95,
     zIndex: 2
   },
-  // voteNumber: {
-  //   color: Colors.mainColor,
-  //   marginRight: 5
-  // },
+  voteNumber: {
+    color: Colors.mainColor,
+    marginRight: 3
+  },
   voteStars: {
     display: 'flex',
     flexDirection: 'row'

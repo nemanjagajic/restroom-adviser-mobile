@@ -151,8 +151,8 @@ const styles = StyleSheet.create({
     width: Dimensions.get('window').width
   },
   mapMarkerIcon: {
-    height: 40,
-    width: 40
+    height: 45,
+    width: 32
   },
   markerFixed: {
     left: '50%',

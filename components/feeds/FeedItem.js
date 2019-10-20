@@ -32,12 +32,13 @@ const FeedItem = props => {
         />
       )}
       <TouchableOpacity
-        onPress={() =>
+        onPress={() => {
+          props.getRestroomRatings(props.restroom, false);
           props.navigation.navigate('Home', {
             restroom: props.restroom,
             from: 'FeedItem'
-          })
-        }
+          });
+        }}
         style={styles.open}
         hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
       >
@@ -69,7 +70,8 @@ FeedItem.propTypes = {
   restroom: PropTypes.object,
   isFirst: PropTypes.bool,
   isLast: PropTypes.bool,
-  navigation: PropTypes.object
+  navigation: PropTypes.object,
+  getRestroomRatings: PropTypes.func
 };
 
 const styles = StyleSheet.create({
