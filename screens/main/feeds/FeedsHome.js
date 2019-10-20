@@ -113,7 +113,7 @@ class FeedsHome extends Component {
             restroomsTotalNumber={this.props.restroomsTotalNumber}
             isFetchingRestrooms={this.props.isFetchingRestrooms}
             isFetchingNewRestrooms={this.props.isFetchingNewRestrooms}
-            fetchNewIssues={this.handleFetchNewRestrooms}
+            fetchNewFeeds={this.handleFetchNewRestrooms}
             reloadRestrooms={this.reloadRestrooms}
             navigation={this.props.navigation}
             getRestroomRatings={this.props.getRestroomRatings}

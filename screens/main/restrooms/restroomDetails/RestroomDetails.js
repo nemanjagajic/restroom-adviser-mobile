@@ -21,10 +21,12 @@ import {
   restroomRatingsSelector,
   isFetchingRatingsSelector,
   restroomCommentsSelector,
-  isFetchingCommentsSelector
+  isFetchingCommentsSelector,
+  commentsTotalNumberSelector
 } from '../../../../store/selectors/RestroomSelector';
 import StarRating from 'react-native-star-rating';
 import Swiper from 'react-native-swiper';
+import { FETCHING_LIMIT } from '../../../../constants/Restrooms';
 
 class RestroomDetails extends Component {
   static navigationOptions = {
@@ -38,7 +40,12 @@ class RestroomDetails extends Component {
   componentDidMount() {
     const restroom = this.props.navigation.getParam('restroom');
     this.props.getRestroomRatings(restroom);
-    this.props.getRestroomComments(restroom);
+    this.props.getRestroomComments({
+      restroom: this.props.navigation.getParam('restroom'),
+      offset: this.state.offset,
+      limit: FETCHING_LIMIT,
+      isInitial: true
+    });
   }
 
   state = {
@@ -123,7 +130,7 @@ class RestroomDetails extends Component {
             <ButtonCustom
               style={styles.buttonComment}
               textStyle={styles.buttonCommentText}
-              title={`Open comments ${this.props.comments.length}`}
+              title={`Open comments ${this.props.commentsTotalNumber}`}
               onPress={() =>
                 this.props.navigation.navigate('RestroomComments', {
                   restroom: this.props.navigation.getParam('restroom')
@@ -142,16 +149,18 @@ RestroomDetails.propTypes = {
   getRestroomRatings: PropTypes.func,
   ratings: PropTypes.object,
   isFetchingRatings: PropTypes.bool,
-  getRestroomComments: PropTypes.func,
   comments: PropTypes.array,
-  isFetchingComments: PropTypes.bool
+  isFetchingComments: PropTypes.bool,
+  getRestroomComments: PropTypes.func,
+  commentsTotalNumber: PropTypes.number
 };
 
 const mapStateToProps = state => ({
   ratings: restroomRatingsSelector(state),
   isFetchingRatings: isFetchingRatingsSelector(state),
   comments: restroomCommentsSelector(state),
-  isFetchingComments: isFetchingCommentsSelector(state)
+  isFetchingComments: isFetchingCommentsSelector(state),
+  commentsTotalNumber: commentsTotalNumberSelector(state)
 });
 
 const mapDispatchToProps = {

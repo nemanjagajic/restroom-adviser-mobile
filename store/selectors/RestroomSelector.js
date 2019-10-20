@@ -47,6 +47,16 @@ export const isFetchingCommentsSelector = createSelector(
   restrooms => restrooms.isFetchingComments
 );
 
+export const isFetchingNewCommentsSelector = createSelector(
+  restroomStateSelector,
+  restrooms => restrooms.isFetchingNewComments
+);
+
+export const commentsTotalNumberSelector = createSelector(
+  restroomStateSelector,
+  restrooms => restrooms.commentsTotalNumber
+);
+
 export const restroomRatingsSelector = createSelector(
   restroomStateSelector,
   restrooms => restrooms.ratings

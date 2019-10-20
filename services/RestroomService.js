@@ -56,9 +56,10 @@ class RestroomService extends ApiService {
     );
   };
 
-  getComments = ({ user, restroom }) => {
+  getComments = ({ user, restroom, offset, limit }) => {
     return this.apiClient.get(
-      ENDPOINTS.RESTROOM_COMMENT.replace('{userId}', user.id).replace('{restroomId}', restroom.id)
+      ENDPOINTS.RESTROOM_COMMENT.replace('{userId}', user.id).replace('{restroomId}', restroom.id) +
+        `?offset=${offset}&limit=${limit}`
     );
   };
 

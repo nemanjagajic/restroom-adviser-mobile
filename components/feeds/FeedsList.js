@@ -27,7 +27,7 @@ class FeedsList extends Component {
     if (shouldHandleScroll) {
       this.setState({ scrollFetchingDisabled: true });
       this.enableFetching(400);
-      this.props.fetchNewIssues();
+      this.props.fetchNewFeeds();
     }
   };
 
@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
 FeedsList.propTypes = {
   restrooms: PropTypes.array,
   isFetchingRestrooms: PropTypes.bool,
-  fetchNewIssues: PropTypes.func,
+  fetchNewFeeds: PropTypes.func,
   restroomsTotalNumber: PropTypes.number,
   reloadRestrooms: PropTypes.func,
   navigation: PropTypes.object,

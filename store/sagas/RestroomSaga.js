@@ -8,9 +8,7 @@ import {
   setFetchingComments,
   setFetchingCommentsFinished,
   setFinishedAddingRestroom,
-  setRestroomComments,
   setRestrooms,
-  getRestroomComments as getRestroomCommentsAction,
   getRestroomRatings as getRestroomRatingsAction,
   setFetchingRatings,
   setFetchingRatingsFinished,
@@ -22,9 +20,14 @@ import {
   setFetchingFeedRestroomsFinished,
   resetFeedRestrooms,
   setFetchingNewFeedRestrooms,
-  setFetchingNewFeedRestroomsFinished
+  setFetchingNewFeedRestroomsFinished,
+  setFetchingNewComments,
+  setFetchingNewCommentsFinished,
+  addRestroomComments,
+  resetRestroomComments
 } from '../actions/RestroomActions';
 import NavigationService from '../../services/NavigationService';
+import { FETCHING_LIMIT } from '../../constants/Restrooms';
 
 export function* fetchRestrooms() {
   const user = yield select(userSelector);
@@ -108,7 +111,17 @@ export function* addRestroomComment({ payload }) {
       restroom: payload.restroom,
       content: payload.content
     });
-    yield put(getRestroomCommentsAction(payload.restroom));
+    yield put(resetRestroomComments());
+    yield call(() =>
+      getRestroomComments({
+        payload: {
+          restroom: payload.restroom,
+          offset: 0,
+          limit: FETCHING_LIMIT,
+          isInitial: true
+        }
+      })
+    );
   } catch (error) {
     // eslint-disable-next-line no-console
     console.log(error);
@@ -119,20 +132,32 @@ export function* addRestroomComment({ payload }) {
 
 export function* getRestroomComments({ payload }) {
   const user = yield select(userSelector);
-  yield put(setFetchingComments());
+  if (payload.isInitial) {
+    yield put(setFetchingComments());
+  } else {
+    yield put(setFetchingNewComments());
+  }
 
   try {
     const response = yield call(restroomService.getComments, {
       user,
-      restroom: payload
+      restroom: payload.restroom,
+      offset: payload.offset,
+      limit: payload.limit
     });
-
-    yield put(setRestroomComments(response.data));
+    if (payload.isInitial) {
+      yield put(resetRestroomComments());
+    }
+    yield put(addRestroomComments(response.data));
   } catch (error) {
     // eslint-disable-next-line no-console
     console.log(error);
   } finally {
-    yield put(setFetchingCommentsFinished());
+    if (payload.isInitial) {
+      yield put(setFetchingCommentsFinished());
+    } else {
+      yield put(setFetchingNewCommentsFinished());
+    }
   }
 }
 

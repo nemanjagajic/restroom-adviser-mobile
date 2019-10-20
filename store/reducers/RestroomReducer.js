@@ -4,7 +4,6 @@ import {
   SET_ADDING_RESTROOM,
   SET_FINISHED_ADDING_RESTROOM,
   SET_RESTROOMS,
-  SET_RESTROOM_COMMENTS,
   SET_FETCHING_COMMENTS,
   SET_FETCHING_COMMENTS_FINISHED,
   SET_FETCHING_RATINGS,
@@ -17,7 +16,11 @@ import {
   SET_FETCHING_FEED_RESTROOMS,
   SET_FETCHING_FEED_RESTROOMS_FINISHED,
   SET_FETCHING_NEW_FEED_RESTROOMS_FINISHED,
-  SET_FETCHING_NEW_FEED_RESTROOMS
+  SET_FETCHING_NEW_FEED_RESTROOMS,
+  SET_FETCHING_NEW_COMMENTS,
+  SET_FETCHING_NEW_COMMENTS_FINISHED,
+  ADD_RESTROOM_COMMENTS,
+  RESET_RESTROOM_COMMENTS
 } from '../actions/ActionTypes';
 
 const initialState = {
@@ -27,7 +30,9 @@ const initialState = {
   isAddingRestroom: false,
   isAddingComment: false,
   comments: [],
+  commentsTotalNumber: 0,
   isFetchingComments: false,
+  isFetchingNewComments: false,
   isFetchingRatings: false,
   ratings: {},
   isAddingRating: false,
@@ -64,10 +69,11 @@ export default (state = initialState, action) => {
         isAddingComment: false
       };
 
-    case SET_RESTROOM_COMMENTS:
+    case ADD_RESTROOM_COMMENTS:
       return {
         ...state,
-        comments: action.payload
+        comments: state.comments.concat(action.payload.comments),
+        commentsTotalNumber: action.payload.numberOfComments
       };
     case SET_FETCHING_COMMENTS:
       return {
@@ -78,6 +84,11 @@ export default (state = initialState, action) => {
       return {
         ...state,
         isFetchingComments: false
+      };
+    case RESET_RESTROOM_COMMENTS:
+      return {
+        ...state,
+        comments: []
       };
     case SET_FETCHING_RATINGS:
       return {
@@ -134,6 +145,16 @@ export default (state = initialState, action) => {
       return {
         ...state,
         isFetchingNewFeedRestrooms: false
+      };
+    case SET_FETCHING_NEW_COMMENTS:
+      return {
+        ...state,
+        isFetchingNewComments: true
+      };
+    case SET_FETCHING_NEW_COMMENTS_FINISHED:
+      return {
+        ...state,
+        isFetchingNewComments: false
       };
     default:
       return state;

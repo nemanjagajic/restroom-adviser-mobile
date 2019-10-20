@@ -8,7 +8,6 @@ import {
   SET_FINISHED_ADDING_RESTROOM,
   SET_RESTROOMS,
   GET_RESTROOM_COMMENTS,
-  SET_RESTROOM_COMMENTS,
   SET_FETCHING_COMMENTS,
   SET_FETCHING_COMMENTS_FINISHED,
   GET_RESTROOM_RATINGS,
@@ -24,7 +23,11 @@ import {
   SET_FETCHING_FEED_RESTROOMS,
   SET_FETCHING_FEED_RESTROOMS_FINISHED,
   SET_FETCHING_NEW_FEED_RESTROOMS_FINISHED,
-  SET_FETCHING_NEW_FEED_RESTROOMS
+  SET_FETCHING_NEW_FEED_RESTROOMS,
+  SET_FETCHING_NEW_COMMENTS,
+  SET_FETCHING_NEW_COMMENTS_FINISHED,
+  ADD_RESTROOM_COMMENTS,
+  RESET_RESTROOM_COMMENTS
 } from './ActionTypes';
 
 export const addRestroom = payload => ({
@@ -67,8 +70,8 @@ export const getRestroomComments = payload => ({
   payload
 });
 
-export const setRestroomComments = payload => ({
-  type: SET_RESTROOM_COMMENTS,
+export const addRestroomComments = payload => ({
+  type: ADD_RESTROOM_COMMENTS,
   payload
 });
 
@@ -78,6 +81,18 @@ export const setFetchingComments = () => ({
 
 export const setFetchingCommentsFinished = () => ({
   type: SET_FETCHING_COMMENTS_FINISHED
+});
+
+export const setFetchingNewComments = () => ({
+  type: SET_FETCHING_NEW_COMMENTS
+});
+
+export const setFetchingNewCommentsFinished = () => ({
+  type: SET_FETCHING_NEW_COMMENTS_FINISHED
+});
+
+export const resetRestroomComments = () => ({
+  type: RESET_RESTROOM_COMMENTS
 });
 
 export const getRestroomRatings = (payload, includeRatings = true) => ({
