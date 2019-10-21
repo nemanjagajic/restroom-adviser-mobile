@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
   },
   modalWrap: {
     backgroundColor: 'white',
-    height: '50%',
-    width: '50%'
+    borderRadius: 10,
+    width: '60%'
   }
 });
