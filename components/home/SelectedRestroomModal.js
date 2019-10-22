@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'flex-start',
     marginLeft: 10,
-    marginTop: 30,
+    marginTop: 25,
     width: Dimensions.get('window').width * 0.95
   },
   infoText: {
