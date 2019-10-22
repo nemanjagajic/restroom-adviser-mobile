@@ -267,7 +267,8 @@ const styles = StyleSheet.create({
     fontSize: 14,
     marginLeft: 20,
     marginRight: 20,
-    paddingBottom: 10
+    paddingBottom: 10,
+    textAlign: 'center'
   },
   name: {
     color: '#808080',
