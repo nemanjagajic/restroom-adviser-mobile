@@ -4,18 +4,30 @@ import StarRating from 'react-native-star-rating';
 import Colors from '../../constants/Colors';
 import ButtonCustom from '../shared/button/ButtonCustom';
 import PropTypes from 'prop-types';
-import ContentLoader from 'react-native-content-loader';
 
 const SelectedRestroomModal = props => {
+  const workingHours = props.selectedRestroom.working_hours
+    ? props.selectedRestroom.working_hours
+    : 'not specified, not specified';
+  const workingHoursTokens = workingHours.split(',');
+
   return (
     <View style={styles.selectedRestroom}>
       <View style={styles.restroomDetails}>
         <Text style={styles.name}>{props.selectedRestroom.name}</Text>
-        <Text style={styles.location}>{props.selectedRestroom.location_text}</Text>
+        <Text style={styles.infoText}>{props.selectedRestroom.location_text}</Text>
+        <Text style={styles.infoTextTop}>
+          {'Weekdays hours: '}
+          <Text style={styles.infoTextBold}>{workingHoursTokens[0]}</Text>
+        </Text>
+        <Text style={styles.infoTextBottom}>
+          {'Weekend hours: '}
+          <Text style={styles.infoTextBold}>{workingHoursTokens[1]}</Text>
+        </Text>
         {props.isFetchingRatings ? (
-          <ContentLoader style={styles.contentLoader} height={240} duration={1000}>
+          <View style={styles.contentLoader}>
             <Text style={styles.loadingRatingText}>Loading rating...</Text>
-          </ContentLoader>
+          </View>
         ) : (
           <View style={styles.voteStars}>
             <Text style={styles.voteNumber}>{props.ratings.totalRating}</Text>
@@ -89,21 +101,40 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'flex-start',
     marginLeft: 10,
-    position: 'absolute',
+    marginTop: 20,
     width: Dimensions.get('window').width * 0.95
+  },
+  infoText: {
+    color: '#999',
+    fontSize: 12,
+    marginRight: 20
+  },
+  infoTextBold: {
+    color: '#808080',
+    fontSize: 12,
+    marginRight: 20,
+    marginTop: 5
+  },
+  infoTextBottom: {
+    color: '#b3b3b3',
+    fontSize: 12,
+    marginBottom: 10,
+    marginRight: 20
+  },
+  infoTextTop: {
+    color: '#b3b3b3',
+    fontSize: 12,
+    marginRight: 20,
+    marginTop: 5
   },
   loadingRatingText: {
     color: '#b3b3b3',
     fontSize: 14
   },
-  location: {
-    color: '#999999',
-    fontSize: 12,
-    marginBottom: 5
-  },
   name: {
     color: '#808080',
-    fontSize: 18
+    fontSize: 18,
+    marginRight: 20
   },
   numberOfVotes: {
     color: '#999999',
@@ -119,7 +150,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     bottom: 5,
     elevation: 3,
-    height: Dimensions.get('window').height * 0.2,
     position: 'absolute',
     shadowColor: '#000',
     shadowOffset: {

@@ -20,7 +20,8 @@ class SetRestroomInfo extends Component {
   handleNext = values => {
     this.props.navigation.navigate('PickRestroomImages', {
       name: values.name,
-      description: values.description
+      description: values.description,
+      workingHours: `${values.weekdays}, ${values.weekend}`.replace(/undefined/g, 'not specified')
     });
   };
 
@@ -39,6 +40,16 @@ class SetRestroomInfo extends Component {
             <View>
               <Field name="name" component={TextInputField} placeholder={'Name*'} />
               <Field name="description" component={TextInputField} placeholder={'Description'} />
+              <Field
+                name="weekdays"
+                component={TextInputField}
+                placeholder={'Weekdays hours (e.g. 9am to 5pm)'}
+              />
+              <Field
+                name="weekend"
+                component={TextInputField}
+                placeholder={'Weekend hours (e.g. 9am to 2pm)'}
+              />
               <ButtonCustom
                 title={'Next'}
                 style={styles.button}
@@ -68,7 +79,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     height: 50,
     justifyContent: 'center',
-    marginTop: 5,
+    marginTop: 30,
     width: 300
   },
   container: {

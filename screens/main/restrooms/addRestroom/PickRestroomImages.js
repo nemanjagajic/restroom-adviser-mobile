@@ -32,6 +32,7 @@ class PickRestroomImages extends Component {
     this.props.navigation.navigate('PickRestroomLocation', {
       name: this.props.navigation.getParam('name'),
       description: this.props.navigation.getParam('description'),
+      workingHours: this.props.navigation.getParam('workingHours'),
       images: this.state.images
     });
   };

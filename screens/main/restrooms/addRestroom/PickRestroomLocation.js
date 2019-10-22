@@ -37,7 +37,8 @@ class PickRestroomLocation extends Component {
       images: this.props.navigation.getParam('images'),
       latitude: this.state.focusedLocation.latitude,
       longitude: this.state.focusedLocation.longitude,
-      location_text: this.state.locationInfo
+      location_text: this.state.locationInfo,
+      working_hours: this.props.navigation.getParam('workingHours')
     });
   };
 

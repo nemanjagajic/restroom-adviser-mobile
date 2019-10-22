@@ -45,6 +45,7 @@ class RestroomService extends ApiService {
     formData.append('latitude', restroom.latitude);
     formData.append('longitude', restroom.longitude);
     formData.append('location_text', restroom.location_text);
+    formData.append('working_hours', restroom.working_hours);
 
     return this.apiClient.post(ENDPOINTS.RESTROOM.replace('{userId}', user.id), formData);
   };
