@@ -49,7 +49,8 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     flex: 1,
-    justifyContent: 'center'
+    justifyContent: 'center',
+    marginTop: 30
   },
   input: {
     backgroundColor: '#fff',
@@ -64,13 +65,12 @@ const styles = StyleSheet.create({
   saveButton: {
     alignItems: 'center',
     backgroundColor: '#26A69A',
-    borderRadius: 15,
+    borderRadius: 20,
     flexDirection: 'row',
-    height: 40,
+    height: 45,
     justifyContent: 'center',
     marginBottom: 40,
     marginTop: 40,
-    padding: 10,
-    width: 140
+    width: 130
   }
 });

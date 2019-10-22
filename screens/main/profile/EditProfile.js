@@ -127,16 +127,15 @@ class EditProfile extends Component {
               <Image style={styles.image} source={defaultAvatar} />
             )}
             <View style={styles.changeImageContainer}>
-              <TouchableOpacity onPress={this.openImagePicker}>
-                <Icon.Ionicons name="md-images" size={28} style={styles.icon} color={'#fff'} />
+              <TouchableOpacity style={styles.imageButton} onPress={this.openImagePicker}>
+                <Icon.Ionicons name="md-images" size={28} style={styles.icon} color={'#808080'} />
               </TouchableOpacity>
-              <TouchableOpacity onPress={this.openCamera}>
-                <Icon.Ionicons name="md-camera" size={28} style={styles.icon} color={'#fff'} />
+              <TouchableOpacity style={styles.imageButton} onPress={this.openCamera}>
+                <Icon.Ionicons name="md-camera" size={28} style={styles.icon} color={'#808080'} />
               </TouchableOpacity>
             </View>
           </View>
         )}
-        <View style={styles.borderLine} />
         <KeyboardAwareScrollView enableOnAndroid>
           <UpdateProfileForm onSubmit={this.handleSubmit} user={user} />
         </KeyboardAwareScrollView>
@@ -161,18 +160,11 @@ export default connect(
 )(EditProfile);
 
 const styles = StyleSheet.create({
-  borderLine: {
-    backgroundColor: Colors.mainColorDarker,
-    height: 40,
-    marginBottom: 30,
-    width: '100%'
-  },
   changeImageContainer: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginTop: 15,
-    width: 100
+    marginTop: 5
   },
   container: {
     alignItems: 'center',
@@ -181,16 +173,37 @@ const styles = StyleSheet.create({
   header: {
     alignItems: 'center',
     backgroundColor: '#26A69A',
-    height: 200,
+    height: 240,
     justifyContent: 'center',
     width: '100%'
   },
   image: {
     backgroundColor: '#f2f2f2',
     borderColor: '#f2f2f2',
-    borderRadius: 60,
+    borderRadius: 100,
     borderWidth: 1,
-    height: 120,
-    width: 120
+    height: 150,
+    width: 150
+  },
+  imageButton: {
+    alignItems: 'center',
+    backgroundColor: '#f2f2f2',
+    borderRadius: 100,
+    display: 'flex',
+    elevation: 2,
+    height: 45,
+    justifyContent: 'center',
+    marginLeft: 20,
+    marginRight: 20,
+    padding: 10,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 1
+    },
+    shadowOpacity: 0.22,
+    shadowRadius: 2.22,
+    width: 45,
+    zIndex: 2
   }
 });
