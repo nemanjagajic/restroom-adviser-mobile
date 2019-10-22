@@ -6,24 +6,11 @@ import ButtonCustom from '../shared/button/ButtonCustom';
 import PropTypes from 'prop-types';
 
 const SelectedRestroomModal = props => {
-  const workingHours = props.selectedRestroom.working_hours
-    ? props.selectedRestroom.working_hours
-    : 'not specified{,}not specified';
-  const workingHoursTokens = workingHours.split('{,}');
-
   return (
     <View style={styles.selectedRestroom}>
       <View style={styles.restroomDetails}>
         <Text style={styles.name}>{props.selectedRestroom.name}</Text>
         <Text style={styles.infoText}>{props.selectedRestroom.location_text}</Text>
-        <Text style={styles.infoTextTop}>
-          {'Weekdays hours: '}
-          <Text style={styles.infoTextBold}>{workingHoursTokens[0]}</Text>
-        </Text>
-        <Text style={styles.infoTextBottom}>
-          {'Weekend hours: '}
-          <Text style={styles.infoTextBold}>{workingHoursTokens[1]}</Text>
-        </Text>
         {props.isFetchingRatings ? (
           <View style={styles.contentLoader}>
             <Text style={styles.loadingRatingText}>Loading rating...</Text>
@@ -101,31 +88,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'flex-start',
     marginLeft: 10,
-    marginTop: 20,
+    marginTop: 30,
     width: Dimensions.get('window').width * 0.95
   },
   infoText: {
     color: '#999',
-    fontSize: 12,
+    fontSize: 14,
+    marginBottom: 5,
     marginRight: 20
-  },
-  infoTextBold: {
-    color: '#808080',
-    fontSize: 14,
-    marginRight: 20,
-    marginTop: 5
-  },
-  infoTextBottom: {
-    color: '#b3b3b3',
-    fontSize: 14,
-    marginBottom: 10,
-    marginRight: 20
-  },
-  infoTextTop: {
-    color: '#b3b3b3',
-    fontSize: 14,
-    marginRight: 20,
-    marginTop: 5
   },
   loadingRatingText: {
     color: '#b3b3b3',
