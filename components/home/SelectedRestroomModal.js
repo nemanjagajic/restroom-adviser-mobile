@@ -111,19 +111,19 @@ const styles = StyleSheet.create({
   },
   infoTextBold: {
     color: '#808080',
-    fontSize: 12,
+    fontSize: 14,
     marginRight: 20,
     marginTop: 5
   },
   infoTextBottom: {
     color: '#b3b3b3',
-    fontSize: 12,
+    fontSize: 14,
     marginBottom: 10,
     marginRight: 20
   },
   infoTextTop: {
     color: '#b3b3b3',
-    fontSize: 12,
+    fontSize: 14,
     marginRight: 20,
     marginTop: 5
   },

@@ -57,9 +57,13 @@ class RestroomDetails extends Component {
       name,
       description,
       location_text: locationText,
-      images
+      images,
+      working_hours
     } = this.props.navigation.getParam('restroom');
     const ratings = this.props.ratings;
+
+    const workingHours = working_hours || 'not specified{,}not specified';
+    const workingHoursTokens = workingHours.split('{,}');
 
     return (
       <ScrollView contentContainerStyle={styles.container}>
@@ -127,6 +131,20 @@ class RestroomDetails extends Component {
                 )}
               </Text>
             </View>
+            <View style={styles.workingHoursWrapper}>
+              <View style={styles.timeIconWrapper}>
+                <Ionicons
+                  style={styles.timeIcon}
+                  name="md-time"
+                  color={Colors.mainColor}
+                  size={36}
+                />
+              </View>
+              <Text style={styles.infoTextTop}>{'Weekdays working hours'}</Text>
+              <Text style={styles.infoTextBold}>{workingHoursTokens[0]}</Text>
+              <Text style={styles.infoTextBottom}>{'Weekend working hours'}</Text>
+              <Text style={styles.infoTextBold}>{workingHoursTokens[1]}</Text>
+            </View>
             <ButtonCustom
               style={styles.buttonComment}
               textStyle={styles.buttonCommentText}
@@ -179,6 +197,7 @@ const styles = StyleSheet.create({
     height: 40,
     justifyContent: 'center',
     marginBottom: 20,
+    marginTop: 30,
     width: 200
   },
   buttonCommentText: {
@@ -203,8 +222,10 @@ const styles = StyleSheet.create({
   },
   descriptionContainer: {
     backgroundColor: '#f7f7f7',
+    borderColor: '#f5f5f5',
     borderRadius: 10,
-    marginBottom: 20,
+    borderWidth: 1,
+    marginBottom: 30,
     marginTop: 20,
     padding: 10,
     width: Dimensions.get('window').width * 0.9
@@ -222,6 +243,22 @@ const styles = StyleSheet.create({
     backgroundColor: '#f2f2f2',
     height: 360,
     width: Dimensions.get('window').width
+  },
+  infoTextBold: {
+    color: '#808080',
+    fontSize: 14,
+    textAlign: 'center'
+  },
+  infoTextBottom: {
+    color: '#b3b3b3',
+    fontSize: 14,
+    marginTop: 10,
+    textAlign: 'center'
+  },
+  infoTextTop: {
+    color: '#b3b3b3',
+    fontSize: 14,
+    textAlign: 'center'
   },
   location: {
     borderBottomWidth: 1,
@@ -257,6 +294,27 @@ const styles = StyleSheet.create({
     fontSize: 12,
     marginTop: 5,
     textAlign: 'center'
+  },
+  timeIconWrapper: {
+    backgroundColor: '#fff',
+    borderRadius: 100,
+    height: 30,
+    position: 'absolute',
+    top: -18
+  },
+  workingHoursWrapper: {
+    alignItems: 'center',
+    backgroundColor: '#f7f7f7',
+    borderColor: '#f5f5f5',
+    borderRadius: 10,
+    borderWidth: 1,
+    display: 'flex',
+    justifyContent: 'center',
+    paddingBottom: 20,
+    paddingLeft: 10,
+    paddingRight: 10,
+    paddingTop: 25,
+    width: Dimensions.get('window').width * 0.9
   }
 });
 
