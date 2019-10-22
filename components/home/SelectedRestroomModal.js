@@ -8,8 +8,8 @@ import PropTypes from 'prop-types';
 const SelectedRestroomModal = props => {
   const workingHours = props.selectedRestroom.working_hours
     ? props.selectedRestroom.working_hours
-    : 'not specified, not specified';
-  const workingHoursTokens = workingHours.split(',');
+    : 'not specified{,}not specified';
+  const workingHoursTokens = workingHours.split('{,}');
 
   return (
     <View style={styles.selectedRestroom}>

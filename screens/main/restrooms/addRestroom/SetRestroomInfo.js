@@ -21,7 +21,7 @@ class SetRestroomInfo extends Component {
     this.props.navigation.navigate('PickRestroomImages', {
       name: values.name,
       description: values.description,
-      workingHours: `${values.weekdays}, ${values.weekend}`.replace(/undefined/g, 'not specified')
+      workingHours: `${values.weekdays}{,}${values.weekend}`.replace(/undefined/g, 'not specified')
     });
   };
 
