@@ -39,6 +39,7 @@
     "react": "16.8.3",
     "react-native": "https://github.com/expo/react-native/archive/sdk-33.0.0.tar.gz",
     "react-native-content-loader": "^0.1.6",
+    "react-native-google-places-autocomplete": "^1.3.9",
     "react-native-in-app-notification": "git+https://git@github.com/AlexSensei/react-native-in-app-notification.git",
     "react-native-keyboard-aware-scroll-view": "^0.8.0",
     "react-native-maps": "~0.24.0",
