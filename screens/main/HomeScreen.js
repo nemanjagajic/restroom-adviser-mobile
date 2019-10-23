@@ -49,6 +49,10 @@ class HomeScreen extends React.Component {
   };
 
   handleMarkerPressed = restroom => {
+    const selectedRestroom = this.props.navigation.getParam('restroom');
+
+    if (selectedRestroom && selectedRestroom.id === restroom.id) return;
+
     this.props.navigation.setParams({ restroom, from: 'HomeScreen' });
     this.props.getRestroomRatings(restroom, false);
   };
