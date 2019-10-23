@@ -78,8 +78,8 @@ class HomeScreen extends React.Component {
         ? {
           latitude: selectedRestroom.latitude,
           longitude: selectedRestroom.longitude,
-          latitudeDelta: 0.05,
-          longitudeDelta: 0.02
+          latitudeDelta: 0.015,
+          longitudeDelta: 0.015
         }
         : {
           latitude: selectedRestroom.latitude,

@@ -40,8 +40,8 @@ class MapLocations extends React.Component {
       mapRegion: {
         latitude: location.coords.latitude,
         longitude: location.coords.longitude,
-        latitudeDelta: 0.05,
-        longitudeDelta: 0.02
+        latitudeDelta: 0.015,
+        longitudeDelta: 0.015
       }
     });
   };

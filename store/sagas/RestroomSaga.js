@@ -89,8 +89,8 @@ export function* addRestroom({ payload }) {
       centerLocation: {
         latitude: response.data.latitude,
         longitude: response.data.longitude,
-        latitudeDelta: 0.05,
-        longitudeDelta: 0.02
+        latitudeDelta: 0.015,
+        longitudeDelta: 0.015
       }
     });
   } catch (error) {

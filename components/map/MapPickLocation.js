@@ -38,8 +38,8 @@ class MapPickLocation extends Component {
         focusedLocation: {
           latitude: location.coords.latitude,
           longitude: location.coords.longitude,
-          latitudeDelta: 0.01,
-          longitudeDelta: 0.005
+          latitudeDelta: 0.015,
+          longitudeDelta: 0.015
         }
       },
       () => this.setLocationInformation(this.state.focusedLocation)
@@ -92,8 +92,8 @@ class MapPickLocation extends Component {
               style={styles.map}
               initialRegion={{
                 ...this.state.focusedLocation,
-                latitudeDelta: 0.01,
-                longitudeDelta: 0.005
+                latitudeDelta: 0.015,
+                longitudeDelta: 0.015
               }}
               onRegionChangeComplete={this.handleRegionChanged}
             />
@@ -151,8 +151,8 @@ const styles = StyleSheet.create({
     width: Dimensions.get('window').width
   },
   mapMarkerIcon: {
-    height: 45,
-    width: 32
+    height: 40,
+    width: 27
   },
   markerFixed: {
     left: '50%',
