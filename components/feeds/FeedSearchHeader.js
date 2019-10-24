@@ -1,12 +1,14 @@
 import React from 'react';
-import { Dimensions, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Dimensions, StyleSheet, TextInput, TouchableOpacity, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import Colors from '../../constants/Colors';
 import PropTypes from 'prop-types';
+import { Icon } from 'expo';
 
 const FeedSearchHeader = props => (
   <View style={styles.searchWrapper}>
     <View style={styles.searchInputWrapper}>
+      <Icon.Ionicons name="ios-search" size={24} style={styles.searchIcon} color={'#808080'} />
       <TextInput
         style={styles.searchInput}
         placeholder={'Search restrooms'}
@@ -20,12 +22,9 @@ const FeedSearchHeader = props => (
         style={props.appliedFilterRating ? styles.searchButtonApplied : styles.searchButton}
         onPress={props.onFilterButtonPressed}
       >
-        <Ionicons name="ios-funnel" color="#fff" size={25} />
+        <Ionicons name="ios-funnel" color="#fff" size={24} />
       </TouchableOpacity>
     </View>
-    <Text style={styles.numberOfRestroomsText}>
-      {`Number of restrooms: ${props.restroomsTotalNumber}`}
-    </Text>
   </View>
 );
 
@@ -39,11 +38,6 @@ FeedSearchHeader.propTypes = {
 };
 
 const styles = StyleSheet.create({
-  numberOfRestroomsText: {
-    color: '#b3b3b3',
-    fontSize: 14,
-    marginTop: 5
-  },
   searchButton: {
     alignItems: 'center',
     backgroundColor: '#ccc',
@@ -51,7 +45,8 @@ const styles = StyleSheet.create({
     display: 'flex',
     height: 35,
     justifyContent: 'center',
-    marginLeft: 5,
+    marginLeft: 10,
+    marginRight: 10,
     width: 35
   },
   searchButtonApplied: {
@@ -61,30 +56,44 @@ const styles = StyleSheet.create({
     display: 'flex',
     height: 35,
     justifyContent: 'center',
-    marginLeft: 5,
-    width: 35
+    marginLeft: 10,
+    marginRight: 10
+  },
+  searchIcon: {
+    padding: 10
   },
   searchInput: {
-    backgroundColor: '#f2f2f2',
+    backgroundColor: '#fff',
     borderRadius: 15,
-    height: 35,
-    padding: 10,
-    width: Dimensions.get('window').width * 0.8
+    color: '#808080',
+    flex: 1,
+    fontSize: 16
   },
   searchInputWrapper: {
     alignItems: 'center',
+    backgroundColor: '#fff',
+    borderRadius: 20,
     display: 'flex',
-    flexDirection: 'row'
+    elevation: 3,
+    flexDirection: 'row',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 1
+    },
+    shadowOpacity: 0.22,
+    shadowRadius: 2.22,
+    width: Dimensions.get('window').width * 0.9,
+    zIndex: 2
   },
   searchWrapper: {
     alignItems: 'center',
-    backgroundColor: '#fff',
+    backgroundColor: 'transparent',
     display: 'flex',
-    height: 75,
     justifyContent: 'center',
-    position: 'absolute',
-    width: Dimensions.get('window').width,
-    zIndex: 1
+    paddingBottom: 10,
+    paddingTop: 10,
+    width: Dimensions.get('window').width
   }
 });
 

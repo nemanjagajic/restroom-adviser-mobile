@@ -85,19 +85,23 @@ class FeedsHome extends Component {
     this.setState({ searchValue: text });
   };
 
+  renderFilter = () => (
+    <FeedSearchHeader
+      restroomsTotalNumber={this.props.restroomsTotalNumber}
+      appliedFilterRating={this.state.appliedFilterRating}
+      onFilterButtonPressed={this.handleFilterButtonPressed}
+      onSubmitEditing={this.reloadRestrooms}
+      searchValue={this.state.searchValue}
+      onChangeText={this.handleSearchTextChange}
+    />
+  );
+
   render() {
     return (
       <View style={styles.container}>
-        <FeedSearchHeader
-          restroomsTotalNumber={this.props.restroomsTotalNumber}
-          appliedFilterRating={this.state.appliedFilterRating}
-          onFilterButtonPressed={this.handleFilterButtonPressed}
-          onSubmitEditing={this.reloadRestrooms}
-          searchValue={this.state.searchValue}
-          onChangeText={this.handleSearchTextChange}
-        />
         {!this.props.isFetchingRestrooms && this.props.restrooms.length === 0 ? (
           <View style={styles.emptyListContainer}>
+            {this.renderFilter()}
             {!this.props.isFetchingRestrooms && (
               <View style={styles.emptyList}>
                 <Ionicons name="md-planet" color="#ccc" size={100} />
@@ -117,6 +121,7 @@ class FeedsHome extends Component {
             reloadRestrooms={this.reloadRestrooms}
             navigation={this.props.navigation}
             getRestroomRatings={this.props.getRestroomRatings}
+            headerComponent={this.renderFilter()}
           />
         )}
         {this.state.isFilterModalVisible && (
@@ -165,14 +170,12 @@ const styles = StyleSheet.create({
   },
   emptyList: {
     alignItems: 'center',
-    display: 'flex',
-    justifyContent: 'center'
+    flex: 1
   },
   emptyListContainer: {
     alignItems: 'center',
     display: 'flex',
     height: Dimensions.get('window').height,
-    paddingTop: 200,
     width: Dimensions.get('window').width
   },
   emptyListText: {

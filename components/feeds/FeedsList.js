@@ -54,16 +54,16 @@ class FeedsList extends Component {
           />
         )}
         onScroll={this.handleScroll}
-        progressViewOffset={1000}
         refreshControl={
           <RefreshControl
-            progressViewOffset={60}
+            progressViewOffset={50}
             refreshing={this.props.isFetchingRestrooms && !this.props.isFetchingNewRestrooms}
             onRefresh={this.props.reloadRestrooms}
             colors={[Colors.mainColor]}
           />
         }
         ListFooterComponent={this.renderFooter}
+        ListHeaderComponent={this.props.headerComponent}
       />
     );
   }
@@ -83,7 +83,8 @@ FeedsList.propTypes = {
   reloadRestrooms: PropTypes.func,
   navigation: PropTypes.object,
   isFetchingNewRestrooms: PropTypes.bool,
-  getRestroomRatings: PropTypes.func
+  getRestroomRatings: PropTypes.func,
+  headerComponent: PropTypes.any
 };
 
 export default FeedsList;
