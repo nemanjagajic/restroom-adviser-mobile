@@ -103,16 +103,24 @@ class MapPickLocation extends Component {
             </View>
           </View>
         )}
-        <View style={styles.locationText}>
-          <Icon.Ionicons name="ios-search" size={24} style={styles.searchIcon} color={'#808080'} />
-          <TextInput
-            style={styles.locationTextInput}
-            onChangeText={text => this.setState({ searchInput: text })}
-            value={this.state.searchInput}
-            placeholder={'Search places, cafes, restaurants, streets...'}
-            returnKeyType={'search'}
-            onSubmitEditing={() => this.props.onSubmitEditing(this.state.searchInput)}
-          />
+        <View style={styles.locationSearchWrapper}>
+          <View style={styles.searchInputWrapper}>
+            <Icon.Ionicons
+              name="ios-search"
+              size={24}
+              style={styles.searchIcon}
+              color={'#808080'}
+            />
+            <TextInput
+              style={styles.locationTextInput}
+              onChangeText={text => this.setState({ searchInput: text })}
+              value={this.state.searchInput}
+              placeholder={'Search places, cafes, restaurants, streets...'}
+              returnKeyType={'search'}
+              onSubmitEditing={() => this.props.onSubmitEditing(this.state.searchInput)}
+            />
+          </View>
+          <View style={styles.suggestionsWrapper} />
         </View>
       </View>
     );
@@ -131,18 +139,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     display: 'flex'
   },
-  locationText: {
-    alignItems: 'center',
-    backgroundColor: '#fff',
-    borderColor: '#b3b3b3',
+  locationSearchWrapper: {
     borderRadius: 20,
-    borderWidth: 1,
-    color: '#808080',
-    display: 'flex',
-    flexDirection: 'row',
     marginTop: 15,
     position: 'absolute',
-    width: Dimensions.get('window').width * 0.9
+    width: Dimensions.get('window').width * 0.9,
+    zIndex: 2
   },
   locationTextInput: {
     color: '#808080',
@@ -171,6 +173,42 @@ const styles = StyleSheet.create({
   },
   searchIcon: {
     padding: 10
+  },
+  searchInputWrapper: {
+    alignItems: 'center',
+    backgroundColor: '#fff',
+    borderRadius: 20,
+    display: 'flex',
+    elevation: 3,
+    flexDirection: 'row',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 1
+    },
+    shadowOpacity: 0.22,
+    shadowRadius: 2.22,
+    width: Dimensions.get('window').width * 0.9,
+    zIndex: 2
+  },
+  suggestionsWrapper: {
+    alignItems: 'center',
+    backgroundColor: '#fff',
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20,
+    display: 'flex',
+    elevation: 3,
+    flexDirection: 'row',
+    height: 200,
+    marginTop: -20,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 1
+    },
+    shadowOpacity: 0.22,
+    shadowRadius: 2.22,
+    width: Dimensions.get('window').width * 0.9
   }
 });
 
