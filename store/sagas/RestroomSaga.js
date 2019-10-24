@@ -24,7 +24,8 @@ import {
   setFetchingNewComments,
   setFetchingNewCommentsFinished,
   addRestroomComments,
-  resetRestroomComments
+  resetRestroomComments,
+  setOsmSuggestions
 } from '../actions/RestroomActions';
 import NavigationService from '../../services/NavigationService';
 import { FETCHING_LIMIT } from '../../constants/Restrooms';
@@ -197,5 +198,27 @@ export function* getRestroomRatings({ payload, includeRatings }) {
     console.log(error);
   } finally {
     yield put(setFetchingRatingsFinished());
+  }
+}
+
+export function* getOsmSuggestions({ payload }) {
+  try {
+    const response = yield call(restroomService.getOSMSuggestions, {
+      query: payload
+    });
+
+    const suggestions = [];
+    const features = response.data.features;
+    features.forEach(f => {
+      const suggestion = {};
+      suggestion.displayName = f.properties.display_name;
+      suggestion.coordinates = f.geometry.coordinates;
+      suggestions.push(suggestion);
+    });
+
+    yield put(setOsmSuggestions(suggestions));
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.log(error);
   }
 }

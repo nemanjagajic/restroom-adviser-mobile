@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Dimensions, StyleSheet, Text, TextInput, View } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { addRestroom } from '../../../../store/actions/RestroomActions';
+import { addRestroom, getOsmSuggestions } from '../../../../store/actions/RestroomActions';
 import ButtonCustom from '../../../../components/shared/button/ButtonCustom';
 import Colors from '../../../../constants/Colors';
-import { isAddingRestroomSelector } from '../../../../store/selectors/RestroomSelector';
+import {
+  isAddingRestroomSelector,
+  osmSuggestionsSelector
+} from '../../../../store/selectors/RestroomSelector';
 import MapPickLocation from '../../../../components/map/MapPickLocation';
 
 class PickRestroomLocation extends Component {
@@ -42,13 +45,25 @@ class PickRestroomLocation extends Component {
     });
   };
 
+  onSubmitEditingSearch = query => {
+    this.props.getOsmSuggestions(query);
+  };
+
   render() {
     return (
       <View style={styles.container}>
         <MapPickLocation
           onFocusedLocationChanged={this.handleFocusedLocationChanged}
           onLocationInfoChanged={this.handleLocationInfoChanged}
+          onSubmitEditing={this.onSubmitEditingSearch}
         />
+        <View style={styles.locationText}>
+          <TextInput
+            style={styles.locationTextInput}
+            onChangeText={text => this.setState({ locationInfo: text })}
+            value={this.state.locationInfo || 'Loading current location'}
+          />
+        </View>
         <Text style={styles.addingRestroomIndicator}>
           {this.props.isAddingRestroom && 'Adding restroom...'}
         </Text>
@@ -67,15 +82,19 @@ PickRestroomLocation.propTypes = {
   addingRestroomInfo: PropTypes.object,
   addRestroom: PropTypes.func,
   navigation: PropTypes.object,
-  isAddingRestroom: PropTypes.bool
+  isAddingRestroom: PropTypes.bool,
+  getOsmSuggestions: PropTypes.func,
+  osmSuggestions: PropTypes.array
 };
 
 const mapStateToProps = state => ({
-  isAddingRestroom: isAddingRestroomSelector(state)
+  isAddingRestroom: isAddingRestroomSelector(state),
+  osmSuggestions: osmSuggestionsSelector(state)
 });
 
 const mapDispatchToProps = {
-  addRestroom
+  addRestroom,
+  getOsmSuggestions
 };
 
 const styles = StyleSheet.create({
@@ -101,6 +120,20 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     display: 'flex',
     flex: 1
+  },
+  locationText: {
+    alignItems: 'center',
+    backgroundColor: '#fff',
+    borderColor: '#e6e6e6',
+    borderRadius: 30,
+    borderWidth: 1,
+    color: '#808080',
+    marginTop: 15,
+    padding: 10,
+    width: Dimensions.get('window').width * 0.9
+  },
+  locationTextInput: {
+    color: '#808080'
   },
   white: {
     color: '#fff'

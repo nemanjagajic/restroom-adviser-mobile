@@ -1,10 +1,12 @@
 import ApiService from './ApiService';
+import axios from 'axios';
 
 const ENDPOINTS = {
   RESTROOM: '/user/{userId}/restroom',
   RESTROOM_COMMENT: '/user/{userId}/restroom/{restroomId}/comments',
   RESTROOM_RATING: '/user/{userId}/restroom/{restroomId}/ratings',
-  FEED_RESTROOMS: 'user/{userId}/restroom/feedRestrooms?offset={offset}&limit={limit}'
+  FEED_RESTROOMS: 'user/{userId}/restroom/feedRestrooms?offset={offset}&limit={limit}',
+  GET_OSM_SUGGESTIONS: 'https://nominatim.openstreetmap.org/search?q={query}&format=geojson'
 };
 
 class RestroomService extends ApiService {
@@ -79,6 +81,10 @@ class RestroomService extends ApiService {
     if (includeRatings) request += '?includeRatings=true';
 
     return this.apiClient.get(request);
+  };
+
+  getOSMSuggestions = ({ query }) => {
+    return axios.get(ENDPOINTS.GET_OSM_SUGGESTIONS.replace('{query}', query));
   };
 }
 

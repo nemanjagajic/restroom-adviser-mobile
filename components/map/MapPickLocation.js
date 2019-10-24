@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Dimensions, StyleSheet, Text, View, TextInput, Image } from 'react-native';
-import { Location, MapView, Permissions } from 'expo';
+import { Icon, Location, MapView, Permissions } from 'expo';
 import mapMarkerIcon from '../../assets/images/map-marker-icon-filled.png';
 import PropTypes from 'prop-types';
 
@@ -13,7 +13,8 @@ class MapPickLocation extends Component {
     focusedLocation: null,
     hasLocationPermissions: false,
     locationResult: null,
-    locationInfo: null
+    locationInfo: null,
+    searchInput: ''
   };
 
   componentDidMount() {
@@ -103,10 +104,14 @@ class MapPickLocation extends Component {
           </View>
         )}
         <View style={styles.locationText}>
+          <Icon.Ionicons name="ios-search" size={24} style={styles.searchIcon} color={'#808080'} />
           <TextInput
             style={styles.locationTextInput}
-            onChangeText={text => this.setState({ locationInfo: text })}
-            value={this.state.locationInfo || 'Loading current location'}
+            onChangeText={text => this.setState({ searchInput: text })}
+            value={this.state.searchInput}
+            placeholder={'Search places, cafes, restaurants, streets...'}
+            returnKeyType={'search'}
+            onSubmitEditing={() => this.props.onSubmitEditing(this.state.searchInput)}
           />
         </View>
       </View>
@@ -116,7 +121,8 @@ class MapPickLocation extends Component {
 
 MapPickLocation.propTypes = {
   onFocusedLocationChanged: PropTypes.func,
-  onLocationInfoChanged: PropTypes.func
+  onLocationInfoChanged: PropTypes.func,
+  onSubmitEditing: PropTypes.func
 };
 
 const styles = StyleSheet.create({
@@ -129,16 +135,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#fff',
     borderColor: '#b3b3b3',
-    borderRadius: 10,
+    borderRadius: 20,
     borderWidth: 1,
     color: '#808080',
+    display: 'flex',
+    flexDirection: 'row',
     marginTop: 15,
-    padding: 10,
     position: 'absolute',
     width: Dimensions.get('window').width * 0.9
   },
   locationTextInput: {
-    color: '#808080'
+    color: '#808080',
+    flex: 1
   },
   map: {
     alignItems: 'center',
@@ -160,6 +168,9 @@ const styles = StyleSheet.create({
     marginTop: -48,
     position: 'absolute',
     top: '50%'
+  },
+  searchIcon: {
+    padding: 10
   }
 });
 

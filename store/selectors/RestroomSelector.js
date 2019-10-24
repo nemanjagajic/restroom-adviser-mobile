@@ -71,3 +71,8 @@ export const isAddingRatingSelector = createSelector(
   restroomStateSelector,
   restrooms => restrooms.isFetchingRatings
 );
+
+export const osmSuggestionsSelector = createSelector(
+  restroomStateSelector,
+  restrooms => restrooms.osmSuggestions
+);

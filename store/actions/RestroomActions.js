@@ -27,7 +27,11 @@ import {
   SET_FETCHING_NEW_COMMENTS,
   SET_FETCHING_NEW_COMMENTS_FINISHED,
   ADD_RESTROOM_COMMENTS,
-  RESET_RESTROOM_COMMENTS
+  RESET_RESTROOM_COMMENTS,
+  GET_OSM_SUGGESTIONS,
+  SET_OSM_SUGGESTIONS,
+  SET_FETCHING_OSM_SUGGESTIONS,
+  SET_FINISHED_FETCHING_OSM_SUGGESTIONS
 } from './ActionTypes';
 
 export const addRestroom = payload => ({
@@ -155,4 +159,22 @@ export const setFetchingNewFeedRestrooms = () => ({
 
 export const setFetchingNewFeedRestroomsFinished = () => ({
   type: SET_FETCHING_NEW_FEED_RESTROOMS_FINISHED
+});
+
+export const getOsmSuggestions = payload => ({
+  type: GET_OSM_SUGGESTIONS,
+  payload
+});
+
+export const setOsmSuggestions = payload => ({
+  type: SET_OSM_SUGGESTIONS,
+  payload
+});
+
+export const setFetchingOsmSuggestions = () => ({
+  type: SET_FETCHING_OSM_SUGGESTIONS
+});
+
+export const setFinishedFetchingOsmSuggestions = () => ({
+  type: SET_FINISHED_FETCHING_OSM_SUGGESTIONS
 });

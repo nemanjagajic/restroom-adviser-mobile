@@ -20,7 +20,10 @@ import {
   SET_FETCHING_NEW_COMMENTS,
   SET_FETCHING_NEW_COMMENTS_FINISHED,
   ADD_RESTROOM_COMMENTS,
-  RESET_RESTROOM_COMMENTS
+  RESET_RESTROOM_COMMENTS,
+  SET_OSM_SUGGESTIONS,
+  SET_FETCHING_OSM_SUGGESTIONS,
+  SET_FINISHED_FETCHING_OSM_SUGGESTIONS
 } from '../actions/ActionTypes';
 
 const initialState = {
@@ -37,7 +40,9 @@ const initialState = {
   ratings: {},
   isAddingRating: false,
   isFetchingFeedRestrooms: false,
-  isFetchingNewFeedRestrooms: false
+  isFetchingNewFeedRestrooms: false,
+  osmSuggestions: [],
+  isFetchingOsmSuggestions: false
 };
 
 export default (state = initialState, action) => {
@@ -155,6 +160,21 @@ export default (state = initialState, action) => {
       return {
         ...state,
         isFetchingNewComments: false
+      };
+    case SET_OSM_SUGGESTIONS:
+      return {
+        ...state,
+        osmSuggestions: action.payload
+      };
+    case SET_FETCHING_OSM_SUGGESTIONS:
+      return {
+        ...state,
+        isFetchingOsmSuggestions: true
+      };
+    case SET_FINISHED_FETCHING_OSM_SUGGESTIONS:
+      return {
+        ...state,
+        isFetchingOsmSuggestions: false
       };
     default:
       return state;

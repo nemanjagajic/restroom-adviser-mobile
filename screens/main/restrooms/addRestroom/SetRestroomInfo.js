@@ -7,7 +7,6 @@ import { Field, Formik } from 'formik';
 import { TextInputField } from '../../../../components/shared/FormFields';
 import Colors from '../../../../constants/Colors';
 import { setRestroomInfoRules } from '../../../../validation /restroom';
-import GooglePlacesInput from '../../../../components/shared/GooglePlacesInput';
 
 class SetRestroomInfo extends Component {
   static navigationOptions = {
@@ -29,7 +28,6 @@ class SetRestroomInfo extends Component {
   render() {
     return (
       <KeyboardAvoidingView behavior={'padding'} style={styles.container}>
-        <GooglePlacesInput />
         <Formik
           initialValues={{ name: '', description: '' }}
           onSubmit={(values, { resetForm }) => {
