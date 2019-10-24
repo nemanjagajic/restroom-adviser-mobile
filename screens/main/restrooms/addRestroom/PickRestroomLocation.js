@@ -56,6 +56,7 @@ class PickRestroomLocation extends Component {
           onFocusedLocationChanged={this.handleFocusedLocationChanged}
           onLocationInfoChanged={this.handleLocationInfoChanged}
           onSubmitEditing={this.onSubmitEditingSearch}
+          osmSuggestions={this.props.osmSuggestions}
         />
         <View style={styles.locationText}>
           <TextInput

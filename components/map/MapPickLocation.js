@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Dimensions, StyleSheet, Text, View, TextInput, Image } from 'react-native';
+import { Dimensions, StyleSheet, Text, View, TextInput, Image, FlatList } from 'react-native';
 import { Icon, Location, MapView, Permissions } from 'expo';
 import mapMarkerIcon from '../../assets/images/map-marker-icon-filled.png';
 import PropTypes from 'prop-types';
@@ -62,6 +62,31 @@ class MapPickLocation extends Component {
     this.setLocationInformation();
   };
 
+  renderSuggestions = () => {
+    return (
+      <FlatList
+        data={this.props.osmSuggestions}
+        keyExtractor={(suggestion, index) => index.toString()}
+        renderItem={({ item, index }) => (
+          // eslint-disable-next-line react-native/no-inline-styles
+          <View
+            style={[
+              styles.suggestionItem,
+              // eslint-disable-next-line react-native/no-inline-styles
+              {
+                borderBottomWidth: index !== this.props.osmSuggestions.length - 1 ? 1 : 0,
+                paddingTop: index !== 0 ? 10 : 0,
+                borderColor: '#f2f2f2'
+              }
+            ]}
+          >
+            <Text style={styles.suggestionItemText}>{item.displayName}</Text>
+          </View>
+        )}
+      />
+    );
+  };
+
   async setLocationInformation() {
     const { latitude, longitude } = this.state.focusedLocation;
     let locationInfo = await Location.reverseGeocodeAsync({ latitude, longitude });
@@ -120,7 +145,7 @@ class MapPickLocation extends Component {
               onSubmitEditing={() => this.props.onSubmitEditing(this.state.searchInput)}
             />
           </View>
-          <View style={styles.suggestionsWrapper} />
+          <View style={styles.suggestionsWrapper}>{this.renderSuggestions()}</View>
         </View>
       </View>
     );
@@ -130,7 +155,8 @@ class MapPickLocation extends Component {
 MapPickLocation.propTypes = {
   onFocusedLocationChanged: PropTypes.func,
   onLocationInfoChanged: PropTypes.func,
-  onSubmitEditing: PropTypes.func
+  onSubmitEditing: PropTypes.func,
+  osmSuggestions: PropTypes.array
 };
 
 const styles = StyleSheet.create({
@@ -191,16 +217,23 @@ const styles = StyleSheet.create({
     width: Dimensions.get('window').width * 0.9,
     zIndex: 2
   },
+  suggestionItem: {
+    marginLeft: 15,
+    marginRight: 15,
+    paddingBottom: 10
+  },
+  suggestionItemText: {
+    color: '#808080'
+  },
   suggestionsWrapper: {
     alignItems: 'center',
     backgroundColor: '#fff',
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,
-    display: 'flex',
     elevation: 3,
-    flexDirection: 'row',
-    height: 200,
     marginTop: -20,
+    maxHeight: 200,
+    paddingTop: 15,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
