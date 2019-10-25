@@ -40,7 +40,7 @@ class SetRestroomInfo extends Component {
           validationSchema={setRestroomInfoRules}
         >
           {({ handleSubmit }) => (
-            <View>
+            <View style={styles.form}>
               <Field name="name" component={TextInputField} placeholder={'Name*'} />
               <Field name="description" component={TextInputField} placeholder={'Description'} />
               <Field
@@ -56,7 +56,7 @@ class SetRestroomInfo extends Component {
               <ButtonCustom
                 title={'Next'}
                 style={styles.button}
-                textStyle={styles.white}
+                textStyle={styles.addButtonText}
                 onPress={handleSubmit}
               />
             </View>
@@ -75,15 +75,20 @@ SetRestroomInfo.propTypes = {
 };
 
 const styles = StyleSheet.create({
+  addButtonText: {
+    color: '#fff',
+    fontSize: 16
+  },
   button: {
     alignItems: 'center',
     backgroundColor: Colors.mainColor,
-    borderRadius: 20,
+    borderRadius: 30,
     display: 'flex',
-    height: 50,
+    elevation: 1,
+    height: 45,
     justifyContent: 'center',
-    marginTop: 30,
-    width: 300
+    marginTop: 20,
+    width: 140
   },
   container: {
     alignItems: 'center',
@@ -93,8 +98,9 @@ const styles = StyleSheet.create({
     height: Dimensions.get('window').height * 0.7,
     justifyContent: 'center'
   },
-  white: {
-    color: '#fff'
+  form: {
+    alignItems: 'center',
+    display: 'flex'
   }
 });
 

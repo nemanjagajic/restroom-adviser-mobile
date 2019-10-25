@@ -3,9 +3,15 @@ import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import PropTypes from 'prop-types';
 import Colors from '../../../constants/Colors';
 
-const ButtonCustom = ({ title, onPress, style = styles.button, textStyle = {} }) => {
+const ButtonCustom = ({
+  title,
+  onPress,
+  style = styles.button,
+  textStyle = {},
+  disabled = false
+}) => {
   return (
-    <TouchableOpacity style={style} onPress={onPress}>
+    <TouchableOpacity disabled={disabled} style={style} onPress={onPress}>
       <Text style={textStyle}>{title}</Text>
     </TouchableOpacity>
   );
@@ -15,7 +21,8 @@ ButtonCustom.propTypes = {
   title: PropTypes.string,
   onPress: PropTypes.func,
   style: PropTypes.object,
-  textStyle: PropTypes.object
+  textStyle: PropTypes.object,
+  disabled: PropTypes.bool
 };
 
 const styles = StyleSheet.create({

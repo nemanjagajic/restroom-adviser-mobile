@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
   button: {
     alignItems: 'center',
     backgroundColor: '#fff',
-    borderColor: '#ccc',
+    borderColor: '#d9d9d9',
     borderRadius: 30,
     borderWidth: 1,
     display: 'flex',
@@ -85,7 +85,8 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-around',
-    marginTop: 20
+    marginTop: 20,
+    width: '100%'
   }
 });
 

@@ -82,15 +82,15 @@ class PickRestroomImages extends Component {
               </View>
             )}
           </View>
-          <AddImage onImageAdded={this.handleImageAdded} />
         </View>
-        <Text style={styles.addingRestroomIndicator}>
-          {this.props.isAddingRestroom && 'Adding restroom...'}
-        </Text>
+        <AddImage onImageAdded={this.handleImageAdded} />
         <ButtonCustom
-          title={'Next'}
-          style={styles.button}
-          textStyle={styles.white}
+          disabled={this.props.isAddingRestroom}
+          title={this.props.isAddingRestroom ? 'Adding restroom... ' : 'Add restroom'}
+          style={this.props.isAddingRestroom ? styles.buttonAdding : styles.button}
+          textStyle={
+            this.props.isAddingRestroom ? styles.addButtonTextAdding : styles.addButtonText
+          }
           onPress={this.addRestroom}
         />
       </View>
@@ -116,20 +116,35 @@ const mapDispatchToProps = {
 };
 
 const styles = StyleSheet.create({
-  addingRestroomIndicator: {
-    color: '#808080',
-    fontSize: 18,
-    marginTop: 10
+  addButtonText: {
+    color: '#fff',
+    fontSize: 16
+  },
+  addButtonTextAdding: {
+    color: '#999999',
+    fontSize: 16
   },
   button: {
     alignItems: 'center',
     backgroundColor: Colors.mainColor,
-    borderRadius: 20,
+    borderRadius: 30,
     bottom: 20,
     display: 'flex',
+    elevation: 1,
     height: 50,
     justifyContent: 'center',
-    marginTop: 5,
+    position: 'absolute',
+    width: 300
+  },
+  buttonAdding: {
+    alignItems: 'center',
+    backgroundColor: '#f2f2f2',
+    borderRadius: 30,
+    bottom: 20,
+    display: 'flex',
+    elevation: 1,
+    height: 50,
+    justifyContent: 'center',
     position: 'absolute',
     width: 300
   },
@@ -166,15 +181,13 @@ const styles = StyleSheet.create({
   },
   imageArea: {
     display: 'flex',
-    height: Dimensions.get('window').height * 0.7,
+    height: Dimensions.get('window').height * 0.55,
     justifyContent: 'flex-end',
     width: Dimensions.get('window').width
   },
   imagePresentation: {
     alignItems: 'center',
     backgroundColor: '#f2f2f2',
-    borderBottomColor: '#d9d9d9',
-    borderBottomWidth: 1,
     flex: 1,
     justifyContent: 'center'
   },
@@ -182,9 +195,6 @@ const styles = StyleSheet.create({
     marginTop: 30,
     paddingLeft: 10,
     paddingRight: 10
-  },
-  white: {
-    color: '#fff'
   }
 });
 
