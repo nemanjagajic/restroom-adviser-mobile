@@ -2,10 +2,13 @@ import React, { Component } from 'react';
 import { Dimensions, StyleSheet, TextInput, View } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { getOsmSuggestions } from '../../../../store/actions/RestroomActions';
+import { getOsmSuggestions, setOsmSuggestions } from '../../../../store/actions/RestroomActions';
 import ButtonCustom from '../../../../components/shared/button/ButtonCustom';
 import Colors from '../../../../constants/Colors';
-import { osmSuggestionsSelector } from '../../../../store/selectors/RestroomSelector';
+import {
+  isFetchingOsmSuggestionsSelector,
+  osmSuggestionsSelector
+} from '../../../../store/selectors/RestroomSelector';
 import MapPickLocation from '../../../../components/map/MapPickLocation';
 
 class PickRestroomLocation extends Component {
@@ -37,33 +40,39 @@ class PickRestroomLocation extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <MapPickLocation
-          onFocusedLocationChanged={this.handleFocusedLocationChanged}
-          onLocationInfoChanged={this.handleLocationInfoChanged}
-          onSubmitEditing={this.onSubmitEditingSearch}
-          osmSuggestions={this.props.osmSuggestions}
-        />
-        <View style={styles.locationText}>
-          <TextInput
-            style={styles.locationTextInput}
-            onChangeText={text => this.setState({ locationInfo: text })}
-            value={this.state.locationInfo || 'Loading current location'}
+        <View style={styles.topContainer}>
+          <MapPickLocation
+            onFocusedLocationChanged={this.handleFocusedLocationChanged}
+            onLocationInfoChanged={this.handleLocationInfoChanged}
+            onSubmitEditing={this.onSubmitEditingSearch}
+            osmSuggestions={this.props.osmSuggestions}
+            setOsmSuggestions={this.props.setOsmSuggestions}
+            isFetchingOsmSuggestions={this.props.isFetchingOsmSuggestions}
           />
         </View>
-        {this.state.focusedLocation && (
-          <ButtonCustom
-            title={'Next'}
-            style={styles.buttonAddRestroom}
-            textStyle={styles.white}
-            onPress={() =>
-              this.props.navigation.navigate('SetRestroomInfo', {
-                latitude: this.state.focusedLocation.latitude,
-                longitude: this.state.focusedLocation.longitude,
-                locationInfo: this.state.locationInfo
-              })
-            }
-          />
-        )}
+        <View style={styles.bottomContainer}>
+          <View style={styles.locationText}>
+            <TextInput
+              style={styles.locationTextInput}
+              onChangeText={text => this.setState({ locationInfo: text })}
+              value={this.state.locationInfo || 'Loading current location'}
+            />
+          </View>
+          {this.state.focusedLocation && (
+            <ButtonCustom
+              title={'Next'}
+              style={styles.buttonAddRestroom}
+              textStyle={styles.addButtonText}
+              onPress={() =>
+                this.props.navigation.navigate('SetRestroomInfo', {
+                  latitude: this.state.focusedLocation.latitude,
+                  longitude: this.state.focusedLocation.longitude,
+                  locationInfo: this.state.locationInfo
+                })
+              }
+            />
+          )}
+        </View>
       </View>
     );
   }
@@ -73,35 +82,52 @@ PickRestroomLocation.propTypes = {
   addingRestroomInfo: PropTypes.object,
   navigation: PropTypes.object,
   getOsmSuggestions: PropTypes.func,
-  osmSuggestions: PropTypes.array
+  osmSuggestions: PropTypes.array,
+  setOsmSuggestions: PropTypes.func,
+  isFetchingOsmSuggestions: PropTypes.bool
 };
 
 const mapStateToProps = state => ({
-  osmSuggestions: osmSuggestionsSelector(state)
+  osmSuggestions: osmSuggestionsSelector(state),
+  isFetchingOsmSuggestions: isFetchingOsmSuggestionsSelector(state)
 });
 
 const mapDispatchToProps = {
-  getOsmSuggestions
+  getOsmSuggestions,
+  setOsmSuggestions
 };
 
 const styles = StyleSheet.create({
+  addButtonText: {
+    color: '#fff',
+    fontSize: 16
+  },
+  bottomContainer: {
+    alignItems: 'center',
+    backgroundColor: '#fff',
+    bottom: 0,
+    display: 'flex',
+    elevation: 3,
+    height: Dimensions.get('window').height * 0.4,
+    position: 'absolute',
+    width: Dimensions.get('window').width
+  },
   buttonAddRestroom: {
     alignItems: 'center',
     backgroundColor: Colors.mainColor,
-    borderRadius: 20,
-    bottom: 20,
+    borderRadius: 30,
     display: 'flex',
-    height: 50,
+    elevation: 1,
+    height: 45,
     justifyContent: 'center',
-    marginTop: 40,
-    position: 'absolute',
-    width: 250
+    marginTop: 15,
+    width: 140
   },
   container: {
     alignItems: 'center',
     backgroundColor: '#fff',
     display: 'flex',
-    flex: 1
+    height: Dimensions.get('window').height
   },
   locationText: {
     alignItems: 'center',
@@ -117,8 +143,8 @@ const styles = StyleSheet.create({
   locationTextInput: {
     color: '#808080'
   },
-  white: {
-    color: '#fff'
+  topContainer: {
+    height: Dimensions.get('window').height * 0.6
   }
 });
 

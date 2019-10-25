@@ -76,3 +76,8 @@ export const osmSuggestionsSelector = createSelector(
   restroomStateSelector,
   restrooms => restrooms.osmSuggestions
 );
+
+export const isFetchingOsmSuggestionsSelector = createSelector(
+  restroomStateSelector,
+  restrooms => restrooms.isFetchingOsmSuggestions
+);

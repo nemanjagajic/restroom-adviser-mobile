@@ -25,7 +25,9 @@ import {
   setFetchingNewCommentsFinished,
   addRestroomComments,
   resetRestroomComments,
-  setOsmSuggestions
+  setOsmSuggestions,
+  setFetchingOsmSuggestions,
+  setFinishedFetchingOsmSuggestions
 } from '../actions/RestroomActions';
 import NavigationService from '../../services/NavigationService';
 import { FETCHING_LIMIT } from '../../constants/Restrooms';
@@ -202,6 +204,8 @@ export function* getRestroomRatings({ payload, includeRatings }) {
 }
 
 export function* getOsmSuggestions({ payload }) {
+  yield put(setFetchingOsmSuggestions());
+
   try {
     const response = yield call(restroomService.getOSMSuggestions, {
       query: payload
@@ -220,5 +224,7 @@ export function* getOsmSuggestions({ payload }) {
   } catch (error) {
     // eslint-disable-next-line no-console
     console.log(error);
+  } finally {
+    yield put(setFinishedFetchingOsmSuggestions());
   }
 }

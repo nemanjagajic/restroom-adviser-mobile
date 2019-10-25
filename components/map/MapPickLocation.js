@@ -7,7 +7,8 @@ import {
   TextInput,
   Image,
   FlatList,
-  TouchableOpacity
+  TouchableOpacity,
+  ActivityIndicator
 } from 'react-native';
 import { Icon, Location, MapView, Permissions } from 'expo';
 import mapMarkerIcon from '../../assets/images/map-marker-icon-filled.png';
@@ -72,6 +73,8 @@ class MapPickLocation extends Component {
   };
 
   handleSuggestionPressed = suggestion => {
+    const displayName = suggestion.displayName.split(',');
+
     this.setState(
       {
         focusedLocation: {
@@ -79,10 +82,12 @@ class MapPickLocation extends Component {
           latitude: suggestion.coordinates[1],
           latitudeDelta: 0.015,
           longitudeDelta: 0.015
-        }
+        },
+        searchInput: `${displayName[0].trim()}, ${displayName[1].trim()}`
       },
       () => {
         this.props.onFocusedLocationChanged(this.state.focusedLocation);
+        this.props.setOsmSuggestions([]);
       }
     );
   };
@@ -109,7 +114,20 @@ class MapPickLocation extends Component {
             <Text style={styles.suggestionItemText}>{item.displayName}</Text>
           </TouchableOpacity>
         )}
+        showsVerticalScrollIndicator={false}
       />
+    );
+  };
+
+  handleClearSearch = () => {
+    this.setState(
+      {
+        searchInput: ''
+      },
+      () => {
+        this.props.setOsmSuggestions([]);
+        this.searchTextInput.focus();
+      }
     );
   };
 
@@ -164,6 +182,7 @@ class MapPickLocation extends Component {
               color={'#808080'}
             />
             <TextInput
+              ref={input => (this.searchTextInput = input)}
               style={styles.locationTextInput}
               onChangeText={text => this.setState({ searchInput: text })}
               value={this.state.searchInput}
@@ -171,6 +190,20 @@ class MapPickLocation extends Component {
               returnKeyType={'search'}
               onSubmitEditing={() => this.props.onSubmitEditing(this.state.searchInput)}
             />
+            {this.state.searchInput !== '' &&
+              !this.props.isFetchingOsmSuggestions && (
+              <TouchableOpacity onPress={this.handleClearSearch}>
+                <Icon.Ionicons
+                  name="md-close"
+                  size={24}
+                  style={styles.clearSearchIcon}
+                  color={'#999'}
+                />
+              </TouchableOpacity>
+            )}
+            {this.props.isFetchingOsmSuggestions && (
+              <ActivityIndicator style={styles.searchIndicator} />
+            )}
           </View>
           <View style={styles.suggestionsWrapper}>{this.renderSuggestions()}</View>
         </View>
@@ -183,14 +216,21 @@ MapPickLocation.propTypes = {
   onFocusedLocationChanged: PropTypes.func,
   onLocationInfoChanged: PropTypes.func,
   onSubmitEditing: PropTypes.func,
-  osmSuggestions: PropTypes.array
+  osmSuggestions: PropTypes.array,
+  setOsmSuggestions: PropTypes.func,
+  isFetchingOsmSuggestions: PropTypes.bool
 };
 
 const styles = StyleSheet.create({
+  clearSearchIcon: {
+    padding: 10,
+    paddingRight: 15
+  },
   container: {
     alignItems: 'center',
     backgroundColor: '#fff',
-    display: 'flex'
+    display: 'flex',
+    flex: 1
   },
   locationSearchWrapper: {
     borderRadius: 20,
@@ -201,15 +241,14 @@ const styles = StyleSheet.create({
   },
   locationTextInput: {
     color: '#808080',
-    flex: 1
+    flex: 1,
+    fontSize: 14
   },
   map: {
     alignItems: 'center',
     backgroundColor: '#f2f2f2',
-    borderBottomWidth: 1,
-    borderColor: '#ccc',
     display: 'flex',
-    height: Dimensions.get('window').height * 0.6,
+    flex: 1,
     justifyContent: 'center',
     width: Dimensions.get('window').width
   },
@@ -226,6 +265,10 @@ const styles = StyleSheet.create({
   },
   searchIcon: {
     padding: 10
+  },
+  searchIndicator: {
+    padding: 10,
+    paddingRight: 12
   },
   searchInputWrapper: {
     alignItems: 'center',
