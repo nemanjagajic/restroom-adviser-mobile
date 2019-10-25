@@ -150,12 +150,12 @@ class MapPickLocation extends Component {
       <View style={styles.container}>
         {this.state.locationResult === null ? (
           <View style={styles.map}>
-            <Text>Finding your current location...</Text>
+            <Text style={styles.findingLocationText}>Finding your current location...</Text>
           </View>
         ) : this.state.hasLocationPermissions === false ? (
-          <Text>Location permissions are not granted.</Text>
+          <Text style={styles.findingLocationText}>Location permissions are not granted.</Text>
         ) : this.state.focusedLocation === null ? (
-          <Text>Map region does not exist.</Text>
+          <Text style={styles.findingLocationText}>Map region does not exist.</Text>
         ) : (
           <View style={styles.map}>
             <MapView
@@ -231,6 +231,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     display: 'flex',
     flex: 1
+  },
+  findingLocationText: {
+    color: '#666666'
   },
   locationSearchWrapper: {
     borderRadius: 20,

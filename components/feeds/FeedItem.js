@@ -77,7 +77,7 @@ FeedItem.propTypes = {
 const styles = StyleSheet.create({
   container: {
     display: 'flex',
-    height: 230,
+    height: 250,
     marginBottom: 20,
     marginLeft: 'auto',
     marginRight: 'auto',
@@ -86,8 +86,12 @@ const styles = StyleSheet.create({
   contentBottom: {
     alignItems: 'flex-start',
     backgroundColor: '#f5f5f5',
-    borderBottomLeftRadius: 5,
-    borderBottomRightRadius: 5,
+    borderBottomLeftRadius: 10,
+    borderBottomRightRadius: 10,
+    borderBottomWidth: 1,
+    borderColor: '#e6e6e6',
+    borderLeftWidth: 1,
+    borderRightWidth: 1,
     display: 'flex',
     flex: 1,
     justifyContent: 'flex-start',
@@ -98,17 +102,17 @@ const styles = StyleSheet.create({
   emptyImage: {
     alignItems: 'center',
     backgroundColor: '#cccccc',
-    borderTopLeftRadius: 5,
-    borderTopRightRadius: 5,
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
     display: 'flex',
-    height: 140,
+    height: 160,
     justifyContent: 'center',
     width: Dimensions.get('window').width * 0.9
   },
   image: {
-    borderTopLeftRadius: 5,
-    borderTopRightRadius: 5,
-    height: 140,
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
+    height: 160,
     width: Dimensions.get('window').width * 0.9
   },
   location: {
@@ -128,9 +132,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#fff',
     borderColor: '#cccccc',
-    borderRadius: 50,
+    borderRadius: 100,
     display: 'flex',
-    elevation: 2,
+    elevation: 3,
     height: 40,
     justifyContent: 'center',
     position: 'absolute',
@@ -142,7 +146,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.22,
     shadowRadius: 2.22,
-    top: 125,
+    top: 145,
     width: 40,
     zIndex: 1
   },

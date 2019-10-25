@@ -74,15 +74,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderRadius: 20,
     display: 'flex',
-    elevation: 3,
+    elevation: 2,
     flexDirection: 'row',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 1
-    },
-    shadowOpacity: 0.22,
-    shadowRadius: 2.22,
     width: Dimensions.get('window').width * 0.9,
     zIndex: 2
   },
