@@ -9,11 +9,14 @@ import {
   TouchableOpacity
 } from 'react-native';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { Ionicons } from '@expo/vector-icons';
 
 import ButtonCustom from '../../../../components/shared/button/ButtonCustom';
 import Colors from '../../../../constants/Colors';
 import AddImage from '../../../../components/image/AddImage';
+import { isAddingRestroomSelector } from '../../../../store/selectors/RestroomSelector';
+import { addRestroom } from '../../../../store/actions/RestroomActions';
 
 class PickRestroomImages extends Component {
   static navigationOptions = {
@@ -28,15 +31,6 @@ class PickRestroomImages extends Component {
     images: []
   };
 
-  handleNext = () => {
-    this.props.navigation.navigate('PickRestroomLocation', {
-      name: this.props.navigation.getParam('name'),
-      description: this.props.navigation.getParam('description'),
-      workingHours: this.props.navigation.getParam('workingHours'),
-      images: this.state.images
-    });
-  };
-
   handleImageAdded = image => {
     this.setState(prevState => ({
       images: prevState.images.concat(image)
@@ -47,6 +41,18 @@ class PickRestroomImages extends Component {
     this.setState(prevState => ({
       images: prevState.images.filter(currentImage => currentImage.uri !== image.uri)
     }));
+  };
+
+  addRestroom = () => {
+    this.props.addRestroom({
+      name: this.props.navigation.getParam('name'),
+      description: this.props.navigation.getParam('description'),
+      working_hours: this.props.navigation.getParam('workingHours'),
+      latitude: this.props.navigation.getParam('latitude'),
+      longitude: this.props.navigation.getParam('longitude'),
+      location_text: this.props.navigation.getParam('locationInfo'),
+      images: this.state.images
+    });
   };
 
   render() {
@@ -78,11 +84,14 @@ class PickRestroomImages extends Component {
           </View>
           <AddImage onImageAdded={this.handleImageAdded} />
         </View>
+        <Text style={styles.addingRestroomIndicator}>
+          {this.props.isAddingRestroom && 'Adding restroom...'}
+        </Text>
         <ButtonCustom
           title={'Next'}
           style={styles.button}
           textStyle={styles.white}
-          onPress={this.handleNext}
+          onPress={this.addRestroom}
         />
       </View>
     );
@@ -93,10 +102,25 @@ PickRestroomImages.propTypes = {
   navigation: PropTypes.object,
   onSubmit: PropTypes.func,
   invalidOldPasswordError: PropTypes.bool,
-  setAddingRestroomInfo: PropTypes.func
+  setAddingRestroomInfo: PropTypes.func,
+  addRestroom: PropTypes.func,
+  isAddingRestroom: PropTypes.bool
+};
+
+const mapStateToProps = state => ({
+  isAddingRestroom: isAddingRestroomSelector(state)
+});
+
+const mapDispatchToProps = {
+  addRestroom
 };
 
 const styles = StyleSheet.create({
+  addingRestroomIndicator: {
+    color: '#808080',
+    fontSize: 18,
+    marginTop: 10
+  },
   button: {
     alignItems: 'center',
     backgroundColor: Colors.mainColor,
@@ -164,4 +188,7 @@ const styles = StyleSheet.create({
   }
 });
 
-export default PickRestroomImages;
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(PickRestroomImages);

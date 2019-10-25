@@ -1,14 +1,11 @@
 import React, { Component } from 'react';
-import { Dimensions, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Dimensions, StyleSheet, TextInput, View } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { addRestroom, getOsmSuggestions } from '../../../../store/actions/RestroomActions';
+import { getOsmSuggestions } from '../../../../store/actions/RestroomActions';
 import ButtonCustom from '../../../../components/shared/button/ButtonCustom';
 import Colors from '../../../../constants/Colors';
-import {
-  isAddingRestroomSelector,
-  osmSuggestionsSelector
-} from '../../../../store/selectors/RestroomSelector';
+import { osmSuggestionsSelector } from '../../../../store/selectors/RestroomSelector';
 import MapPickLocation from '../../../../components/map/MapPickLocation';
 
 class PickRestroomLocation extends Component {
@@ -33,18 +30,6 @@ class PickRestroomLocation extends Component {
     this.setState({ locationInfo });
   };
 
-  addRestroom = () => {
-    this.props.addRestroom({
-      name: this.props.navigation.getParam('name'),
-      description: this.props.navigation.getParam('description'),
-      images: this.props.navigation.getParam('images'),
-      latitude: this.state.focusedLocation.latitude,
-      longitude: this.state.focusedLocation.longitude,
-      location_text: this.state.locationInfo,
-      working_hours: this.props.navigation.getParam('workingHours')
-    });
-  };
-
   onSubmitEditingSearch = query => {
     this.props.getOsmSuggestions(query);
   };
@@ -65,15 +50,20 @@ class PickRestroomLocation extends Component {
             value={this.state.locationInfo || 'Loading current location'}
           />
         </View>
-        <Text style={styles.addingRestroomIndicator}>
-          {this.props.isAddingRestroom && 'Adding restroom...'}
-        </Text>
-        <ButtonCustom
-          title={'Add restroom'}
-          style={styles.buttonAddRestroom}
-          textStyle={styles.white}
-          onPress={this.addRestroom}
-        />
+        {this.state.focusedLocation && (
+          <ButtonCustom
+            title={'Next'}
+            style={styles.buttonAddRestroom}
+            textStyle={styles.white}
+            onPress={() =>
+              this.props.navigation.navigate('SetRestroomInfo', {
+                latitude: this.state.focusedLocation.latitude,
+                longitude: this.state.focusedLocation.longitude,
+                locationInfo: this.state.locationInfo
+              })
+            }
+          />
+        )}
       </View>
     );
   }
@@ -81,29 +71,20 @@ class PickRestroomLocation extends Component {
 
 PickRestroomLocation.propTypes = {
   addingRestroomInfo: PropTypes.object,
-  addRestroom: PropTypes.func,
   navigation: PropTypes.object,
-  isAddingRestroom: PropTypes.bool,
   getOsmSuggestions: PropTypes.func,
   osmSuggestions: PropTypes.array
 };
 
 const mapStateToProps = state => ({
-  isAddingRestroom: isAddingRestroomSelector(state),
   osmSuggestions: osmSuggestionsSelector(state)
 });
 
 const mapDispatchToProps = {
-  addRestroom,
   getOsmSuggestions
 };
 
 const styles = StyleSheet.create({
-  addingRestroomIndicator: {
-    color: '#808080',
-    fontSize: 18,
-    marginTop: 10
-  },
   buttonAddRestroom: {
     alignItems: 'center',
     backgroundColor: Colors.mainColor,

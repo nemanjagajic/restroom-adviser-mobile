@@ -18,7 +18,7 @@ class HomeScreen extends React.Component {
     const headerLeftNav = addHeaderLeftNavigator(navigation);
     const headerRight = (
       <TouchableOpacity
-        onPress={() => navigation.navigate('SetRestroomInfo')}
+        onPress={() => navigation.navigate('PickRestroomLocation')}
         style={styles.buttonHeaderRight}
       >
         <Text style={styles.buttonHeaderRightText}>Add restroom</Text>
