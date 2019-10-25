@@ -1,5 +1,14 @@
 import React, { Component } from 'react';
-import { Dimensions, StyleSheet, Text, View, TextInput, Image, FlatList } from 'react-native';
+import {
+  Dimensions,
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  Image,
+  FlatList,
+  TouchableOpacity
+} from 'react-native';
 import { Icon, Location, MapView, Permissions } from 'expo';
 import mapMarkerIcon from '../../assets/images/map-marker-icon-filled.png';
 import PropTypes from 'prop-types';
@@ -62,6 +71,22 @@ class MapPickLocation extends Component {
     this.setLocationInformation();
   };
 
+  handleSuggestionPressed = suggestion => {
+    this.setState(
+      {
+        focusedLocation: {
+          longitude: suggestion.coordinates[0],
+          latitude: suggestion.coordinates[1],
+          latitudeDelta: 0.015,
+          longitudeDelta: 0.015
+        }
+      },
+      () => {
+        this.props.onFocusedLocationChanged(this.state.focusedLocation);
+      }
+    );
+  };
+
   renderSuggestions = () => {
     return (
       <FlatList
@@ -69,7 +94,8 @@ class MapPickLocation extends Component {
         keyExtractor={(suggestion, index) => index.toString()}
         renderItem={({ item, index }) => (
           // eslint-disable-next-line react-native/no-inline-styles
-          <View
+          <TouchableOpacity
+            onPress={() => this.handleSuggestionPressed(item)}
             style={[
               styles.suggestionItem,
               // eslint-disable-next-line react-native/no-inline-styles
@@ -81,7 +107,7 @@ class MapPickLocation extends Component {
             ]}
           >
             <Text style={styles.suggestionItemText}>{item.displayName}</Text>
-          </View>
+          </TouchableOpacity>
         )}
       />
     );
@@ -121,6 +147,7 @@ class MapPickLocation extends Component {
                 latitudeDelta: 0.015,
                 longitudeDelta: 0.015
               }}
+              region={this.state.focusedLocation}
               onRegionChangeComplete={this.handleRegionChanged}
             />
             <View style={styles.markerFixed}>
