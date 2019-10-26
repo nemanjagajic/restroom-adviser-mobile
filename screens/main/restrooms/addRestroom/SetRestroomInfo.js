@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
   },
   buttonDisabled: {
     alignItems: 'center',
-    backgroundColor: '#b3b3b3',
+    backgroundColor: '#cccccc',
     borderRadius: 30,
     display: 'flex',
     elevation: 1,

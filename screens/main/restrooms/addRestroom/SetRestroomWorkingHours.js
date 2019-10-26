@@ -15,8 +15,6 @@ class SetRestroomWorkingHours extends Component {
   };
 
   state = {
-    name: '',
-    description: '',
     workingDaysFrom: '',
     workingDaysTo: '',
     saturdayFrom: '',
@@ -49,6 +47,17 @@ class SetRestroomWorkingHours extends Component {
   addZeroPrefix = num => {
     if (num < 10) return `0${num}`;
     return num;
+  };
+
+  isEmpty = () => {
+    return (
+      this.state.workingDaysFrom === '' &&
+      this.state.workingDaysTo === '' &&
+      this.state.saturdayFrom === '' &&
+      this.state.saturdayTo === '' &&
+      this.state.sundayFrom === '' &&
+      this.state.sundayTo === ''
+    );
   };
 
   handleNext = () => {
@@ -90,9 +99,9 @@ class SetRestroomWorkingHours extends Component {
           handleTimePicked={this.handleTimePicked}
         />
         <ButtonCustom
-          title={'Next'}
+          title={this.isEmpty() ? 'Skip' : 'Next'}
           style={styles.button}
-          textStyle={styles.addButtonText}
+          textStyle={styles.text}
           onPress={this.handleNext}
         />
       </View>
@@ -107,10 +116,6 @@ SetRestroomWorkingHours.propTypes = {
 };
 
 const styles = StyleSheet.create({
-  addButtonText: {
-    color: '#fff',
-    fontSize: 16
-  },
   button: {
     alignItems: 'center',
     backgroundColor: Colors.mainColor,
@@ -126,6 +131,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flex: 1,
     justifyContent: 'center'
+  },
+  text: {
+    color: '#fff',
+    fontSize: 16
   },
   timePickerTitle: {
     color: '#999',
