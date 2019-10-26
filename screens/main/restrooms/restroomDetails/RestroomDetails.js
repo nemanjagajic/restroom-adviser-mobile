@@ -140,10 +140,12 @@ class RestroomDetails extends Component {
                   size={36}
                 />
               </View>
-              <Text style={styles.infoTextTop}>{'Weekdays working hours'}</Text>
+              <Text style={styles.infoTextTop}>{'Monday to Friday'}</Text>
               <Text style={styles.infoTextBold}>{workingHoursTokens[0]}</Text>
-              <Text style={styles.infoTextBottom}>{'Weekend working hours'}</Text>
+              <Text style={styles.infoTextBottom}>{'Saturday'}</Text>
               <Text style={styles.infoTextBold}>{workingHoursTokens[1]}</Text>
+              <Text style={styles.infoTextBottom}>{'Sunday'}</Text>
+              <Text style={styles.infoTextBold}>{workingHoursTokens[2]}</Text>
             </View>
             <ButtonCustom
               style={styles.buttonComment}
