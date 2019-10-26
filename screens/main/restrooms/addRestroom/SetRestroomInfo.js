@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Dimensions, KeyboardAvoidingView, TextInput } from 'react-native';
+import { StyleSheet, KeyboardAvoidingView, TextInput, Text } from 'react-native';
 import PropTypes from 'prop-types';
 
 import ButtonCustom from '../../../../components/shared/button/ButtonCustom';
@@ -67,15 +67,18 @@ class SetRestroomInfo extends Component {
     return (
       <KeyboardAvoidingView behavior={'padding'} style={styles.container}>
         <TextInput
+          style={styles.input}
           value={this.state.name}
           onChange={event => this.setState({ name: event.nativeEvent.text })}
           placeholder={'Name*'}
         />
         <TextInput
+          style={styles.inputDesc}
           value={this.state.description}
           onChange={event => this.setState({ description: event.nativeEvent.text })}
           placeholder={'Description'}
         />
+        <Text style={styles.timePickerTitle}>Monday to Friday</Text>
         <TimePickerFromTo
           from={this.state.workingDaysFrom}
           to={this.state.workingDaysTo}
@@ -83,6 +86,7 @@ class SetRestroomInfo extends Component {
           fieldNameTo={'workingDaysTo'}
           handleTimePicked={this.handleTimePicked}
         />
+        <Text style={styles.timePickerTitle}>Saturday</Text>
         <TimePickerFromTo
           from={this.state.saturdayFrom}
           to={this.state.saturdayTo}
@@ -90,6 +94,7 @@ class SetRestroomInfo extends Component {
           fieldNameTo={'saturdayTo'}
           handleTimePicked={this.handleTimePicked}
         />
+        <Text style={styles.timePickerTitle}>Sunday</Text>
         <TimePickerFromTo
           from={this.state.sundayFrom}
           to={this.state.sundayTo}
@@ -136,8 +141,29 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     display: 'flex',
     flex: 1,
-    height: Dimensions.get('window').height * 0.7,
-    justifyContent: 'center'
+    marginTop: 10
+  },
+  input: {
+    borderBottomColor: '#ccc',
+    borderBottomWidth: 1,
+    color: '#666666',
+    fontSize: 16,
+    height: 50,
+    width: 300
+  },
+  inputDesc: {
+    borderBottomColor: '#ccc',
+    borderBottomWidth: 1,
+    color: '#666666',
+    fontSize: 16,
+    height: 50,
+    marginBottom: 10,
+    width: 300
+  },
+  timePickerTitle: {
+    color: '#999',
+    fontSize: 16,
+    marginTop: 10
   }
 });
 

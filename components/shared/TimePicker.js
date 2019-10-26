@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, View } from 'react-native';
+import { StyleSheet, View, TouchableOpacity, Text } from 'react-native';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import PropTypes from 'prop-types';
 
@@ -24,7 +24,9 @@ class TimePicker extends Component {
   render() {
     return (
       <View>
-        <Button title={this.props.title} onPress={this.showDateTimePicker} />
+        <TouchableOpacity onPress={this.showDateTimePicker} style={styles.button}>
+          <Text style={styles.text}>{this.props.title}</Text>
+        </TouchableOpacity>
         <DateTimePicker
           mode={'time'}
           isVisible={this.state.isDateTimePickerVisible}
@@ -38,7 +40,24 @@ class TimePicker extends Component {
 
 TimePicker.propTypes = {
   onTimePicked: PropTypes.func,
-  title: PropTypes.string
+  title: PropTypes.string,
+  stylesButton: PropTypes.object
 };
+const styles = StyleSheet.create({
+  button: {
+    alignItems: 'center',
+    backgroundColor: '#f2f2f2',
+    borderRadius: 100,
+    display: 'flex',
+    elevation: 1,
+    height: 30,
+    justifyContent: 'center',
+    padding: 5,
+    width: 50
+  },
+  text: {
+    color: '#999'
+  }
+});
 
 export default TimePicker;
