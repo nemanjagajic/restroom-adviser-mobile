@@ -39,14 +39,16 @@ class SetRestroomInfo extends Component {
           placeholder={'Name*'}
         />
         <TextInput
+          multiline
           style={styles.inputDesc}
           value={this.state.description}
           onChange={event => this.setState({ description: event.nativeEvent.text })}
           placeholder={'Description'}
         />
         <ButtonCustom
+          disabled={this.state.name.trim() === ''}
           title={'Next'}
-          style={styles.button}
+          style={this.state.name.trim() !== '' ? styles.button : styles.buttonDisabled}
           textStyle={styles.addButtonText}
           onPress={this.handleNext}
         />
@@ -66,28 +68,56 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 16
   },
+  button: {
+    alignItems: 'center',
+    backgroundColor: Colors.mainColor,
+    borderRadius: 30,
+    display: 'flex',
+    elevation: 1,
+    height: 45,
+    justifyContent: 'center',
+    marginTop: 20,
+    width: 140
+  },
+  buttonDisabled: {
+    alignItems: 'center',
+    backgroundColor: '#b3b3b3',
+    borderRadius: 30,
+    display: 'flex',
+    elevation: 1,
+    height: 45,
+    justifyContent: 'center',
+    marginTop: 20,
+    width: 140
+  },
   container: {
     alignItems: 'center',
     backgroundColor: '#fff',
     display: 'flex',
     flex: 1,
+    justifyContent: 'center',
     marginTop: 10
   },
   input: {
-    borderBottomColor: '#ccc',
-    borderBottomWidth: 1,
+    backgroundColor: '#f2f2f2',
+    borderRadius: 30,
     color: '#666666',
     fontSize: 16,
     height: 50,
+    padding: 10,
+    paddingLeft: 20,
     width: 300
   },
   inputDesc: {
-    borderBottomColor: '#ccc',
-    borderBottomWidth: 1,
+    backgroundColor: '#f2f2f2',
+    borderRadius: 30,
     color: '#666666',
     fontSize: 16,
-    height: 50,
+    height: 120,
     marginBottom: 10,
+    marginTop: 20,
+    padding: 15,
+    textAlignVertical: 'top',
     width: 300
   }
 });

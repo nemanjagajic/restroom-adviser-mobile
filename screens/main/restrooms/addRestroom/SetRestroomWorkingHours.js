@@ -6,6 +6,14 @@ import Colors from '../../../../constants/Colors';
 import PropTypes from 'prop-types';
 
 class SetRestroomWorkingHours extends Component {
+  static navigationOptions = {
+    headerTitle: 'Set restroom working hours',
+    headerTintColor: Colors.headerTintColor,
+    headerStyle: {
+      backgroundColor: '#fff'
+    }
+  };
+
   state = {
     name: '',
     description: '',
@@ -56,7 +64,7 @@ class SetRestroomWorkingHours extends Component {
 
   render() {
     return (
-      <View>
+      <View style={styles.container}>
         <Text style={styles.timePickerTitle}>Monday to Friday</Text>
         <TimePickerFromTo
           from={this.state.workingDaysFrom}
@@ -111,8 +119,13 @@ const styles = StyleSheet.create({
     elevation: 1,
     height: 45,
     justifyContent: 'center',
-    marginTop: 20,
+    marginTop: 50,
     width: 140
+  },
+  container: {
+    alignItems: 'center',
+    flex: 1,
+    justifyContent: 'center'
   },
   timePickerTitle: {
     color: '#999',

@@ -52,8 +52,8 @@ const styles = StyleSheet.create({
     elevation: 1,
     height: 30,
     justifyContent: 'center',
-    padding: 5,
-    width: 50
+    padding: 20,
+    width: 80
   },
   text: {
     color: '#999'

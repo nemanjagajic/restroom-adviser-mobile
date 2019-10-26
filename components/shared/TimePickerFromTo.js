@@ -44,18 +44,19 @@ const styles = StyleSheet.create({
   },
   icon: {
     marginLeft: 5,
-    marginRight: 5
+    marginRight: 5,
+    paddingTop: 5
   },
   input: {
     borderBottomWidth: 1,
     borderColor: '#d9d9d9',
-    color: '#666666',
-    fontSize: 16,
+    color: '#808080',
+    fontSize: 18,
     marginBottom: 10,
-    paddingBottom: 4,
-    paddingTop: 2,
+    paddingBottom: 5,
+    paddingTop: 5,
     textAlign: 'center',
-    width: 45
+    width: 80
   }
 });
 
