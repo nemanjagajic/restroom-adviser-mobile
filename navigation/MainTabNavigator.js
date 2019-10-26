@@ -19,11 +19,13 @@ import PickRestroomImages from '../screens/main/restrooms/addRestroom/PickRestro
 import RestroomDetails from '../screens/main/restrooms/restroomDetails/RestroomDetails';
 import RestroomComments from '../screens/main/restrooms/restroomDetails/RestroomComments';
 import RatingDetails from '../screens/main/restrooms/restroomDetails/RatingDetails';
+import SetRestroomWorkingHours from '../screens/main/restrooms/addRestroom/SetRestroomWorkingHours';
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
   ChangePassword,
   EditProfile,
   SetRestroomInfo,
+  SetRestroomWorkingHours,
   PickRestroomLocation,
   PickRestroomImages,
   RestroomDetails,
