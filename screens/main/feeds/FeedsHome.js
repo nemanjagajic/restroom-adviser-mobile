@@ -85,16 +85,27 @@ class FeedsHome extends Component {
     this.setState({ searchValue: text });
   };
 
-  renderFilter = () => (
-    <FeedSearchHeader
-      restroomsTotalNumber={this.props.restroomsTotalNumber}
-      appliedFilterRating={this.state.appliedFilterRating}
-      onFilterButtonPressed={this.handleFilterButtonPressed}
-      onSubmitEditing={this.reloadRestrooms}
-      searchValue={this.state.searchValue}
-      onChangeText={this.handleSearchTextChange}
-    />
-  );
+  renderFilter = () => {
+    const word1 = this.props.restroomsTotalNumber === 1 ? 'is' : 'are';
+    const word2 = this.props.restroomsTotalNumber === 1 ? 'restaurant' : 'restaurants';
+    return (
+      <View>
+        <FeedSearchHeader
+          restroomsTotalNumber={this.props.restroomsTotalNumber}
+          appliedFilterRating={this.state.appliedFilterRating}
+          onFilterButtonPressed={this.handleFilterButtonPressed}
+          onSubmitEditing={this.reloadRestrooms}
+          searchValue={this.state.searchValue}
+          onChangeText={this.handleSearchTextChange}
+        />
+        <Text style={styles.searchDescription}>
+          {this.props.isFetchingRestrooms
+            ? 'Fetching restrooms...'
+            : `There ${word1} ${this.props.restroomsTotalNumber} ${word2} matching your criteria`}
+        </Text>
+      </View>
+    );
+  };
 
   render() {
     return (
@@ -180,6 +191,12 @@ const styles = StyleSheet.create({
   },
   emptyListText: {
     color: '#ccc'
+  },
+  searchDescription: {
+    color: '#bfbfbf',
+    fontSize: 14,
+    marginBottom: 10,
+    textAlign: 'center'
   }
 });
 

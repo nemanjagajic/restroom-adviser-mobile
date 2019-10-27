@@ -56,7 +56,7 @@ class FeedsList extends Component {
         onScroll={this.handleScroll}
         refreshControl={
           <RefreshControl
-            progressViewOffset={50}
+            progressViewOffset={70}
             refreshing={this.props.isFetchingRestrooms && !this.props.isFetchingNewRestrooms}
             onRefresh={this.props.reloadRestrooms}
             colors={[Colors.mainColor]}
