@@ -5,7 +5,8 @@ const ENDPOINTS = {
   RESTROOM: '/user/{userId}/restroom',
   RESTROOM_COMMENT: '/user/{userId}/restroom/{restroomId}/comments',
   RESTROOM_RATING: '/user/{userId}/restroom/{restroomId}/ratings',
-  FEED_RESTROOMS: 'user/{userId}/restroom/feedRestrooms?offset={offset}&limit={limit}',
+  FEED_RESTROOMS:
+    'user/{userId}/restroom/feedRestrooms?offset={offset}&limit={limit}&onlyMy={onlyMy}',
   GET_OSM_SUGGESTIONS: 'https://nominatim.openstreetmap.org/search?q={query}&format=geojson'
 };
 
@@ -14,10 +15,11 @@ class RestroomService extends ApiService {
     return this.apiClient.get(ENDPOINTS.RESTROOM.replace('{userId}', user.id));
   };
 
-  getFeedRestrooms = ({ user, offset, limit, searchValue, minimalRating }) => {
+  getFeedRestrooms = ({ user, offset, limit, searchValue, minimalRating, onlyMy }) => {
     let request = ENDPOINTS.FEED_RESTROOMS.replace('{userId}', user.id)
       .replace('{offset}', offset)
-      .replace('{limit}', limit);
+      .replace('{limit}', limit)
+      .replace('{onlyMy}', onlyMy);
 
     if (searchValue) {
       request += `&searchValue=${searchValue}`;

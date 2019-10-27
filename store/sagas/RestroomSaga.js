@@ -64,7 +64,8 @@ export function* getFeedRestrooms({ payload }) {
       offset: payload.offset,
       limit: payload.limit,
       searchValue: payload.searchValue,
-      minimalRating: payload.minimalRating
+      minimalRating: payload.minimalRating,
+      onlyMy: false
     });
     if (payload.isInitial) {
       yield put(resetFeedRestrooms());
@@ -96,7 +97,8 @@ export function* getMyFeedRestrooms({ payload }) {
       offset: payload.offset,
       limit: payload.limit,
       searchValue: payload.searchValue,
-      minimalRating: payload.minimalRating
+      minimalRating: payload.minimalRating,
+      onlyMy: true
     });
     if (payload.isInitial) {
       yield put(resetMyFeedRestrooms());

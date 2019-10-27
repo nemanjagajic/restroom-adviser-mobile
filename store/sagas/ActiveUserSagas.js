@@ -13,6 +13,7 @@ import {
 } from '../actions/ErrorActions';
 import { setUser, setChangePasswordSuccess, setUpdatedUser } from '../actions/UserActions';
 import { profileService } from '../../services/ProfileService';
+import { resetFeedRestrooms, resetMyFeedRestrooms } from '../actions/RestroomActions';
 
 export function* userLogin({ payload }) {
   try {
@@ -87,6 +88,8 @@ export function* userSignUp({ payload }) {
 export function* userLogout() {
   try {
     yield put(setLoader(true));
+    yield put(resetFeedRestrooms());
+    yield put(resetMyFeedRestrooms());
     yield call(authService.logout);
     NavigationService.navigate('AuthLoading');
   } catch (error) {

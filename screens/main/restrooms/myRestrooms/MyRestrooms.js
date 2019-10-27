@@ -38,11 +38,16 @@ class MyRestrooms extends Component {
   };
 
   componentDidMount() {
-    this.reloadRestrooms();
+    if (this.props.restrooms.length === 0) {
+      this.reloadRestrooms();
+    } else {
+      this.setState({
+        offset: Math.ceil(this.props.restrooms.length / FETCHING_LIMIT) * FETCHING_LIMIT
+      });
+    }
   }
 
   reloadRestrooms = () => {
-    this.props.resetMyFeedRestrooms();
     this.setState({ offset: 0 }, () => this.handleFetchNewRestrooms(true));
   };
 
@@ -135,7 +140,7 @@ class MyRestrooms extends Component {
             navigation={this.props.navigation}
             getRestroomRatings={this.props.getRestroomRatings}
             headerComponent={this.renderFilter()}
-            indicatorOffset={120}
+            indicatorOffset={125}
           />
         )}
         {this.state.isFilterModalVisible && (
