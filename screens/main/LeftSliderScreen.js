@@ -26,6 +26,27 @@ class LeftSliderScreen extends React.Component {
             onPress={() => this.props.navigation.navigate('ChangePassword')}
             style={styles.button}
           >
+            <Icon.Ionicons name="md-albums" size={24} style={styles.icon} color={'#808080'} />
+            <Text style={styles.buttonText}>{'My restrooms'}</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => this.props.navigation.navigate('ChangePassword')}
+            style={styles.button}
+          >
+            <Icon.Ionicons name="md-trending-up" size={24} style={styles.icon} color={'#808080'} />
+            <Text style={styles.buttonText}>{'My activity'}</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => this.props.navigation.navigate('ChangePassword')}
+            style={styles.button}
+          >
+            <Icon.Ionicons name="md-bookmarks" size={24} style={styles.icon} color={'#808080'} />
+            <Text style={styles.buttonText}>{'Bookmarked restrooms'}</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => this.props.navigation.navigate('ChangePassword')}
+            style={styles.button}
+          >
             <Icon.Ionicons name="md-lock" size={24} style={styles.icon} color={'#808080'} />
             <Text style={styles.buttonText}>{$t('profile.changePassword.changePassword')}</Text>
           </TouchableOpacity>
