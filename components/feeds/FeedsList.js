@@ -56,7 +56,7 @@ class FeedsList extends Component {
         onScroll={this.handleScroll}
         refreshControl={
           <RefreshControl
-            progressViewOffset={70}
+            progressViewOffset={this.props.indicatorOffset || 70}
             refreshing={this.props.isFetchingRestrooms && !this.props.isFetchingNewRestrooms}
             onRefresh={this.props.reloadRestrooms}
             colors={[Colors.mainColor]}
@@ -84,7 +84,8 @@ FeedsList.propTypes = {
   navigation: PropTypes.object,
   isFetchingNewRestrooms: PropTypes.bool,
   getRestroomRatings: PropTypes.func,
-  headerComponent: PropTypes.any
+  headerComponent: PropTypes.any,
+  indicatorOffset: PropTypes.any
 };
 
 export default FeedsList;

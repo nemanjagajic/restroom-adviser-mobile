@@ -23,13 +23,21 @@ import {
   RESET_RESTROOM_COMMENTS,
   SET_OSM_SUGGESTIONS,
   SET_FETCHING_OSM_SUGGESTIONS,
-  SET_FINISHED_FETCHING_OSM_SUGGESTIONS
+  SET_FINISHED_FETCHING_OSM_SUGGESTIONS,
+  ADD_MY_FEED_RESTROOMS,
+  RESET_MY_FEED_RESTROOMS,
+  SET_FETCHING_MY_FEED_RESTROOMS,
+  SET_FETCHING_MY_FEED_RESTROOMS_FINISHED,
+  SET_FETCHING_MY_NEW_FEED_RESTROOMS,
+  SET_FETCHING_MY_NEW_FEED_RESTROOMS_FINISHED
 } from '../actions/ActionTypes';
 
 const initialState = {
   restrooms: [],
   feedRestrooms: [],
   feedRestroomsTotalNumber: 0,
+  myFeedRestrooms: [],
+  myFeedRestroomsTotalNumber: 0,
   isAddingRestroom: false,
   isAddingComment: false,
   comments: [],
@@ -41,6 +49,8 @@ const initialState = {
   isAddingRating: false,
   isFetchingFeedRestrooms: false,
   isFetchingNewFeedRestrooms: false,
+  isFetchingMyFeedRestrooms: false,
+  isFetchingMyNewFeedRestrooms: false,
   osmSuggestions: [],
   isFetchingOsmSuggestions: false
 };
@@ -126,30 +136,61 @@ export default (state = initialState, action) => {
         feedRestrooms: state.feedRestrooms.concat(action.payload.restrooms),
         feedRestroomsTotalNumber: action.payload.totalNumber
       };
+    case ADD_MY_FEED_RESTROOMS:
+      return {
+        ...state,
+        myFeedRestrooms: state.myFeedRestrooms.concat(action.payload.restrooms),
+        myFeedRestroomsTotalNumber: action.payload.totalNumber
+      };
     case RESET_FEED_RESTROOMS:
       return {
         ...state,
         feedRestrooms: []
+      };
+    case RESET_MY_FEED_RESTROOMS:
+      return {
+        ...state,
+        myFeedRestrooms: []
       };
     case SET_FETCHING_FEED_RESTROOMS:
       return {
         ...state,
         isFetchingFeedRestrooms: true
       };
+    case SET_FETCHING_MY_FEED_RESTROOMS:
+      return {
+        ...state,
+        isFetchingMyFeedRestrooms: true
+      };
     case SET_FETCHING_FEED_RESTROOMS_FINISHED:
       return {
         ...state,
         isFetchingFeedRestrooms: false
+      };
+    case SET_FETCHING_MY_FEED_RESTROOMS_FINISHED:
+      return {
+        ...state,
+        isFetchingMyFeedRestrooms: false
       };
     case SET_FETCHING_NEW_FEED_RESTROOMS:
       return {
         ...state,
         isFetchingNewFeedRestrooms: true
       };
+    case SET_FETCHING_MY_NEW_FEED_RESTROOMS:
+      return {
+        ...state,
+        isFetchingMyNewFeedRestrooms: true
+      };
     case SET_FETCHING_NEW_FEED_RESTROOMS_FINISHED:
       return {
         ...state,
         isFetchingNewFeedRestrooms: false
+      };
+    case SET_FETCHING_MY_NEW_FEED_RESTROOMS_FINISHED:
+      return {
+        ...state,
+        isFetchingMyNewFeedRestrooms: false
       };
     case SET_FETCHING_NEW_COMMENTS:
       return {

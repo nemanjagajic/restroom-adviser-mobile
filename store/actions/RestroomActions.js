@@ -31,7 +31,14 @@ import {
   GET_OSM_SUGGESTIONS,
   SET_OSM_SUGGESTIONS,
   SET_FETCHING_OSM_SUGGESTIONS,
-  SET_FINISHED_FETCHING_OSM_SUGGESTIONS
+  SET_FINISHED_FETCHING_OSM_SUGGESTIONS,
+  GET_MY_FEED_RESTROOMS,
+  ADD_MY_FEED_RESTROOMS,
+  RESET_MY_FEED_RESTROOMS,
+  SET_FETCHING_MY_FEED_RESTROOMS,
+  SET_FETCHING_MY_FEED_RESTROOMS_FINISHED,
+  SET_FETCHING_MY_NEW_FEED_RESTROOMS,
+  SET_FETCHING_MY_NEW_FEED_RESTROOMS_FINISHED
 } from './ActionTypes';
 
 export const addRestroom = payload => ({
@@ -136,8 +143,18 @@ export const getFeedRestrooms = payload => ({
   payload
 });
 
+export const getMyFeedRestrooms = payload => ({
+  type: GET_MY_FEED_RESTROOMS,
+  payload
+});
+
 export const addFeedRestrooms = payload => ({
   type: ADD_FEED_RESTROOMS,
+  payload
+});
+
+export const addMyFeedRestrooms = payload => ({
+  type: ADD_MY_FEED_RESTROOMS,
   payload
 });
 
@@ -145,20 +162,40 @@ export const resetFeedRestrooms = () => ({
   type: RESET_FEED_RESTROOMS
 });
 
+export const resetMyFeedRestrooms = () => ({
+  type: RESET_MY_FEED_RESTROOMS
+});
+
 export const setFetchingFeedRestrooms = () => ({
   type: SET_FETCHING_FEED_RESTROOMS
+});
+
+export const setFetchingMyFeedRestrooms = () => ({
+  type: SET_FETCHING_MY_FEED_RESTROOMS
 });
 
 export const setFetchingFeedRestroomsFinished = () => ({
   type: SET_FETCHING_FEED_RESTROOMS_FINISHED
 });
 
+export const setFetchingMyFeedRestroomsFinished = () => ({
+  type: SET_FETCHING_MY_FEED_RESTROOMS_FINISHED
+});
+
 export const setFetchingNewFeedRestrooms = () => ({
   type: SET_FETCHING_NEW_FEED_RESTROOMS
 });
 
+export const setFetchingMyNewFeedRestrooms = () => ({
+  type: SET_FETCHING_MY_NEW_FEED_RESTROOMS
+});
+
 export const setFetchingNewFeedRestroomsFinished = () => ({
   type: SET_FETCHING_NEW_FEED_RESTROOMS_FINISHED
+});
+
+export const setFetchingMyNewFeedRestroomsFinished = () => ({
+  type: SET_FETCHING_MY_NEW_FEED_RESTROOMS_FINISHED
 });
 
 export const getOsmSuggestions = payload => ({

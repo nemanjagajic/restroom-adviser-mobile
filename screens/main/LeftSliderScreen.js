@@ -23,7 +23,7 @@ class LeftSliderScreen extends React.Component {
             <Text style={styles.buttonText}>Profile</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => this.props.navigation.navigate('ChangePassword')}
+            onPress={() => this.props.navigation.navigate('MyRestrooms')}
             style={styles.button}
           >
             <Icon.Ionicons name="md-albums" size={24} style={styles.icon} color={'#808080'} />

@@ -17,7 +17,8 @@ import {
   GET_RESTROOM_RATINGS,
   ADD_RESTROOM_RATING,
   GET_FEED_RESTROOMS,
-  GET_OSM_SUGGESTIONS
+  GET_OSM_SUGGESTIONS,
+  GET_MY_FEED_RESTROOMS
 } from '../actions/ActionTypes';
 import {
   userLogin,
@@ -37,6 +38,7 @@ import {
   addRestroomRating,
   fetchRestrooms,
   getFeedRestrooms,
+  getMyFeedRestrooms,
   getOsmSuggestions,
   getRestroomComments,
   getRestroomRatings
@@ -61,6 +63,7 @@ export default function* rootSaga() {
     takeLatest(GET_RESTROOM_RATINGS, getRestroomRatings),
     takeLatest(ADD_RESTROOM_RATING, addRestroomRating),
     takeLatest(GET_FEED_RESTROOMS, getFeedRestrooms),
+    takeLatest(GET_MY_FEED_RESTROOMS, getMyFeedRestrooms),
     takeLatest(GET_OSM_SUGGESTIONS, getOsmSuggestions)
   ]);
 }
