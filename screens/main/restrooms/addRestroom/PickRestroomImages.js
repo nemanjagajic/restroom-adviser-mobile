@@ -84,15 +84,23 @@ class PickRestroomImages extends Component {
           </View>
         </View>
         <AddImage onImageAdded={this.handleImageAdded} />
-        <ButtonCustom
-          disabled={this.props.isAddingRestroom}
-          title={this.props.isAddingRestroom ? 'Adding restroom... ' : 'Add restroom'}
-          style={this.props.isAddingRestroom ? styles.buttonAdding : styles.button}
-          textStyle={
-            this.props.isAddingRestroom ? styles.addButtonTextAdding : styles.addButtonText
-          }
-          onPress={this.addRestroom}
-        />
+        <View style={styles.nextButtonWrapper}>
+          <ButtonCustom
+            disabled={this.props.isAddingRestroom}
+            title={this.props.isAddingRestroom ? 'Adding restroom... ' : 'Add restroom'}
+            style={this.props.isAddingRestroom ? styles.buttonAdding : styles.button}
+            textStyle={
+              this.props.isAddingRestroom ? styles.addButtonTextAdding : styles.addButtonText
+            }
+            onPress={this.addRestroom}
+          />
+          <View style={styles.dotWrapper}>
+            <View style={styles.dot} />
+            <View style={styles.dot} />
+            <View style={styles.dot} />
+            <View style={styles.dotFilled} />
+          </View>
+        </View>
       </View>
     );
   }
@@ -128,24 +136,22 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: Colors.mainColor,
     borderRadius: 30,
-    bottom: 20,
     display: 'flex',
     elevation: 1,
     height: 50,
     justifyContent: 'center',
-    position: 'absolute',
+    marginBottom: 15,
     width: 300
   },
   buttonAdding: {
     alignItems: 'center',
     backgroundColor: '#f2f2f2',
     borderRadius: 30,
-    bottom: 20,
     display: 'flex',
     elevation: 1,
     height: 50,
     justifyContent: 'center',
-    position: 'absolute',
+    marginBottom: 15,
     width: 300
   },
   close: {
@@ -165,6 +171,28 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     display: 'flex',
     flex: 1
+  },
+  dot: {
+    borderColor: '#ccc',
+    borderRadius: 100,
+    borderWidth: 1,
+    height: 10,
+    width: 10
+  },
+  dotFilled: {
+    backgroundColor: Colors.mainColor,
+    borderColor: Colors.mainColor,
+    borderRadius: 100,
+    borderWidth: 1,
+    height: 10,
+    width: 10
+  },
+  dotWrapper: {
+    alignSelf: 'center',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: 80
   },
   emptyImageScrollview: {
     alignItems: 'center',
@@ -190,6 +218,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#f2f2f2',
     flex: 1,
     justifyContent: 'center'
+  },
+  nextButtonWrapper: {
+    bottom: 10,
+    position: 'absolute'
   },
   scrollView: {
     marginTop: 30,

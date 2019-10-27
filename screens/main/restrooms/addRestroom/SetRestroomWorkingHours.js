@@ -98,12 +98,20 @@ class SetRestroomWorkingHours extends Component {
           fieldNameTo={'sundayTo'}
           handleTimePicked={this.handleTimePicked}
         />
-        <ButtonCustom
-          title={this.isEmpty() ? 'Skip' : 'Next'}
-          style={styles.button}
-          textStyle={styles.text}
-          onPress={this.handleNext}
-        />
+        <View style={styles.nextButtonWrapper}>
+          <ButtonCustom
+            title={this.isEmpty() ? 'Skip' : 'Next'}
+            style={styles.button}
+            textStyle={styles.text}
+            onPress={this.handleNext}
+          />
+          <View style={styles.dotWrapper}>
+            <View style={styles.dot} />
+            <View style={styles.dot} />
+            <View style={styles.dotFilled} />
+            <View style={styles.dot} />
+          </View>
+        </View>
       </View>
     );
   }
@@ -124,13 +132,39 @@ const styles = StyleSheet.create({
     elevation: 1,
     height: 45,
     justifyContent: 'center',
-    marginTop: 50,
+    marginBottom: 15,
     width: 140
   },
   container: {
     alignItems: 'center',
     flex: 1,
-    justifyContent: 'center'
+    marginTop: 30
+  },
+  dot: {
+    borderColor: '#ccc',
+    borderRadius: 100,
+    borderWidth: 1,
+    height: 10,
+    width: 10
+  },
+  dotFilled: {
+    backgroundColor: Colors.mainColor,
+    borderColor: Colors.mainColor,
+    borderRadius: 100,
+    borderWidth: 1,
+    height: 10,
+    width: 10
+  },
+  dotWrapper: {
+    alignSelf: 'center',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: 80
+  },
+  nextButtonWrapper: {
+    bottom: 10,
+    position: 'absolute'
   },
   text: {
     color: '#fff',

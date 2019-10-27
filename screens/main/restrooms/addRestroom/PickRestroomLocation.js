@@ -59,18 +59,26 @@ class PickRestroomLocation extends Component {
             />
           </View>
           {this.state.focusedLocation && (
-            <ButtonCustom
-              title={'Next'}
-              style={styles.buttonAddRestroom}
-              textStyle={styles.addButtonText}
-              onPress={() =>
-                this.props.navigation.navigate('SetRestroomInfo', {
-                  latitude: this.state.focusedLocation.latitude,
-                  longitude: this.state.focusedLocation.longitude,
-                  locationInfo: this.state.locationInfo
-                })
-              }
-            />
+            <View style={styles.nextButtonWrapper}>
+              <ButtonCustom
+                title={'Next'}
+                style={styles.button}
+                textStyle={styles.buttonText}
+                onPress={() =>
+                  this.props.navigation.navigate('SetRestroomInfo', {
+                    latitude: this.state.focusedLocation.latitude,
+                    longitude: this.state.focusedLocation.longitude,
+                    locationInfo: this.state.locationInfo
+                  })
+                }
+              />
+              <View style={styles.dotWrapper}>
+                <View style={styles.dotFilled} />
+                <View style={styles.dot} />
+                <View style={styles.dot} />
+                <View style={styles.dot} />
+              </View>
+            </View>
           )}
         </View>
       </View>
@@ -98,21 +106,17 @@ const mapDispatchToProps = {
 };
 
 const styles = StyleSheet.create({
-  addButtonText: {
-    color: '#fff',
-    fontSize: 16
-  },
   bottomContainer: {
     alignItems: 'center',
     backgroundColor: '#fff',
     bottom: 0,
     display: 'flex',
     elevation: 3,
-    height: Dimensions.get('window').height * 0.4,
+    height: Dimensions.get('window').height * 0.25,
     position: 'absolute',
     width: Dimensions.get('window').width
   },
-  buttonAddRestroom: {
+  button: {
     alignItems: 'center',
     backgroundColor: Colors.mainColor,
     borderRadius: 30,
@@ -120,14 +124,40 @@ const styles = StyleSheet.create({
     elevation: 1,
     height: 45,
     justifyContent: 'center',
-    marginTop: 15,
+    marginBottom: 15,
     width: 140
+  },
+  buttonText: {
+    color: '#fff',
+    fontSize: 16
   },
   container: {
     alignItems: 'center',
     backgroundColor: '#fff',
     display: 'flex',
-    height: Dimensions.get('window').height
+    flex: 1
+  },
+  dot: {
+    borderColor: '#ccc',
+    borderRadius: 100,
+    borderWidth: 1,
+    height: 10,
+    width: 10
+  },
+  dotFilled: {
+    backgroundColor: Colors.mainColor,
+    borderColor: Colors.mainColor,
+    borderRadius: 100,
+    borderWidth: 1,
+    height: 10,
+    width: 10
+  },
+  dotWrapper: {
+    alignSelf: 'center',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: 80
   },
   locationText: {
     alignItems: 'center',
@@ -142,6 +172,10 @@ const styles = StyleSheet.create({
   },
   locationTextInput: {
     color: '#808080'
+  },
+  nextButtonWrapper: {
+    bottom: 10,
+    position: 'absolute'
   },
   topContainer: {
     height: Dimensions.get('window').height * 0.6

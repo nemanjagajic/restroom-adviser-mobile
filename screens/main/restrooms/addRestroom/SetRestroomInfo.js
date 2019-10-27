@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, KeyboardAvoidingView, TextInput } from 'react-native';
+import { StyleSheet, KeyboardAvoidingView, TextInput, View } from 'react-native';
 import PropTypes from 'prop-types';
 
 import Colors from '../../../../constants/Colors';
@@ -45,13 +45,21 @@ class SetRestroomInfo extends Component {
           onChange={event => this.setState({ description: event.nativeEvent.text })}
           placeholder={'Description'}
         />
-        <ButtonCustom
-          disabled={this.state.name.trim() === ''}
-          title={'Next'}
-          style={this.state.name.trim() !== '' ? styles.button : styles.buttonDisabled}
-          textStyle={styles.addButtonText}
-          onPress={this.handleNext}
-        />
+        <View style={styles.nextButtonWrapper}>
+          <ButtonCustom
+            disabled={this.state.name.trim() === ''}
+            title={'Next'}
+            style={this.state.name.trim() !== '' ? styles.button : styles.buttonDisabled}
+            textStyle={styles.addButtonText}
+            onPress={this.handleNext}
+          />
+          <View style={styles.dotWrapper}>
+            <View style={styles.dot} />
+            <View style={styles.dotFilled} />
+            <View style={styles.dot} />
+            <View style={styles.dot} />
+          </View>
+        </View>
       </KeyboardAvoidingView>
     );
   }
@@ -76,7 +84,7 @@ const styles = StyleSheet.create({
     elevation: 1,
     height: 45,
     justifyContent: 'center',
-    marginTop: 20,
+    marginBottom: 15,
     width: 140
   },
   buttonDisabled: {
@@ -87,6 +95,7 @@ const styles = StyleSheet.create({
     elevation: 1,
     height: 45,
     justifyContent: 'center',
+    marginBottom: 15,
     marginTop: 20,
     width: 140
   },
@@ -97,6 +106,28 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     marginTop: 10
+  },
+  dot: {
+    borderColor: '#ccc',
+    borderRadius: 100,
+    borderWidth: 1,
+    height: 10,
+    width: 10
+  },
+  dotFilled: {
+    backgroundColor: Colors.mainColor,
+    borderColor: Colors.mainColor,
+    borderRadius: 100,
+    borderWidth: 1,
+    height: 10,
+    width: 10
+  },
+  dotWrapper: {
+    alignSelf: 'center',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: 80
   },
   input: {
     backgroundColor: '#f2f2f2',
@@ -119,6 +150,10 @@ const styles = StyleSheet.create({
     padding: 15,
     textAlignVertical: 'top',
     width: 300
+  },
+  nextButtonWrapper: {
+    bottom: 10,
+    position: 'absolute'
   }
 });
 
