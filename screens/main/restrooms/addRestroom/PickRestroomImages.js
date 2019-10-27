@@ -220,7 +220,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   nextButtonWrapper: {
-    bottom: 10,
+    bottom: 30,
     position: 'absolute'
   },
   scrollView: {

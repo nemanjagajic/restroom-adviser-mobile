@@ -42,6 +42,7 @@ class MyRestrooms extends Component {
   }
 
   reloadRestrooms = () => {
+    this.props.resetMyFeedRestrooms();
     this.setState({ offset: 0 }, () => this.handleFetchNewRestrooms(true));
   };
 

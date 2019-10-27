@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     display: 'flex',
     elevation: 3,
-    height: Dimensions.get('window').height * 0.25,
+    height: Dimensions.get('window').height * 0.3,
     position: 'absolute',
     width: Dimensions.get('window').width
   },
@@ -174,7 +174,7 @@ const styles = StyleSheet.create({
     color: '#808080'
   },
   nextButtonWrapper: {
-    bottom: 10,
+    bottom: 30,
     position: 'absolute'
   },
   topContainer: {

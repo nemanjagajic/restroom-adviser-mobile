@@ -16,17 +16,12 @@ import {
 import FeedsList from '../../../components/feeds/FeedsList';
 import { FETCHING_LIMIT } from '../../../constants/Restrooms';
 import { Ionicons } from '@expo/vector-icons';
-import Colors from '../../../constants/Colors';
 import FeedSearchHeader from '../../../components/feeds/FeedSearchHeader';
 import FeedFiltersModal from '../../../components/feeds/FeedFiltersModal';
 
 class FeedsHome extends Component {
   static navigationOptions = {
-    headerTitle: 'Feeds',
-    headerTintColor: Colors.headerTintColor,
-    headerStyle: {
-      backgroundColor: '#fff'
-    }
+    header: null
   };
 
   state = {

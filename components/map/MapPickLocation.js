@@ -28,7 +28,9 @@ class MapPickLocation extends Component {
   };
 
   componentDidMount() {
-    this.getLocationAsync();
+    setTimeout(() => {
+      this.getLocationAsync();
+    }, 500);
   }
 
   getLocationAsync = async () => {

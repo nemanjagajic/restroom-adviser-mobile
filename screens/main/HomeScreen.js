@@ -1,38 +1,19 @@
 import React from 'react';
-import { StyleSheet, View, TouchableOpacity, Text } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { addHeaderLeftNavigator } from '../../helpers';
 import { fetchRestrooms, getRestroomRatings } from '../../store/actions/RestroomActions';
 import {
   isFetchingRatingsSelector,
   restroomRatingsSelector,
   restroomsSelector
 } from '../../store/selectors/RestroomSelector';
-import Colors from '../../constants/Colors';
 import MapLocations from '../../components/map/MapLocations';
 import SelectedRestroomModal from '../../components/home/SelectedRestroomModal';
 
 class HomeScreen extends React.Component {
-  static navigationOptions = ({ navigation }) => {
-    const headerLeftNav = addHeaderLeftNavigator(navigation);
-    const headerRight = (
-      <TouchableOpacity
-        onPress={() => navigation.navigate('PickRestroomLocation')}
-        style={styles.buttonHeaderRight}
-      >
-        <Text style={styles.buttonHeaderRightText}>Add restroom</Text>
-      </TouchableOpacity>
-    );
-    return {
-      ...headerLeftNav,
-      headerRight,
-      title: 'Home',
-      headerTintColor: Colors.headerTintColor,
-      headerStyle: {
-        backgroundColor: '#fff'
-      }
-    };
+  static navigationOptions = {
+    header: null
   };
 
   state = {
@@ -137,18 +118,6 @@ HomeScreen.propTypes = {
 };
 
 const styles = StyleSheet.create({
-  buttonHeaderRight: {
-    alignItems: 'center',
-    backgroundColor: Colors.mainColor,
-    borderRadius: 15,
-    display: 'flex',
-    marginRight: 10,
-    padding: 8,
-    width: 110
-  },
-  buttonHeaderRightText: {
-    color: '#fff'
-  },
   container: {
     backgroundColor: '#fff',
     flex: 1

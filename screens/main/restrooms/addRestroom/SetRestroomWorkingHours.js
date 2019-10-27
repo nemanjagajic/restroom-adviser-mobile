@@ -163,7 +163,7 @@ const styles = StyleSheet.create({
     width: 80
   },
   nextButtonWrapper: {
-    bottom: 10,
+    bottom: 30,
     position: 'absolute'
   },
   text: {

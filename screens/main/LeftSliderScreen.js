@@ -96,8 +96,7 @@ const styles = StyleSheet.create({
     flex: 1
   },
   content: {
-    flex: 1,
-    marginTop: 30
+    flex: 1
   },
   icon: {
     marginRight: 15

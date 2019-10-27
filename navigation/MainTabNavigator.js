@@ -21,18 +21,9 @@ import RestroomComments from '../screens/main/restrooms/restroomDetails/Restroom
 import RatingDetails from '../screens/main/restrooms/restroomDetails/RatingDetails';
 import SetRestroomWorkingHours from '../screens/main/restrooms/addRestroom/SetRestroomWorkingHours';
 import MyRestrooms from '../screens/main/restrooms/myRestrooms/MyRestrooms';
+import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 const HomeStack = createStackNavigator({
-  Home: HomeScreen,
-  ChangePassword,
-  EditProfile,
-  SetRestroomInfo,
-  SetRestroomWorkingHours,
-  PickRestroomLocation,
-  PickRestroomImages,
-  RestroomDetails,
-  RestroomComments,
-  RatingDetails,
-  MyRestrooms
+  Home: HomeScreen
 });
 
 const FeedsStack = createStackNavigator({
@@ -72,15 +63,73 @@ const BottomTabNavigator = createBottomTabNavigator(
       style: {
         backgroundColor: '#333333'
       }
-    }
+    },
+    header: null
   }
 );
 
-export default createDrawerNavigator(
+const Drawer = createDrawerNavigator(
   {
     BottomTabNavigator: BottomTabNavigator
   },
   {
-    contentComponent: LeftSliderScreen
+    contentComponent: LeftSliderScreen,
+    navigationOptions: ({ navigation }) => {
+      const headerLeftNav = addHeaderLeftNavigator(navigation);
+      const headerRight = (
+        <TouchableOpacity
+          onPress={() => navigation.navigate('PickRestroomLocation')}
+          style={styles.buttonHeaderRight}
+        >
+          <Text style={styles.buttonHeaderRightText}>Add restroom</Text>
+        </TouchableOpacity>
+      );
+      return {
+        ...headerLeftNav,
+        headerRight,
+        title: 'Home',
+        headerTintColor: Colors.headerTintColor,
+        headerStyle: {
+          backgroundColor: '#fff'
+        },
+        cardStyle: {
+          backgroundColor: 'transparent'
+        }
+      };
+    }
   }
 );
+
+export default createStackNavigator(
+  {
+    Drawer,
+    EditProfile,
+    ChangePassword,
+    SetRestroomInfo,
+    SetRestroomWorkingHours,
+    PickRestroomLocation,
+    PickRestroomImages,
+    RestroomDetails,
+    RestroomComments,
+    RatingDetails,
+    MyRestrooms
+  },
+  {
+    initialRouteName: 'Drawer'
+  }
+);
+
+const styles = StyleSheet.create({
+  buttonHeaderRight: {
+    alignItems: 'center',
+    backgroundColor: Colors.mainColor,
+    borderRadius: 15,
+    display: 'flex',
+    marginRight: 10,
+    padding: 8,
+    width: 110
+  },
+  buttonHeaderRightText: {
+    color: '#fff'
+  }
+});

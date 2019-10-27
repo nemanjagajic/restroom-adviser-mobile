@@ -152,7 +152,7 @@ const styles = StyleSheet.create({
     width: 300
   },
   nextButtonWrapper: {
-    bottom: 10,
+    bottom: 30,
     position: 'absolute'
   }
 });
