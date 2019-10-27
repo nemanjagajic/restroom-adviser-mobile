@@ -59,7 +59,7 @@ const FeedFiltersModal = props => {
             title={'Apply'}
             style={styles.modalButton}
             textStyle={styles.modalButtonText}
-            onPress={() => props.onApplyFilters(selectedRating)}
+            onPress={() => props.onApplyFilters(selectedRating !== -1 ? selectedRating : null)}
           />
           <ButtonCustom
             title={'Close'}
