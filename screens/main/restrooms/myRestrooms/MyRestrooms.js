@@ -38,13 +38,7 @@ class MyRestrooms extends Component {
   };
 
   componentDidMount() {
-    if (this.props.restrooms.length === 0) {
-      this.reloadRestrooms();
-    } else {
-      this.setState({
-        offset: Math.ceil(this.props.restrooms.length / FETCHING_LIMIT) * FETCHING_LIMIT
-      });
-    }
+    this.reloadRestrooms();
   }
 
   reloadRestrooms = () => {
@@ -93,10 +87,10 @@ class MyRestrooms extends Component {
 
   renderFilter = () => {
     const word1 = this.props.restroomsTotalNumber === 1 ? 'is' : 'are';
-    const word2 = this.props.restroomsTotalNumber === 1 ? 'restaurant' : 'restaurants';
+    const word2 = this.props.restroomsTotalNumber === 1 ? 'restroom' : 'restrooms';
     return (
       <View>
-        <Text style={styles.title}>{'Restaurants you\'ve added'}</Text>
+        <Text style={styles.title}>{'Restrooms you have added'}</Text>
         <FeedSearchHeader
           restroomsTotalNumber={this.props.restroomsTotalNumber}
           appliedFilterRating={this.state.appliedFilterRating}

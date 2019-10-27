@@ -44,7 +44,7 @@ class CommentInput extends Component {
           styles.container,
           // eslint-disable-next-line react-native/no-inline-styles
           {
-            bottom: this.state.isKeyboardOpened ? this.state.keyboardEndCoordinates - 50 : 1
+            bottom: this.state.isKeyboardOpened ? this.state.keyboardEndCoordinates : 0
           }
         ]}
       >

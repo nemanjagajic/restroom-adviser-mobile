@@ -82,7 +82,7 @@ class FeedsHome extends Component {
 
   renderFilter = () => {
     const word1 = this.props.restroomsTotalNumber === 1 ? 'is' : 'are';
-    const word2 = this.props.restroomsTotalNumber === 1 ? 'restaurant' : 'restaurants';
+    const word2 = this.props.restroomsTotalNumber === 1 ? 'restroom' : 'restrooms';
     return (
       <View>
         <FeedSearchHeader
