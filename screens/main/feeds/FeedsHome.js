@@ -56,10 +56,10 @@ class FeedsHome extends Component {
     this.setState(prevState => ({ offset: prevState.offset + FETCHING_LIMIT }));
   };
 
-  handleApplyFilters = () => {
+  handleApplyFilters = rating => {
     this.setState(
       {
-        appliedFilterRating: this.state.selectedFilterRating,
+        appliedFilterRating: rating,
         isFilterModalVisible: false
       },
       () => this.reloadRestrooms()

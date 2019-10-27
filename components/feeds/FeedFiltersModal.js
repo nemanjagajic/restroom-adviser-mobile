@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Dimensions, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import ButtonCustom from '../shared/button/ButtonCustom';
 import Colors from '../../constants/Colors';
@@ -6,6 +6,8 @@ import PropTypes from 'prop-types';
 
 const FeedFiltersModal = props => {
   const ratings = [1, 2, 3, 4, 5];
+
+  const [selectedRating, setSelectedRating] = useState(-1);
 
   return (
     <View style={styles.filterModalWrapper}>
@@ -15,23 +17,41 @@ const FeedFiltersModal = props => {
           {ratings.map(rating => (
             <TouchableOpacity
               style={
-                props.selectedFilterRating === rating
+                (selectedRating !== -1 ? selectedRating : props.selectedFilterRating) === rating
                   ? styles.ratingButtonSelected
                   : styles.ratingButton
               }
               key={rating}
-              onPress={() => props.onSelectFilterRating(rating)}
+              onPress={() => setSelectedRating(rating)}
             >
-              <Text style={props.selectedFilterRating === rating ? styles.white : styles.gray}>
+              <Text
+                style={
+                  (selectedRating !== -1 ? selectedRating : props.selectedFilterRating) === rating
+                    ? styles.white
+                    : styles.gray
+                }
+              >
                 {rating}
               </Text>
             </TouchableOpacity>
           ))}
           <TouchableOpacity
-            style={!props.selectedFilterRating ? styles.ratingButtonSelected : styles.ratingButton}
-            onPress={() => props.onSelectFilterRating(null)}
+            style={
+              !(selectedRating !== -1 ? selectedRating : props.selectedFilterRating)
+                ? styles.ratingButtonSelected
+                : styles.ratingButton
+            }
+            onPress={() => setSelectedRating(null)}
           >
-            <Text style={!props.selectedFilterRating ? styles.white : styles.gray}>Show All</Text>
+            <Text
+              style={
+                !(selectedRating !== -1 ? selectedRating : props.selectedFilterRating)
+                  ? styles.white
+                  : styles.gray
+              }
+            >
+              Show All
+            </Text>
           </TouchableOpacity>
         </View>
         <View style={styles.modalButtons}>
@@ -39,7 +59,7 @@ const FeedFiltersModal = props => {
             title={'Apply'}
             style={styles.modalButton}
             textStyle={styles.modalButtonText}
-            onPress={props.onApplyFilters}
+            onPress={() => props.onApplyFilters(selectedRating)}
           />
           <ButtonCustom
             title={'Close'}
@@ -65,10 +85,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#fff',
     borderRadius: 10,
+    elevation: 2,
     height: 200,
     justifyContent: 'center',
     marginTop: 150,
-    width: Dimensions.get('window').width * 0.9,
+    width: Dimensions.get('window').width * 0.95,
     zIndex: 2
   },
   filterModalTitle: {

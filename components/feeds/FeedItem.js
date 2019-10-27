@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import { View, StyleSheet, Dimensions, Image, Text, TouchableOpacity } from 'react-native';
 import PropTypes from 'prop-types';
 import config from '../../config';
@@ -7,64 +7,66 @@ import StarRating from 'react-native-star-rating';
 import { Ionicons } from '@expo/vector-icons';
 import { Icon } from 'expo';
 
-const FeedItem = props => {
-  const { image, rating, name, location_text: locationText } = props.restroom;
+class FeedItem extends PureComponent {
+  render() {
+    const { image, rating, name, location_text: locationText } = this.props.restroom;
 
-  return (
-    <View
-      style={[
-        styles.container,
-        // eslint-disable-next-line react-native/no-inline-styles
-        { marginTop: props.isFirst ? 10 : 0 }
-      ]}
-    >
-      {!image ? (
-        <View style={styles.emptyImage}>
-          <Ionicons name="md-images" color={'#fff'} size={50} />
-        </View>
-      ) : (
-        <Image
-          style={styles.image}
-          key={image.id}
-          source={{
-            uri: `${config.IMAGE_BASE_URL}${image.path}`
-          }}
-        />
-      )}
-      <TouchableOpacity
-        onPress={() => {
-          props.getRestroomRatings(props.restroom, false);
-          props.navigation.navigate('Home', {
-            restroom: props.restroom,
-            from: 'FeedItem'
-          });
-        }}
-        style={styles.open}
-        hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+    return (
+      <View
+        style={[
+          styles.container,
+          // eslint-disable-next-line react-native/no-inline-styles
+          { marginTop: this.props.isFirst ? 10 : 0 }
+        ]}
       >
-        <Icon.Ionicons name="md-open" size={22} style={styles.icon} color={'#ccc'} />
-      </TouchableOpacity>
-      <View style={styles.contentBottom}>
-        <Text style={styles.name}>{name}</Text>
-        <Text style={styles.location}>{locationText}</Text>
-        <View style={styles.voteWrapper}>
-          <View style={styles.voteStars}>
-            <Text style={styles.voteNumber}>{rating.totalRating}</Text>
-            <StarRating
-              disabled={true}
-              maxStars={5}
-              rating={rating.totalRating}
-              starSize={18}
-              emptyStarColor={Colors.mainColor}
-              fullStarColor={Colors.mainColor}
-            />
+        {!image ? (
+          <View style={styles.emptyImage}>
+            <Ionicons name="md-images" color={'#fff'} size={50} />
           </View>
-          <Text style={styles.numberOfVotes}>{`${rating.numberOfRatings} votes`}</Text>
+        ) : (
+          <Image
+            style={styles.image}
+            key={image.id}
+            source={{
+              uri: `${config.IMAGE_BASE_URL}${image.path}`
+            }}
+          />
+        )}
+        <TouchableOpacity
+          onPress={() => {
+            this.props.getRestroomRatings(this.props.restroom, false);
+            this.props.navigation.navigate('Home', {
+              restroom: this.props.restroom,
+              from: 'FeedItem'
+            });
+          }}
+          style={styles.open}
+          hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+        >
+          <Icon.Ionicons name="md-open" size={22} style={styles.icon} color={'#ccc'} />
+        </TouchableOpacity>
+        <View style={styles.contentBottom}>
+          <Text style={styles.name}>{name}</Text>
+          <Text style={styles.location}>{locationText}</Text>
+          <View style={styles.voteWrapper}>
+            <View style={styles.voteStars}>
+              <Text style={styles.voteNumber}>{rating.totalRating}</Text>
+              <StarRating
+                disabled={true}
+                maxStars={5}
+                rating={rating.totalRating}
+                starSize={18}
+                emptyStarColor={Colors.mainColor}
+                fullStarColor={Colors.mainColor}
+              />
+            </View>
+            <Text style={styles.numberOfVotes}>{`${rating.numberOfRatings} votes`}</Text>
+          </View>
         </View>
       </View>
-    </View>
-  );
-};
+    );
+  }
+}
 
 FeedItem.propTypes = {
   restroom: PropTypes.object,

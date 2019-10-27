@@ -33,7 +33,7 @@ class ChangePassword extends Component {
 
     return (
       <View style={styles.container}>
-        <KeyboardAwareScrollView enableOnAndroid>
+        <KeyboardAwareScrollView contentContainerStyle={styles.container} enableOnAndroid>
           <ChangePasswordForm
             onSubmit={this.handleSubmit}
             invalidOldPasswordError={invalidOldPasswordError}
@@ -57,7 +57,10 @@ export default connect(
 
 const styles = StyleSheet.create({
   container: {
+    alignItems: 'center',
     backgroundColor: '#fff',
-    flex: 1
+    display: 'flex',
+    flex: 1,
+    justifyContent: 'center'
   }
 });
