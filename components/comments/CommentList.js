@@ -54,7 +54,7 @@ class CommentsList extends Component {
     return (
       <View>
         <FlatList
-          style={styles.list}
+          style={!this.props.withoutInput && styles.bottomMargin}
           contentContainerStyle={styles.container}
           data={this.props.comments}
           renderItem={comment => <Comment {...comment} />}
@@ -93,10 +93,14 @@ CommentsList.propTypes = {
   fetchNewComments: PropTypes.func,
   commentsTotalNumber: PropTypes.number,
   isFetchingNewComments: PropTypes.bool,
-  reloadComments: PropTypes.func
+  reloadComments: PropTypes.func,
+  withoutInput: PropTypes.any
 };
 
 const styles = StyleSheet.create({
+  bottomMargin: {
+    marginBottom: 50
+  },
   container: {
     paddingTop: 10,
     width: Dimensions.get('window').width
@@ -112,9 +116,6 @@ const styles = StyleSheet.create({
   },
   indicatorPlaceholder: {
     height: 50
-  },
-  list: {
-    marginBottom: 50
   }
 });
 

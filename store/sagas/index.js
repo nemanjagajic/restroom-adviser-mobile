@@ -18,7 +18,8 @@ import {
   ADD_RESTROOM_RATING,
   GET_FEED_RESTROOMS,
   GET_OSM_SUGGESTIONS,
-  GET_MY_FEED_RESTROOMS
+  GET_MY_FEED_RESTROOMS,
+  GET_MY_COMMENTS
 } from '../actions/ActionTypes';
 import {
   userLogin,
@@ -30,8 +31,9 @@ import {
   resetPassword,
   userGet,
   passwordChange,
-  updateUser
-} from '../sagas/ActiveUserSagas';
+  updateUser,
+  getMyComments
+} from './ActiveUserSagas';
 import {
   addRestroom,
   addRestroomComment,
@@ -64,6 +66,7 @@ export default function* rootSaga() {
     takeLatest(ADD_RESTROOM_RATING, addRestroomRating),
     takeLatest(GET_FEED_RESTROOMS, getFeedRestrooms),
     takeLatest(GET_MY_FEED_RESTROOMS, getMyFeedRestrooms),
-    takeLatest(GET_OSM_SUGGESTIONS, getOsmSuggestions)
+    takeLatest(GET_OSM_SUGGESTIONS, getOsmSuggestions),
+    takeLatest(GET_MY_COMMENTS, getMyComments)
   ]);
 }

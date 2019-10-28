@@ -1,4 +1,4 @@
-import { call, put } from 'redux-saga/effects';
+import { call, put, select } from 'redux-saga/effects';
 import { setLoader } from '../actions/LoaderAction';
 import authService from '../../services/AuthService';
 import NavigationService from '../../services/NavigationService';
@@ -11,9 +11,21 @@ import {
   setResetPasswordError,
   setSocialLoginError
 } from '../actions/ErrorActions';
-import { setUser, setChangePasswordSuccess, setUpdatedUser } from '../actions/UserActions';
+import {
+  setUser,
+  setChangePasswordSuccess,
+  setUpdatedUser,
+  setFetchingMyComments,
+  setFetchingMyNewComments,
+  setFetchingMyCommentsFinished,
+  setFetchingMyNewCommentsFinished,
+  resetMyComments,
+  addMyComments
+} from '../actions/UserActions';
 import { profileService } from '../../services/ProfileService';
 import { resetFeedRestrooms, resetMyFeedRestrooms } from '../actions/RestroomActions';
+import { userSelector } from '../selectors/UserSelector';
+import { userService } from '../../services/UserService';
 
 export function* userLogin({ payload }) {
   try {
@@ -171,5 +183,35 @@ export function* updateUser({ payload }) {
     yield put(setGlobalError(true));
   } finally {
     yield put(setLoader(false));
+  }
+}
+
+export function* getMyComments({ payload }) {
+  const user = yield select(userSelector);
+  if (payload.isInitial) {
+    yield put(setFetchingMyComments());
+  } else {
+    yield put(setFetchingMyNewComments());
+  }
+
+  try {
+    const response = yield call(userService.getComments, {
+      user,
+      offset: payload.offset,
+      limit: payload.limit
+    });
+    if (payload.isInitial) {
+      yield put(resetMyComments());
+    }
+    yield put(addMyComments(response.data));
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.log(error);
+  } finally {
+    if (payload.isInitial) {
+      yield put(setFetchingMyCommentsFinished());
+    } else {
+      yield put(setFetchingMyNewCommentsFinished());
+    }
   }
 }

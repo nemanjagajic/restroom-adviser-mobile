@@ -22,6 +22,7 @@ import RatingDetails from '../screens/main/restrooms/restroomDetails/RatingDetai
 import SetRestroomWorkingHours from '../screens/main/restrooms/addRestroom/SetRestroomWorkingHours';
 import MyRestrooms from '../screens/main/restrooms/myRestrooms/MyRestrooms';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
+import ActivityScreen from '../screens/main/activity/ActivityScreen';
 const HomeStack = createStackNavigator({
   Home: HomeScreen
 });
@@ -112,7 +113,8 @@ export default createStackNavigator(
     RestroomDetails,
     RestroomComments,
     RatingDetails,
-    MyRestrooms
+    MyRestrooms,
+    ActivityScreen
   },
   {
     initialRouteName: 'Drawer'
