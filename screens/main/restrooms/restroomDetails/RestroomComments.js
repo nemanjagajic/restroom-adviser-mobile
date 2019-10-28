@@ -36,6 +36,10 @@ class RestroomComments extends Component {
     this.setState({
       offset: Math.ceil(this.props.comments.length / FETCHING_LIMIT) * FETCHING_LIMIT
     });
+
+    if (this.props.navigation.getParam('isFromActivity')) {
+      this.reloadComments();
+    }
   }
 
   reloadComments = () => {
@@ -63,10 +67,13 @@ class RestroomComments extends Component {
   };
 
   render() {
+    const shouldShowComments =
+      this.props.navigation.getParam('isFromActivity') && this.props.isFetchingComments;
+
     return (
       <View style={styles.container}>
         <CommentsList
-          comments={this.props.comments}
+          comments={shouldShowComments ? [] : this.props.comments}
           commentsTotalNumber={this.props.commentsTotalNumber}
           isFetchingComments={this.props.isFetchingComments}
           isFetchingNewComments={this.props.isFetchingNewComments}

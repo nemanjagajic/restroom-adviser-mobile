@@ -14,6 +14,7 @@ import PropTypes from 'prop-types';
 
 import { Ionicons } from '@expo/vector-icons';
 import Colors from '../../constants/Colors';
+import CommentActivityItem from '../../screens/main/activity/CommentActivityItem';
 
 class CommentsList extends Component {
   state = {
@@ -57,7 +58,13 @@ class CommentsList extends Component {
           style={!this.props.withoutInput && styles.bottomMargin}
           contentContainerStyle={styles.container}
           data={this.props.comments}
-          renderItem={comment => <Comment {...comment} />}
+          renderItem={comment => {
+            if (this.props.isActivityItem) {
+              return <CommentActivityItem {...comment} navigation={this.props.navigation} />;
+            }
+
+            return <Comment {...comment} />;
+          }}
           keyExtractor={comment => comment.id.toString()}
           onScroll={this.handleScroll}
           progressViewOffset={1000}
@@ -96,7 +103,9 @@ CommentsList.propTypes = {
   isFetchingNewComments: PropTypes.bool,
   reloadComments: PropTypes.func,
   withoutInput: PropTypes.any,
-  headerComponent: PropTypes.any
+  headerComponent: PropTypes.any,
+  isActivityItem: PropTypes.any,
+  navigation: PropTypes.any
 };
 
 const styles = StyleSheet.create({

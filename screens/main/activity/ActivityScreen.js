@@ -12,6 +12,7 @@ import {
   myCommentsSelector,
   myCommentsTotalNumberSelector
 } from '../../../store/selectors/UserSelector';
+import { getRestroomRatings } from '../../../store/actions/RestroomActions';
 
 class ActivityScreen extends Component {
   static navigationOptions = {
@@ -57,6 +58,8 @@ class ActivityScreen extends Component {
           reloadComments={this.reloadComments}
           withoutInput={true}
           headerComponent={this.renderHeader()}
+          isActivityItem={true}
+          navigation={this.props.navigation}
         />
       </View>
     );
@@ -68,7 +71,8 @@ ActivityScreen.propTypes = {
   isFetchingComments: PropTypes.bool,
   comments: PropTypes.array,
   commentsTotalNumber: PropTypes.number,
-  isFetchingNewComments: PropTypes.bool
+  isFetchingNewComments: PropTypes.bool,
+  navigation: PropTypes.object
 };
 
 const mapStateToProps = state => ({
@@ -79,7 +83,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  getMyComments
+  getMyComments,
+  getRestroomRatings
 };
 
 const styles = StyleSheet.create({
