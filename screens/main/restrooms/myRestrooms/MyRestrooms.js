@@ -202,8 +202,7 @@ const styles = StyleSheet.create({
   title: {
     color: '#999',
     fontSize: 24,
-    paddingBottom: 10,
-    paddingTop: 15,
+    padding: 15,
     textAlign: 'center'
   }
 });

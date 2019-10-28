@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Text } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Colors from '../../../constants/Colors';
@@ -43,6 +43,8 @@ class ActivityScreen extends Component {
     this.setState(prevState => ({ offset: prevState.offset + FETCHING_LIMIT }));
   };
 
+  renderHeader = () => <Text style={styles.title}>{'Comments and ratings you have left'}</Text>;
+
   render() {
     return (
       <View style={styles.container}>
@@ -54,6 +56,7 @@ class ActivityScreen extends Component {
           fetchNewComments={this.handleFetchNewComments}
           reloadComments={this.reloadComments}
           withoutInput={true}
+          headerComponent={this.renderHeader()}
         />
       </View>
     );
@@ -82,6 +85,12 @@ const mapDispatchToProps = {
 const styles = StyleSheet.create({
   container: {
     flex: 1
+  },
+  title: {
+    color: '#999',
+    fontSize: 24,
+    padding: 15,
+    textAlign: 'center'
   }
 });
 

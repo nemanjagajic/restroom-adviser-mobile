@@ -63,13 +63,14 @@ class CommentsList extends Component {
           progressViewOffset={1000}
           refreshControl={
             <RefreshControl
-              progressViewOffset={0}
+              progressViewOffset={this.props.headerComponent ? 80 : 0}
               refreshing={this.props.isFetchingComments && !this.props.isFetchingNewComments}
               onRefresh={this.props.reloadComments}
               colors={[Colors.mainColor]}
             />
           }
           ListFooterComponent={this.renderFooter}
+          ListHeaderComponent={this.props.headerComponent || null}
         />
         {this.props.comments.length === 0 &&
           !this.props.isFetchingComments && (
@@ -94,7 +95,8 @@ CommentsList.propTypes = {
   commentsTotalNumber: PropTypes.number,
   isFetchingNewComments: PropTypes.bool,
   reloadComments: PropTypes.func,
-  withoutInput: PropTypes.any
+  withoutInput: PropTypes.any,
+  headerComponent: PropTypes.any
 };
 
 const styles = StyleSheet.create({
