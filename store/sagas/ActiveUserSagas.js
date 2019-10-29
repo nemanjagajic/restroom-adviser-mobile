@@ -215,3 +215,33 @@ export function* getMyComments({ payload }) {
     }
   }
 }
+
+export function* getMyRatings({ payload }) {
+  const user = yield select(userSelector);
+  if (payload.isInitial) {
+    yield put(setFetchingMyComments());
+  } else {
+    yield put(setFetchingMyNewComments());
+  }
+
+  try {
+    const response = yield call(userService.getComments, {
+      user,
+      offset: payload.offset,
+      limit: payload.limit
+    });
+    if (payload.isInitial) {
+      yield put(resetMyComments());
+    }
+    yield put(addMyComments(response.data));
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.log(error);
+  } finally {
+    if (payload.isInitial) {
+      yield put(setFetchingMyCommentsFinished());
+    } else {
+      yield put(setFetchingMyNewCommentsFinished());
+    }
+  }
+}

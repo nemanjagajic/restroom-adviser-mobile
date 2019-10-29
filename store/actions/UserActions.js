@@ -13,13 +13,13 @@ import {
   PASSWORD_CHANGE_SUCCESS,
   USER_UPDATE,
   USER_UPDATE_SET,
-  SET_FETCHING_COMMENTS,
-  SET_FETCHING_COMMENTS_FINISHED,
   ADD_MY_COMMENTS,
   RESET_MY_COMMENTS,
   GET_MY_COMMENTS,
   SET_FETCHING_MY_NEW_COMMENTS,
-  SET_FETCHING_MY_NEW_COMMENTS_FINISHED
+  SET_FETCHING_MY_NEW_COMMENTS_FINISHED,
+  SET_FETCHING_MY_COMMENTS,
+  SET_FETCHING_MY_COMMENTS_FINISHED
 } from './ActionTypes';
 
 export const logout = () => {
@@ -122,11 +122,11 @@ export const getMyComments = payload => ({
 });
 
 export const setFetchingMyComments = () => ({
-  type: SET_FETCHING_COMMENTS
+  type: SET_FETCHING_MY_COMMENTS
 });
 
 export const setFetchingMyCommentsFinished = () => ({
-  type: SET_FETCHING_COMMENTS_FINISHED
+  type: SET_FETCHING_MY_COMMENTS_FINISHED
 });
 
 export const setFetchingMyNewComments = () => ({
