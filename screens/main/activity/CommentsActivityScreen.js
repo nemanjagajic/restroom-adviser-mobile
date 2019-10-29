@@ -13,13 +13,19 @@ import {
   myCommentsTotalNumberSelector
 } from '../../../store/selectors/UserSelector';
 import { getRestroomRatings } from '../../../store/actions/RestroomActions';
+import TabBarIcon from '../../../components/TabBarIcon';
 
-class ActivityScreen extends Component {
+class CommentsActivityScreen extends Component {
   static navigationOptions = {
     headerTitle: 'My Activity',
     headerTintColor: Colors.headerTintColor,
     headerStyle: {
       backgroundColor: '#fff'
+    },
+    tabBarLabel: 'Comments',
+    tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name={'ios-list'} />,
+    tabBarOptions: {
+      activeTintColor: Colors.mainColor
     }
   };
 
@@ -44,7 +50,7 @@ class ActivityScreen extends Component {
     this.setState(prevState => ({ offset: prevState.offset + FETCHING_LIMIT }));
   };
 
-  renderHeader = () => <Text style={styles.title}>{'Comments and ratings you have left'}</Text>;
+  renderHeader = () => <Text style={styles.title}>{'Comments you have left'}</Text>;
 
   render() {
     return (
@@ -66,7 +72,7 @@ class ActivityScreen extends Component {
   }
 }
 
-ActivityScreen.propTypes = {
+CommentsActivityScreen.propTypes = {
   getMyComments: PropTypes.func,
   isFetchingComments: PropTypes.bool,
   comments: PropTypes.array,
@@ -102,4 +108,4 @@ const styles = StyleSheet.create({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(ActivityScreen);
+)(CommentsActivityScreen);

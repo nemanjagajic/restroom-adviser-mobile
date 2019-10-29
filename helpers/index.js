@@ -1,26 +1,30 @@
 import React from 'react';
+import { TouchableOpacity } from 'react-native';
 import { Icon } from 'expo';
 import Colors from '../constants/Colors';
 
 export const addHeaderLeftNavigator = navigation => {
   const styles = {
     menuIcon: {
-      marginLeft: 10,
-      marginTop: 10,
       color: Colors.headerTintColor
+    },
+    iconWrapper: {
+      paddingLeft: 15,
+      paddingRight: 15
     }
   };
 
   return {
     headerLeft: (
-      <Icon.Ionicons
-        name="ios-menu"
-        size={24}
+      <TouchableOpacity
         onPress={() => {
           navigation.toggleDrawer();
         }}
-        style={styles.menuIcon}
-      />
+        hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}
+        style={styles.iconWrapper}
+      >
+        <Icon.Ionicons name="ios-menu" size={24} style={styles.menuIcon} />
+      </TouchableOpacity>
     )
   };
 };

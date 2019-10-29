@@ -22,7 +22,8 @@ import RatingDetails from '../screens/main/restrooms/restroomDetails/RatingDetai
 import SetRestroomWorkingHours from '../screens/main/restrooms/addRestroom/SetRestroomWorkingHours';
 import MyRestrooms from '../screens/main/restrooms/myRestrooms/MyRestrooms';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
-import ActivityScreen from '../screens/main/activity/ActivityScreen';
+import CommentsActivityScreen from '../screens/main/activity/CommentsActivityScreen';
+import RatingsActivityScreen from '../screens/main/activity/RatingsActivityScreen';
 const HomeStack = createStackNavigator({
   Home: HomeScreen
 });
@@ -54,20 +55,10 @@ FeedsStack.navigationOptions = {
   }
 };
 
-const BottomTabNavigator = createBottomTabNavigator(
-  {
-    HomeStack,
-    FeedsStack
-  },
-  {
-    tabBarOptions: {
-      style: {
-        backgroundColor: '#333333'
-      }
-    },
-    header: null
-  }
-);
+const BottomTabNavigator = createBottomTabNavigator({
+  HomeStack,
+  FeedsStack
+});
 
 const Drawer = createDrawerNavigator(
   {
@@ -101,6 +92,23 @@ const Drawer = createDrawerNavigator(
   }
 );
 
+const ActivityBottomTabNavigator = createBottomTabNavigator({
+  Comments: CommentsActivityScreen,
+  Ratings: RatingsActivityScreen
+});
+
+const ActivityDrawer = createDrawerNavigator(
+  {
+    ActivityBottomTabNavigator
+  },
+  {
+    navigationOptions: {
+      title: 'My activity',
+      headerTintColor: Colors.headerTintColor
+    }
+  }
+);
+
 export default createStackNavigator(
   {
     Drawer,
@@ -114,7 +122,7 @@ export default createStackNavigator(
     RestroomComments,
     RatingDetails,
     MyRestrooms,
-    ActivityScreen
+    ActivityDrawer
   },
   {
     initialRouteName: 'Drawer'
