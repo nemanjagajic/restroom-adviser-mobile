@@ -12,7 +12,6 @@ import {
   myCommentsSelector,
   myCommentsTotalNumberSelector
 } from '../../../store/selectors/UserSelector';
-import { getRestroomRatings } from '../../../store/actions/RestroomActions';
 import TabBarIcon from '../../../components/TabBarIcon';
 
 class CommentsActivityScreen extends Component {
@@ -89,8 +88,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  getMyComments,
-  getRestroomRatings
+  getMyComments
 };
 
 const styles = StyleSheet.create({

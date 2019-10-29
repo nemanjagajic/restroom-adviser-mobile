@@ -103,7 +103,7 @@ export default (state = initialState, action) => {
     case ADD_MY_RATINGS:
       return {
         ...state,
-        ratings: state.comments.concat(action.payload.ratings),
+        ratings: state.ratings.concat(action.payload.ratings),
         ratingsTotalNumber: action.payload.numberOfRatings
       };
     case RESET_MY_RATINGS:
