@@ -9,7 +9,13 @@ import {
   SET_FETCHING_MY_NEW_COMMENTS,
   SET_FETCHING_MY_NEW_COMMENTS_FINISHED,
   ADD_MY_COMMENTS,
-  RESET_MY_COMMENTS
+  RESET_MY_COMMENTS,
+  SET_FETCHING_MY_RATINGS,
+  SET_FETCHING_MY_RATINGS_FINISHED,
+  SET_FETCHING_MY_NEW_RATINGS,
+  SET_FETCHING_MY_NEW_RATINGS_FINISHED,
+  ADD_MY_RATINGS,
+  RESET_MY_RATINGS
 } from '../actions/ActionTypes';
 
 const initialState = {
@@ -19,7 +25,11 @@ const initialState = {
   isFetchingMyComments: false,
   isFetchingMyNewComments: false,
   comments: [],
-  commentsTotalNumber: 0
+  commentsTotalNumber: 0,
+  isFetchingMyRatings: false,
+  isFetchingMyNewRatings: false,
+  ratings: [],
+  ratingsTotalNumber: 0
 };
 
 export default (state = initialState, action) => {
@@ -68,6 +78,38 @@ export default (state = initialState, action) => {
       return {
         ...state,
         comments: []
+      };
+
+    case SET_FETCHING_MY_RATINGS:
+      return {
+        ...state,
+        isFetchingMyRatings: true
+      };
+    case SET_FETCHING_MY_RATINGS_FINISHED:
+      return {
+        ...state,
+        isFetchingMyRatings: false
+      };
+    case SET_FETCHING_MY_NEW_RATINGS:
+      return {
+        ...state,
+        isFetchingMyNewRatings: true
+      };
+    case SET_FETCHING_MY_NEW_RATINGS_FINISHED:
+      return {
+        ...state,
+        isFetchingMyNewRatings: false
+      };
+    case ADD_MY_RATINGS:
+      return {
+        ...state,
+        ratings: state.comments.concat(action.payload.ratings),
+        ratingsTotalNumber: action.payload.numberOfRatings
+      };
+    case RESET_MY_RATINGS:
+      return {
+        ...state,
+        ratings: []
       };
     default:
       return state;

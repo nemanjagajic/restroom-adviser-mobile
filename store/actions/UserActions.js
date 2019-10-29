@@ -19,7 +19,14 @@ import {
   SET_FETCHING_MY_NEW_COMMENTS,
   SET_FETCHING_MY_NEW_COMMENTS_FINISHED,
   SET_FETCHING_MY_COMMENTS,
-  SET_FETCHING_MY_COMMENTS_FINISHED
+  SET_FETCHING_MY_COMMENTS_FINISHED,
+  GET_MY_RATINGS,
+  SET_FETCHING_MY_RATINGS,
+  SET_FETCHING_MY_RATINGS_FINISHED,
+  SET_FETCHING_MY_NEW_RATINGS,
+  SET_FETCHING_MY_NEW_RATINGS_FINISHED,
+  ADD_MY_RATINGS,
+  RESET_MY_RATINGS
 } from './ActionTypes';
 
 export const logout = () => {
@@ -144,4 +151,34 @@ export const addMyComments = payload => ({
 
 export const resetMyComments = () => ({
   type: RESET_MY_COMMENTS
+});
+
+export const getMyRatings = payload => ({
+  type: GET_MY_RATINGS,
+  payload
+});
+
+export const setFetchingMyRatings = () => ({
+  type: SET_FETCHING_MY_RATINGS
+});
+
+export const setFetchingMyRatingsFinished = () => ({
+  type: SET_FETCHING_MY_RATINGS_FINISHED
+});
+
+export const setFetchingMyNewRatings = () => ({
+  type: SET_FETCHING_MY_NEW_RATINGS
+});
+
+export const setFetchingMyNewRatingsFinished = () => ({
+  type: SET_FETCHING_MY_NEW_RATINGS_FINISHED
+});
+
+export const addMyRatings = payload => ({
+  type: ADD_MY_RATINGS,
+  payload
+});
+
+export const resetMyRatings = () => ({
+  type: RESET_MY_RATINGS
 });

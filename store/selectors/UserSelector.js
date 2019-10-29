@@ -28,3 +28,20 @@ export const myCommentsTotalNumberSelector = createSelector(
   userStateSelector,
   restrooms => restrooms.commentsTotalNumber
 );
+
+export const myRatingsSelector = createSelector(userStateSelector, restrooms => restrooms.ratings);
+
+export const isFetchingMyRatingsSelector = createSelector(
+  userStateSelector,
+  restrooms => restrooms.isFetchingMyRatings
+);
+
+export const isFetchingMyNewRatingsSelector = createSelector(
+  userStateSelector,
+  restrooms => restrooms.isFetchingMyNewRatings
+);
+
+export const myRatingsTotalNumberSelector = createSelector(
+  userStateSelector,
+  restrooms => restrooms.ratingsTotalNumber
+);

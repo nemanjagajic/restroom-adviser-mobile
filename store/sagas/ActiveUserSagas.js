@@ -20,7 +20,13 @@ import {
   setFetchingMyCommentsFinished,
   setFetchingMyNewCommentsFinished,
   resetMyComments,
-  addMyComments
+  addMyComments,
+  setFetchingMyRatings,
+  setFetchingMyNewRatings,
+  setFetchingMyRatingsFinished,
+  setFetchingMyNewRatingsFinished,
+  addMyRatings,
+  resetMyRatings
 } from '../actions/UserActions';
 import { profileService } from '../../services/ProfileService';
 import { resetFeedRestrooms, resetMyFeedRestrooms } from '../actions/RestroomActions';
@@ -219,29 +225,29 @@ export function* getMyComments({ payload }) {
 export function* getMyRatings({ payload }) {
   const user = yield select(userSelector);
   if (payload.isInitial) {
-    yield put(setFetchingMyComments());
+    yield put(setFetchingMyRatings());
   } else {
-    yield put(setFetchingMyNewComments());
+    yield put(setFetchingMyNewRatings());
   }
 
   try {
-    const response = yield call(userService.getComments, {
+    const response = yield call(userService.getRatings, {
       user,
       offset: payload.offset,
       limit: payload.limit
     });
     if (payload.isInitial) {
-      yield put(resetMyComments());
+      yield put(resetMyRatings());
     }
-    yield put(addMyComments(response.data));
+    yield put(addMyRatings(response.data));
   } catch (error) {
     // eslint-disable-next-line no-console
     console.log(error);
   } finally {
     if (payload.isInitial) {
-      yield put(setFetchingMyCommentsFinished());
+      yield put(setFetchingMyRatingsFinished());
     } else {
-      yield put(setFetchingMyNewCommentsFinished());
+      yield put(setFetchingMyNewRatingsFinished());
     }
   }
 }
