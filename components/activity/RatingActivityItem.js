@@ -1,29 +1,33 @@
 import React from 'react';
 import { StyleSheet, View, Dimensions, Text, TouchableOpacity } from 'react-native';
 import PropTypes from 'prop-types';
-import moment from 'moment';
-import Colors from '../../../constants/Colors';
-import { Icon } from 'expo';
+import moment from 'moment/moment';
+import Colors from '../../constants/Colors';
+import { Icon } from 'expo/build/Expo';
 
-class CommentActivityItem extends React.Component {
+class RatingActivityItem extends React.Component {
   render() {
-    const { content, created_at: createdAt, restroom } = this.props.item;
+    const { updated_at: updatedAt, restroom, rating } = this.props.item;
     return (
       // eslint-disable-next-line react-native/no-inline-styles
       <View style={[styles.container, { marginTop: this.props.index === 0 ? 10 : 0 }]}>
         <View style={styles.commentWrapper}>
           <Text style={styles.headerWrapper}>
-            <Text style={styles.headerText}>{'You\'ve commented on '}</Text>
+            <Text style={styles.headerText}>{'You\'ve rated '}</Text>
             <Text style={styles.restroomNameText}>{`${restroom.name} `}</Text>
-            <Text style={styles.headerText}>{moment(createdAt).fromNow()}</Text>
+            <Text style={styles.headerText}>{'with '}</Text>
+            <Text style={styles.restroomNameText}>{`${rating} stars `}</Text>
+            <Text style={styles.headerText}>{moment(updatedAt).fromNow()}</Text>
           </Text>
-          <Text style={styles.content}>{content}</Text>
         </View>
         <View style={styles.likeWrapper}>
           <TouchableOpacity
-            onPress={() =>
-              this.props.navigation.navigate('RestroomComments', { restroom, isFromActivity: true })
-            }
+            onPress={() => {
+              this.props.navigation.navigate('RatingDetails', {
+                restroom,
+                isFromActivity: true
+              });
+            }}
             style={styles.open}
             hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
           >
@@ -35,7 +39,7 @@ class CommentActivityItem extends React.Component {
   }
 }
 
-CommentActivityItem.propTypes = {
+RatingActivityItem.propTypes = {
   item: PropTypes.object,
   index: PropTypes.number,
   navigation: PropTypes.object,
@@ -57,11 +61,6 @@ const styles = StyleSheet.create({
     marginRight: '5%',
     padding: 10,
     width: Dimensions.get('window').width * 0.9
-  },
-  content: {
-    color: '#666666',
-    paddingRight: 5,
-    paddingTop: 10
   },
   headerText: {
     color: '#a6a6a6'
@@ -91,4 +90,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default CommentActivityItem;
+export default RatingActivityItem;

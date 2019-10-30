@@ -11,8 +11,9 @@ import {
 } from 'react-native';
 import PropTypes from 'prop-types';
 
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons/build/Icons';
 import Colors from '../../constants/Colors';
+import RatingActivityItem from './RatingActivityItem';
 
 class RatingsList extends Component {
   state = {
@@ -55,7 +56,9 @@ class RatingsList extends Component {
         <FlatList
           contentContainerStyle={styles.container}
           data={this.props.ratings}
-          renderItem={rating => <Text>{`rating: ${rating.item.rating}`}</Text>}
+          renderItem={rating => (
+            <RatingActivityItem {...rating} navigation={this.props.navigation} />
+          )}
           keyExtractor={rating => rating.id.toString()}
           onScroll={this.handleScroll}
           progressViewOffset={1000}

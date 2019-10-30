@@ -8,9 +8,10 @@ import StarRating from 'react-native-star-rating';
 import ButtonCustom from '../../../../components/shared/button/ButtonCustom';
 import {
   isAddingRatingSelector,
+  isFetchingRatingsSelector,
   restroomRatingsSelector
 } from '../../../../store/selectors/RestroomSelector';
-import { addRestroomRating } from '../../../../store/actions/RestroomActions';
+import { addRestroomRating, getRestroomRatings } from '../../../../store/actions/RestroomActions';
 
 class RatingDetails extends Component {
   static navigationOptions = {
@@ -23,12 +24,24 @@ class RatingDetails extends Component {
 
   state = {
     ratingWidths: [],
-    starCount: 0
+    starCount: 0,
+    isInitiallyFetching: false
   };
 
   componentDidMount() {
-    this.setMyVote();
-    this.populateChart();
+    if (this.props.navigation.getParam('isFromActivity')) {
+      this.setState({ isInitiallyFetching: true }, () => {
+        const restroom = this.props.navigation.getParam('restroom');
+        this.props.getRestroomRatings(restroom, true, () => {
+          this.setMyVote();
+          this.populateChart();
+          this.setState({ isInitiallyFetching: false });
+        });
+      });
+    } else {
+      this.setMyVote();
+      this.populateChart();
+    }
   }
 
   componentDidUpdate(prevProps) {
@@ -62,26 +75,44 @@ class RatingDetails extends Component {
   };
 
   render() {
+    const restroom = this.props.navigation.getParam('restroom');
     const { rating, numberOfRatings, myRating } = this.props.ratings;
+    const emptyRatings = [0, 0, 0, 0, 0];
 
     return (
       <ScrollView contentContainerStyle={styles.container}>
-        <Text style={styles.name}>{this.props.navigation.getParam('restroomName')}</Text>
-        <Text style={styles.ratingsNumber}>{rating}</Text>
-        <Text style={styles.usersVotedText}>
-          {numberOfRatings !== 1
-            ? `${numberOfRatings} users voted`
-            : `${numberOfRatings} user voted`}
-        </Text>
+        <View>
+          <Text style={styles.name}>{restroom.name}</Text>
+          <Text style={styles.ratingsNumber}>{this.state.isInitiallyFetching ? '' : rating}</Text>
+          {this.state.isInitiallyFetching ? (
+            <View style={styles.usersVotedText} />
+          ) : (
+            <Text style={styles.usersVotedText}>
+              {numberOfRatings !== 1
+                ? `${numberOfRatings} users voted`
+                : `${numberOfRatings} user voted`}
+            </Text>
+          )}
+        </View>
+
         <View style={styles.ratingsChart}>
-          {this.state.ratingWidths.map((ratingWidth, index) => (
-            <View style={styles.lineWrapper} key={index}>
-              <Text style={styles.ratingText}>{index + 1}</Text>
-              <View style={[styles.line, { width: Dimensions.get('window').width * 0.7 }]}>
-                <View style={[styles.lineGreen, { width: ratingWidth }]} />
+          {this.state.ratingWidths.length > 0
+            ? this.state.ratingWidths.map((ratingWidth, index) => (
+              <View style={styles.lineWrapper} key={index}>
+                <Text style={styles.ratingText}>{index + 1}</Text>
+                <View style={[styles.line, { width: Dimensions.get('window').width * 0.7 }]}>
+                  <View style={[styles.lineGreen, { width: ratingWidth }]} />
+                </View>
               </View>
-            </View>
-          ))}
+            ))
+            : emptyRatings.map((ratingWidth, index) => (
+              <View style={styles.lineWrapper} key={index}>
+                <Text style={styles.ratingText}>{index + 1}</Text>
+                <View style={[styles.line, { width: Dimensions.get('window').width * 0.7 }]}>
+                  <View style={[styles.lineGreen, { width: ratingWidth }]} />
+                </View>
+              </View>
+            ))}
         </View>
         <View style={styles.myRatingContainer}>
           <Text style={styles.myRatingTitle}>Your rating</Text>
@@ -97,12 +128,17 @@ class RatingDetails extends Component {
           />
           {myRating !== this.state.starCount && (
             <View>
-              {this.props.isAddingRating ? (
-                <ActivityIndicator
-                  style={styles.loading}
-                  animating={this.state.loader}
-                  size="large"
-                />
+              {this.props.isAddingRating || this.props.isFetchingRatings ? (
+                <View>
+                  <ActivityIndicator
+                    style={styles.loading}
+                    animating={this.state.loader}
+                    size="large"
+                  />
+                  <Text style={styles.indicatorText}>
+                    {this.props.isAddingRating ? 'Adding rating...' : 'Fetching ratings...'}
+                  </Text>
+                </View>
               ) : (
                 <View style={styles.buttonsContainer}>
                   <ButtonCustom
@@ -132,17 +168,22 @@ RatingDetails.propTypes = {
   user: PropTypes.object,
   ratings: PropTypes.object,
   addRestroomRating: PropTypes.func,
-  isAddingRating: PropTypes.bool
+  isAddingRating: PropTypes.bool,
+  isFetchingRatings: PropTypes.bool,
+  getRestroomRatings: PropTypes.func,
+  restroom: PropTypes.object
 };
 
 const mapStateToProps = state => ({
   user: userSelector(state),
   ratings: restroomRatingsSelector(state),
-  isAddingRating: isAddingRatingSelector(state)
+  isAddingRating: isAddingRatingSelector(state),
+  isFetchingRatings: isFetchingRatingsSelector(state)
 });
 
 const mapDispatchToProps = {
-  addRestroomRating
+  addRestroomRating,
+  getRestroomRatings
 };
 
 const styles = StyleSheet.create({
@@ -171,6 +212,10 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     display: 'flex'
+  },
+  indicatorText: {
+    color: '#999999',
+    marginTop: 10
   },
   line: {
     backgroundColor: '#e6e6e6',
@@ -205,7 +250,7 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
   name: {
-    color: '#808080',
+    color: '#999',
     fontSize: 24,
     marginBottom: 10,
     marginLeft: 20,

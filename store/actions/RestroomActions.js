@@ -106,10 +106,11 @@ export const resetRestroomComments = () => ({
   type: RESET_RESTROOM_COMMENTS
 });
 
-export const getRestroomRatings = (payload, includeRatings = true) => ({
+export const getRestroomRatings = (payload, includeRatings = true, onRatingsFetched = null) => ({
   type: GET_RESTROOM_RATINGS,
   payload,
-  includeRatings
+  includeRatings,
+  onRatingsFetched
 });
 
 export const setRestroomRatings = payload => ({

@@ -223,7 +223,7 @@ export function* addRestroomRating({ payload }) {
   }
 }
 
-export function* getRestroomRatings({ payload, includeRatings }) {
+export function* getRestroomRatings({ payload, includeRatings, onRatingsFetched }) {
   const user = yield select(userSelector);
   yield put(setFetchingRatings());
 
@@ -235,6 +235,9 @@ export function* getRestroomRatings({ payload, includeRatings }) {
     });
 
     yield put(setRestroomRatings(response.data));
+    if (onRatingsFetched) {
+      onRatingsFetched();
+    }
   } catch (error) {
     // eslint-disable-next-line no-console
     console.log(error);

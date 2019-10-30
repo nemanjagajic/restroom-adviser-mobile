@@ -14,7 +14,7 @@ import PropTypes from 'prop-types';
 
 import { Ionicons } from '@expo/vector-icons';
 import Colors from '../../constants/Colors';
-import CommentActivityItem from '../../screens/main/activity/CommentActivityItem';
+import CommentActivityItem from '../activity/CommentActivityItem';
 
 class CommentsList extends Component {
   state = {

@@ -12,7 +12,7 @@ import {
 } from '../../../store/selectors/UserSelector';
 import { getMyRatings } from '../../../store/actions/UserActions';
 import { getRestroomRatings } from '../../../store/actions/RestroomActions';
-import RatingsList from '../../../components/ratings/RatingsList';
+import RatingsList from '../../../components/activity/RatingsList';
 import { FETCHING_LIMIT } from '../../../constants/Activity';
 
 class RatingsActivityScreen extends Component {

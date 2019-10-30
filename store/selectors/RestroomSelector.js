@@ -89,7 +89,7 @@ export const isFetchingRatingsSelector = createSelector(
 
 export const isAddingRatingSelector = createSelector(
   restroomStateSelector,
-  restrooms => restrooms.isFetchingRatings
+  restrooms => restrooms.isAddingRating
 );
 
 export const osmSuggestionsSelector = createSelector(
