@@ -64,7 +64,7 @@ class RatingsList extends Component {
           progressViewOffset={1000}
           refreshControl={
             <RefreshControl
-              progressViewOffset={this.props.headerComponent ? 80 : 0}
+              progressViewOffset={this.props.headerComponent ? 60 : 0}
               refreshing={this.props.isFetchingRatings && !this.props.isFetchingNewRatings}
               onRefresh={this.props.reloadRatings}
               colors={[Colors.mainColor]}

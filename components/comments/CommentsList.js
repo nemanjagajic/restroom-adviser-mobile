@@ -70,7 +70,7 @@ class CommentsList extends Component {
           progressViewOffset={1000}
           refreshControl={
             <RefreshControl
-              progressViewOffset={this.props.headerComponent ? 80 : 0}
+              progressViewOffset={this.props.headerComponent ? 60 : 0}
               refreshing={this.props.isFetchingComments && !this.props.isFetchingNewComments}
               onRefresh={this.props.reloadComments}
               colors={[Colors.mainColor]}

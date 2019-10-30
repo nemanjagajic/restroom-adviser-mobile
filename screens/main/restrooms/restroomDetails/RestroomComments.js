@@ -11,7 +11,7 @@ import {
   isFetchingNewCommentsSelector,
   restroomCommentsSelector
 } from '../../../../store/selectors/RestroomSelector';
-import CommentsList from '../../../../components/comments/CommentList';
+import CommentsList from '../../../../components/comments/CommentsList';
 import Colors from '../../../../constants/Colors';
 import { FETCHING_LIMIT } from '../../../../constants/Restrooms';
 

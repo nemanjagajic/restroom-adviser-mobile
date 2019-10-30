@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import Colors from '../../../constants/Colors';
 import { FETCHING_LIMIT } from '../../../constants/Activity';
 import { getMyComments } from '../../../store/actions/UserActions';
-import CommentsList from '../../../components/comments/CommentList';
+import CommentsList from '../../../components/comments/CommentsList';
 import {
   isFetchingMyCommentsSelector,
   isFetchingMyNewCommentsSelector,
