@@ -17,11 +17,11 @@ const SelectedRestroomModal = props => {
           </View>
         ) : (
           <View style={styles.voteStars}>
-            <Text style={styles.voteNumber}>{props.ratings.totalRating}</Text>
+            <Text style={styles.voteNumber}>{props.ratings.rating}</Text>
             <StarRating
               disabled={true}
               maxStars={5}
-              rating={props.ratings.totalRating}
+              rating={props.ratings.rating}
               starSize={18}
               emptyStarColor={Colors.mainColor}
               fullStarColor={Colors.mainColor}
