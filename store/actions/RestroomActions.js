@@ -42,7 +42,11 @@ import {
   BOOKMARK_RESTROOM,
   GET_IS_OPENED_RESTROOM_BOOKMARKED,
   SET_OPENED_RESTROOM_BOOKMARKED,
-  SET_OPENED_RESTROOM_NOT_BOOKMARKED
+  SET_OPENED_RESTROOM_NOT_BOOKMARKED,
+  SET_FETCHING_BOOKMARK_INFO,
+  SET_FETCHING_BOOKMARK_INFO_FINISHED,
+  SET_ADDING_BOOKMARK_INFO,
+  SET_ADDING_BOOKMARK_INFO_FINISHED
 } from './ActionTypes';
 
 export const addRestroom = payload => ({
@@ -238,4 +242,20 @@ export const setOpenedRestroomBookmarked = () => ({
 
 export const setOpenedRestroomNotBookmarked = () => ({
   type: SET_OPENED_RESTROOM_NOT_BOOKMARKED
+});
+
+export const setFetchingBookmarkInfo = () => ({
+  type: SET_FETCHING_BOOKMARK_INFO
+});
+
+export const setFetchingBookmarkInfoFinished = () => ({
+  type: SET_FETCHING_BOOKMARK_INFO_FINISHED
+});
+
+export const setAddingBookmarkInfo = () => ({
+  type: SET_ADDING_BOOKMARK_INFO
+});
+
+export const setAddingBookmarkInfoFinished = () => ({
+  type: SET_ADDING_BOOKMARK_INFO_FINISHED
 });

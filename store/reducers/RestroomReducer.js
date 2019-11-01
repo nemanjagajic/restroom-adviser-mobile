@@ -31,7 +31,11 @@ import {
   SET_FETCHING_MY_NEW_FEED_RESTROOMS,
   SET_FETCHING_MY_NEW_FEED_RESTROOMS_FINISHED,
   SET_OPENED_RESTROOM_BOOKMARKED,
-  SET_OPENED_RESTROOM_NOT_BOOKMARKED
+  SET_OPENED_RESTROOM_NOT_BOOKMARKED,
+  SET_FETCHING_BOOKMARK_INFO,
+  SET_FETCHING_BOOKMARK_INFO_FINISHED,
+  SET_ADDING_BOOKMARK_INFO,
+  SET_ADDING_BOOKMARK_INFO_FINISHED
 } from '../actions/ActionTypes';
 
 const initialState = {
@@ -55,7 +59,9 @@ const initialState = {
   isFetchingMyNewFeedRestrooms: false,
   osmSuggestions: [],
   isFetchingOsmSuggestions: false,
-  isOpenedRestroomBookmarked: false
+  isOpenedRestroomBookmarked: false,
+  isFetchingBookmarkInfo: false,
+  isAddingBookmarkInfo: false
 };
 
 export default (state = initialState, action) => {
@@ -229,6 +235,26 @@ export default (state = initialState, action) => {
       return {
         ...state,
         isOpenedRestroomBookmarked: false
+      };
+    case SET_FETCHING_BOOKMARK_INFO:
+      return {
+        ...state,
+        isFetchingBookmarkInfo: true
+      };
+    case SET_FETCHING_BOOKMARK_INFO_FINISHED:
+      return {
+        ...state,
+        isFetchingBookmarkInfo: false
+      };
+    case SET_ADDING_BOOKMARK_INFO:
+      return {
+        ...state,
+        isAddingBookmarkInfo: true
+      };
+    case SET_ADDING_BOOKMARK_INFO_FINISHED:
+      return {
+        ...state,
+        isAddingBookmarkInfo: false
       };
     default:
       return state;
