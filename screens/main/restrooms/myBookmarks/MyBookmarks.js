@@ -8,21 +8,17 @@ import { Ionicons } from '@expo/vector-icons';
 import Colors from '../../../../constants/Colors';
 import FeedSearchHeader from '../../../../components/feeds/FeedSearchHeader';
 import FeedFiltersModal from '../../../../components/feeds/FeedFiltersModal';
-import {
-  getMyFeedRestrooms,
-  getRestroomRatings,
-  resetMyFeedRestrooms
-} from '../../../../store/actions/RestroomActions';
+import { getMyFeedRestrooms, getRestroomRatings } from '../../../../store/actions/RestroomActions';
 import {
   isFetchingMyFeedRestroomsSelector,
   isFetchingMyNewFeedRestroomsSelector,
-  myFeedRestroomsSelector,
-  myFeedRestroomsTotalNumberSelector
+  myBookmarkedRestroomsSelector,
+  myBookmarkedRestroomsTotalNumberSelector
 } from '../../../../store/selectors/RestroomSelector';
 
-class MyRestrooms extends Component {
+class MyBookmarks extends Component {
   static navigationOptions = {
-    headerTitle: 'My restrooms',
+    headerTitle: 'Bookmarked restrooms',
     headerTintColor: Colors.headerTintColor,
     headerStyle: {
       backgroundColor: '#fff'
@@ -51,7 +47,8 @@ class MyRestrooms extends Component {
       limit: FETCHING_LIMIT,
       searchValue: this.state.searchValue === '' ? null : this.state.searchValue,
       minimalRating: this.state.appliedFilterRating,
-      isInitial
+      isInitial,
+      onlyBookmarked: true
     });
     this.setState(prevState => ({ offset: prevState.offset + FETCHING_LIMIT }));
   };
@@ -90,7 +87,7 @@ class MyRestrooms extends Component {
     const word2 = this.props.restroomsTotalNumber === 1 ? 'restroom' : 'restrooms';
     return (
       <View>
-        <Text style={styles.title}>{'Restrooms you have added'}</Text>
+        <Text style={styles.title}>{'Restrooms you have saved'}</Text>
         <FeedSearchHeader
           restroomsTotalNumber={this.props.restroomsTotalNumber}
           appliedFilterRating={this.state.appliedFilterRating}
@@ -150,7 +147,7 @@ class MyRestrooms extends Component {
   }
 }
 
-MyRestrooms.propTypes = {
+MyBookmarks.propTypes = {
   navigation: PropTypes.object,
   user: PropTypes.object,
   logout: PropTypes.func,
@@ -158,21 +155,19 @@ MyRestrooms.propTypes = {
   restrooms: PropTypes.array,
   isFetchingRestrooms: PropTypes.bool,
   restroomsTotalNumber: PropTypes.number,
-  resetMyFeedRestrooms: PropTypes.func,
   isFetchingNewRestrooms: PropTypes.bool,
   getRestroomRatings: PropTypes.func
 };
 
 const mapStateToProps = state => ({
-  restrooms: myFeedRestroomsSelector(state),
-  restroomsTotalNumber: myFeedRestroomsTotalNumberSelector(state),
+  restrooms: myBookmarkedRestroomsSelector(state),
+  restroomsTotalNumber: myBookmarkedRestroomsTotalNumberSelector(state),
   isFetchingRestrooms: isFetchingMyFeedRestroomsSelector(state),
   isFetchingNewRestrooms: isFetchingMyNewFeedRestroomsSelector(state)
 });
 
 const mapDispatchToProps = {
   getMyFeedRestrooms,
-  resetMyFeedRestrooms,
   getRestroomRatings
 };
 const styles = StyleSheet.create({
@@ -210,4 +205,4 @@ const styles = StyleSheet.create({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(MyRestrooms);
+)(MyBookmarks);

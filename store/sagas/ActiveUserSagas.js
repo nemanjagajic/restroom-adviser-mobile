@@ -29,7 +29,11 @@ import {
   resetMyRatings
 } from '../actions/UserActions';
 import { profileService } from '../../services/ProfileService';
-import { resetFeedRestrooms, resetMyFeedRestrooms } from '../actions/RestroomActions';
+import {
+  resetFeedRestrooms,
+  resetMyBookmarkedRestrooms,
+  resetMyFeedRestrooms
+} from '../actions/RestroomActions';
 import { userSelector } from '../selectors/UserSelector';
 import { userService } from '../../services/UserService';
 
@@ -108,6 +112,7 @@ export function* userLogout() {
     yield put(setLoader(true));
     yield put(resetFeedRestrooms());
     yield put(resetMyFeedRestrooms());
+    yield put(resetMyBookmarkedRestrooms());
     yield call(authService.logout);
     NavigationService.navigate('AuthLoading');
   } catch (error) {

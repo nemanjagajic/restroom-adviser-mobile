@@ -39,7 +39,9 @@ import {
   setFetchingBookmarkInfo,
   setFetchingBookmarkInfoFinished,
   setAddingBookmarkInfo,
-  setAddingBookmarkInfoFinished
+  setAddingBookmarkInfoFinished,
+  resetMyBookmarkedRestrooms,
+  addMyBookmarkedRestrooms
 } from '../actions/RestroomActions';
 import NavigationService from '../../services/NavigationService';
 import { FETCHING_LIMIT } from '../../constants/Restrooms';
@@ -104,12 +106,20 @@ export function* getMyFeedRestrooms({ payload }) {
       limit: payload.limit,
       searchValue: payload.searchValue,
       minimalRating: payload.minimalRating,
-      onlyMy: true
+      onlyMy: !payload.onlyBookmarked,
+      onlyBookmarked: payload.onlyBookmarked
     });
-    if (payload.isInitial) {
-      yield put(resetMyFeedRestrooms());
+    if (payload.onlyBookmarked) {
+      if (payload.isInitial) {
+        yield put(resetMyBookmarkedRestrooms());
+      }
+      yield put(addMyBookmarkedRestrooms(response.data));
+    } else {
+      if (payload.isInitial) {
+        yield put(resetMyFeedRestrooms());
+      }
+      yield put(addMyFeedRestrooms(response.data));
     }
-    yield put(addMyFeedRestrooms(response.data));
   } catch (error) {
     // eslint-disable-next-line no-console
     console.log(error);

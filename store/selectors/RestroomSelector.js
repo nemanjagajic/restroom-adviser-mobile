@@ -17,6 +17,11 @@ export const myFeedRestroomsSelector = createSelector(
   restrooms => restrooms.myFeedRestrooms
 );
 
+export const myBookmarkedRestroomsSelector = createSelector(
+  restroomStateSelector,
+  restrooms => restrooms.myBookmarkedRestrooms
+);
+
 export const feedRestroomsTotalNumberSelector = createSelector(
   restroomStateSelector,
   restrooms => restrooms.feedRestroomsTotalNumber
@@ -25,6 +30,11 @@ export const feedRestroomsTotalNumberSelector = createSelector(
 export const myFeedRestroomsTotalNumberSelector = createSelector(
   restroomStateSelector,
   restrooms => restrooms.myFeedRestroomsTotalNumber
+);
+
+export const myBookmarkedRestroomsTotalNumberSelector = createSelector(
+  restroomStateSelector,
+  restrooms => restrooms.myBookmarkedRestroomsTotalNumber
 );
 
 export const isFetchingFeedRestroomsSelector = createSelector(

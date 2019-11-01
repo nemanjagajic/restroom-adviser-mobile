@@ -16,7 +16,15 @@ class RestroomService extends ApiService {
     return this.apiClient.get(ENDPOINTS.RESTROOM.replace('{userId}', user.id));
   };
 
-  getFeedRestrooms = ({ user, offset, limit, searchValue, minimalRating, onlyMy }) => {
+  getFeedRestrooms = ({
+    user,
+    offset,
+    limit,
+    searchValue,
+    minimalRating,
+    onlyMy,
+    onlyBookmarked = false
+  }) => {
     let request = ENDPOINTS.FEED_RESTROOMS.replace('{userId}', user.id)
       .replace('{offset}', offset)
       .replace('{limit}', limit)
@@ -28,6 +36,10 @@ class RestroomService extends ApiService {
 
     if (minimalRating) {
       request += `&minimalRating=${minimalRating}`;
+    }
+
+    if (onlyBookmarked) {
+      request += '&onlyBookmarked=true';
     }
 
     return this.apiClient.get(request);

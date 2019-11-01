@@ -24,6 +24,7 @@ import MyRestrooms from '../screens/main/restrooms/myRestrooms/MyRestrooms';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import CommentsActivityScreen from '../screens/main/activity/CommentsActivityScreen';
 import RatingsActivityScreen from '../screens/main/activity/RatingsActivityScreen';
+import MyBookmarks from '../screens/main/restrooms/myBookmarks/MyBookmarks';
 const HomeStack = createStackNavigator({
   Home: HomeScreen
 });
@@ -122,7 +123,8 @@ export default createStackNavigator(
     RestroomComments,
     RatingDetails,
     MyRestrooms,
-    ActivityDrawer
+    ActivityDrawer,
+    MyBookmarks
   },
   {
     initialRouteName: 'Drawer'

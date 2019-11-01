@@ -46,7 +46,9 @@ import {
   SET_FETCHING_BOOKMARK_INFO,
   SET_FETCHING_BOOKMARK_INFO_FINISHED,
   SET_ADDING_BOOKMARK_INFO,
-  SET_ADDING_BOOKMARK_INFO_FINISHED
+  SET_ADDING_BOOKMARK_INFO_FINISHED,
+  ADD_MY_BOOKMARKED_RESTROOMS,
+  RESET_MY_BOOKMARKED_RESTROOMS
 } from './ActionTypes';
 
 export const addRestroom = payload => ({
@@ -167,12 +169,21 @@ export const addMyFeedRestrooms = payload => ({
   payload
 });
 
+export const addMyBookmarkedRestrooms = payload => ({
+  type: ADD_MY_BOOKMARKED_RESTROOMS,
+  payload
+});
+
 export const resetFeedRestrooms = () => ({
   type: RESET_FEED_RESTROOMS
 });
 
 export const resetMyFeedRestrooms = () => ({
   type: RESET_MY_FEED_RESTROOMS
+});
+
+export const resetMyBookmarkedRestrooms = () => ({
+  type: RESET_MY_BOOKMARKED_RESTROOMS
 });
 
 export const setFetchingFeedRestrooms = () => ({
