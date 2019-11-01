@@ -20,7 +20,9 @@ import {
   GET_OSM_SUGGESTIONS,
   GET_MY_FEED_RESTROOMS,
   GET_MY_COMMENTS,
-  GET_MY_RATINGS
+  GET_MY_RATINGS,
+  BOOKMARK_RESTROOM,
+  GET_IS_OPENED_RESTROOM_BOOKMARKED
 } from '../actions/ActionTypes';
 import {
   userLogin,
@@ -40,8 +42,10 @@ import {
   addRestroom,
   addRestroomComment,
   addRestroomRating,
+  bookmarkRestroom,
   fetchRestrooms,
   getFeedRestrooms,
+  getIsOpenedRestroomBookmarked,
   getMyFeedRestrooms,
   getOsmSuggestions,
   getRestroomComments,
@@ -70,6 +74,8 @@ export default function* rootSaga() {
     takeLatest(GET_MY_FEED_RESTROOMS, getMyFeedRestrooms),
     takeLatest(GET_OSM_SUGGESTIONS, getOsmSuggestions),
     takeLatest(GET_MY_COMMENTS, getMyComments),
-    takeLatest(GET_MY_RATINGS, getMyRatings)
+    takeLatest(GET_MY_RATINGS, getMyRatings),
+    takeLatest(BOOKMARK_RESTROOM, bookmarkRestroom),
+    takeLatest(GET_IS_OPENED_RESTROOM_BOOKMARKED, getIsOpenedRestroomBookmarked)
   ]);
 }

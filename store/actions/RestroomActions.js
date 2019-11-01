@@ -38,7 +38,11 @@ import {
   SET_FETCHING_MY_FEED_RESTROOMS,
   SET_FETCHING_MY_FEED_RESTROOMS_FINISHED,
   SET_FETCHING_MY_NEW_FEED_RESTROOMS,
-  SET_FETCHING_MY_NEW_FEED_RESTROOMS_FINISHED
+  SET_FETCHING_MY_NEW_FEED_RESTROOMS_FINISHED,
+  BOOKMARK_RESTROOM,
+  GET_IS_OPENED_RESTROOM_BOOKMARKED,
+  SET_OPENED_RESTROOM_BOOKMARKED,
+  SET_OPENED_RESTROOM_NOT_BOOKMARKED
 } from './ActionTypes';
 
 export const addRestroom = payload => ({
@@ -215,4 +219,23 @@ export const setFetchingOsmSuggestions = () => ({
 
 export const setFinishedFetchingOsmSuggestions = () => ({
   type: SET_FINISHED_FETCHING_OSM_SUGGESTIONS
+});
+
+export const bookmarkRestroom = (payload, onFailed) => ({
+  type: BOOKMARK_RESTROOM,
+  payload,
+  onFailed
+});
+
+export const getIsOpenedRestroomBookmarked = payload => ({
+  type: GET_IS_OPENED_RESTROOM_BOOKMARKED,
+  payload
+});
+
+export const setOpenedRestroomBookmarked = () => ({
+  type: SET_OPENED_RESTROOM_BOOKMARKED
+});
+
+export const setOpenedRestroomNotBookmarked = () => ({
+  type: SET_OPENED_RESTROOM_NOT_BOOKMARKED
 });

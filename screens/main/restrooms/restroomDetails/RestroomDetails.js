@@ -16,17 +16,25 @@ import config from '../../../../config';
 import { Ionicons } from '@expo/vector-icons/build/Icons';
 import Colors from '../../../../constants/Colors';
 import ButtonCustom from '../../../../components/shared/button/ButtonCustom';
-import { getRestroomComments, getRestroomRatings } from '../../../../store/actions/RestroomActions';
+import {
+  getIsOpenedRestroomBookmarked,
+  getRestroomComments,
+  getRestroomRatings,
+  setOpenedRestroomBookmarked,
+  setOpenedRestroomNotBookmarked
+} from '../../../../store/actions/RestroomActions';
 import {
   restroomRatingsSelector,
   isFetchingRatingsSelector,
   restroomCommentsSelector,
   isFetchingCommentsSelector,
-  commentsTotalNumberSelector
+  commentsTotalNumberSelector,
+  isOpenedRestroomBookmarkedSelector
 } from '../../../../store/selectors/RestroomSelector';
 import StarRating from 'react-native-star-rating';
 import Swiper from 'react-native-swiper';
 import { FETCHING_LIMIT } from '../../../../constants/Restrooms';
+import { bookmarkRestroom } from '../../../../store/actions/RestroomActions';
 
 class RestroomDetails extends Component {
   static navigationOptions = {
@@ -39,6 +47,7 @@ class RestroomDetails extends Component {
 
   componentDidMount() {
     const restroom = this.props.navigation.getParam('restroom');
+    this.props.getIsOpenedRestroomBookmarked(restroom);
     this.props.getRestroomRatings(restroom);
     this.props.getRestroomComments({
       restroom: this.props.navigation.getParam('restroom'),
@@ -50,6 +59,19 @@ class RestroomDetails extends Component {
 
   state = {
     currentImageIndex: 0
+  };
+
+  handleBookmarkPressed = () => {
+    let onFailed = null;
+    if (this.props.isOpenedRestroomBookmarked) {
+      this.props.setOpenedRestroomNotBookmarked();
+      onFailed = this.props.setOpenedRestroomBookmarked;
+    } else {
+      this.props.setOpenedRestroomBookmarked();
+      onFailed = this.props.setOpenedRestroomNotBookmarked;
+    }
+
+    this.props.bookmarkRestroom(this.props.navigation.getParam('restroom'), onFailed);
   };
 
   render() {
@@ -93,6 +115,9 @@ class RestroomDetails extends Component {
         </Swiper>
 
         <Text style={styles.name}>{name}</Text>
+        <TouchableOpacity onPress={this.handleBookmarkPressed}>
+          <Text>{this.props.isOpenedRestroomBookmarked ? 'Unbookmark' : 'Bookmark'}</Text>
+        </TouchableOpacity>
         <Text style={styles.location}>{locationText}</Text>
         {this.props.isFetchingRatings || this.props.isFetchingComments ? (
           <ContentLoader style={styles.contentLoader} height={240} duration={1000}>
@@ -172,7 +197,12 @@ RestroomDetails.propTypes = {
   comments: PropTypes.array,
   isFetchingComments: PropTypes.bool,
   getRestroomComments: PropTypes.func,
-  commentsTotalNumber: PropTypes.number
+  commentsTotalNumber: PropTypes.number,
+  bookmarkRestroom: PropTypes.func,
+  getIsOpenedRestroomBookmarked: PropTypes.func,
+  isOpenedRestroomBookmarked: PropTypes.bool,
+  setOpenedRestroomBookmarked: PropTypes.func,
+  setOpenedRestroomNotBookmarked: PropTypes.func
 };
 
 const mapStateToProps = state => ({
@@ -180,12 +210,17 @@ const mapStateToProps = state => ({
   isFetchingRatings: isFetchingRatingsSelector(state),
   comments: restroomCommentsSelector(state),
   isFetchingComments: isFetchingCommentsSelector(state),
-  commentsTotalNumber: commentsTotalNumberSelector(state)
+  commentsTotalNumber: commentsTotalNumberSelector(state),
+  isOpenedRestroomBookmarked: isOpenedRestroomBookmarkedSelector(state)
 });
 
 const mapDispatchToProps = {
   getRestroomRatings,
-  getRestroomComments
+  getRestroomComments,
+  bookmarkRestroom,
+  getIsOpenedRestroomBookmarked,
+  setOpenedRestroomBookmarked,
+  setOpenedRestroomNotBookmarked
 };
 
 const styles = StyleSheet.create({

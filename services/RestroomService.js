@@ -7,7 +7,8 @@ const ENDPOINTS = {
   RESTROOM_RATING: '/user/{userId}/restroom/{restroomId}/ratings',
   FEED_RESTROOMS:
     'user/{userId}/restroom/feedRestrooms?offset={offset}&limit={limit}&onlyMy={onlyMy}',
-  GET_OSM_SUGGESTIONS: 'https://nominatim.openstreetmap.org/search?q={query}&format=geojson'
+  GET_OSM_SUGGESTIONS: 'https://nominatim.openstreetmap.org/search?q={query}&format=geojson',
+  RESTROOM_BOOKMARK: '/user/{userId}/restroom/{restroomId}/bookmarks'
 };
 
 class RestroomService extends ApiService {
@@ -87,6 +88,18 @@ class RestroomService extends ApiService {
 
   getOSMSuggestions = ({ query }) => {
     return axios.get(ENDPOINTS.GET_OSM_SUGGESTIONS.replace('{query}', query));
+  };
+
+  addBookmark = ({ user, restroom }) => {
+    return this.apiClient.post(
+      ENDPOINTS.RESTROOM_BOOKMARK.replace('{userId}', user.id).replace('{restroomId}', restroom.id)
+    );
+  };
+
+  getRestroomBookmarks = ({ user, restroom }) => {
+    return this.apiClient.get(
+      ENDPOINTS.RESTROOM_BOOKMARK.replace('{userId}', user.id).replace('{restroomId}', restroom.id)
+    );
   };
 }
 

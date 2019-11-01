@@ -101,3 +101,8 @@ export const isFetchingOsmSuggestionsSelector = createSelector(
   restroomStateSelector,
   restrooms => restrooms.isFetchingOsmSuggestions
 );
+
+export const isOpenedRestroomBookmarkedSelector = createSelector(
+  restroomStateSelector,
+  restrooms => restrooms.isOpenedRestroomBookmarked
+);

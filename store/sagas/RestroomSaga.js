@@ -33,7 +33,9 @@ import {
   setFetchingMyFeedRestroomsFinished,
   setFetchingMyNewFeedRestroomsFinished,
   resetMyFeedRestrooms,
-  addMyFeedRestrooms
+  addMyFeedRestrooms,
+  setOpenedRestroomBookmarked,
+  setOpenedRestroomNotBookmarked
 } from '../actions/RestroomActions';
 import NavigationService from '../../services/NavigationService';
 import { FETCHING_LIMIT } from '../../constants/Restrooms';
@@ -269,5 +271,42 @@ export function* getOsmSuggestions({ payload }) {
     console.log(error);
   } finally {
     yield put(setFinishedFetchingOsmSuggestions());
+  }
+}
+
+export function* bookmarkRestroom({ payload, onFailed }) {
+  const user = yield select(userSelector);
+
+  try {
+    const response = yield call(restroomService.addBookmark, {
+      user,
+      restroom: payload
+    });
+    if (response.data.isUnbookmarked) {
+      yield put(setOpenedRestroomNotBookmarked());
+    } else {
+      yield put(setOpenedRestroomBookmarked());
+    }
+  } catch (error) {
+    onFailed();
+    // eslint-disable-next-line no-console
+    console.log(error);
+  }
+}
+
+export function* getIsOpenedRestroomBookmarked({ payload }) {
+  const user = yield select(userSelector);
+
+  try {
+    const response = yield call(restroomService.getRestroomBookmarks, {
+      user,
+      restroom: payload
+    });
+    if (response.data.length > 0) {
+      yield put(setOpenedRestroomBookmarked());
+    }
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.log(error);
   }
 }
