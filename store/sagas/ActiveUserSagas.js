@@ -28,14 +28,15 @@ import {
   addMyRatings,
   resetMyRatings,
   setAddingLikeInfo,
-  setAddingLikeInfoFinished
+  setAddingLikeInfoFinished,
+  setCommentUnliked,
+  setCommentLiked
 } from '../actions/UserActions';
 import { profileService } from '../../services/ProfileService';
 import {
   resetFeedRestrooms,
   resetMyBookmarkedRestrooms,
-  resetMyFeedRestrooms,
-  setOpenedRestroomBookmarked
+  resetMyFeedRestrooms
 } from '../actions/RestroomActions';
 import { userSelector } from '../selectors/UserSelector';
 import { userService } from '../../services/UserService';
@@ -270,6 +271,7 @@ export function* likeComment({ payload }) {
       comment: payload
     });
   } catch (error) {
+    yield put(setCommentUnliked(payload.id));
     // eslint-disable-next-line no-console
     console.log(error);
   } finally {
@@ -287,7 +289,7 @@ export function* unlikeComment({ payload }) {
       comment: payload
     });
   } catch (error) {
-    yield put(setOpenedRestroomBookmarked());
+    yield put(setCommentLiked(payload.id));
     // eslint-disable-next-line no-console
     console.log(error);
   } finally {

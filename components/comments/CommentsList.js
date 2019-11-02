@@ -68,6 +68,9 @@ class CommentsList extends Component {
                 {...comment}
                 likeComment={this.props.likeComment}
                 unlikeComment={this.props.unlikeComment}
+                setCommentLiked={this.props.setCommentLiked}
+                setCommentUnliked={this.props.setCommentUnliked}
+                isAddingLikeInfo={this.props.isAddingLikeInfo}
               />
             );
           }}
@@ -113,7 +116,10 @@ CommentsList.propTypes = {
   isActivityItem: PropTypes.any,
   navigation: PropTypes.any,
   likeComment: PropTypes.func,
-  unlikeComment: PropTypes.func
+  unlikeComment: PropTypes.func,
+  setCommentLiked: PropTypes.func,
+  setCommentUnliked: PropTypes.func,
+  isAddingLikeInfo: PropTypes.bool
 };
 
 const styles = StyleSheet.create({

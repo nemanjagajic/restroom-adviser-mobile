@@ -14,7 +14,13 @@ import {
 import CommentsList from '../../../../components/comments/CommentsList';
 import Colors from '../../../../constants/Colors';
 import { FETCHING_LIMIT } from '../../../../constants/Restrooms';
-import { likeComment, unlikeComment } from '../../../../store/actions/UserActions';
+import {
+  likeComment,
+  setCommentLiked,
+  setCommentUnliked,
+  unlikeComment
+} from '../../../../store/actions/UserActions';
+import { isAddingLikeInfoSelector } from '../../../../store/selectors/UserSelector';
 
 class RestroomComments extends Component {
   static navigationOptions = {
@@ -82,6 +88,9 @@ class RestroomComments extends Component {
           reloadComments={this.reloadComments}
           likeComment={this.props.likeComment}
           unlikeComment={this.props.unlikeComment}
+          setCommentLiked={this.props.setCommentLiked}
+          setCommentUnliked={this.props.setCommentUnliked}
+          isAddingLikeInfo={this.props.isAddingLikeInfo}
         />
         <CommentInput
           onAddComment={this.handleAddComment}
@@ -102,7 +111,10 @@ RestroomComments.propTypes = {
   commentsTotalNumber: PropTypes.number,
   isFetchingNewComments: PropTypes.bool,
   likeComment: PropTypes.func,
-  unlikeComment: PropTypes.func
+  unlikeComment: PropTypes.func,
+  setCommentLiked: PropTypes.func,
+  setCommentUnliked: PropTypes.func,
+  isAddingLikeInfo: PropTypes.bool
 };
 
 const mapStateToProps = state => ({
@@ -110,14 +122,17 @@ const mapStateToProps = state => ({
   isFetchingComments: isFetchingCommentsSelector(state),
   isFetchingNewComments: isFetchingNewCommentsSelector(state),
   commentsTotalNumber: commentsTotalNumberSelector(state),
-  comments: restroomCommentsSelector(state)
+  comments: restroomCommentsSelector(state),
+  isAddingLikeInfo: isAddingLikeInfoSelector(state)
 });
 
 const mapDispatchToProps = {
   addRestroomComment,
   getRestroomComments,
   likeComment,
-  unlikeComment
+  unlikeComment,
+  setCommentLiked,
+  setCommentUnliked
 };
 
 const styles = StyleSheet.create({

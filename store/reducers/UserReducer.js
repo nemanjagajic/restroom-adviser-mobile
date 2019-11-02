@@ -15,7 +15,9 @@ import {
   SET_FETCHING_MY_NEW_RATINGS,
   SET_FETCHING_MY_NEW_RATINGS_FINISHED,
   ADD_MY_RATINGS,
-  RESET_MY_RATINGS
+  RESET_MY_RATINGS,
+  SET_ADDING_LIKE_INFO,
+  SET_ADDING_LIKE_INFO_FINISHED
 } from '../actions/ActionTypes';
 
 const initialState = {
@@ -29,7 +31,8 @@ const initialState = {
   isFetchingMyRatings: false,
   isFetchingMyNewRatings: false,
   ratings: [],
-  ratingsTotalNumber: 0
+  ratingsTotalNumber: 0,
+  isAddingLikeInfo: false
 };
 
 export default (state = initialState, action) => {
@@ -110,6 +113,16 @@ export default (state = initialState, action) => {
       return {
         ...state,
         ratings: []
+      };
+    case SET_ADDING_LIKE_INFO:
+      return {
+        ...state,
+        isAddingLikeInfo: true
+      };
+    case SET_ADDING_LIKE_INFO_FINISHED:
+      return {
+        ...state,
+        isAddingLikeInfo: false
       };
     default:
       return state;

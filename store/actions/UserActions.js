@@ -30,7 +30,9 @@ import {
   LIKE_COMMENT,
   UNLIKE_COMMENT,
   SET_ADDING_LIKE_INFO,
-  SET_ADDING_LIKE_INFO_FINISHED
+  SET_ADDING_LIKE_INFO_FINISHED,
+  SET_COMMENT_LIKED,
+  SET_COMMENT_UNLIKED
 } from './ActionTypes';
 
 export const logout = () => {
@@ -203,4 +205,14 @@ export const setAddingLikeInfo = () => ({
 
 export const setAddingLikeInfoFinished = () => ({
   type: SET_ADDING_LIKE_INFO_FINISHED
+});
+
+export const setCommentLiked = payload => ({
+  type: SET_COMMENT_LIKED,
+  payload
+});
+
+export const setCommentUnliked = payload => ({
+  type: SET_COMMENT_UNLIKED,
+  payload
 });

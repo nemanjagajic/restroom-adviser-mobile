@@ -37,7 +37,9 @@ import {
   SET_ADDING_BOOKMARK_INFO,
   SET_ADDING_BOOKMARK_INFO_FINISHED,
   RESET_MY_BOOKMARKED_RESTROOMS,
-  ADD_MY_BOOKMARKED_RESTROOMS
+  ADD_MY_BOOKMARKED_RESTROOMS,
+  SET_COMMENT_LIKED,
+  SET_COMMENT_UNLIKED
 } from '../actions/ActionTypes';
 
 const initialState = {
@@ -270,6 +272,30 @@ export default (state = initialState, action) => {
       return {
         ...state,
         isAddingBookmarkInfo: false
+      };
+    case SET_COMMENT_LIKED:
+      return {
+        ...state,
+        comments: state.comments.map(comment => {
+          if (comment.id === action.payload) {
+            comment.isLikedByMe = true;
+            comment.numberOfLikes++;
+          }
+
+          return comment;
+        })
+      };
+    case SET_COMMENT_UNLIKED:
+      return {
+        ...state,
+        comments: state.comments.map(comment => {
+          if (comment.id === action.payload) {
+            comment.isLikedByMe = false;
+            comment.numberOfLikes--;
+          }
+
+          return comment;
+        })
       };
     default:
       return state;

@@ -11,15 +11,19 @@ const { IMAGE_BASE_URL } = config;
 
 class Comment extends React.Component {
   handleLikePressed = () => {
-    if (this.props.item.isLikedByMe) {
-      this.props.unlikeComment(this.props.item);
-    } else {
-      this.props.likeComment(this.props.item);
+    if (!this.props.isAddingLikeInfo) {
+      if (this.props.item.isLikedByMe) {
+        this.props.setCommentUnliked(this.props.item.id);
+        this.props.unlikeComment(this.props.item);
+      } else {
+        this.props.setCommentLiked(this.props.item.id);
+        this.props.likeComment(this.props.item);
+      }
     }
   };
 
   render() {
-    const { content, user, created_at: createdAt, likes, isLikedByMe } = this.props.item;
+    const { content, user, created_at: createdAt, numberOfLikes, isLikedByMe } = this.props.item;
     return (
       // eslint-disable-next-line react-native/no-inline-styles
       <View style={[styles.container, { marginTop: this.props.index === 0 ? 10 : 0 }]}>
@@ -44,7 +48,7 @@ class Comment extends React.Component {
           <TouchableOpacity onPress={this.handleLikePressed}>
             <Image style={styles.likeButton} source={isLikedByMe ? likeFilled : likeOutlined} />
           </TouchableOpacity>
-          <Text style={styles.likeNumberText}>{likes.length}</Text>
+          <Text style={styles.likeNumberText}>{numberOfLikes}</Text>
         </View>
       </View>
     );
@@ -55,7 +59,10 @@ Comment.propTypes = {
   item: PropTypes.object,
   index: PropTypes.number,
   likeComment: PropTypes.func,
-  unlikeComment: PropTypes.func
+  unlikeComment: PropTypes.func,
+  setCommentLiked: PropTypes.func,
+  setCommentUnliked: PropTypes.func,
+  isAddingLikeInfo: PropTypes.bool
 };
 
 const styles = StyleSheet.create({

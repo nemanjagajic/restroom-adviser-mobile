@@ -9,39 +9,41 @@ export const passwordChangedSelector = createSelector(
   user => user.passwordChanged
 );
 
-export const myCommentsSelector = createSelector(
-  userStateSelector,
-  restrooms => restrooms.comments
-);
+export const myCommentsSelector = createSelector(userStateSelector, users => users.comments);
 
 export const isFetchingMyCommentsSelector = createSelector(
   userStateSelector,
-  restrooms => restrooms.isFetchingMyComments
+  users => users.isFetchingMyComments
 );
 
 export const isFetchingMyNewCommentsSelector = createSelector(
   userStateSelector,
-  restrooms => restrooms.isFetchingMyNewComments
+  users => users.isFetchingMyNewComments
 );
 
 export const myCommentsTotalNumberSelector = createSelector(
   userStateSelector,
-  restrooms => restrooms.commentsTotalNumber
+  users => users.commentsTotalNumber
 );
 
-export const myRatingsSelector = createSelector(userStateSelector, restrooms => restrooms.ratings);
+export const myRatingsSelector = createSelector(userStateSelector, users => users.ratings);
 
 export const isFetchingMyRatingsSelector = createSelector(
   userStateSelector,
-  restrooms => restrooms.isFetchingMyRatings
+  users => users.isFetchingMyRatings
 );
 
 export const isFetchingMyNewRatingsSelector = createSelector(
   userStateSelector,
-  restrooms => restrooms.isFetchingMyNewRatings
+  users => users.isFetchingMyNewRatings
 );
 
 export const myRatingsTotalNumberSelector = createSelector(
   userStateSelector,
-  restrooms => restrooms.ratingsTotalNumber
+  users => users.ratingsTotalNumber
+);
+
+export const isAddingLikeInfoSelector = createSelector(
+  userStateSelector,
+  users => users.isAddingLikeInfo
 );
