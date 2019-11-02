@@ -319,7 +319,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     marginBottom: 20,
-    marginTop: 30
+    marginTop: 20
   },
   container: {
     alignItems: 'center',
