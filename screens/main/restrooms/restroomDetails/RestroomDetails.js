@@ -21,7 +21,8 @@ import {
   getRestroomComments,
   getRestroomRatings,
   setOpenedRestroomBookmarked,
-  setOpenedRestroomNotBookmarked
+  setOpenedRestroomNotBookmarked,
+  unbookmarkRestroom
 } from '../../../../store/actions/RestroomActions';
 import {
   restroomRatingsSelector,
@@ -65,16 +66,13 @@ class RestroomDetails extends Component {
 
   handleBookmarkPressed = () => {
     if (!this.props.isAddingBookmarkInfo) {
-      let onFailed = null;
       if (this.props.isOpenedRestroomBookmarked) {
         this.props.setOpenedRestroomNotBookmarked();
-        onFailed = this.props.setOpenedRestroomBookmarked;
+        this.props.unbookmarkRestroom(this.props.navigation.getParam('restroom'));
       } else {
         this.props.setOpenedRestroomBookmarked();
-        onFailed = this.props.setOpenedRestroomNotBookmarked;
+        this.props.bookmarkRestroom(this.props.navigation.getParam('restroom'));
       }
-
-      this.props.bookmarkRestroom(this.props.navigation.getParam('restroom'), onFailed);
     }
   };
 
@@ -213,6 +211,7 @@ RestroomDetails.propTypes = {
   getRestroomComments: PropTypes.func,
   commentsTotalNumber: PropTypes.number,
   bookmarkRestroom: PropTypes.func,
+  unbookmarkRestroom: PropTypes.func,
   getIsOpenedRestroomBookmarked: PropTypes.func,
   isOpenedRestroomBookmarked: PropTypes.bool,
   setOpenedRestroomBookmarked: PropTypes.func,
@@ -236,6 +235,7 @@ const mapDispatchToProps = {
   getRestroomRatings,
   getRestroomComments,
   bookmarkRestroom,
+  unbookmarkRestroom,
   getIsOpenedRestroomBookmarked,
   setOpenedRestroomBookmarked,
   setOpenedRestroomNotBookmarked

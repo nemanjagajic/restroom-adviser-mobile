@@ -48,7 +48,8 @@ import {
   SET_ADDING_BOOKMARK_INFO,
   SET_ADDING_BOOKMARK_INFO_FINISHED,
   ADD_MY_BOOKMARKED_RESTROOMS,
-  RESET_MY_BOOKMARKED_RESTROOMS
+  RESET_MY_BOOKMARKED_RESTROOMS,
+  UNBOOKMARK_RESTROOM
 } from './ActionTypes';
 
 export const addRestroom = payload => ({
@@ -236,10 +237,14 @@ export const setFinishedFetchingOsmSuggestions = () => ({
   type: SET_FINISHED_FETCHING_OSM_SUGGESTIONS
 });
 
-export const bookmarkRestroom = (payload, onFailed) => ({
+export const bookmarkRestroom = payload => ({
   type: BOOKMARK_RESTROOM,
-  payload,
-  onFailed
+  payload
+});
+
+export const unbookmarkRestroom = payload => ({
+  type: UNBOOKMARK_RESTROOM,
+  payload
 });
 
 export const getIsOpenedRestroomBookmarked = payload => ({

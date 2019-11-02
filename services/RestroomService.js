@@ -8,7 +8,9 @@ const ENDPOINTS = {
   FEED_RESTROOMS:
     'user/{userId}/restroom/feedRestrooms?offset={offset}&limit={limit}&onlyMy={onlyMy}',
   GET_OSM_SUGGESTIONS: 'https://nominatim.openstreetmap.org/search?q={query}&format=geojson',
-  RESTROOM_BOOKMARK: '/user/{userId}/restroom/{restroomId}/bookmarks'
+  RESTROOM_BOOKMARKS: '/user/{userId}/restroom/{restroomId}/bookmarks',
+  BOOKMARK_RESTROOM: '/user/{userId}/restroom/{restroomId}/bookmark',
+  UNBOOKMARK_RESTROOM: '/user/{userId}/restroom/{restroomId}/unbookmark'
 };
 
 class RestroomService extends ApiService {
@@ -104,13 +106,22 @@ class RestroomService extends ApiService {
 
   addBookmark = ({ user, restroom }) => {
     return this.apiClient.post(
-      ENDPOINTS.RESTROOM_BOOKMARK.replace('{userId}', user.id).replace('{restroomId}', restroom.id)
+      ENDPOINTS.BOOKMARK_RESTROOM.replace('{userId}', user.id).replace('{restroomId}', restroom.id)
+    );
+  };
+
+  removeBookmark = ({ user, restroom }) => {
+    return this.apiClient.post(
+      ENDPOINTS.UNBOOKMARK_RESTROOM.replace('{userId}', user.id).replace(
+        '{restroomId}',
+        restroom.id
+      )
     );
   };
 
   getRestroomBookmarks = ({ user, restroom }) => {
     return this.apiClient.get(
-      ENDPOINTS.RESTROOM_BOOKMARK.replace('{userId}', user.id).replace('{restroomId}', restroom.id)
+      ENDPOINTS.RESTROOM_BOOKMARKS.replace('{userId}', user.id).replace('{restroomId}', restroom.id)
     );
   };
 }

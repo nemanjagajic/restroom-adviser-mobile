@@ -288,22 +288,35 @@ export function* getOsmSuggestions({ payload }) {
   }
 }
 
-export function* bookmarkRestroom({ payload, onFailed }) {
+export function* bookmarkRestroom({ payload }) {
   const user = yield select(userSelector);
   yield put(setAddingBookmarkInfo());
 
   try {
-    const response = yield call(restroomService.addBookmark, {
+    yield call(restroomService.addBookmark, {
       user,
       restroom: payload
     });
-    if (response.data.isUnbookmarked) {
-      yield put(setOpenedRestroomNotBookmarked());
-    } else {
-      yield put(setOpenedRestroomBookmarked());
-    }
   } catch (error) {
-    onFailed();
+    yield put(setOpenedRestroomNotBookmarked());
+    // eslint-disable-next-line no-console
+    console.log(error);
+  } finally {
+    yield put(setAddingBookmarkInfoFinished());
+  }
+}
+
+export function* unbookmarkRestroom({ payload }) {
+  const user = yield select(userSelector);
+  yield put(setAddingBookmarkInfo());
+
+  try {
+    yield call(restroomService.removeBookmark, {
+      user,
+      restroom: payload
+    });
+  } catch (error) {
+    yield put(setOpenedRestroomBookmarked());
     // eslint-disable-next-line no-console
     console.log(error);
   } finally {
