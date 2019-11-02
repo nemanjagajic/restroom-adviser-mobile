@@ -80,11 +80,15 @@ class RestroomDetails extends Component {
   };
 
   handleValidateRestroom = () => {
-    this.props.validateRestroom(this.props.navigation.getParam('restroom'));
+    if (!this.props.isFetchingRestroomValidationInfo) {
+      this.props.validateRestroom(this.props.navigation.getParam('restroom'));
+    }
   };
 
   handleInvalidateRestroom = () => {
-    this.props.invalidateRestroom(this.props.navigation.getParam('restroom'));
+    if (!this.props.isFetchingRestroomValidationInfo) {
+      this.props.invalidateRestroom(this.props.navigation.getParam('restroom'));
+    }
   };
 
   render() {
