@@ -176,10 +176,31 @@ class RestroomDetails extends Component {
               <Text style={styles.infoTextBottom}>{'Sunday'}</Text>
               <Text style={styles.infoTextBold}>{workingHoursTokens[2]}</Text>
             </View>
+            <View>
+              <Text style={styles.validateTitle}>Does this restroom exist?</Text>
+              <View style={styles.buttonValidateWrapper}>
+                <View>
+                  <Text style={styles.validateNumber}>2</Text>
+                  <ButtonCustom
+                    style={styles.buttonValidate}
+                    textStyle={styles.buttonText}
+                    title={'Yes'}
+                  />
+                </View>
+                <View>
+                  <Text style={styles.validateNumber}>0</Text>
+                  <ButtonCustom
+                    style={styles.buttonValidate}
+                    textStyle={styles.buttonText}
+                    title={'No'}
+                  />
+                </View>
+              </View>
+            </View>
             <View style={styles.buttonWrapper}>
               <ButtonCustom
                 style={styles.buttonComment}
-                textStyle={styles.buttonCommentText}
+                textStyle={styles.buttonText}
                 title={`Comments ${this.props.commentsTotalNumber}`}
                 onPress={() =>
                   this.props.navigation.navigate('RestroomComments', {
@@ -189,7 +210,7 @@ class RestroomDetails extends Component {
               />
               <ButtonCustom
                 style={styles.bookmarkButton}
-                textStyle={styles.bookmarkText}
+                textStyle={styles.buttonText}
                 title={this.props.isOpenedRestroomBookmarked ? 'Unbookmark' : 'Bookmark'}
                 onPress={this.handleBookmarkPressed}
               />
@@ -245,7 +266,7 @@ const styles = StyleSheet.create({
   bookmarkButton: {
     alignItems: 'center',
     backgroundColor: '#fff',
-    borderColor: '#ccc',
+    borderColor: '#d9d9d9',
     borderRadius: 30,
     borderWidth: 1,
     display: 'flex',
@@ -254,25 +275,43 @@ const styles = StyleSheet.create({
     marginLeft: 5,
     marginTop: 10,
     padding: 10,
-    width: 120
-  },
-  bookmarkText: {
-    color: '#999'
+    width: 140
   },
   buttonComment: {
     alignItems: 'center',
     backgroundColor: '#fff',
-    borderColor: '#ccc',
+    borderColor: '#d9d9d9',
     borderRadius: 30,
     borderWidth: 1,
     display: 'flex',
     justifyContent: 'center',
     marginRight: 5,
     padding: 10,
-    width: 120
+    width: 140
   },
-  buttonCommentText: {
-    color: '#999999'
+  buttonText: {
+    color: '#999'
+  },
+  buttonValidate: {
+    alignItems: 'center',
+    backgroundColor: '#f2f2f2',
+    borderRadius: 100,
+    display: 'flex',
+    elevation: 1,
+    height: 30,
+    justifyContent: 'center',
+    marginLeft: 5,
+    marginRight: 5,
+    padding: 20,
+    width: 80
+  },
+  buttonValidateWrapper: {
+    alignItems: 'center',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginBottom: 10,
+    marginTop: 10
   },
   buttonWrapper: {
     alignItems: 'center',
@@ -381,6 +420,18 @@ const styles = StyleSheet.create({
     height: 30,
     position: 'absolute',
     top: -18
+  },
+  validateNumber: {
+    color: '#b3b3b3',
+    fontSize: 18,
+    marginBottom: 5,
+    textAlign: 'center'
+  },
+  validateTitle: {
+    color: '#999',
+    fontSize: 16,
+    marginTop: 20,
+    textAlign: 'center'
   },
   workingHoursWrapper: {
     alignItems: 'center',
