@@ -49,7 +49,11 @@ import {
   SET_ADDING_BOOKMARK_INFO_FINISHED,
   ADD_MY_BOOKMARKED_RESTROOMS,
   RESET_MY_BOOKMARKED_RESTROOMS,
-  UNBOOKMARK_RESTROOM
+  UNBOOKMARK_RESTROOM,
+  SET_FETCHING_RESTROOM_VALIDATION_INFO,
+  SET_FETCHING_RESTROOM_VALIDATION_INFO_FINISHED,
+  VALIDATE_RESTROOM,
+  INVALIDATE_RESTROOM
 } from './ActionTypes';
 
 export const addRestroom = payload => ({
@@ -274,4 +278,22 @@ export const setAddingBookmarkInfo = () => ({
 
 export const setAddingBookmarkInfoFinished = () => ({
   type: SET_ADDING_BOOKMARK_INFO_FINISHED
+});
+
+export const setFetchingRestroomValidationInfo = () => ({
+  type: SET_FETCHING_RESTROOM_VALIDATION_INFO
+});
+
+export const setFetchingRestroomValidationInfoFinished = () => ({
+  type: SET_FETCHING_RESTROOM_VALIDATION_INFO_FINISHED
+});
+
+export const validateRestroom = payload => ({
+  type: VALIDATE_RESTROOM,
+  payload
+});
+
+export const invalidateRestroom = payload => ({
+  type: INVALIDATE_RESTROOM,
+  payload
 });

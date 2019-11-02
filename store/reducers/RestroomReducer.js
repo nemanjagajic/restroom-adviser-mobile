@@ -39,7 +39,9 @@ import {
   RESET_MY_BOOKMARKED_RESTROOMS,
   ADD_MY_BOOKMARKED_RESTROOMS,
   SET_COMMENT_LIKED,
-  SET_COMMENT_UNLIKED
+  SET_COMMENT_UNLIKED,
+  SET_FETCHING_RESTROOM_VALIDATION_INFO,
+  SET_FETCHING_RESTROOM_VALIDATION_INFO_FINISHED
 } from '../actions/ActionTypes';
 
 const initialState = {
@@ -67,7 +69,8 @@ const initialState = {
   isFetchingBookmarkInfo: false,
   isAddingBookmarkInfo: false,
   myBookmarkedRestrooms: [],
-  myBookmarkedRestroomsTotalNumber: 0
+  myBookmarkedRestroomsTotalNumber: 0,
+  isFetchingRestroomValidationInfo: false
 };
 
 export default (state = initialState, action) => {
@@ -296,6 +299,16 @@ export default (state = initialState, action) => {
 
           return comment;
         })
+      };
+    case SET_FETCHING_RESTROOM_VALIDATION_INFO:
+      return {
+        ...state,
+        isFetchingRestroomValidationInfo: true
+      };
+    case SET_FETCHING_RESTROOM_VALIDATION_INFO_FINISHED:
+      return {
+        ...state,
+        isFetchingRestroomValidationInfo: false
       };
     default:
       return state;

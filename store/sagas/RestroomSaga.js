@@ -41,7 +41,9 @@ import {
   setAddingBookmarkInfo,
   setAddingBookmarkInfoFinished,
   resetMyBookmarkedRestrooms,
-  addMyBookmarkedRestrooms
+  addMyBookmarkedRestrooms,
+  setFetchingRestroomValidationInfo,
+  setFetchingRestroomValidationInfoFinished
 } from '../actions/RestroomActions';
 import NavigationService from '../../services/NavigationService';
 import { FETCHING_LIMIT } from '../../constants/Restrooms';
@@ -343,5 +345,39 @@ export function* getIsOpenedRestroomBookmarked({ payload }) {
     console.log(error);
   } finally {
     yield put(setFetchingBookmarkInfoFinished());
+  }
+}
+
+export function* validateRestroom({ payload }) {
+  const user = yield select(userSelector);
+  yield put(setFetchingRestroomValidationInfo());
+
+  try {
+    yield call(restroomService.validateRestroom, {
+      user,
+      restroom: payload
+    });
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.log(error);
+  } finally {
+    yield put(setFetchingRestroomValidationInfoFinished());
+  }
+}
+
+export function* invalidateRestroom({ payload }) {
+  const user = yield select(userSelector);
+  yield put(setFetchingRestroomValidationInfo());
+
+  try {
+    yield call(restroomService.invalidateRestroom, {
+      user,
+      restroom: payload
+    });
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.log(error);
+  } finally {
+    yield put(setFetchingRestroomValidationInfoFinished());
   }
 }

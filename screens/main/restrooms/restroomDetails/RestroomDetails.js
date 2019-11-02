@@ -20,9 +20,11 @@ import {
   getIsOpenedRestroomBookmarked,
   getRestroomComments,
   getRestroomRatings,
+  invalidateRestroom,
   setOpenedRestroomBookmarked,
   setOpenedRestroomNotBookmarked,
-  unbookmarkRestroom
+  unbookmarkRestroom,
+  validateRestroom
 } from '../../../../store/actions/RestroomActions';
 import {
   restroomRatingsSelector,
@@ -32,7 +34,8 @@ import {
   commentsTotalNumberSelector,
   isOpenedRestroomBookmarkedSelector,
   isFetchingBookmarkInfoSelector,
-  isAddingBookmarkInfoSelector
+  isAddingBookmarkInfoSelector,
+  isFetchingRestroomValidationInfoSelector
 } from '../../../../store/selectors/RestroomSelector';
 import StarRating from 'react-native-star-rating';
 import Swiper from 'react-native-swiper';
@@ -74,6 +77,14 @@ class RestroomDetails extends Component {
         this.props.bookmarkRestroom(this.props.navigation.getParam('restroom'));
       }
     }
+  };
+
+  handleValidateRestroom = () => {
+    this.props.validateRestroom(this.props.navigation.getParam('restroom'));
+  };
+
+  handleInvalidateRestroom = () => {
+    this.props.invalidateRestroom(this.props.navigation.getParam('restroom'));
   };
 
   render() {
@@ -185,6 +196,7 @@ class RestroomDetails extends Component {
                     style={styles.buttonValidate}
                     textStyle={styles.buttonText}
                     title={'Yes'}
+                    onPress={this.handleValidateRestroom}
                   />
                 </View>
                 <View>
@@ -193,6 +205,7 @@ class RestroomDetails extends Component {
                     style={styles.buttonValidate}
                     textStyle={styles.buttonText}
                     title={'No'}
+                    onPress={this.handleInvalidateRestroom}
                   />
                 </View>
               </View>
@@ -238,7 +251,10 @@ RestroomDetails.propTypes = {
   setOpenedRestroomBookmarked: PropTypes.func,
   setOpenedRestroomNotBookmarked: PropTypes.func,
   isFetchingBookmarkInfo: PropTypes.bool,
-  isAddingBookmarkInfo: PropTypes.bool
+  isAddingBookmarkInfo: PropTypes.bool,
+  isFetchingRestroomValidationInfo: PropTypes.bool,
+  validateRestroom: PropTypes.func,
+  invalidateRestroom: PropTypes.func
 };
 
 const mapStateToProps = state => ({
@@ -249,7 +265,8 @@ const mapStateToProps = state => ({
   commentsTotalNumber: commentsTotalNumberSelector(state),
   isOpenedRestroomBookmarked: isOpenedRestroomBookmarkedSelector(state),
   isFetchingBookmarkInfo: isFetchingBookmarkInfoSelector(state),
-  isAddingBookmarkInfo: isAddingBookmarkInfoSelector(state)
+  isAddingBookmarkInfo: isAddingBookmarkInfoSelector(state),
+  isFetchingRestroomValidationInfo: isFetchingRestroomValidationInfoSelector(state)
 });
 
 const mapDispatchToProps = {
@@ -259,7 +276,9 @@ const mapDispatchToProps = {
   unbookmarkRestroom,
   getIsOpenedRestroomBookmarked,
   setOpenedRestroomBookmarked,
-  setOpenedRestroomNotBookmarked
+  setOpenedRestroomNotBookmarked,
+  validateRestroom,
+  invalidateRestroom
 };
 
 const styles = StyleSheet.create({

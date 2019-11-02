@@ -126,3 +126,8 @@ export const isAddingBookmarkInfoSelector = createSelector(
   restroomStateSelector,
   restrooms => restrooms.isAddingBookmarkInfo
 );
+
+export const isFetchingRestroomValidationInfoSelector = createSelector(
+  restroomStateSelector,
+  restrooms => restrooms.isFetchingRestroomValidationInfo
+);

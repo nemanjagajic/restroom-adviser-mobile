@@ -10,7 +10,9 @@ const ENDPOINTS = {
   GET_OSM_SUGGESTIONS: 'https://nominatim.openstreetmap.org/search?q={query}&format=geojson',
   RESTROOM_BOOKMARKS: '/user/{userId}/restroom/{restroomId}/bookmarks',
   BOOKMARK_RESTROOM: '/user/{userId}/restroom/{restroomId}/bookmark',
-  UNBOOKMARK_RESTROOM: '/user/{userId}/restroom/{restroomId}/unbookmark'
+  UNBOOKMARK_RESTROOM: '/user/{userId}/restroom/{restroomId}/unbookmark',
+  VALIDATE_RESTROOM: '/user/{userId}/restroom/{restroomId}/validate',
+  INVALIDATE_RESTROOM: '/user/{userId}/restroom/{restroomId}/invalidate'
 };
 
 class RestroomService extends ApiService {
@@ -122,6 +124,21 @@ class RestroomService extends ApiService {
   getRestroomBookmarks = ({ user, restroom }) => {
     return this.apiClient.get(
       ENDPOINTS.RESTROOM_BOOKMARKS.replace('{userId}', user.id).replace('{restroomId}', restroom.id)
+    );
+  };
+
+  validateRestroom = ({ user, restroom }) => {
+    return this.apiClient.post(
+      ENDPOINTS.VALIDATE_RESTROOM.replace('{userId}', user.id).replace('{restroomId}', restroom.id)
+    );
+  };
+
+  invalidateRestroom = ({ user, restroom }) => {
+    return this.apiClient.post(
+      ENDPOINTS.INVALIDATE_RESTROOM.replace('{userId}', user.id).replace(
+        '{restroomId}',
+        restroom.id
+      )
     );
   };
 }
