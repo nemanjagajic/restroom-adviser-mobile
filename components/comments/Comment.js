@@ -1,17 +1,25 @@
 import React from 'react';
-import { StyleSheet, View, Dimensions, Text, Image } from 'react-native';
+import { StyleSheet, View, Dimensions, Text, Image, TouchableOpacity } from 'react-native';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 
 import poopEmojiIcon from '../../assets/images/poop-emoji.png';
-// import likeFilled from '../../assets/images/filled.png';
+import likeFilled from '../../assets/images/filled.png';
 import likeOutlined from '../../assets/images/outlined.png';
 import config from '../../config';
 const { IMAGE_BASE_URL } = config;
 
 class Comment extends React.Component {
+  handleLikePressed = () => {
+    if (this.props.item.isLikedByMe) {
+      this.props.unlikeComment(this.props.item);
+    } else {
+      this.props.likeComment(this.props.item);
+    }
+  };
+
   render() {
-    const { content, user, created_at: createdAt } = this.props.item;
+    const { content, user, created_at: createdAt, likes, isLikedByMe } = this.props.item;
     return (
       // eslint-disable-next-line react-native/no-inline-styles
       <View style={[styles.container, { marginTop: this.props.index === 0 ? 10 : 0 }]}>
@@ -33,8 +41,10 @@ class Comment extends React.Component {
           <Text style={styles.createdAtText}>{moment(createdAt).fromNow()}</Text>
         </View>
         <View style={styles.likeWrapper}>
-          <Image style={styles.likeButton} source={likeOutlined} />
-          <Text style={styles.likeNumberText}>0</Text>
+          <TouchableOpacity onPress={this.handleLikePressed}>
+            <Image style={styles.likeButton} source={isLikedByMe ? likeFilled : likeOutlined} />
+          </TouchableOpacity>
+          <Text style={styles.likeNumberText}>{likes.length}</Text>
         </View>
       </View>
     );
@@ -43,7 +53,9 @@ class Comment extends React.Component {
 
 Comment.propTypes = {
   item: PropTypes.object,
-  index: PropTypes.number
+  index: PropTypes.number,
+  likeComment: PropTypes.func,
+  unlikeComment: PropTypes.func
 };
 
 const styles = StyleSheet.create({

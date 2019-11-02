@@ -26,13 +26,16 @@ import {
   setFetchingMyRatingsFinished,
   setFetchingMyNewRatingsFinished,
   addMyRatings,
-  resetMyRatings
+  resetMyRatings,
+  setAddingLikeInfo,
+  setAddingLikeInfoFinished
 } from '../actions/UserActions';
 import { profileService } from '../../services/ProfileService';
 import {
   resetFeedRestrooms,
   resetMyBookmarkedRestrooms,
-  resetMyFeedRestrooms
+  resetMyFeedRestrooms,
+  setOpenedRestroomBookmarked
 } from '../actions/RestroomActions';
 import { userSelector } from '../selectors/UserSelector';
 import { userService } from '../../services/UserService';
@@ -254,5 +257,40 @@ export function* getMyRatings({ payload }) {
     } else {
       yield put(setFetchingMyNewRatingsFinished());
     }
+  }
+}
+
+export function* likeComment({ payload }) {
+  const user = yield select(userSelector);
+  yield put(setAddingLikeInfo());
+
+  try {
+    yield call(userService.likeComment, {
+      user,
+      comment: payload
+    });
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.log(error);
+  } finally {
+    yield put(setAddingLikeInfoFinished());
+  }
+}
+
+export function* unlikeComment({ payload }) {
+  const user = yield select(userSelector);
+  yield put(setAddingLikeInfo());
+
+  try {
+    yield call(userService.unlikeComment, {
+      user,
+      comment: payload
+    });
+  } catch (error) {
+    yield put(setOpenedRestroomBookmarked());
+    // eslint-disable-next-line no-console
+    console.log(error);
+  } finally {
+    yield put(setAddingLikeInfoFinished());
   }
 }

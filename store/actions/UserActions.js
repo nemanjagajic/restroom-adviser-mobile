@@ -26,7 +26,11 @@ import {
   SET_FETCHING_MY_NEW_RATINGS,
   SET_FETCHING_MY_NEW_RATINGS_FINISHED,
   ADD_MY_RATINGS,
-  RESET_MY_RATINGS
+  RESET_MY_RATINGS,
+  LIKE_COMMENT,
+  UNLIKE_COMMENT,
+  SET_ADDING_LIKE_INFO,
+  SET_ADDING_LIKE_INFO_FINISHED
 } from './ActionTypes';
 
 export const logout = () => {
@@ -181,4 +185,22 @@ export const addMyRatings = payload => ({
 
 export const resetMyRatings = () => ({
   type: RESET_MY_RATINGS
+});
+
+export const likeComment = payload => ({
+  type: LIKE_COMMENT,
+  payload
+});
+
+export const unlikeComment = payload => ({
+  type: UNLIKE_COMMENT,
+  payload
+});
+
+export const setAddingLikeInfo = () => ({
+  type: SET_ADDING_LIKE_INFO
+});
+
+export const setAddingLikeInfoFinished = () => ({
+  type: SET_ADDING_LIKE_INFO_FINISHED
 });

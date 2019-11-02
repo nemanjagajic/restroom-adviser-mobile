@@ -14,6 +14,7 @@ import {
 import CommentsList from '../../../../components/comments/CommentsList';
 import Colors from '../../../../constants/Colors';
 import { FETCHING_LIMIT } from '../../../../constants/Restrooms';
+import { likeComment, unlikeComment } from '../../../../store/actions/UserActions';
 
 class RestroomComments extends Component {
   static navigationOptions = {
@@ -79,6 +80,8 @@ class RestroomComments extends Component {
           isFetchingNewComments={this.props.isFetchingNewComments}
           fetchNewComments={this.handleFetchNewComments}
           reloadComments={this.reloadComments}
+          likeComment={this.props.likeComment}
+          unlikeComment={this.props.unlikeComment}
         />
         <CommentInput
           onAddComment={this.handleAddComment}
@@ -97,7 +100,9 @@ RestroomComments.propTypes = {
   comments: PropTypes.array,
   getRestroomComments: PropTypes.func,
   commentsTotalNumber: PropTypes.number,
-  isFetchingNewComments: PropTypes.bool
+  isFetchingNewComments: PropTypes.bool,
+  likeComment: PropTypes.func,
+  unlikeComment: PropTypes.func
 };
 
 const mapStateToProps = state => ({
@@ -110,7 +115,9 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   addRestroomComment,
-  getRestroomComments
+  getRestroomComments,
+  likeComment,
+  unlikeComment
 };
 
 const styles = StyleSheet.create({

@@ -63,7 +63,13 @@ class CommentsList extends Component {
               return <CommentActivityItem {...comment} navigation={this.props.navigation} />;
             }
 
-            return <Comment {...comment} />;
+            return (
+              <Comment
+                {...comment}
+                likeComment={this.props.likeComment}
+                unlikeComment={this.props.unlikeComment}
+              />
+            );
           }}
           keyExtractor={comment => comment.id.toString()}
           onScroll={this.handleScroll}
@@ -105,7 +111,9 @@ CommentsList.propTypes = {
   withoutInput: PropTypes.any,
   headerComponent: PropTypes.any,
   isActivityItem: PropTypes.any,
-  navigation: PropTypes.any
+  navigation: PropTypes.any,
+  likeComment: PropTypes.func,
+  unlikeComment: PropTypes.func
 };
 
 const styles = StyleSheet.create({

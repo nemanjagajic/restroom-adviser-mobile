@@ -23,7 +23,9 @@ import {
   GET_MY_RATINGS,
   BOOKMARK_RESTROOM,
   GET_IS_OPENED_RESTROOM_BOOKMARKED,
-  UNBOOKMARK_RESTROOM
+  UNBOOKMARK_RESTROOM,
+  LIKE_COMMENT,
+  UNLIKE_COMMENT
 } from '../actions/ActionTypes';
 import {
   userLogin,
@@ -37,7 +39,9 @@ import {
   passwordChange,
   updateUser,
   getMyComments,
-  getMyRatings
+  getMyRatings,
+  likeComment,
+  unlikeComment
 } from './ActiveUserSagas';
 import {
   addRestroom,
@@ -79,6 +83,8 @@ export default function* rootSaga() {
     takeLatest(GET_MY_RATINGS, getMyRatings),
     takeLatest(BOOKMARK_RESTROOM, bookmarkRestroom),
     takeLatest(UNBOOKMARK_RESTROOM, unbookmarkRestroom),
-    takeLatest(GET_IS_OPENED_RESTROOM_BOOKMARKED, getIsOpenedRestroomBookmarked)
+    takeLatest(GET_IS_OPENED_RESTROOM_BOOKMARKED, getIsOpenedRestroomBookmarked),
+    takeLatest(LIKE_COMMENT, likeComment),
+    takeLatest(UNLIKE_COMMENT, unlikeComment)
   ]);
 }
