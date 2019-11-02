@@ -47,8 +47,7 @@ import {
   setFetchingRestroomValidations,
   setFetchingRestroomValidationsFinished,
   setRestroomValidations,
-  setRestroomValidated,
-  setRestroomInvalidated
+  getRestroomValidations as getRestroomValidationsAction
 } from '../actions/RestroomActions';
 import NavigationService from '../../services/NavigationService';
 import { FETCHING_LIMIT } from '../../constants/Restrooms';
@@ -381,7 +380,7 @@ export function* validateRestroom({ payload }) {
       restroom: payload
     });
   } catch (error) {
-    yield put(setRestroomInvalidated());
+    yield put(getRestroomValidationsAction(payload));
     // eslint-disable-next-line no-console
     console.log(error);
   } finally {
@@ -399,7 +398,7 @@ export function* invalidateRestroom({ payload }) {
       restroom: payload
     });
   } catch (error) {
-    yield put(setRestroomValidated());
+    yield put(getRestroomValidationsAction(payload));
     // eslint-disable-next-line no-console
     console.log(error);
   } finally {
