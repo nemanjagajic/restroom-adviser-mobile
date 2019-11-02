@@ -27,7 +27,8 @@ import {
   LIKE_COMMENT,
   UNLIKE_COMMENT,
   VALIDATE_RESTROOM,
-  INVALIDATE_RESTROOM
+  INVALIDATE_RESTROOM,
+  GET_RESTROOM_VALIDATIONS
 } from '../actions/ActionTypes';
 import {
   userLogin,
@@ -57,6 +58,7 @@ import {
   getOsmSuggestions,
   getRestroomComments,
   getRestroomRatings,
+  getRestroomValidations,
   invalidateRestroom,
   unbookmarkRestroom,
   validateRestroom
@@ -91,6 +93,7 @@ export default function* rootSaga() {
     takeLatest(LIKE_COMMENT, likeComment),
     takeLatest(UNLIKE_COMMENT, unlikeComment),
     takeLatest(VALIDATE_RESTROOM, validateRestroom),
-    takeLatest(INVALIDATE_RESTROOM, invalidateRestroom)
+    takeLatest(INVALIDATE_RESTROOM, invalidateRestroom),
+    takeLatest(GET_RESTROOM_VALIDATIONS, getRestroomValidations)
   ]);
 }

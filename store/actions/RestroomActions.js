@@ -53,7 +53,13 @@ import {
   SET_FETCHING_RESTROOM_VALIDATION_INFO,
   SET_FETCHING_RESTROOM_VALIDATION_INFO_FINISHED,
   VALIDATE_RESTROOM,
-  INVALIDATE_RESTROOM
+  INVALIDATE_RESTROOM,
+  SET_FETCHING_RESTROOM_VALIDATIONS,
+  SET_FETCHING_RESTROOM_VALIDATIONS_FINISHED,
+  SET_RESTROOM_VALIDATIONS,
+  GET_RESTROOM_VALIDATIONS,
+  SET_RESTROOM_VALIDATED,
+  SET_RESTROOM_INVALIDATED
 } from './ActionTypes';
 
 export const addRestroom = payload => ({
@@ -288,6 +294,14 @@ export const setFetchingRestroomValidationInfoFinished = () => ({
   type: SET_FETCHING_RESTROOM_VALIDATION_INFO_FINISHED
 });
 
+export const setFetchingRestroomValidations = () => ({
+  type: SET_FETCHING_RESTROOM_VALIDATIONS
+});
+
+export const setFetchingRestroomValidationsFinished = () => ({
+  type: SET_FETCHING_RESTROOM_VALIDATIONS_FINISHED
+});
+
 export const validateRestroom = payload => ({
   type: VALIDATE_RESTROOM,
   payload
@@ -296,4 +310,22 @@ export const validateRestroom = payload => ({
 export const invalidateRestroom = payload => ({
   type: INVALIDATE_RESTROOM,
   payload
+});
+
+export const setRestroomValidations = payload => ({
+  type: SET_RESTROOM_VALIDATIONS,
+  payload
+});
+
+export const getRestroomValidations = payload => ({
+  type: GET_RESTROOM_VALIDATIONS,
+  payload
+});
+
+export const setRestroomValidated = () => ({
+  type: SET_RESTROOM_VALIDATED
+});
+
+export const setRestroomInvalidated = () => ({
+  type: SET_RESTROOM_INVALIDATED
 });

@@ -131,3 +131,23 @@ export const isFetchingRestroomValidationInfoSelector = createSelector(
   restroomStateSelector,
   restrooms => restrooms.isFetchingRestroomValidationInfo
 );
+
+export const isFetchingRestroomValidationsSelector = createSelector(
+  restroomStateSelector,
+  restrooms => restrooms.isFetchingRestroomValidations
+);
+
+export const positiveRestroomValidationsSelector = createSelector(
+  restroomStateSelector,
+  restrooms => restrooms.positiveRestroomValidations
+);
+
+export const negativeRestroomValidationsSelector = createSelector(
+  restroomStateSelector,
+  restrooms => restrooms.negativeRestroomValidations
+);
+
+export const myOpenedRestroomValidationSelector = createSelector(
+  restroomStateSelector,
+  restrooms => restrooms.myOpenedRestroomValidation
+);

@@ -11,6 +11,7 @@ const ENDPOINTS = {
   RESTROOM_BOOKMARKS: '/user/{userId}/restroom/{restroomId}/bookmarks',
   BOOKMARK_RESTROOM: '/user/{userId}/restroom/{restroomId}/bookmark',
   UNBOOKMARK_RESTROOM: '/user/{userId}/restroom/{restroomId}/unbookmark',
+  RESTROOM_VALIDATIONS: '/user/{userId}/restroom/{restroomId}/validations',
   VALIDATE_RESTROOM: '/user/{userId}/restroom/{restroomId}/validate',
   INVALIDATE_RESTROOM: '/user/{userId}/restroom/{restroomId}/invalidate'
 };
@@ -124,6 +125,15 @@ class RestroomService extends ApiService {
   getRestroomBookmarks = ({ user, restroom }) => {
     return this.apiClient.get(
       ENDPOINTS.RESTROOM_BOOKMARKS.replace('{userId}', user.id).replace('{restroomId}', restroom.id)
+    );
+  };
+
+  getRestroomValidations = ({ user, restroom }) => {
+    return this.apiClient.get(
+      ENDPOINTS.RESTROOM_VALIDATIONS.replace('{userId}', user.id).replace(
+        '{restroomId}',
+        restroom.id
+      )
     );
   };
 

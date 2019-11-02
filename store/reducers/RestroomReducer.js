@@ -41,7 +41,12 @@ import {
   SET_COMMENT_LIKED,
   SET_COMMENT_UNLIKED,
   SET_FETCHING_RESTROOM_VALIDATION_INFO,
-  SET_FETCHING_RESTROOM_VALIDATION_INFO_FINISHED
+  SET_FETCHING_RESTROOM_VALIDATION_INFO_FINISHED,
+  SET_FETCHING_RESTROOM_VALIDATIONS,
+  SET_FETCHING_RESTROOM_VALIDATIONS_FINISHED,
+  SET_RESTROOM_VALIDATIONS,
+  SET_RESTROOM_VALIDATED,
+  SET_RESTROOM_INVALIDATED
 } from '../actions/ActionTypes';
 
 const initialState = {
@@ -70,7 +75,11 @@ const initialState = {
   isAddingBookmarkInfo: false,
   myBookmarkedRestrooms: [],
   myBookmarkedRestroomsTotalNumber: 0,
-  isFetchingRestroomValidationInfo: false
+  isFetchingRestroomValidationInfo: false,
+  isFetchingRestroomValidations: false,
+  positiveRestroomValidations: 0,
+  negativeRestroomValidations: 0,
+  myOpenedRestroomValidation: null
 };
 
 export default (state = initialState, action) => {
@@ -309,6 +318,48 @@ export default (state = initialState, action) => {
       return {
         ...state,
         isFetchingRestroomValidationInfo: false
+      };
+    case SET_FETCHING_RESTROOM_VALIDATIONS:
+      return {
+        ...state,
+        isFetchingRestroomValidations: true
+      };
+    case SET_FETCHING_RESTROOM_VALIDATIONS_FINISHED:
+      return {
+        ...state,
+        isFetchingRestroomValidations: false
+      };
+    case SET_RESTROOM_VALIDATIONS:
+      return {
+        ...state,
+        positiveRestroomValidations: action.payload.positive,
+        negativeRestroomValidations: action.payload.negative,
+        myOpenedRestroomValidation:
+          action.payload.myValidations.length > 0 ? action.payload.myValidations[0] : null
+      };
+    case SET_RESTROOM_VALIDATED:
+      return {
+        ...state,
+        positiveRestroomValidations: state.positiveRestroomValidations + 1,
+        negativeRestroomValidations: state.myOpenedRestroomValidation
+          ? state.negativeRestroomValidations - 1
+          : state.negativeRestroomValidations,
+        myOpenedRestroomValidation: {
+          ...state.myOpenedRestroomValidation,
+          is_existing: 1
+        }
+      };
+    case SET_RESTROOM_INVALIDATED:
+      return {
+        ...state,
+        positiveRestroomValidations: state.myOpenedRestroomValidation
+          ? state.positiveRestroomValidations - 1
+          : state.positiveRestroomValidations,
+        negativeRestroomValidations: state.negativeRestroomValidations + 1,
+        myOpenedRestroomValidation: {
+          ...state.myOpenedRestroomValidation,
+          is_existing: 0
+        }
       };
     default:
       return state;

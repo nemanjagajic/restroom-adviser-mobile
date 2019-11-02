@@ -20,9 +20,12 @@ import {
   getIsOpenedRestroomBookmarked,
   getRestroomComments,
   getRestroomRatings,
+  getRestroomValidations,
   invalidateRestroom,
   setOpenedRestroomBookmarked,
   setOpenedRestroomNotBookmarked,
+  setRestroomInvalidated,
+  setRestroomValidated,
   unbookmarkRestroom,
   validateRestroom
 } from '../../../../store/actions/RestroomActions';
@@ -35,7 +38,11 @@ import {
   isOpenedRestroomBookmarkedSelector,
   isFetchingBookmarkInfoSelector,
   isAddingBookmarkInfoSelector,
-  isFetchingRestroomValidationInfoSelector
+  isFetchingRestroomValidationInfoSelector,
+  isFetchingRestroomValidationsSelector,
+  positiveRestroomValidationsSelector,
+  negativeRestroomValidationsSelector,
+  myOpenedRestroomValidationSelector
 } from '../../../../store/selectors/RestroomSelector';
 import StarRating from 'react-native-star-rating';
 import Swiper from 'react-native-swiper';
@@ -56,11 +63,12 @@ class RestroomDetails extends Component {
     this.props.getIsOpenedRestroomBookmarked(restroom);
     this.props.getRestroomRatings(restroom);
     this.props.getRestroomComments({
-      restroom: this.props.navigation.getParam('restroom'),
+      restroom,
       offset: this.state.offset,
       limit: FETCHING_LIMIT,
       isInitial: true
     });
+    this.props.getRestroomValidations(restroom);
   }
 
   state = {
@@ -80,13 +88,21 @@ class RestroomDetails extends Component {
   };
 
   handleValidateRestroom = () => {
-    if (!this.props.isFetchingRestroomValidationInfo) {
+    const alreadyValidated =
+      this.props.myOpenedRestroomValidation && this.props.myOpenedRestroomValidation.is_existing;
+
+    if (!this.props.isFetchingRestroomValidationInfo && !alreadyValidated) {
+      this.props.setRestroomValidated();
       this.props.validateRestroom(this.props.navigation.getParam('restroom'));
     }
   };
 
   handleInvalidateRestroom = () => {
-    if (!this.props.isFetchingRestroomValidationInfo) {
+    const alreadyInvalidated =
+      this.props.myOpenedRestroomValidation && !this.props.myOpenedRestroomValidation.is_existing;
+
+    if (!this.props.isFetchingRestroomValidationInfo && !alreadyInvalidated) {
+      this.props.setRestroomInvalidated();
       this.props.invalidateRestroom(this.props.navigation.getParam('restroom'));
     }
   };
@@ -107,7 +123,13 @@ class RestroomDetails extends Component {
     const isLoadingData =
       this.props.isFetchingRatings ||
       this.props.isFetchingComments ||
-      this.props.isFetchingBookmarkInfo;
+      this.props.isFetchingBookmarkInfo ||
+      this.props.isFetchingRestroomValidations;
+
+    const validatedByMe =
+      this.props.myOpenedRestroomValidation && this.props.myOpenedRestroomValidation.is_existing;
+    const invalidatedByMe =
+      this.props.myOpenedRestroomValidation && !this.props.myOpenedRestroomValidation.is_existing;
 
     return (
       <ScrollView contentContainerStyle={styles.container}>
@@ -195,19 +217,23 @@ class RestroomDetails extends Component {
               <Text style={styles.validateTitle}>Does this restroom exist?</Text>
               <View style={styles.buttonValidateWrapper}>
                 <View>
-                  <Text style={styles.validateNumber}>2</Text>
+                  <Text style={styles.validateNumber}>
+                    {this.props.positiveRestroomValidations}
+                  </Text>
                   <ButtonCustom
-                    style={styles.buttonValidate}
-                    textStyle={styles.buttonText}
+                    style={validatedByMe ? styles.buttonValidateFilled : styles.buttonValidate}
+                    textStyle={validatedByMe ? styles.buttonTextFilled : styles.buttonText}
                     title={'Yes'}
                     onPress={this.handleValidateRestroom}
                   />
                 </View>
                 <View>
-                  <Text style={styles.validateNumber}>0</Text>
+                  <Text style={styles.validateNumber}>
+                    {this.props.negativeRestroomValidations}
+                  </Text>
                   <ButtonCustom
-                    style={styles.buttonValidate}
-                    textStyle={styles.buttonText}
+                    style={invalidatedByMe ? styles.buttonValidateFilled : styles.buttonValidate}
+                    textStyle={invalidatedByMe ? styles.buttonTextFilled : styles.buttonText}
                     title={'No'}
                     onPress={this.handleInvalidateRestroom}
                   />
@@ -257,8 +283,15 @@ RestroomDetails.propTypes = {
   isFetchingBookmarkInfo: PropTypes.bool,
   isAddingBookmarkInfo: PropTypes.bool,
   isFetchingRestroomValidationInfo: PropTypes.bool,
+  isFetchingRestroomValidations: PropTypes.bool,
   validateRestroom: PropTypes.func,
-  invalidateRestroom: PropTypes.func
+  invalidateRestroom: PropTypes.func,
+  getRestroomValidations: PropTypes.func,
+  positiveRestroomValidations: PropTypes.number,
+  negativeRestroomValidations: PropTypes.number,
+  myOpenedRestroomValidation: PropTypes.array,
+  setRestroomValidated: PropTypes.func,
+  setRestroomInvalidated: PropTypes.func
 };
 
 const mapStateToProps = state => ({
@@ -270,7 +303,11 @@ const mapStateToProps = state => ({
   isOpenedRestroomBookmarked: isOpenedRestroomBookmarkedSelector(state),
   isFetchingBookmarkInfo: isFetchingBookmarkInfoSelector(state),
   isAddingBookmarkInfo: isAddingBookmarkInfoSelector(state),
-  isFetchingRestroomValidationInfo: isFetchingRestroomValidationInfoSelector(state)
+  isFetchingRestroomValidationInfo: isFetchingRestroomValidationInfoSelector(state),
+  isFetchingRestroomValidations: isFetchingRestroomValidationsSelector(state),
+  positiveRestroomValidations: positiveRestroomValidationsSelector(state),
+  negativeRestroomValidations: negativeRestroomValidationsSelector(state),
+  myOpenedRestroomValidation: myOpenedRestroomValidationSelector(state)
 });
 
 const mapDispatchToProps = {
@@ -282,7 +319,10 @@ const mapDispatchToProps = {
   setOpenedRestroomBookmarked,
   setOpenedRestroomNotBookmarked,
   validateRestroom,
-  invalidateRestroom
+  invalidateRestroom,
+  getRestroomValidations,
+  setRestroomValidated,
+  setRestroomInvalidated
 };
 
 const styles = StyleSheet.create({
@@ -315,9 +355,25 @@ const styles = StyleSheet.create({
   buttonText: {
     color: '#999'
   },
+  buttonTextFilled: {
+    color: '#fff'
+  },
   buttonValidate: {
     alignItems: 'center',
     backgroundColor: '#f2f2f2',
+    borderRadius: 100,
+    display: 'flex',
+    elevation: 1,
+    height: 30,
+    justifyContent: 'center',
+    marginLeft: 5,
+    marginRight: 5,
+    padding: 20,
+    width: 80
+  },
+  buttonValidateFilled: {
+    alignItems: 'center',
+    backgroundColor: Colors.mainColor,
     borderRadius: 100,
     display: 'flex',
     elevation: 1,

@@ -43,7 +43,12 @@ import {
   resetMyBookmarkedRestrooms,
   addMyBookmarkedRestrooms,
   setFetchingRestroomValidationInfo,
-  setFetchingRestroomValidationInfoFinished
+  setFetchingRestroomValidationInfoFinished,
+  setFetchingRestroomValidations,
+  setFetchingRestroomValidationsFinished,
+  setRestroomValidations,
+  setRestroomValidated,
+  setRestroomInvalidated
 } from '../actions/RestroomActions';
 import NavigationService from '../../services/NavigationService';
 import { FETCHING_LIMIT } from '../../constants/Restrooms';
@@ -348,6 +353,24 @@ export function* getIsOpenedRestroomBookmarked({ payload }) {
   }
 }
 
+export function* getRestroomValidations({ payload }) {
+  const user = yield select(userSelector);
+  yield put(setFetchingRestroomValidations());
+
+  try {
+    const response = yield call(restroomService.getRestroomValidations, {
+      user,
+      restroom: payload
+    });
+    yield put(setRestroomValidations(response.data));
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.log(error);
+  } finally {
+    yield put(setFetchingRestroomValidationsFinished());
+  }
+}
+
 export function* validateRestroom({ payload }) {
   const user = yield select(userSelector);
   yield put(setFetchingRestroomValidationInfo());
@@ -358,6 +381,7 @@ export function* validateRestroom({ payload }) {
       restroom: payload
     });
   } catch (error) {
+    yield put(setRestroomInvalidated());
     // eslint-disable-next-line no-console
     console.log(error);
   } finally {
@@ -375,6 +399,7 @@ export function* invalidateRestroom({ payload }) {
       restroom: payload
     });
   } catch (error) {
+    yield put(setRestroomValidated());
     // eslint-disable-next-line no-console
     console.log(error);
   } finally {
