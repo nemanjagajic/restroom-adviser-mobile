@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import { View, StyleSheet, Dimensions, Image, Text, TouchableOpacity } from 'react-native';
+import { DrawerActions } from 'react-navigation';
 import PropTypes from 'prop-types';
 import config from '../../config';
 import Colors from '../../constants/Colors';
@@ -34,6 +35,7 @@ class FeedItem extends PureComponent {
         )}
         <TouchableOpacity
           onPress={() => {
+            this.props.navigation.dispatch(DrawerActions.closeDrawer());
             this.props.getRestroomRatings(this.props.restroom, false);
             this.props.navigation.navigate('Home', {
               restroom: this.props.restroom,
