@@ -9,7 +9,7 @@ import { setSignUpErrors } from '../../store/actions/ErrorActions';
 import { SignUpForm } from '../../components/auth/SignUpForm';
 import { signUpErrorsSelector } from '../../store/selectors/ErrorSelector';
 
-class SignUpScreen extends React.Component {
+class SignUpScreen extends React.PureComponent {
   static navigationOptions = {
     title: $t('auth.signUp'),
     headerTintColor: '#e6e6e6',

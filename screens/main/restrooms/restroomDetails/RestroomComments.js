@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -22,7 +22,7 @@ import {
 } from '../../../../store/actions/UserActions';
 import { isAddingLikeInfoSelector } from '../../../../store/selectors/UserSelector';
 
-class RestroomComments extends Component {
+class RestroomComments extends PureComponent {
   static navigationOptions = {
     headerTitle: 'Comments',
     headerTintColor: Colors.headerTintColor,

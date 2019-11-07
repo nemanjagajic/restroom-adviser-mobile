@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { View, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -8,7 +8,7 @@ import { passwordReset } from '../../store/actions/UserActions';
 import { ResetPasswordForm } from '../../components/auth/ResetPasswordForm';
 import { resetPasswordErrorSelector } from '../../store/selectors/ErrorSelector';
 
-class ResetPasswordScreen extends Component {
+class ResetPasswordScreen extends PureComponent {
   static propTypes = {
     navigation: PropTypes.object,
     passwordReset: PropTypes.func,

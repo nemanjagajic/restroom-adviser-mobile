@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
   FlatList,
   StyleSheet,
@@ -16,7 +16,7 @@ import { Ionicons } from '@expo/vector-icons';
 import Colors from '../../constants/Colors';
 import CommentActivityItem from '../activity/CommentActivityItem';
 
-class CommentsList extends Component {
+class CommentsList extends PureComponent {
   state = {
     scrollFetchingDisabled: false
   };

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
   Dimensions,
   StyleSheet,
@@ -14,7 +14,7 @@ import { Icon, Location, MapView, Permissions } from 'expo';
 import mapMarkerIcon from '../../assets/images/map-marker-icon-filled.png';
 import PropTypes from 'prop-types';
 
-class MapPickLocation extends Component {
+class MapPickLocation extends PureComponent {
   static navigationOptions = {
     headerTitle: 'Pick restroom location'
   };

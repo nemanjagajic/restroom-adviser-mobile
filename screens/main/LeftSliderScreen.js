@@ -6,7 +6,7 @@ import $t from 'i18n';
 import { logout } from '../../store/actions/UserActions';
 import { Icon } from 'expo';
 
-class LeftSliderScreen extends React.Component {
+class LeftSliderScreen extends React.PureComponent {
   static propTypes = {
     navigation: PropTypes.object
   };

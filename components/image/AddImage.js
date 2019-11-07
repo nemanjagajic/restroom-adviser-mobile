@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { ImagePicker, Permissions } from 'expo';
 import PropTypes from 'prop-types';
 import ButtonCustom from '../shared/button/ButtonCustom';
 import Colors from '../../constants/Colors';
 
-class AddImage extends Component {
+class AddImage extends PureComponent {
   state = {
     image: null
   };

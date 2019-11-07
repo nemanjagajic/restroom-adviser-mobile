@@ -5,7 +5,7 @@ import moment from 'moment/moment';
 import Colors from '../../constants/Colors';
 import { Icon } from 'expo/build/Expo';
 
-class RatingActivityItem extends React.Component {
+class RatingActivityItem extends React.PureComponent {
   render() {
     const { updated_at: updatedAt, restroom, rating } = this.props.item;
     return (

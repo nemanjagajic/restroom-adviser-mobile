@@ -5,7 +5,7 @@ import moment from 'moment/moment';
 import Colors from '../../constants/Colors';
 import { Icon } from 'expo/build/Expo';
 
-class CommentActivityItem extends React.Component {
+class CommentActivityItem extends React.PureComponent {
   render() {
     const { content, created_at: createdAt, restroom } = this.props.item;
     return (

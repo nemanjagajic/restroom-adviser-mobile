@@ -6,7 +6,7 @@ import { setActiveUser, getUser } from '../store/actions/UserActions';
 import authService from '../services/AuthService';
 import { userSelector } from '../store/selectors/UserSelector';
 
-class AuthLoadingScreen extends React.Component {
+class AuthLoadingScreen extends React.PureComponent {
   static propTypes = {
     navigation: PropTypes.object,
     onLogin: PropTypes.func,

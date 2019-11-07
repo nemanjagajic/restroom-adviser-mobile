@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { View, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -9,7 +9,7 @@ import { changePassword } from '../../../store/actions/UserActions';
 import { changePasswordErrorSelector } from '../../../store/selectors/ErrorSelector';
 import Colors from '../../../constants/Colors';
 
-class ChangePassword extends Component {
+class ChangePassword extends PureComponent {
   static navigationOptions = {
     headerTitle: 'Change password',
     headerTintColor: Colors.headerTintColor,

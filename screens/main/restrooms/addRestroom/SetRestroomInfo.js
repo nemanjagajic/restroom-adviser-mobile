@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { StyleSheet, KeyboardAvoidingView, TextInput, View } from 'react-native';
 import PropTypes from 'prop-types';
 
 import Colors from '../../../../constants/Colors';
 import ButtonCustom from '../../../../components/shared/button/ButtonCustom';
 
-class SetRestroomInfo extends Component {
+class SetRestroomInfo extends PureComponent {
   static navigationOptions = {
     headerTitle: 'Set restroom info',
     headerTintColor: Colors.headerTintColor,

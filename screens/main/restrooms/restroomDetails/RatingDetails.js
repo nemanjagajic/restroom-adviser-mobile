@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { View, Text, StyleSheet, Dimensions, ScrollView, ActivityIndicator } from 'react-native';
@@ -13,7 +13,7 @@ import {
 } from '../../../../store/selectors/RestroomSelector';
 import { addRestroomRating, getRestroomRatings } from '../../../../store/actions/RestroomActions';
 
-class RatingDetails extends Component {
+class RatingDetails extends PureComponent {
   static navigationOptions = {
     headerTitle: 'Rating details',
     headerTintColor: Colors.headerTintColor,

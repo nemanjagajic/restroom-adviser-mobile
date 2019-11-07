@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { StyleSheet, View, Dimensions, Text } from 'react-native';
 import PropTypes from 'prop-types';
@@ -16,7 +16,7 @@ import {
   myBookmarkedRestroomsTotalNumberSelector
 } from '../../../../store/selectors/RestroomSelector';
 
-class MyBookmarks extends Component {
+class MyBookmarks extends PureComponent {
   static navigationOptions = {
     headerTitle: 'Bookmarked restrooms',
     headerTintColor: Colors.headerTintColor,

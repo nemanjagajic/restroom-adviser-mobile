@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import Colors from '../../../constants/Colors';
 import TabBarIcon from '../../../components/TabBarIcon';
@@ -15,7 +15,7 @@ import { getRestroomRatings } from '../../../store/actions/RestroomActions';
 import RatingsList from '../../../components/activity/RatingsList';
 import { FETCHING_LIMIT } from '../../../constants/Activity';
 
-class RatingsActivityScreen extends Component {
+class RatingsActivityScreen extends PureComponent {
   static navigationOptions = {
     headerTitle: 'My Activity',
     headerTintColor: Colors.headerTintColor,

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { Dimensions, StyleSheet, TextInput, View } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -11,7 +11,7 @@ import {
 } from '../../../../store/selectors/RestroomSelector';
 import MapPickLocation from '../../../../components/map/MapPickLocation';
 
-class PickRestroomLocation extends Component {
+class PickRestroomLocation extends PureComponent {
   static navigationOptions = {
     headerTitle: 'Pick restroom location',
     headerTintColor: Colors.headerTintColor,

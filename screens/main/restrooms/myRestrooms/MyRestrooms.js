@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { StyleSheet, View, Dimensions, Text } from 'react-native';
 import PropTypes from 'prop-types';
@@ -20,7 +20,7 @@ import {
   myFeedRestroomsTotalNumberSelector
 } from '../../../../store/selectors/RestroomSelector';
 
-class MyRestrooms extends Component {
+class MyRestrooms extends PureComponent {
   static navigationOptions = {
     headerTitle: 'My restrooms',
     headerTintColor: Colors.headerTintColor,

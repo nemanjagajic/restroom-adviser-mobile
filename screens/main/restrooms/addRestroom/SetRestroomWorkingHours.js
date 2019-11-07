@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import TimePickerFromTo from '../../../../components/shared/TimePickerFromTo';
 import ButtonCustom from '../../../../components/shared/button/ButtonCustom';
 import Colors from '../../../../constants/Colors';
 import PropTypes from 'prop-types';
 
-class SetRestroomWorkingHours extends Component {
+class SetRestroomWorkingHours extends PureComponent {
   static navigationOptions = {
     headerTitle: 'Set restroom working hours',
     headerTintColor: Colors.headerTintColor,

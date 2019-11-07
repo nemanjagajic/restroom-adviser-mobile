@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { PureComponent, Fragment } from 'react';
 import { Image, ActivityIndicator, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
 
@@ -6,7 +6,7 @@ import config from '../../config';
 
 const { IMAGE_BASE_URL } = config;
 
-class Picture extends Component {
+class Picture extends PureComponent {
   state = {
     loader: true
   };

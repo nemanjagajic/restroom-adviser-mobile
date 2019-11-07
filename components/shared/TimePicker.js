@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { StyleSheet, View, TouchableOpacity, Text } from 'react-native';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import PropTypes from 'prop-types';
 
-class TimePicker extends Component {
+class TimePicker extends PureComponent {
   state = {
     isDateTimePickerVisible: false
   };

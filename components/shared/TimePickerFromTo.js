@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import TimePicker from './TimePicker';
 import PropTypes from 'prop-types';
 import { Icon } from 'expo';
 
-class TimePickerFromTo extends Component {
+class TimePickerFromTo extends PureComponent {
   render() {
     return (
       <View style={styles.container}>

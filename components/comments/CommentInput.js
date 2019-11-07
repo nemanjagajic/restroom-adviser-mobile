@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { Dimensions, Keyboard, StyleSheet, TextInput, TouchableOpacity, View } from 'react-native';
 import PropTypes from 'prop-types';
 
 import Colors from '../../constants/Colors';
 import { Icon } from 'expo';
 
-class CommentInput extends Component {
+class CommentInput extends PureComponent {
   state = {
     text: '',
     isKeyboardOpened: false,

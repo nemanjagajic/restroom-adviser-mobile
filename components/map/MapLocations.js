@@ -9,7 +9,7 @@ import poopEmojiIcon from '../../assets/images/poop-emoji.png';
 import mapMarkerIcon from '../../assets/images/map-marker-icon-filled.png';
 import mapMarkerIconRed from '../../assets/images/map-marker-icon-red.png';
 
-class MapLocations extends React.Component {
+class MapLocations extends React.PureComponent {
   state = {
     modalVisible: false,
     mapRegion: null,

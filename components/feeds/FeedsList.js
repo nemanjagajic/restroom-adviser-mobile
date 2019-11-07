@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { ActivityIndicator, FlatList, RefreshControl, StyleSheet, View } from 'react-native';
 import PropTypes from 'prop-types';
 import FeedItem from './FeedItem';
 import Colors from '../../constants/Colors';
 
-class FeedsList extends Component {
+class FeedsList extends PureComponent {
   state = {
     scrollFetchingDisabled: false
   };

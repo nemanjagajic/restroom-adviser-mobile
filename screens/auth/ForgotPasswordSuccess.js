@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import $t from 'i18n';
 import PropTypes from 'prop-types';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
-class ForgotPasswordSuccess extends Component {
+class ForgotPasswordSuccess extends PureComponent {
   static navigationOptions = null;
 
   static propTypes = {

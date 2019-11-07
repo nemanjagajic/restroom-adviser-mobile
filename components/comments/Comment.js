@@ -9,7 +9,7 @@ import likeOutlined from '../../assets/images/outlined.png';
 import config from '../../config';
 const { IMAGE_BASE_URL } = config;
 
-class Comment extends React.Component {
+class Comment extends React.PureComponent {
   handleLikePressed = () => {
     if (!this.props.isAddingLikeInfo) {
       if (this.props.item.isLikedByMe) {

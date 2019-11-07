@@ -9,7 +9,7 @@ import { SignInForm } from '../../components/auth/SignInForm';
 import { signInErrorSelector } from '../../store/selectors/ErrorSelector';
 import ButtonCustom from '../../components/shared/button/ButtonCustom';
 
-class SignInScreen extends React.Component {
+class SignInScreen extends React.PureComponent {
   static navigationOptions = {
     title: $t('auth.signIn'),
     headerTintColor: '#e6e6e6',

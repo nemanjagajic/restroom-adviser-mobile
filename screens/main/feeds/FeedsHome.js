@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { StyleSheet, View, Dimensions, Text } from 'react-native';
 import PropTypes from 'prop-types';
@@ -19,7 +19,7 @@ import { Ionicons } from '@expo/vector-icons';
 import FeedSearchHeader from '../../../components/feeds/FeedSearchHeader';
 import FeedFiltersModal from '../../../components/feeds/FeedFiltersModal';
 
-class FeedsHome extends Component {
+class FeedsHome extends PureComponent {
   static navigationOptions = {
     header: null
   };

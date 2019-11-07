@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
   View,
   StyleSheet,
@@ -21,7 +21,7 @@ import Colors from '../../../constants/Colors';
 import config from '../../../config';
 const { IMAGE_BASE_URL } = config;
 
-class EditProfile extends Component {
+class EditProfile extends PureComponent {
   static navigationOptions = {
     title: 'Profile',
     headerTintColor: '#fff',

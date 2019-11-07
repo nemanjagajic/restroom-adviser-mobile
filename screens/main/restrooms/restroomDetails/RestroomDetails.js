@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import {
   View,
@@ -49,7 +49,7 @@ import Swiper from 'react-native-swiper';
 import { FETCHING_LIMIT } from '../../../../constants/Restrooms';
 import { bookmarkRestroom } from '../../../../store/actions/RestroomActions';
 
-class RestroomDetails extends Component {
+class RestroomDetails extends PureComponent {
   static navigationOptions = {
     headerTitle: 'Restroom details',
     headerTintColor: Colors.headerTintColor,

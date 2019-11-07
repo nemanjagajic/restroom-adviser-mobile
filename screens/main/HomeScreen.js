@@ -11,7 +11,7 @@ import {
 import MapLocations from '../../components/map/MapLocations';
 import SelectedRestroomModal from '../../components/home/SelectedRestroomModal';
 
-class HomeScreen extends React.Component {
+class HomeScreen extends React.PureComponent {
   static navigationOptions = {
     header: null
   };

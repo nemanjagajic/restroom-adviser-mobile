@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -14,7 +14,7 @@ import {
 } from '../../../store/selectors/UserSelector';
 import TabBarIcon from '../../../components/TabBarIcon';
 
-class CommentsActivityScreen extends Component {
+class CommentsActivityScreen extends PureComponent {
   static navigationOptions = {
     headerTitle: 'My Activity',
     headerTintColor: Colors.headerTintColor,

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
   View,
   StyleSheet,
@@ -18,7 +18,7 @@ import AddImage from '../../../../components/image/AddImage';
 import { isAddingRestroomSelector } from '../../../../store/selectors/RestroomSelector';
 import { addRestroom } from '../../../../store/actions/RestroomActions';
 
-class PickRestroomImages extends Component {
+class PickRestroomImages extends PureComponent {
   static navigationOptions = {
     headerTitle: 'Pick restroom images',
     headerTintColor: Colors.headerTintColor,

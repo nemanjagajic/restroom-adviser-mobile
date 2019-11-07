@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { View, Text, BackHandler } from 'react-native';
 import $t from 'i18n';
 
-class OfflineScreen extends Component {
+class OfflineScreen extends PureComponent {
   componentDidMount() {
     this.backHandler = BackHandler.addEventListener('hardwareBackPress', () => true);
   }

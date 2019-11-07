@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -9,7 +9,7 @@ import { passwordForgot } from '../../store/actions/UserActions';
 import { setForgotPasswordError } from '../../store/actions/ErrorActions';
 import { forgotPasswordErrorSelector } from '../../store/selectors/ErrorSelector';
 
-class ForgotPasswordScreen extends Component {
+class ForgotPasswordScreen extends PureComponent {
   static navigationOptions = {
     title: 'Forgot Password'
   };
