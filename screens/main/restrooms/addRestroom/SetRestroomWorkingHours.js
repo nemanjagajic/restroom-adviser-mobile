@@ -65,7 +65,10 @@ class SetRestroomWorkingHours extends PureComponent {
       this.state.saturdayFrom === '' &&
       this.state.saturdayTo === '' &&
       this.state.sundayFrom === '' &&
-      this.state.sundayTo === ''
+      this.state.sundayTo === '' &&
+      !this.state.workingDaysClosed &&
+      !this.state.saturdayClosed &&
+      !this.state.sundayClosed
     );
   };
 
