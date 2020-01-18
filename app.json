@@ -28,8 +28,7 @@
       }
     },
     "android": {
-      "package": "expo.restroomadviser",
-      "googleServicesFile": "./google-services.json"
+      "package": "expo.restroomadviser"
     },
     "hooks": {
       "postPublish": [
