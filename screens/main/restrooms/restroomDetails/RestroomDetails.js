@@ -50,6 +50,7 @@ import StarRating from 'react-native-star-rating';
 import Swiper from 'react-native-swiper';
 import { FETCHING_LIMIT } from '../../../../constants/Restrooms';
 import { bookmarkRestroom } from '../../../../store/actions/RestroomActions';
+import { userSelector } from '../../../../store/selectors/UserSelector';
 
 class RestroomDetails extends PureComponent {
   static navigationOptions = {
@@ -124,7 +125,14 @@ class RestroomDetails extends PureComponent {
       deleteConfirmationVisible: false
     });
 
+  isRestroomAddedByMe = () => {
+    const restroomUserId = this.props.navigation.getParam('restroom').user_id;
+    const userId = this.props.user.id;
+    return restroomUserId === userId;
+  };
+
   render() {
+    this.isRestroomAddedByMe();
     const {
       name,
       description,
@@ -298,12 +306,16 @@ class RestroomDetails extends PureComponent {
                 )}
               </View>
             ) : (
-              <ButtonCustom
-                style={styles.deleteButton}
-                textStyle={styles.buttonText}
-                title={'Delete restroom'}
-                onPress={this.showDeleteConfirmation}
-              />
+              <View>
+                {this.isRestroomAddedByMe() && (
+                  <ButtonCustom
+                    style={styles.deleteButton}
+                    textStyle={styles.buttonText}
+                    title={'Delete restroom'}
+                    onPress={this.showDeleteConfirmation}
+                  />
+                )}
+              </View>
             )}
           </View>
         )}
@@ -340,7 +352,8 @@ RestroomDetails.propTypes = {
   setRestroomValidated: PropTypes.func,
   setRestroomInvalidated: PropTypes.func,
   isDeletingRestroom: PropTypes.bool,
-  deleteRestroom: PropTypes.func
+  deleteRestroom: PropTypes.func,
+  user: PropTypes.object
 };
 
 const mapStateToProps = state => ({
@@ -357,7 +370,8 @@ const mapStateToProps = state => ({
   positiveRestroomValidations: positiveRestroomValidationsSelector(state),
   negativeRestroomValidations: negativeRestroomValidationsSelector(state),
   myOpenedRestroomValidation: myOpenedRestroomValidationSelector(state),
-  isDeletingRestroom: isDeletingRestroomSelector(state)
+  isDeletingRestroom: isDeletingRestroomSelector(state),
+  user: userSelector(state)
 });
 
 const mapDispatchToProps = {
