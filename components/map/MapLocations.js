@@ -4,7 +4,9 @@
 import React from 'react';
 import { StyleSheet, View, Text, Dimensions } from 'react-native';
 import PropTypes from 'prop-types';
-import { Location, MapView, Permissions } from 'expo';
+import * as Permissions from 'expo-permissions';
+import MapView from 'react-native-maps';
+import * as Location from 'expo-location';
 import poopEmojiIcon from '../../assets/images/poop-emoji.png';
 import mapMarkerIcon from '../../assets/images/map-marker-icon-filled.png';
 import mapMarkerIconRed from '../../assets/images/map-marker-icon-red.png';

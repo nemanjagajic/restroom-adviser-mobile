@@ -10,7 +10,10 @@ import {
   TouchableOpacity,
   ActivityIndicator
 } from 'react-native';
-import { Icon, Location, MapView, Permissions } from 'expo';
+import * as Permissions from 'expo-permissions';
+import MapView from 'react-native-maps';
+import * as Location from 'expo-location';
+import * as Icon from '@expo/vector-icons';
 import mapMarkerIcon from '../../assets/images/map-marker-icon-filled.png';
 import PropTypes from 'prop-types';
 

@@ -6,7 +6,7 @@ import config from '../../config';
 import Colors from '../../constants/Colors';
 import StarRating from 'react-native-star-rating';
 import { Ionicons } from '@expo/vector-icons';
-import { Icon } from 'expo';
+import * as Icon from '@expo/vector-icons';
 
 class FeedItem extends PureComponent {
   render() {

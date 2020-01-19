@@ -1,6 +1,6 @@
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
-import { Icon } from 'expo';
+import * as Icon from '@expo/vector-icons';
 import Colors from '../constants/Colors';
 
 export const addHeaderLeftNavigator = navigation => {

@@ -10,7 +10,8 @@ import {
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { Icon, ImagePicker } from 'expo';
+import * as ImagePicker from 'expo-image-picker';
+import * as Icon from '@expo/vector-icons';
 
 import { updateUser } from '../../../store/actions/UserActions';
 import { userSelector } from '../../../store/selectors/UserSelector';

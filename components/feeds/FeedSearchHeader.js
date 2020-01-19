@@ -3,7 +3,7 @@ import { Dimensions, StyleSheet, TextInput, TouchableOpacity, View } from 'react
 import { Ionicons } from '@expo/vector-icons';
 import Colors from '../../constants/Colors';
 import PropTypes from 'prop-types';
-import { Icon } from 'expo';
+import * as Icon from '@expo/vector-icons';
 
 const FeedSearchHeader = props => (
   <View style={styles.searchWrapper}>

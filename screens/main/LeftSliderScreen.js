@@ -4,7 +4,7 @@ import { StyleSheet, View, SafeAreaView, TouchableOpacity, Text } from 'react-na
 import PropTypes from 'prop-types';
 import $t from 'i18n';
 import { logout } from '../../store/actions/UserActions';
-import { Icon } from 'expo';
+import * as Icon from '@expo/vector-icons';
 
 class LeftSliderScreen extends React.PureComponent {
   static propTypes = {

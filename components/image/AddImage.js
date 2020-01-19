@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import { View, StyleSheet } from 'react-native';
-import { ImagePicker, Permissions } from 'expo';
+import * as Permissions from 'expo-permissions';
+import * as ImagePicker from 'expo-image-picker';
 import PropTypes from 'prop-types';
 import ButtonCustom from '../shared/button/ButtonCustom';
 import Colors from '../../constants/Colors';

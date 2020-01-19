@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import TimePicker from './TimePicker';
 import PropTypes from 'prop-types';
-import { Icon } from 'expo';
+import * as Icon from '@expo/vector-icons';
 
 class TimePickerFromTo extends PureComponent {
   render() {

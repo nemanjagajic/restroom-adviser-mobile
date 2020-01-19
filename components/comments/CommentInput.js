@@ -3,7 +3,7 @@ import { Dimensions, Keyboard, StyleSheet, TextInput, TouchableOpacity, View } f
 import PropTypes from 'prop-types';
 
 import Colors from '../../constants/Colors';
-import { Icon } from 'expo';
+import * as Icon from '@expo/vector-icons';
 
 class CommentInput extends PureComponent {
   state = {
