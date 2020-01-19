@@ -5,6 +5,7 @@ import ButtonCustom from '../../../../components/shared/button/ButtonCustom';
 import Colors from '../../../../constants/Colors';
 import { Ionicons } from '@expo/vector-icons';
 import PropTypes from 'prop-types';
+import GestureRecognizer from 'react-native-swipe-gestures';
 
 class SetRestroomWorkingHours extends PureComponent {
   static navigationOptions = {
@@ -123,7 +124,11 @@ class SetRestroomWorkingHours extends PureComponent {
     return (
       <View style={styles.container}>
         {this.state.currentlyShowing === 1 && (
-          <View style={styles.timePickerWrapper}>
+          <GestureRecognizer
+            style={styles.timePickerWrapper}
+            onSwipeLeft={this.handleRight}
+            onSwipeRight={this.handleLeft}
+          >
             <Text style={styles.timePickerTitle}>Monday to Friday</Text>
             {this.state.workingDaysClosed ? (
               <Text style={styles.closedText}>Closed</Text>
@@ -144,10 +149,15 @@ class SetRestroomWorkingHours extends PureComponent {
             <TouchableOpacity style={styles.optionButton} onPress={this.clearWorkingDays}>
               <Text style={styles.optionText}>Clear</Text>
             </TouchableOpacity>
-          </View>
+            <Text style={styles.paginationText}>1/3</Text>
+          </GestureRecognizer>
         )}
         {this.state.currentlyShowing === 2 && (
-          <View style={styles.timePickerWrapper}>
+          <GestureRecognizer
+            style={styles.timePickerWrapper}
+            onSwipeLeft={this.handleRight}
+            onSwipeRight={this.handleLeft}
+          >
             <Text style={styles.timePickerTitle}>Saturday</Text>
             {this.state.saturdayClosed ? (
               <Text style={styles.closedText}>Closed</Text>
@@ -162,16 +172,21 @@ class SetRestroomWorkingHours extends PureComponent {
             )}
             <TouchableOpacity style={styles.optionButton} onPress={this.handleSaturdayClosed}>
               <Text style={styles.optionText}>
-                {this.state.sundayClosed ? 'Remove closed' : 'Set closed'}
+                {this.state.saturdayClosed ? 'Remove closed' : 'Set closed'}
               </Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.optionButton} onPress={this.clearSaturday}>
               <Text style={styles.optionText}>Clear</Text>
             </TouchableOpacity>
-          </View>
+            <Text style={styles.paginationText}>2/3</Text>
+          </GestureRecognizer>
         )}
         {this.state.currentlyShowing === 3 && (
-          <View style={styles.timePickerWrapper}>
+          <GestureRecognizer
+            style={styles.timePickerWrapper}
+            onSwipeLeft={this.handleRight}
+            onSwipeRight={this.handleLeft}
+          >
             <Text style={styles.timePickerTitle}>Sunday</Text>
             {this.state.sundayClosed ? (
               <Text style={styles.closedText}>Closed</Text>
@@ -192,7 +207,8 @@ class SetRestroomWorkingHours extends PureComponent {
             <TouchableOpacity style={styles.optionButton} onPress={this.clearSunday}>
               <Text style={styles.optionText}>Clear</Text>
             </TouchableOpacity>
-          </View>
+            <Text style={styles.paginationText}>3/3</Text>
+          </GestureRecognizer>
         )}
         <TouchableOpacity
           style={styles.buttonLeft}
@@ -273,8 +289,7 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     flex: 1,
-    justifyContent: 'center',
-    marginTop: -50
+    justifyContent: 'center'
   },
   dot: {
     borderColor: '#ccc',
@@ -316,6 +331,10 @@ const styles = StyleSheet.create({
   optionText: {
     color: '#999'
   },
+  paginationText: {
+    color: '#b3b3b3',
+    marginTop: 20
+  },
   text: {
     color: '#fff',
     fontSize: 16
@@ -327,7 +346,10 @@ const styles = StyleSheet.create({
   },
   timePickerWrapper: {
     alignItems: 'center',
-    display: 'flex'
+    display: 'flex',
+    height: '60%',
+    justifyContent: 'center',
+    width: '90%'
   }
 });
 
