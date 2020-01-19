@@ -132,7 +132,6 @@ class RestroomDetails extends PureComponent {
   };
 
   render() {
-    this.isRestroomAddedByMe();
     const {
       name,
       description,
