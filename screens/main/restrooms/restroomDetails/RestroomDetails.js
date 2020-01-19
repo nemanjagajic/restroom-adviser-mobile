@@ -17,6 +17,7 @@ import { Ionicons } from '@expo/vector-icons/build/Icons';
 import Colors from '../../../../constants/Colors';
 import ButtonCustom from '../../../../components/shared/button/ButtonCustom';
 import {
+  deleteRestroom,
   getIsOpenedRestroomBookmarked,
   getRestroomComments,
   getRestroomRatings,
@@ -42,7 +43,8 @@ import {
   isFetchingRestroomValidationsSelector,
   positiveRestroomValidationsSelector,
   negativeRestroomValidationsSelector,
-  myOpenedRestroomValidationSelector
+  myOpenedRestroomValidationSelector,
+  isDeletingRestroomSelector
 } from '../../../../store/selectors/RestroomSelector';
 import StarRating from 'react-native-star-rating';
 import Swiper from 'react-native-swiper';
@@ -105,6 +107,10 @@ class RestroomDetails extends PureComponent {
       this.props.setRestroomInvalidated();
       this.props.invalidateRestroom(this.props.navigation.getParam('restroom'));
     }
+  };
+
+  deleteRestroom = () => {
+    this.props.deleteRestroom(this.props.navigation.getParam('restroom').id);
   };
 
   render() {
@@ -257,6 +263,9 @@ class RestroomDetails extends PureComponent {
                 title={this.props.isOpenedRestroomBookmarked ? 'Unbookmark' : 'Bookmark'}
                 onPress={this.handleBookmarkPressed}
               />
+              <TouchableOpacity onPress={this.deleteRestroom}>
+                <Text>Delete</Text>
+              </TouchableOpacity>
             </View>
           </View>
         )}
@@ -291,7 +300,9 @@ RestroomDetails.propTypes = {
   negativeRestroomValidations: PropTypes.number,
   myOpenedRestroomValidation: PropTypes.array,
   setRestroomValidated: PropTypes.func,
-  setRestroomInvalidated: PropTypes.func
+  setRestroomInvalidated: PropTypes.func,
+  isDeletingRestroom: PropTypes.bool,
+  deleteRestroom: PropTypes.func
 };
 
 const mapStateToProps = state => ({
@@ -307,7 +318,8 @@ const mapStateToProps = state => ({
   isFetchingRestroomValidations: isFetchingRestroomValidationsSelector(state),
   positiveRestroomValidations: positiveRestroomValidationsSelector(state),
   negativeRestroomValidations: negativeRestroomValidationsSelector(state),
-  myOpenedRestroomValidation: myOpenedRestroomValidationSelector(state)
+  myOpenedRestroomValidation: myOpenedRestroomValidationSelector(state),
+  isDeletingRestroom: isDeletingRestroomSelector(state)
 });
 
 const mapDispatchToProps = {
@@ -322,7 +334,8 @@ const mapDispatchToProps = {
   invalidateRestroom,
   getRestroomValidations,
   setRestroomValidated,
-  setRestroomInvalidated
+  setRestroomInvalidated,
+  deleteRestroom
 };
 
 const styles = StyleSheet.create({

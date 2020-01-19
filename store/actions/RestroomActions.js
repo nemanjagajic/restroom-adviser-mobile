@@ -59,20 +59,14 @@ import {
   SET_RESTROOM_VALIDATIONS,
   GET_RESTROOM_VALIDATIONS,
   SET_RESTROOM_VALIDATED,
-  SET_RESTROOM_INVALIDATED
+  SET_RESTROOM_INVALIDATED,
+  DELETE_RESTROOM,
+  SET_DELETING_RESTROOM,
+  SET_FINISHED_DELETING_RESTROOM
 } from './ActionTypes';
 
 export const addRestroom = payload => ({
   type: ADD_RESTROOM,
-  payload
-});
-
-export const fetchRestrooms = () => ({
-  type: FETCH_RESTROOMS
-});
-
-export const setRestrooms = payload => ({
-  type: SET_RESTROOMS,
   payload
 });
 
@@ -82,6 +76,28 @@ export const setAddingRestroom = () => ({
 
 export const setFinishedAddingRestroom = () => ({
   type: SET_FINISHED_ADDING_RESTROOM
+});
+
+export const deleteRestroom = payload => ({
+  type: DELETE_RESTROOM,
+  payload
+});
+
+export const setDeletingRestroom = () => ({
+  type: SET_DELETING_RESTROOM
+});
+
+export const setFinishedDeletingRestroom = () => ({
+  type: SET_FINISHED_DELETING_RESTROOM
+});
+
+export const fetchRestrooms = () => ({
+  type: FETCH_RESTROOMS
+});
+
+export const setRestrooms = payload => ({
+  type: SET_RESTROOMS,
+  payload
 });
 
 export const addRestroomComment = payload => ({

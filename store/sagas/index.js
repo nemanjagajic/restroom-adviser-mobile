@@ -28,7 +28,8 @@ import {
   UNLIKE_COMMENT,
   VALIDATE_RESTROOM,
   INVALIDATE_RESTROOM,
-  GET_RESTROOM_VALIDATIONS
+  GET_RESTROOM_VALIDATIONS,
+  DELETE_RESTROOM
 } from '../actions/ActionTypes';
 import {
   userLogin,
@@ -51,6 +52,7 @@ import {
   addRestroomComment,
   addRestroomRating,
   bookmarkRestroom,
+  deleteRestroom,
   fetchRestrooms,
   getFeedRestrooms,
   getIsOpenedRestroomBookmarked,
@@ -94,6 +96,7 @@ export default function* rootSaga() {
     takeLatest(UNLIKE_COMMENT, unlikeComment),
     takeLatest(VALIDATE_RESTROOM, validateRestroom),
     takeLatest(INVALIDATE_RESTROOM, invalidateRestroom),
-    takeLatest(GET_RESTROOM_VALIDATIONS, getRestroomValidations)
+    takeLatest(GET_RESTROOM_VALIDATIONS, getRestroomValidations),
+    takeLatest(DELETE_RESTROOM, deleteRestroom)
   ]);
 }

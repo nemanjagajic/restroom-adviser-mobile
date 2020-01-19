@@ -62,6 +62,11 @@ export const isAddingRestroomSelector = createSelector(
   restrooms => restrooms.isAddingRestroom
 );
 
+export const isDeletingRestroomSelector = createSelector(
+  restroomStateSelector,
+  restrooms => restrooms.isDeletingRestroom
+);
+
 export const isAddingComment = createSelector(
   restroomStateSelector,
   restrooms => restrooms.isAddingComment

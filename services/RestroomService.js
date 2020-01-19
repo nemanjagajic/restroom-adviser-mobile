@@ -3,6 +3,7 @@ import axios from 'axios';
 
 const ENDPOINTS = {
   RESTROOM: '/user/{userId}/restroom',
+  RESTROOM_DELETE: '/user/{userId}/restroom/{restroomId}',
   RESTROOM_COMMENT: '/user/{userId}/restroom/{restroomId}/comments',
   RESTROOM_RATING: '/user/{userId}/restroom/{restroomId}/ratings',
   FEED_RESTROOMS:
@@ -70,6 +71,12 @@ class RestroomService extends ApiService {
     formData.append('working_hours', restroom.working_hours);
 
     return this.apiClient.post(ENDPOINTS.RESTROOM.replace('{userId}', user.id), formData);
+  };
+
+  delete = ({ user, restroomId }) => {
+    return this.apiClient.delete(
+      ENDPOINTS.RESTROOM_DELETE.replace('{userId}', user.id).replace('{restroomId}', restroomId)
+    );
   };
 
   addComment = ({ user, restroom, content }) => {

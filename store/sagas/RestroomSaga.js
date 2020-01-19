@@ -47,7 +47,9 @@ import {
   setFetchingRestroomValidations,
   setFetchingRestroomValidationsFinished,
   setRestroomValidations,
-  getRestroomValidations as getRestroomValidationsAction
+  getRestroomValidations as getRestroomValidationsAction,
+  setDeletingRestroom,
+  setFinishedDeletingRestroom
 } from '../actions/RestroomActions';
 import NavigationService from '../../services/NavigationService';
 import { FETCHING_LIMIT } from '../../constants/Restrooms';
@@ -163,6 +165,25 @@ export function* addRestroom({ payload }) {
     console.log(error);
   } finally {
     yield put(setFinishedAddingRestroom());
+  }
+}
+
+export function* deleteRestroom({ payload }) {
+  yield put(setDeletingRestroom());
+  try {
+    const user = yield select(userSelector);
+    const response = yield call(restroomService.delete, {
+      user,
+      restroomId: payload
+    });
+    yield call(fetchRestrooms);
+    yield call(() => getRestroomRatings({ payload: response.data, includeRatings: false }));
+    NavigationService.navigate('Home', { restroom: null });
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.log(error);
+  } finally {
+    yield put(setFinishedDeletingRestroom());
   }
 }
 

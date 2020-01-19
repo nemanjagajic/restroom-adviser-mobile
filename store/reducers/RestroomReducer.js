@@ -46,7 +46,9 @@ import {
   SET_FETCHING_RESTROOM_VALIDATIONS_FINISHED,
   SET_RESTROOM_VALIDATIONS,
   SET_RESTROOM_VALIDATED,
-  SET_RESTROOM_INVALIDATED
+  SET_RESTROOM_INVALIDATED,
+  SET_DELETING_RESTROOM,
+  SET_FINISHED_DELETING_RESTROOM
 } from '../actions/ActionTypes';
 
 const initialState = {
@@ -79,7 +81,8 @@ const initialState = {
   isFetchingRestroomValidations: false,
   positiveRestroomValidations: 0,
   negativeRestroomValidations: 0,
-  myOpenedRestroomValidation: null
+  myOpenedRestroomValidation: null,
+  isDeletingRestroom: false
 };
 
 export default (state = initialState, action) => {
@@ -99,6 +102,16 @@ export default (state = initialState, action) => {
       return {
         ...state,
         isAddingRestroom: false
+      };
+    case SET_DELETING_RESTROOM:
+      return {
+        ...state,
+        isDeletingRestroom: true
+      };
+    case SET_FINISHED_DELETING_RESTROOM:
+      return {
+        ...state,
+        isDeletingRestroom: false
       };
     case SET_ADDING_COMMENT:
       return {
