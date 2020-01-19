@@ -74,7 +74,8 @@ class RestroomDetails extends PureComponent {
   }
 
   state = {
-    currentImageIndex: 0
+    currentImageIndex: 0,
+    deleteConfirmationVisible: false
   };
 
   handleBookmarkPressed = () => {
@@ -112,6 +113,16 @@ class RestroomDetails extends PureComponent {
   deleteRestroom = () => {
     this.props.deleteRestroom(this.props.navigation.getParam('restroom').id);
   };
+
+  showDeleteConfirmation = () =>
+    this.setState({
+      deleteConfirmationVisible: true
+    });
+
+  hideDeleteConfirmation = () =>
+    this.setState({
+      deleteConfirmationVisible: false
+    });
 
   render() {
     const {
@@ -263,10 +274,37 @@ class RestroomDetails extends PureComponent {
                 title={this.props.isOpenedRestroomBookmarked ? 'Unbookmark' : 'Bookmark'}
                 onPress={this.handleBookmarkPressed}
               />
-              <TouchableOpacity onPress={this.deleteRestroom}>
-                <Text>Delete</Text>
-              </TouchableOpacity>
             </View>
+            {this.state.deleteConfirmationVisible ? (
+              <View style={styles.deleteConfirmationWrapper}>
+                <Text style={styles.deleteConfirmationText}>
+                  {this.props.isDeletingRestroom ? 'Deleting restroom...' : 'Are you sure?'}
+                </Text>
+                {!this.props.isDeletingRestroom && (
+                  <View style={styles.deleteButtonsWrapper}>
+                    <ButtonCustom
+                      style={styles.buttonDeleteOption}
+                      textStyle={styles.buttonTextFilled}
+                      title={'Delete'}
+                      onPress={this.deleteRestroom}
+                    />
+                    <ButtonCustom
+                      style={styles.buttonCancelOption}
+                      textStyle={styles.buttonText}
+                      title={'Cancel'}
+                      onPress={this.hideDeleteConfirmation}
+                    />
+                  </View>
+                )}
+              </View>
+            ) : (
+              <ButtonCustom
+                style={styles.deleteButton}
+                textStyle={styles.buttonText}
+                title={'Delete restroom'}
+                onPress={this.showDeleteConfirmation}
+              />
+            )}
           </View>
         )}
       </ScrollView>
@@ -353,6 +391,18 @@ const styles = StyleSheet.create({
     padding: 10,
     width: 140
   },
+  buttonCancelOption: {
+    alignItems: 'center',
+    backgroundColor: '#f2f2f2',
+    borderRadius: 100,
+    display: 'flex',
+    elevation: 1,
+    justifyContent: 'center',
+    marginLeft: 5,
+    marginRight: 5,
+    padding: 10,
+    width: 90
+  },
   buttonComment: {
     alignItems: 'center',
     backgroundColor: '#fff',
@@ -364,6 +414,18 @@ const styles = StyleSheet.create({
     marginRight: 5,
     padding: 10,
     width: 140
+  },
+  buttonDeleteOption: {
+    alignItems: 'center',
+    backgroundColor: '#ff6666',
+    borderRadius: 100,
+    display: 'flex',
+    elevation: 1,
+    justifyContent: 'center',
+    marginLeft: 5,
+    marginRight: 5,
+    padding: 10,
+    width: 90
   },
   buttonText: {
     color: '#999'
@@ -411,7 +473,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     marginBottom: 20,
-    marginTop: 20
+    marginTop: 10
   },
   container: {
     alignItems: 'center',
@@ -425,6 +487,37 @@ const styles = StyleSheet.create({
   contentLoader: {
     marginBottom: 10,
     marginTop: 10
+  },
+  deleteButton: {
+    alignItems: 'center',
+    backgroundColor: '#fff',
+    borderColor: '#d9d9d9',
+    borderRadius: 30,
+    borderWidth: 1,
+    display: 'flex',
+    justifyContent: 'center',
+    marginBottom: 20,
+    marginTop: 10,
+    padding: 10,
+    width: 290
+  },
+  deleteButtonsWrapper: {
+    display: 'flex',
+    flexDirection: 'row'
+  },
+  deleteConfirmationText: {
+    color: '#999',
+    fontSize: 18,
+    paddingRight: 5
+  },
+  deleteConfirmationWrapper: {
+    alignItems: 'center',
+    display: 'flex',
+    flexDirection: 'row',
+    height: 40,
+    justifyContent: 'center',
+    marginBottom: 24,
+    marginTop: 7
   },
   description: {
     color: '#808080',
