@@ -45,7 +45,10 @@ class Comment extends React.PureComponent {
           <Text style={styles.createdAtText}>{moment(createdAt).fromNow()}</Text>
         </View>
         <View style={styles.likeWrapper}>
-          <TouchableOpacity onPress={this.handleLikePressed}>
+          <TouchableOpacity
+            onPress={this.handleLikePressed}
+            hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+          >
             <Image style={styles.likeButton} source={isLikedByMe ? likeFilled : likeOutlined} />
           </TouchableOpacity>
           <Text style={styles.likeNumberText}>{numberOfLikes}</Text>
