@@ -106,6 +106,7 @@ class AuthService extends ApiService {
   };
 
   loginWithFacebook = async () => {
+    await Facebook.initializeAsync(FACEBOOK_APP_ID);
     return await this.facebookLogin(
       Facebook.logInWithReadPermissionsAsync(FACEBOOK_APP_ID, {
         permissions: ['public_profile', 'email']
