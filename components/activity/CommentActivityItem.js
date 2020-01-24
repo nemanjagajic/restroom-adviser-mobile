@@ -3,7 +3,7 @@ import { StyleSheet, View, Dimensions, Text, TouchableOpacity } from 'react-nati
 import PropTypes from 'prop-types';
 import moment from 'moment/moment';
 import Colors from '../../constants/Colors';
-import { Icon } from 'expo/build/Expo';
+import { Ionicons } from '@expo/vector-icons';
 
 class CommentActivityItem extends React.PureComponent {
   render() {
@@ -27,7 +27,7 @@ class CommentActivityItem extends React.PureComponent {
             style={styles.open}
             hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
           >
-            <Icon.Ionicons name="md-open" size={22} style={styles.icon} color={'#ccc'} />
+            <Ionicons name="md-open" size={22} style={styles.icon} color={'#ccc'} />
           </TouchableOpacity>
         </View>
       </View>
