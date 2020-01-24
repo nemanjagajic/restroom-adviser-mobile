@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { ErrorMessage } from 'formik';
 import Colors from '../../constants/Colors';
 
-export const TextInputField = ({ field, form, ...props }) => {
+export const TextInputFieldWhite = ({ field, form, ...props }) => {
   const [borderColor, setBorderColor] = useState('#b3b3b3');
 
   return (
@@ -27,16 +27,16 @@ export const TextInputField = ({ field, form, ...props }) => {
   );
 };
 
-TextInputField.propTypes = {
+TextInputFieldWhite.propTypes = {
   field: PropTypes.object,
   form: PropTypes.object
 };
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#f2f2f2',
+    backgroundColor: '#4d4d4d',
     borderRadius: 30,
-    color: '#666666',
+    color: '#f2f2f2',
     fontSize: 16,
     height: 45,
     padding: 9,
@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     paddingTop: 10
   },
   input: {
-    color: '#666666',
+    color: '#f2f2f2',
     fontSize: 16
   }
 });

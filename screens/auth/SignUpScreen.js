@@ -1,7 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, KeyboardAvoidingView } from 'react-native';
 import PropTypes from 'prop-types';
-import $t from 'i18n';
 
 import { connect } from 'react-redux';
 import { signUp } from '../../store/actions/UserActions';
@@ -11,7 +10,6 @@ import { signUpErrorsSelector } from '../../store/selectors/ErrorSelector';
 
 class SignUpScreen extends React.PureComponent {
   static navigationOptions = {
-    title: $t('auth.signUp'),
     headerTintColor: '#e6e6e6',
     headerTransparent: true
   };

@@ -137,7 +137,7 @@ class EditProfile extends PureComponent {
             </View>
           </View>
         )}
-        <KeyboardAwareScrollView enableOnAndroid>
+        <KeyboardAwareScrollView>
           <UpdateProfileForm onSubmit={this.handleSubmit} user={user} />
         </KeyboardAwareScrollView>
         <NoPermissionsForCameraModal

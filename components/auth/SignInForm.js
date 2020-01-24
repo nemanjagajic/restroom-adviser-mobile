@@ -3,13 +3,13 @@ import { View, StyleSheet, Dimensions, Image } from 'react-native';
 import { Formik, Field } from 'formik';
 import PropTypes from 'prop-types';
 
-import { TextInputField } from '../shared/FormFields';
 import { signInValidationRules } from '../../validation /auth';
 import $t from 'i18n';
 import ErrorText from '../shared/Text/ErrorText';
 import ButtonCustom from '../shared/button/ButtonCustom';
 import logo from '../../assets/images/poop-emoji.png';
 import Colors from '../../constants/Colors';
+import { TextInputFieldWhite } from '../shared/FormFieldsWhite';
 
 export const SignInForm = props => (
   <Formik
@@ -20,10 +20,10 @@ export const SignInForm = props => (
     {({ handleSubmit }) => (
       <View style={styles.container}>
         <Image source={logo} style={styles.image} />
-        <Field name="email" component={TextInputField} placeholder={$t('auth.enterEmail')} />
+        <Field name="email" component={TextInputFieldWhite} placeholder={$t('auth.enterEmail')} />
         <Field
           name="password"
-          component={TextInputField}
+          component={TextInputFieldWhite}
           secureTextEntry
           placeholder={$t('auth.enterPassword')}
         />
@@ -32,7 +32,12 @@ export const SignInForm = props => (
           error={!!props.signInError}
           message={$t('auth.invalidCredentials')}
         />
-        <ButtonCustom title={'Log in'} onPress={handleSubmit} style={styles.button} />
+        <ButtonCustom
+          title={'Log in'}
+          onPress={handleSubmit}
+          style={styles.button}
+          textStyle={styles.buttonText}
+        />
       </View>
     )}
   </Formik>
@@ -47,12 +52,18 @@ const styles = StyleSheet.create({
   button: {
     alignItems: 'center',
     backgroundColor: Colors.mainColor,
-    borderRadius: 20,
+    borderRadius: 30,
     display: 'flex',
+    elevation: 1,
     height: 50,
     justifyContent: 'center',
+    marginBottom: 15,
     marginTop: 5,
     width: 300
+  },
+  buttonText: {
+    color: '#fff',
+    fontSize: 16
   },
   container: {
     alignItems: 'center',
@@ -68,6 +79,7 @@ const styles = StyleSheet.create({
   },
   image: {
     height: 80,
+    marginBottom: 20,
     width: 80
   }
 });
