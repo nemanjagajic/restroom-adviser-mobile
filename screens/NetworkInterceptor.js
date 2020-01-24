@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
-import { NetInfo, View, StyleSheet, Platform } from 'react-native';
+import { View, StyleSheet, Platform } from 'react-native';
+// import NetInfo from '@react-native-community/netinfo';
 import NavigationService from '../services/NavigationService';
 import { Linking, Notifications } from 'expo';
 import PropTypes from 'prop-types';
@@ -33,7 +34,7 @@ class NetworkInterceptor extends PureComponent {
   };
 
   async componentDidMount() {
-    this._connectionInfo();
+    // this._connectionInfo();
     this._setUrlEventListener();
 
     if (Platform.OS === OS_TYPES.ANDROID) {
@@ -57,13 +58,13 @@ class NetworkInterceptor extends PureComponent {
     }
   };
 
-  _connectionInfo = () => {
-    NetInfo.isConnected.addEventListener('connectionChange', connectionInfo => {
-      connectionInfo
-        ? NavigationService.navigate('AuthLoading')
-        : NavigationService.navigate('Offline');
-    });
-  };
+  // _connectionInfo = () => {
+  //   NetInfo.isConnected.addEventListener('connectionChange', connectionInfo => {
+  //     connectionInfo
+  //       ? NavigationService.navigate('AuthLoading')
+  //       : NavigationService.navigate('Offline');
+  //   });
+  // };
 
   _setUrlEventListener = () => {
     //If app is in background

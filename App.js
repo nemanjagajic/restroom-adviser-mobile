@@ -19,10 +19,16 @@ if (!__DEV__) {
   Sentry.config('https://<key>@sentry.io/<project>').install();
 }
 
-YellowBox.ignoreWarnings(['react-native-i18n module is not correctly linked']);
-YellowBox.ignoreWarnings(['Warning: Failed prop type']);
 // eslint-disable-next-line max-len
-YellowBox.ignoreWarnings(['Warning: Can\'t perform a React state update on an unmounted component']);
+YellowBox.ignoreWarnings([
+  'react-native-i18n module is not correctly linked',
+  'Warning: Failed prop type',
+  'Warning: Can\'t perform a React state update on an unmounted component',
+  'Warning: componentWillMount is deprecated',
+  'Warning: componentWillMount has been renamed',
+  'Warning: componentWillReceiveProps has been renamed',
+  'Warning: componentWillUpdate has been renamed'
+]);
 
 export default class App extends React.Component {
   state = {
