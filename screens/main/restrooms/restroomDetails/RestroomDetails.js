@@ -47,7 +47,7 @@ import {
   isDeletingRestroomSelector
 } from '../../../../store/selectors/RestroomSelector';
 import StarRating from 'react-native-star-rating';
-import Swiper from 'react-native-swiper';
+import Swiper from 'react-native-swiper-viewpager';
 import { FETCHING_LIMIT } from '../../../../constants/Restrooms';
 import { bookmarkRestroom } from '../../../../store/actions/RestroomActions';
 import { userSelector } from '../../../../store/selectors/UserSelector';
