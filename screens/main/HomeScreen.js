@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Platform, Linking } from 'react-native';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { fetchRestrooms, getRestroomRatings } from '../../store/actions/RestroomActions';
@@ -27,6 +27,14 @@ class HomeScreen extends React.PureComponent {
   openRestroomDetails = restroomId => {
     const restroom = this.props.restrooms.find(restroom => restroom.id === restroomId);
     this.props.navigation.navigate('RestroomDetails', { restroom });
+  };
+
+  openRoute = location => {
+    if (Platform.OS === 'ios') {
+      Linking.openURL(`http://maps.apple.com/?daddr=${location}`);
+    } else {
+      Linking.openURL(`http://maps.google.com/?daddr=${location}`);
+    }
   };
 
   handleMarkerPressed = restroom => {
@@ -86,6 +94,7 @@ class HomeScreen extends React.PureComponent {
           <SelectedRestroomModal
             selectedRestroom={selectedRestroom}
             openRestroomDetails={this.openRestroomDetails}
+            openRoute={this.openRoute}
             clearSelectedRestroom={this.clearSelectedRestroom}
             ratings={this.props.ratings}
             isFetchingRatings={this.props.isFetchingRatings}
