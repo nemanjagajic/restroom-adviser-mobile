@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "Awww",
-    "description": "A very interesting project.",
-    "slug": "Awww",
+    "name": "Restroom Adviser",
+    "description": "A very interesting project about rating restrooms.",
+    "slug": "restroom-adviser",
     "privacy": "public",
     "sdkVersion": "36.0.0",
     "platforms": [
@@ -33,7 +33,8 @@
       }
     },
     "android": {
-      "package": "expo.restroomadviser"
+      "package": "expo.restroomadviser",
+      "googleServicesFile": "./google-services.json"
     },
     "hooks": {
       "postPublish": [
