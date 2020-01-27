@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react';
 import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
-import $t from 'i18n';
 import PropTypes from 'prop-types';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
@@ -15,9 +14,9 @@ class ForgotPasswordSuccess extends PureComponent {
     return (
       <View style={styles.container}>
         <KeyboardAwareScrollView enableOnAndroid>
-          <Text>{$t('auth.forgotPasswordSuccess')}</Text>
+          <Text>{'Email with reset password link has been sent to you'}</Text>
           <TouchableOpacity onPress={() => this.props.navigation.navigate('SignIn')}>
-            <Text>{$t('common.ok')}</Text>
+            <Text>{'Ok'}</Text>
           </TouchableOpacity>
         </KeyboardAwareScrollView>
       </View>

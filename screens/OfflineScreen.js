@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react';
 import { View, Text, BackHandler } from 'react-native';
-import $t from 'i18n';
 
 class OfflineScreen extends PureComponent {
   componentDidMount() {
@@ -14,7 +13,7 @@ class OfflineScreen extends PureComponent {
   render() {
     return (
       <View>
-        <Text>{$t('auth.offline')}</Text>
+        <Text>{'Please check your Internet connection'}</Text>
       </View>
     );
   }

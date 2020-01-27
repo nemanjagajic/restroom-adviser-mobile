@@ -1,7 +1,6 @@
 import React from 'react';
 import { TouchableOpacity, Text, StyleSheet, View } from 'react-native';
 import PropTypes from 'prop-types';
-import $t from 'i18n';
 
 import { Modal } from './baseModal';
 import Colors from '../../../constants/Colors';
@@ -10,11 +9,9 @@ const PasswordChangedModal = ({ isVisible, closeModal }) => {
   return (
     <Modal isVisible={isVisible} closeModal={closeModal}>
       <View style={styles.container}>
-        <Text style={styles.changedPasswordText}>
-          {$t('profile.changePassword.passwordChangedSuccess')}
-        </Text>
+        <Text style={styles.changedPasswordText}>{'Password changed successfully'}</Text>
         <TouchableOpacity style={styles.button} onPress={closeModal}>
-          <Text style={styles.okText}>{$t('common.ok')}</Text>
+          <Text style={styles.okText}>{'Ok'}</Text>
         </TouchableOpacity>
       </View>
     </Modal>

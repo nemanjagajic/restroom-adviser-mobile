@@ -1,42 +1,41 @@
 import * as Yup from 'yup';
-import $t from 'i18n';
 
 export const signInValidationRules = Yup.object().shape({
   email: Yup.string()
-    .required($t('validation.emailIsRequired'))
-    .email($t('validation.mustBeValidEmail')),
+    .required('Email is required.')
+    .email('Email must be a valid email format.'),
   password: Yup.string()
-    .required($t('validation.passwordIsRequired'))
-    .min(8, $t('validation.passwordMinCharacters'))
+    .required('Password is required.')
+    .min(8, 'Password must be at least 8 characters.')
 });
 
 export const signUpValidationRules = Yup.object().shape({
-  first_name: Yup.string().required($t('validation.firstNameIsRequired')),
-  last_name: Yup.string().required($t('validation.lastNameIsRequired')),
+  first_name: Yup.string().required('First name is required.'),
+  last_name: Yup.string().required('Last name is required.'),
   email: Yup.string()
-    .required($t('validation.emailIsRequired'))
-    .email($t('validation.mustBeValidEmail')),
+    .required('Email is required.')
+    .email('Email must be a valid email format.'),
   password: Yup.string()
-    .required($t('validation.passwordIsRequired'))
-    .min(8, $t('validation.passwordMinCharacters')),
+    .required('Password is required.')
+    .min(8, 'Password must be at least 8 characters.'),
   confirm_password: Yup.string()
-    .required($t('validation.confirmPasswordIsRequired'))
-    .min(8, $t('validation.confirmPasswordMinCharacters'))
-    .oneOf([Yup.ref('password'), null], $t('auth.passwordsMustMatch'))
+    .required('Confirm password is required.')
+    .min(8, 'Password confirmation must be at least 8 characters.')
+    .oneOf([Yup.ref('password'), null], 'Passwords must match.')
 });
 
 export const forgotPasswordValidationRules = Yup.object().shape({
   email: Yup.string()
-    .required($t('validation.emailIsRequired'))
-    .email($t('validation.mustBeValidEmail'))
+    .required('Email is required.')
+    .email('Email must be a valid email format.')
 });
 
 export const resetPasswordValidationRules = Yup.object().shape({
   password: Yup.string()
-    .required($t('validation.passwordIsRequired'))
-    .min(8, $t('validation.passwordMinCharacters')),
+    .required('Password is required.')
+    .min(8, 'Password must be at least 8 characters.'),
   password_confirmation: Yup.string()
-    .required($t('validation.confirmPasswordIsRequired'))
-    .min(8, $t('validation.confirmPasswordMinCharacters'))
-    .oneOf([Yup.ref('password'), null], $t('auth.passwordsMustMatch'))
+    .required('Confirm password is required.')
+    .min(8, 'Password confirmation must be at least 8 characters.')
+    .oneOf([Yup.ref('password'), null], 'Passwords must match.')
 });

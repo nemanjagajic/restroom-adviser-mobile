@@ -4,7 +4,6 @@ import { Formik, Field } from 'formik';
 import PropTypes from 'prop-types';
 
 import { signUpValidationRules } from '../../validation /auth';
-import $t from 'i18n';
 import ErrorText from '../shared/Text/ErrorText';
 import ButtonCustom from '../shared/button/ButtonCustom';
 import Colors from '../../constants/Colors';
@@ -28,14 +27,10 @@ export const SignUpForm = props => (
           <Field
             name="first_name"
             component={TextInputFieldWhite}
-            placeholder={$t('auth.enterFirstName')}
+            placeholder={'Enter first name'}
           />
-          <Field
-            name="last_name"
-            component={TextInputFieldWhite}
-            placeholder={$t('auth.enterLastName')}
-          />
-          <Field name="email" component={TextInputFieldWhite} placeholder={$t('auth.enterEmail')} />
+          <Field name="last_name" component={TextInputFieldWhite} placeholder={'Enter last name'} />
+          <Field name="email" component={TextInputFieldWhite} placeholder={'Enter email'} />
           {props.signUpErrors.email && (
             <ErrorText error={!!props.signUpErrors.email} message={props.signUpErrors.email} />
           )}
@@ -43,16 +38,16 @@ export const SignUpForm = props => (
             name="password"
             component={TextInputFieldWhite}
             secureTextEntry
-            placeholder={$t('auth.enterPassword')}
+            placeholder={'Enter password'}
           />
           <Field
             name="confirm_password"
             component={TextInputFieldWhite}
             secureTextEntry
-            placeholder={$t('auth.confirmPassword')}
+            placeholder={'Confirm password'}
           />
           <ButtonCustom
-            title={$t('auth.signUp')}
+            title={'Sign up'}
             onPress={handleSubmit}
             style={styles.button}
             textStyle={styles.buttonText}

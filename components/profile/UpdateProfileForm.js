@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 
 import { TextInputField } from '../shared/FormFields';
 import { updateProfileValidationRules } from '../../validation /profile';
-import $t from 'i18n';
 
 export const UpdateProfileForm = props => (
   <Formik
@@ -19,16 +18,16 @@ export const UpdateProfileForm = props => (
           style={styles.input}
           name="first_name"
           component={TextInputField}
-          placeholder={$t('profile.updateUser.firstName')}
+          placeholder={'First name'}
         />
         <Field
           style={styles.input}
           name="last_name"
           component={TextInputField}
-          placeholder={$t('profile.updateUser.lastName')}
+          placeholder={'Last name'}
         />
         <TouchableOpacity style={styles.saveButton} onPress={handleSubmit}>
-          <Text style={styles.buttonText}>{$t('profile.updateUser.update')}</Text>
+          <Text style={styles.buttonText}>{'Update'}</Text>
         </TouchableOpacity>
       </View>
     )}

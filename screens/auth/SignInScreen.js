@@ -2,7 +2,6 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import $t from 'i18n';
 
 import { login, facebookLogin, googleLogin } from '../../store/actions/UserActions';
 import { SignInForm } from '../../components/auth/SignInForm';
@@ -11,7 +10,7 @@ import ButtonCustom from '../../components/shared/button/ButtonCustom';
 
 class SignInScreen extends React.PureComponent {
   static navigationOptions = {
-    title: $t('auth.signIn'),
+    title: 'Sign in',
     headerTintColor: '#e6e6e6',
     headerTransparent: true
   };

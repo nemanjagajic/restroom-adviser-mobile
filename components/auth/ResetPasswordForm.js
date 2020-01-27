@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 
 import { TextInputField } from '../shared/FormFields';
 import { resetPasswordValidationRules } from '../../validation /auth';
-import $t from 'i18n';
 import ErrorText from '../shared/Text/ErrorText';
 
 export const ResetPasswordForm = props => (
@@ -20,17 +19,17 @@ export const ResetPasswordForm = props => (
           name="password"
           component={TextInputField}
           secureTextEntry
-          placeholder={$t('auth.enterPassword')}
+          placeholder={'Enter password'}
         />
         <Field
           name="password_confirmation"
           component={TextInputField}
           secureTextEntry
-          placeholder={$t('auth.confirmPassword')}
+          placeholder={'Confirm password'}
         />
-        <ErrorText error={!!props.resetPasswordError} message={$t('auth.invalidToken')} />
+        <ErrorText error={!!props.resetPasswordError} message={'Invalid or expired token'} />
         <TouchableOpacity onPress={handleSubmit}>
-          <Text>{$t('auth.resetPassword')}</Text>
+          <Text>{'Reset password'}</Text>
         </TouchableOpacity>
       </View>
     )}

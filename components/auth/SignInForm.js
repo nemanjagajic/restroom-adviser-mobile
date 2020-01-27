@@ -4,7 +4,6 @@ import { Formik, Field } from 'formik';
 import PropTypes from 'prop-types';
 
 import { signInValidationRules } from '../../validation /auth';
-import $t from 'i18n';
 import ErrorText from '../shared/Text/ErrorText';
 import ButtonCustom from '../shared/button/ButtonCustom';
 import logo from '../../assets/images/poop-emoji.png';
@@ -20,17 +19,17 @@ export const SignInForm = props => (
     {({ handleSubmit }) => (
       <View style={styles.container}>
         <Image source={logo} style={styles.image} />
-        <Field name="email" component={TextInputFieldWhite} placeholder={$t('auth.enterEmail')} />
+        <Field name="email" component={TextInputFieldWhite} placeholder={'Enter your email'} />
         <Field
           name="password"
           component={TextInputFieldWhite}
           secureTextEntry
-          placeholder={$t('auth.enterPassword')}
+          placeholder={'Enter your password'}
         />
         <ErrorText
           style={styles.error}
           error={!!props.signInError}
-          message={$t('auth.invalidCredentials')}
+          message={'Email/password combination is incorrect.'}
         />
         <ButtonCustom
           title={'Log in'}

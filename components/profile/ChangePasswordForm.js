@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 
 import { TextInputField } from '../shared/FormFields';
 import { changePasswordValidationRules } from '../../validation /profile';
-import $t from 'i18n';
 import ErrorText from '../shared/Text/ErrorText';
 
 export const ChangePasswordForm = props => (
@@ -21,11 +20,11 @@ export const ChangePasswordForm = props => (
           name="current_password"
           component={TextInputField}
           secureTextEntry
-          placeholder={$t('profile.changePassword.currentPassword')}
+          placeholder={'Current password'}
         />
         <ErrorText
           error={!!props.invalidOldPasswordError}
-          message={$t('profile.changePassword.invalidOldPassword')}
+          message={'Old password is incorrect.'}
           style={styles.invalidOldPasswordText}
         />
         <Field
@@ -33,17 +32,17 @@ export const ChangePasswordForm = props => (
           name="new_password"
           component={TextInputField}
           secureTextEntry
-          placeholder={$t('profile.changePassword.newPassword')}
+          placeholder={'New password'}
         />
         <Field
           style={styles.input}
           name="new_password_confirmation"
           component={TextInputField}
           secureTextEntry
-          placeholder={$t('profile.changePassword.confirmNewPassword')}
+          placeholder={'Confirm new password'}
         />
         <TouchableOpacity style={styles.saveButton} onPress={handleSubmit}>
-          <Text style={styles.buttonText}>{$t('profile.changePassword.change')}</Text>
+          <Text style={styles.buttonText}>{'Change'}</Text>
         </TouchableOpacity>
       </View>
     )}

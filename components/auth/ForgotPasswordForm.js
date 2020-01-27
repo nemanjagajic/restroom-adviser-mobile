@@ -2,7 +2,6 @@ import React from 'react';
 import { TouchableOpacity, View, Text } from 'react-native';
 import { Formik, Field } from 'formik';
 import PropTypes from 'prop-types';
-import $t from 'i18n';
 
 import { TextInputField } from '../shared/FormFields';
 import { forgotPasswordValidationRules } from '../../validation /auth';
@@ -16,10 +15,10 @@ export const ForgotPasswordForm = props => (
   >
     {({ handleSubmit }) => (
       <View>
-        <Field name="email" component={TextInputField} placeholder={$t('auth.enterEmail')} />
-        <ErrorText error={!!props.forgotPasswordError} message={$t('auth.emailDoesNotExist')} />
+        <Field name="email" component={TextInputField} placeholder={'Enter email'} />
+        <ErrorText error={!!props.forgotPasswordError} message={'Email does not exist'} />
         <TouchableOpacity onPress={handleSubmit}>
-          <Text>{$t('auth.sendEmail')}</Text>
+          <Text>{'Send email'}</Text>
         </TouchableOpacity>
       </View>
     )}

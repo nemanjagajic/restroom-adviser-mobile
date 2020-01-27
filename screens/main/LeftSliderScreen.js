@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { StyleSheet, View, SafeAreaView, TouchableOpacity, Text } from 'react-native';
 import PropTypes from 'prop-types';
-import $t from 'i18n';
 import { logout } from '../../store/actions/UserActions';
 import * as Icon from '@expo/vector-icons';
 
@@ -48,7 +47,7 @@ class LeftSliderScreen extends React.PureComponent {
             style={styles.button}
           >
             <Icon.Ionicons name="md-lock" size={24} style={styles.icon} color={'#808080'} />
-            <Text style={styles.buttonText}>{$t('profile.changePassword.changePassword')}</Text>
+            <Text style={styles.buttonText}>{'Change password'}</Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={this.props.logout} style={styles.buttonLogout}>
             <Icon.Ionicons name="md-log-out" size={24} style={styles.icon} color={'#808080'} />
