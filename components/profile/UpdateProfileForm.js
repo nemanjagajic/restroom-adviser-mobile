@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flex: 1,
     justifyContent: 'center',
-    marginTop: 30
+    marginTop: 50
   },
   input: {
     backgroundColor: '#fff',
