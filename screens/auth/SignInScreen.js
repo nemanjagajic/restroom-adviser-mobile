@@ -39,16 +39,16 @@ class SignInScreen extends React.PureComponent {
         <SignInForm onSubmit={this.onSubmit} signInError={signInError} />
 
         <ButtonCustom
-          title={'Log in with Facebook'}
-          style={styles.button}
-          textStyle={styles.white}
-          onPress={facebookLogin}
-        />
-        <ButtonCustom
           title={'Log in with Google'}
           style={styles.button}
           textStyle={styles.white}
           onPress={googleLogin}
+        />
+        <ButtonCustom
+          title={'Log in with Facebook'}
+          style={styles.button}
+          textStyle={styles.white}
+          onPress={facebookLogin}
         />
         <ButtonCustom
           title={'Sign up'}
