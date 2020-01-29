@@ -8,3 +8,4 @@ google-services.json
 .env
 .env.development
 .env.production
+.app.json
