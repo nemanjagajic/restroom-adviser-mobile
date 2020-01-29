@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import { View, StyleSheet, Dimensions, Image, Text, TouchableOpacity } from 'react-native';
+import { connect } from 'react-redux';
 import { DrawerActions } from 'react-navigation';
 import PropTypes from 'prop-types';
 import config from '../../config';
@@ -7,18 +8,35 @@ import Colors from '../../constants/Colors';
 import StarRating from 'react-native-star-rating';
 import { Ionicons } from '@expo/vector-icons';
 import * as Icon from '@expo/vector-icons';
+import { restroomsSelector } from '../../store/selectors/RestroomSelector';
 
 class FeedItem extends PureComponent {
+  openRestroomDetails = () => {
+    const restroom = this.props.restrooms.find(restroom => restroom.id === this.props.restroom.id);
+    this.props.navigation.navigate('RestroomDetails', { restroom });
+  };
+
+  openRestroomOnMap = () => {
+    this.props.navigation.dispatch(DrawerActions.closeDrawer());
+    this.props.getRestroomRatings(this.props.restroom, false);
+    this.props.navigation.navigate('Home', {
+      restroom: this.props.restroom,
+      from: 'FeedItem'
+    });
+  };
+
   render() {
     const { image, rating, name, location_text: locationText } = this.props.restroom;
 
     return (
-      <View
+      <TouchableOpacity
+        onPress={this.openRestroomDetails}
         style={[
           styles.container,
           // eslint-disable-next-line react-native/no-inline-styles
           { marginTop: this.props.isFirst ? 10 : 0 }
         ]}
+        activeOpacity={1}
       >
         {!image ? (
           <View style={styles.emptyImage}>
@@ -34,18 +52,11 @@ class FeedItem extends PureComponent {
           />
         )}
         <TouchableOpacity
-          onPress={() => {
-            this.props.navigation.dispatch(DrawerActions.closeDrawer());
-            this.props.getRestroomRatings(this.props.restroom, false);
-            this.props.navigation.navigate('Home', {
-              restroom: this.props.restroom,
-              from: 'FeedItem'
-            });
-          }}
+          onPress={this.openRestroomOnMap}
           style={styles.open}
           hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
         >
-          <Icon.Ionicons name="md-open" size={22} style={styles.icon} color={'#ccc'} />
+          <Icon.Ionicons name="md-pin" size={22} style={styles.icon} color={'#ccc'} />
         </TouchableOpacity>
         <View style={styles.contentBottom}>
           <Text style={styles.name}>{name}</Text>
@@ -65,7 +76,7 @@ class FeedItem extends PureComponent {
             <Text style={styles.numberOfVotes}>{`${rating.numberOfRatings} votes`}</Text>
           </View>
         </View>
-      </View>
+      </TouchableOpacity>
     );
   }
 }
@@ -75,8 +86,13 @@ FeedItem.propTypes = {
   isFirst: PropTypes.bool,
   isLast: PropTypes.bool,
   navigation: PropTypes.object,
-  getRestroomRatings: PropTypes.func
+  getRestroomRatings: PropTypes.func,
+  restrooms: PropTypes.array
 };
+
+const mapStateToProps = state => ({
+  restrooms: restroomsSelector(state)
+});
 
 const styles = StyleSheet.create({
   container: {
@@ -174,4 +190,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default FeedItem;
+export default connect(mapStateToProps)(FeedItem);
