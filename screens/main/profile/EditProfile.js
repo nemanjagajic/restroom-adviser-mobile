@@ -81,7 +81,7 @@ class EditProfile extends PureComponent {
       mediaTypes: 'Images',
       allowsEditing: true,
       aspect: [3, 4],
-      quality: 0.8
+      quality: 0.4
     });
 
     this.setImage(result);
@@ -91,7 +91,7 @@ class EditProfile extends PureComponent {
     const result = await ImagePicker.launchImageLibraryAsync({
       allowsEditing: true,
       aspect: [3, 4],
-      quality: 0.8
+      quality: 0.4
     });
 
     this.setImage(result);

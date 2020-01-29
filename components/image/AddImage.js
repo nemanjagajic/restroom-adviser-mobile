@@ -20,7 +20,7 @@ class AddImage extends PureComponent {
     let result = await ImagePicker.launchImageLibraryAsync({
       allowsEditing: true,
       aspect: [3, 4],
-      quality: 0.8
+      quality: 0.6
     });
 
     if (!result.cancelled) {
@@ -33,7 +33,7 @@ class AddImage extends PureComponent {
     let result = await ImagePicker.launchCameraAsync({
       allowsEditing: true,
       aspect: [3, 4],
-      quality: 0.8
+      quality: 0.6
     });
 
     if (!result.cancelled) {
