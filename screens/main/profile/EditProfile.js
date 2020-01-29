@@ -120,7 +120,7 @@ class EditProfile extends PureComponent {
                   image || {
                     uri: user.avatar.startsWith('http')
                       ? user.avatar
-                      : `${IMAGE_BASE_URL}${user.avatar}?${new Date()}`
+                      : `${IMAGE_BASE_URL}${user.avatar}`
                   }
                 }
               />
