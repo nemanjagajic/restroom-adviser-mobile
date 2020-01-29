@@ -39,36 +39,38 @@ class CommentInput extends PureComponent {
 
   render() {
     return (
-      <View
-        style={[
-          styles.container,
-          // eslint-disable-next-line react-native/no-inline-styles
-          {
-            bottom: this.state.isKeyboardOpened ? this.state.keyboardEndCoordinates : 1
-          }
-        ]}
-      >
-        <TextInput
-          style={styles.textInput}
-          placeholder={'Leave a comment...'}
-          multiline={true}
-          value={this.state.text}
-          onChangeText={text => this.setState({ text })}
-        />
-        <TouchableOpacity
-          onPress={() => {
-            this.props.onAddComment(this.state.text);
-            this.setState({ text: '' });
-          }}
-        >
-          <Icon.Ionicons
-            name="md-send"
-            size={28}
-            color={
-              this.props.isAddingDisabled || this.state.text === '' ? '#ccc' : Colors.mainColor
+      <View style={styles.container}>
+        <View
+          style={[
+            styles.commentField,
+            // eslint-disable-next-line react-native/no-inline-styles
+            {
+              bottom: this.state.isKeyboardOpened ? this.state.keyboardEndCoordinates + 40 : 1
             }
+          ]}
+        >
+          <TextInput
+            style={styles.textInput}
+            placeholder={'Leave a comment...'}
+            multiline={true}
+            value={this.state.text}
+            onChangeText={text => this.setState({ text })}
           />
-        </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              this.props.onAddComment(this.state.text);
+              this.setState({ text: '' });
+            }}
+          >
+            <Icon.Ionicons
+              name="md-send"
+              size={28}
+              color={
+                this.props.isAddingDisabled || this.state.text === '' ? '#ccc' : Colors.mainColor
+              }
+            />
+          </TouchableOpacity>
+        </View>
       </View>
     );
   }
@@ -80,26 +82,31 @@ CommentInput.propTypes = {
 };
 
 const styles = StyleSheet.create({
-  container: {
+  commentField: {
     alignItems: 'center',
-    backgroundColor: '#FFF',
+    backgroundColor: '#f5f5f5',
     borderColor: '#e6e6e6',
-    borderLeftWidth: 1,
-    borderRightWidth: 1,
-    borderTopLeftRadius: 10,
-    borderTopRightRadius: 10,
+    borderRadius: 20,
     borderTopWidth: 1,
+    borderWidth: 1,
     bottom: 0,
     display: 'flex',
     flexDirection: 'row',
     position: 'absolute',
-    width: Dimensions.get('window').width,
+    width: Dimensions.get('window').width * 0.9,
     zIndex: 1
+  },
+  container: {
+    alignItems: 'center',
+    bottom: 10,
+    display: 'flex',
+    position: 'absolute',
+    width: Dimensions.get('window').width
   },
   textInput: {
     color: '#737373',
     padding: 10,
-    width: Dimensions.get('window').width * 0.9
+    width: Dimensions.get('window').width * 0.8
   }
 });
 

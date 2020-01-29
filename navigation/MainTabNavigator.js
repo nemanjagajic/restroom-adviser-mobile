@@ -138,8 +138,8 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     display: 'flex',
     marginRight: 10,
-    padding: 8,
-    width: 110
+    minWidth: 110,
+    padding: 8
   },
   buttonHeaderRightText: {
     color: '#fff'

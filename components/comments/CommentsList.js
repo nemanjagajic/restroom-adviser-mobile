@@ -7,7 +7,8 @@ import {
   Text,
   RefreshControl,
   TouchableOpacity,
-  ActivityIndicator
+  ActivityIndicator,
+  Keyboard
 } from 'react-native';
 import Comment from './Comment';
 import PropTypes from 'prop-types';
@@ -18,8 +19,35 @@ import CommentActivityItem from '../activity/CommentActivityItem';
 
 class CommentsList extends PureComponent {
   state = {
-    scrollFetchingDisabled: false
+    scrollFetchingDisabled: false,
+    isKeyboardOpened: false,
+    keyboardEndCoordinates: 0
   };
+
+  constructor(props) {
+    super(props);
+    this.keyboardDidShow = this.keyboardDidShow.bind(this);
+    this.keyboardDidHide = this.keyboardDidHide.bind(this);
+  }
+
+  // eslint-disable-next-line react/no-deprecated
+  componentWillMount() {
+    this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this.keyboardDidShow);
+    this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this.keyboardDidHide);
+  }
+
+  componentWillUnmount() {
+    this.keyboardDidShowListener.remove();
+    this.keyboardDidHideListener.remove();
+  }
+
+  keyboardDidShow(e) {
+    this.setState({ isKeyboardOpened: true, keyboardEndCoordinates: e.endCoordinates.height });
+  }
+
+  keyboardDidHide() {
+    this.setState({ isKeyboardOpened: false, keyboardEndCoordinates: 1 });
+  }
 
   isCloseToBottom = ({ layoutMeasurement, contentOffset, contentSize }) => {
     return layoutMeasurement.height + contentOffset.y >= contentSize.height - 50;
@@ -55,7 +83,14 @@ class CommentsList extends PureComponent {
     return (
       <View>
         <FlatList
-          style={!this.props.withoutInput && styles.bottomMargin}
+          style={
+            // eslint-disable-next-line react-native/no-inline-styles
+            {
+              marginBottom: this.state.isKeyboardOpened
+                ? this.state.keyboardEndCoordinates + 120
+                : 50
+            }
+          }
           contentContainerStyle={styles.container}
           data={this.props.comments}
           renderItem={comment => {
@@ -123,9 +158,6 @@ CommentsList.propTypes = {
 };
 
 const styles = StyleSheet.create({
-  bottomMargin: {
-    marginBottom: 50
-  },
   container: {
     paddingTop: 10,
     width: Dimensions.get('window').width
