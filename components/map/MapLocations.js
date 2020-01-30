@@ -61,7 +61,11 @@ class MapLocations extends React.PureComponent {
           ) : this.state.mapRegion === null ? (
             <Text style={styles.findingLocationText}>Map region does not exist.</Text>
           ) : (
-            <MapView style={styles.map} region={location || this.state.mapRegion}>
+            <MapView
+              onPress={this.props.clearSelectedRestroom}
+              style={styles.map}
+              region={location || this.state.mapRegion}
+            >
               <MapView.Marker
                 coordinate={{
                   latitude: this.state.mapRegion.latitude,
@@ -98,7 +102,8 @@ MapLocations.propTypes = {
   restrooms: PropTypes.array,
   selectedRestroomId: PropTypes.number,
   onMarkerPressed: PropTypes.func,
-  centerLocation: PropTypes.object
+  centerLocation: PropTypes.object,
+  clearSelectedRestroom: PropTypes.func
 };
 
 const styles = StyleSheet.create({

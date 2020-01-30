@@ -89,13 +89,13 @@ class HomeScreen extends React.PureComponent {
           selectedRestroomId={selectedRestroom ? selectedRestroom.id : -1}
           onMarkerPressed={this.handleMarkerPressed}
           centerLocation={this.getCenterLocation()}
+          clearSelectedRestroom={this.clearSelectedRestroom}
         />
         {selectedRestroom && (
           <SelectedRestroomModal
             selectedRestroom={selectedRestroom}
             openRestroomDetails={this.openRestroomDetails}
             openRoute={this.openRoute}
-            clearSelectedRestroom={this.clearSelectedRestroom}
             ratings={this.props.ratings}
             isFetchingRatings={this.props.isFetchingRatings}
           />

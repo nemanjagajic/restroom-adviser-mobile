@@ -43,12 +43,6 @@ const SelectedRestroomModal = props => {
           style={styles.buttonOpenRoute}
           textStyle={styles.buttonText}
         />
-        <ButtonCustom
-          title={'Close'}
-          onPress={props.clearSelectedRestroom}
-          style={styles.button}
-          textStyle={styles.buttonText}
-        />
       </View>
     </View>
   );
@@ -57,31 +51,15 @@ const SelectedRestroomModal = props => {
 SelectedRestroomModal.propTypes = {
   selectedRestroom: PropTypes.object,
   openRestroomDetails: PropTypes.func,
-  clearSelectedRestroom: PropTypes.func,
   ratings: PropTypes.object,
   isFetchingRatings: PropTypes.bool,
   openRoute: PropTypes.func
 };
 
 const styles = StyleSheet.create({
-  button: {
-    alignItems: 'center',
-    borderColor: '#ccc',
-    borderRadius: 15,
-    borderWidth: 1,
-    display: 'flex',
-    justifyContent: 'center',
-    marginBottom: 5,
-    marginLeft: 5,
-    padding: 10,
-    position: 'absolute',
-    right: 25,
-    width: 70,
-    zIndex: 1
-  },
   buttonOpen: {
     backgroundColor: Colors.mainColor,
-    borderRadius: 15,
+    borderRadius: 20,
     marginBottom: 5,
     marginRight: 5,
     padding: 10,
@@ -90,7 +68,7 @@ const styles = StyleSheet.create({
   buttonOpenRoute: {
     backgroundColor: '#fff',
     borderColor: '#ccc',
-    borderRadius: 15,
+    borderRadius: 20,
     borderWidth: 1,
     marginBottom: 5,
     marginRight: 5,

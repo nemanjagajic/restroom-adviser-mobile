@@ -392,16 +392,16 @@ const mapDispatchToProps = {
 const styles = StyleSheet.create({
   bookmarkButton: {
     alignItems: 'center',
-    backgroundColor: '#fff',
-    borderColor: '#d9d9d9',
+    backgroundColor: '#f2f2f2',
     borderRadius: 30,
-    borderWidth: 1,
     display: 'flex',
+    elevation: 1,
+    height: 30,
     justifyContent: 'center',
     marginBottom: 10,
     marginLeft: 5,
     marginTop: 10,
-    padding: 10,
+    padding: 20,
     width: 140
   },
   buttonCancelOption: {
@@ -418,14 +418,14 @@ const styles = StyleSheet.create({
   },
   buttonComment: {
     alignItems: 'center',
-    backgroundColor: '#fff',
-    borderColor: '#d9d9d9',
+    backgroundColor: '#f2f2f2',
     borderRadius: 30,
-    borderWidth: 1,
     display: 'flex',
+    elevation: 1,
+    height: 30,
     justifyContent: 'center',
     marginRight: 5,
-    padding: 10,
+    padding: 20,
     width: 140
   },
   buttonDeleteOption: {
@@ -503,15 +503,15 @@ const styles = StyleSheet.create({
   },
   deleteButton: {
     alignItems: 'center',
-    backgroundColor: '#fff',
-    borderColor: '#d9d9d9',
+    backgroundColor: '#f2f2f2',
     borderRadius: 30,
-    borderWidth: 1,
     display: 'flex',
+    elevation: 1,
+    height: 30,
     justifyContent: 'center',
     marginBottom: 20,
     marginTop: 10,
-    padding: 10,
+    padding: 20,
     width: 290
   },
   deleteButtonsWrapper: {
