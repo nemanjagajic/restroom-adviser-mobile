@@ -21,7 +21,8 @@ class FeedItem extends PureComponent {
     this.props.getRestroomRatings(this.props.restroom, false);
     this.props.navigation.navigate('Home', {
       restroom: this.props.restroom,
-      from: 'FeedItem'
+      from: 'FeedItem',
+      fromScreen: this.props.fromScreen
     });
   };
 
@@ -87,7 +88,8 @@ FeedItem.propTypes = {
   isLast: PropTypes.bool,
   navigation: PropTypes.object,
   getRestroomRatings: PropTypes.func,
-  restrooms: PropTypes.array
+  restrooms: PropTypes.array,
+  fromScreen: PropTypes.string
 };
 
 const mapStateToProps = state => ({

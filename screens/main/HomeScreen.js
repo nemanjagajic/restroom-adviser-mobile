@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Platform, Linking } from 'react-native';
+import { StyleSheet, View, Platform, Linking, BackHandler } from 'react-native';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { fetchRestrooms, getRestroomRatings } from '../../store/actions/RestroomActions';
@@ -22,7 +22,23 @@ class HomeScreen extends React.PureComponent {
 
   componentDidMount() {
     this.props.fetchRestrooms();
+    this.backHandler = BackHandler.addEventListener('hardwareBackPress', this.handleBackPress);
   }
+
+  componentWillUnmount() {
+    this.backHandler.remove();
+  }
+
+  handleBackPress = () => {
+    const fromScreen = this.props.navigation.getParam('fromScreen');
+    this.props.navigation.setParams({ fromScreen: null });
+    if (fromScreen) {
+      this.props.navigation.navigate(fromScreen);
+      return true;
+    }
+
+    return false;
+  };
 
   openRestroomDetails = restroomId => {
     const restroom = this.props.restrooms.find(restroom => restroom.id === restroomId);

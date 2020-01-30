@@ -128,6 +128,7 @@ class FeedsHome extends PureComponent {
             navigation={this.props.navigation}
             getRestroomRatings={this.props.getRestroomRatings}
             headerComponent={this.renderFilter()}
+            fromScreen={'FeedsStack'}
           />
         )}
         {this.state.isFilterModalVisible && (

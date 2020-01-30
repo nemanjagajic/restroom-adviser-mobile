@@ -135,6 +135,7 @@ class MyRestrooms extends PureComponent {
             getRestroomRatings={this.props.getRestroomRatings}
             headerComponent={this.renderFilter()}
             indicatorOffset={125}
+            fromScreen={'MyRestrooms'}
           />
         )}
         {this.state.isFilterModalVisible && (

@@ -132,6 +132,7 @@ class MyBookmarks extends PureComponent {
             getRestroomRatings={this.props.getRestroomRatings}
             headerComponent={this.renderFilter()}
             indicatorOffset={125}
+            fromScreen={'MyBookmarks'}
           />
         )}
         {this.state.isFilterModalVisible && (

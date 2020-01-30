@@ -51,6 +51,7 @@ class FeedsList extends PureComponent {
             restroom={item}
             navigation={this.props.navigation}
             getRestroomRatings={this.props.getRestroomRatings}
+            fromScreen={this.props.fromScreen}
           />
         )}
         onScroll={this.handleScroll}
@@ -85,7 +86,8 @@ FeedsList.propTypes = {
   isFetchingNewRestrooms: PropTypes.bool,
   getRestroomRatings: PropTypes.func,
   headerComponent: PropTypes.any,
-  indicatorOffset: PropTypes.any
+  indicatorOffset: PropTypes.any,
+  fromScreen: PropTypes.string
 };
 
 export default FeedsList;
