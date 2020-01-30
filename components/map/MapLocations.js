@@ -22,7 +22,7 @@ class MapLocations extends React.PureComponent {
   };
 
   componentDidMount() {
-    this.getLocationAsync();
+    setTimeout(() => this.getLocationAsync(), 100);
   }
 
   getLocationAsync = async () => {
