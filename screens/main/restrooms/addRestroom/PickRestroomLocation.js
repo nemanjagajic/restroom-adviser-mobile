@@ -58,28 +58,27 @@ class PickRestroomLocation extends PureComponent {
               value={this.state.locationInfo || 'Loading current location'}
             />
           </View>
-          {this.state.focusedLocation && (
-            <View style={styles.nextButtonWrapper}>
-              <ButtonCustom
-                title={'Next'}
-                style={styles.button}
-                textStyle={styles.buttonText}
-                onPress={() =>
-                  this.props.navigation.navigate('SetRestroomInfo', {
-                    latitude: this.state.focusedLocation.latitude,
-                    longitude: this.state.focusedLocation.longitude,
-                    locationInfo: this.state.locationInfo
-                  })
-                }
-              />
-              <View style={styles.dotWrapper}>
-                <View style={styles.dotFilled} />
-                <View style={styles.dot} />
-                <View style={styles.dot} />
-                <View style={styles.dot} />
-              </View>
+          <View style={styles.nextButtonWrapper}>
+            <ButtonCustom
+              disabled={!this.state.focusedLocation}
+              title={'Next'}
+              style={this.state.focusedLocation ? styles.button : styles.buttonDisabled}
+              textStyle={styles.buttonText}
+              onPress={() =>
+                this.props.navigation.navigate('SetRestroomInfo', {
+                  latitude: this.state.focusedLocation.latitude,
+                  longitude: this.state.focusedLocation.longitude,
+                  locationInfo: this.state.locationInfo
+                })
+              }
+            />
+            <View style={styles.dotWrapper}>
+              <View style={styles.dotFilled} />
+              <View style={styles.dot} />
+              <View style={styles.dot} />
+              <View style={styles.dot} />
             </View>
-          )}
+          </View>
         </View>
       </View>
     );
@@ -119,6 +118,17 @@ const styles = StyleSheet.create({
   button: {
     alignItems: 'center',
     backgroundColor: Colors.mainColor,
+    borderRadius: 30,
+    display: 'flex',
+    elevation: 1,
+    height: 45,
+    justifyContent: 'center',
+    marginBottom: 15,
+    width: 140
+  },
+  buttonDisabled: {
+    alignItems: 'center',
+    backgroundColor: '#cccccc',
     borderRadius: 30,
     display: 'flex',
     elevation: 1,
