@@ -40,7 +40,9 @@ class EditProfile extends PureComponent {
   state = {
     image: '',
     permissionsModalVisible: false,
-    isKeyboardOpened: false
+    isKeyboardOpened: false,
+    firstName: this.props.user.first_name,
+    lastName: this.props.user.last_name
   };
 
   constructor(props) {
@@ -105,6 +107,23 @@ class EditProfile extends PureComponent {
     }
   };
 
+  onFirstNameChange = firstName => {
+    this.setState({ firstName });
+  };
+
+  onLastNameChange = lastName => {
+    this.setState({ lastName });
+  };
+
+  isProfileEdited = () => {
+    const user = this.props.user;
+    return (
+      this.state.firstName !== user.first_name ||
+      this.state.lastName !== user.last_name ||
+      this.state.image !== ''
+    );
+  };
+
   render() {
     const { user } = this.props;
     const { permissionsModalVisible, image } = this.state;
@@ -138,7 +157,13 @@ class EditProfile extends PureComponent {
           </View>
         )}
         <KeyboardAwareScrollView>
-          <UpdateProfileForm onSubmit={this.handleSubmit} user={user} />
+          <UpdateProfileForm
+            onSubmit={this.handleSubmit}
+            user={user}
+            onFirstNameChange={this.onFirstNameChange}
+            onLastNameChange={this.onLastNameChange}
+            isProfileEdited={this.isProfileEdited()}
+          />
         </KeyboardAwareScrollView>
         <NoPermissionsForCameraModal
           isVisible={permissionsModalVisible}

@@ -64,7 +64,7 @@ class HomeScreen extends React.PureComponent {
 
   clearSelectedRestroom = () => {
     const restroom = this.props.navigation.getParam('restroom');
-    if (restroom !== null) {
+    if (restroom) {
       const lastSelectedLocation = {
         latitude: restroom.latitude,
         longitude: restroom.longitude

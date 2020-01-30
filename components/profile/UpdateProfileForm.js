@@ -15,20 +15,24 @@ export const UpdateProfileForm = props => (
     {({ handleSubmit }) => (
       <View style={styles.container}>
         <Field
+          onChange={val => props.onFirstNameChange(val.nativeEvent.text)}
           style={styles.input}
           name="first_name"
           component={TextInputField}
           placeholder={'First name'}
         />
         <Field
+          onChange={val => props.onLastNameChange(val.nativeEvent.text)}
           style={styles.input}
           name="last_name"
           component={TextInputField}
           placeholder={'Last name'}
         />
-        <TouchableOpacity style={styles.saveButton} onPress={handleSubmit}>
-          <Text style={styles.buttonText}>{'Update'}</Text>
-        </TouchableOpacity>
+        {props.isProfileEdited && (
+          <TouchableOpacity style={styles.saveButton} onPress={handleSubmit}>
+            <Text style={styles.buttonText}>{'Save changes'}</Text>
+          </TouchableOpacity>
+        )}
       </View>
     )}
   </Formik>
@@ -36,7 +40,10 @@ export const UpdateProfileForm = props => (
 
 UpdateProfileForm.propTypes = {
   onSubmit: PropTypes.func,
-  user: PropTypes.object
+  user: PropTypes.object,
+  onFirstNameChange: PropTypes.func,
+  onLastNameChange: PropTypes.func,
+  isProfileEdited: PropTypes.bool
 };
 
 const styles = StyleSheet.create({
