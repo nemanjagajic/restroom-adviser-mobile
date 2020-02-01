@@ -216,7 +216,7 @@ class RestroomDetails extends PureComponent {
               <Text style={styles.description}>
                 {description || (
                   <Text style={styles.emptyDescriptionText}>
-                    {'Description hasn\'t been written for this restroom'}
+                    {'Description hasn\'t been written for this toilet'}
                   </Text>
                 )}
               </Text>
