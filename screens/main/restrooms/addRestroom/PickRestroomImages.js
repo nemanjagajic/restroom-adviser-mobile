@@ -20,7 +20,7 @@ import { addRestroom } from '../../../../store/actions/RestroomActions';
 
 class PickRestroomImages extends PureComponent {
   static navigationOptions = {
-    headerTitle: 'Pick restroom images',
+    headerTitle: 'Pick toilet images',
     headerTintColor: Colors.headerTintColor,
     headerStyle: {
       backgroundColor: '#fff'
@@ -87,7 +87,7 @@ class PickRestroomImages extends PureComponent {
         <View style={styles.nextButtonWrapper}>
           <ButtonCustom
             disabled={this.props.isAddingRestroom}
-            title={this.props.isAddingRestroom ? 'Adding restroom... ' : 'Add restroom'}
+            title={this.props.isAddingRestroom ? 'Adding toilet... ' : 'Add toilet'}
             style={this.props.isAddingRestroom ? styles.buttonAdding : styles.button}
             textStyle={
               this.props.isAddingRestroom ? styles.addButtonTextAdding : styles.addButtonText

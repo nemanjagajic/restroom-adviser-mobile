@@ -7,7 +7,7 @@ import ButtonCustom from '../../../../components/shared/button/ButtonCustom';
 
 class SetRestroomInfo extends PureComponent {
   static navigationOptions = {
-    headerTitle: 'Set restroom info',
+    headerTitle: 'Set toilet info',
     headerTintColor: Colors.headerTintColor,
     headerStyle: {
       backgroundColor: '#fff'

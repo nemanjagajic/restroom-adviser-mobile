@@ -84,7 +84,7 @@ class MyBookmarks extends PureComponent {
 
   renderFilter = () => {
     const word1 = this.props.restroomsTotalNumber === 1 ? 'is' : 'are';
-    const word2 = this.props.restroomsTotalNumber === 1 ? 'restroom' : 'restrooms';
+    const word2 = this.props.restroomsTotalNumber === 1 ? 'toilet' : 'toilets';
     return (
       <View>
         <Text style={styles.title}>{'Restrooms you have saved'}</Text>
@@ -98,7 +98,7 @@ class MyBookmarks extends PureComponent {
         />
         <Text style={styles.searchDescription}>
           {this.props.isFetchingRestrooms
-            ? 'Fetching restrooms...'
+            ? 'Fetching toilets...'
             : `There ${word1} ${this.props.restroomsTotalNumber} ${word2} matching your criteria`}
         </Text>
       </View>

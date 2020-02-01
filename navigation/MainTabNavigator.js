@@ -74,7 +74,7 @@ const Drawer = createDrawerNavigator(
           onPress={() => navigation.navigate('PickRestroomLocation')}
           style={styles.buttonHeaderRight}
         >
-          <Text style={styles.buttonHeaderRightText}>Add restroom</Text>
+          <Text style={styles.buttonHeaderRightText}>Add toilet</Text>
         </TouchableOpacity>
       );
       return {

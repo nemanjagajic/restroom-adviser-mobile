@@ -54,7 +54,7 @@ import { userSelector } from '../../../../store/selectors/UserSelector';
 
 class RestroomDetails extends PureComponent {
   static navigationOptions = {
-    headerTitle: 'Restroom details',
+    headerTitle: 'Toilet details',
     headerTintColor: Colors.headerTintColor,
     headerStyle: {
       backgroundColor: '#fff'
@@ -238,7 +238,7 @@ class RestroomDetails extends PureComponent {
               <Text style={styles.infoTextBold}>{workingHoursTokens[2]}</Text>
             </View>
             <View>
-              <Text style={styles.validateTitle}>Does this restroom exist?</Text>
+              <Text style={styles.validateTitle}>Does this toilet exist?</Text>
               <View style={styles.buttonValidateWrapper}>
                 <View>
                   <Text style={styles.validateNumber}>
@@ -310,7 +310,7 @@ class RestroomDetails extends PureComponent {
                   <ButtonCustom
                     style={styles.deleteButton}
                     textStyle={styles.buttonText}
-                    title={'Delete restroom'}
+                    title={'Delete toilet'}
                     onPress={this.showDeleteConfirmation}
                   />
                 )}

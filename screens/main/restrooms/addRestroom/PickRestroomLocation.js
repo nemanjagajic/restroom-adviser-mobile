@@ -13,7 +13,7 @@ import MapPickLocation from '../../../../components/map/MapPickLocation';
 
 class PickRestroomLocation extends PureComponent {
   static navigationOptions = {
-    headerTitle: 'Pick restroom location',
+    headerTitle: 'Pick toilet location',
     headerTintColor: Colors.headerTintColor,
     headerStyle: {
       backgroundColor: '#fff'

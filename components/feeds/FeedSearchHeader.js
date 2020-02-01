@@ -11,7 +11,7 @@ const FeedSearchHeader = props => (
       <Icon.Ionicons name="ios-search" size={24} style={styles.searchIcon} color={'#808080'} />
       <TextInput
         style={styles.searchInput}
-        placeholder={'Search restrooms'}
+        placeholder={'Search toilets'}
         onChangeText={text => props.onChangeText(text)}
         value={props.searchValue}
         returnKeyType={'search'}

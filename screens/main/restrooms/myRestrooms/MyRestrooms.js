@@ -22,7 +22,7 @@ import {
 
 class MyRestrooms extends PureComponent {
   static navigationOptions = {
-    headerTitle: 'My restrooms',
+    headerTitle: 'My toilets',
     headerTintColor: Colors.headerTintColor,
     headerStyle: {
       backgroundColor: '#fff'
@@ -87,10 +87,10 @@ class MyRestrooms extends PureComponent {
 
   renderFilter = () => {
     const word1 = this.props.restroomsTotalNumber === 1 ? 'is' : 'are';
-    const word2 = this.props.restroomsTotalNumber === 1 ? 'restroom' : 'restrooms';
+    const word2 = this.props.restroomsTotalNumber === 1 ? 'toilet' : 'toilets';
     return (
       <View>
-        <Text style={styles.title}>{'Restrooms you have added'}</Text>
+        <Text style={styles.title}>{'Toilets you have added'}</Text>
         <FeedSearchHeader
           restroomsTotalNumber={this.props.restroomsTotalNumber}
           appliedFilterRating={this.state.appliedFilterRating}
@@ -101,7 +101,7 @@ class MyRestrooms extends PureComponent {
         />
         <Text style={styles.searchDescription}>
           {this.props.isFetchingRestrooms
-            ? 'Fetching restrooms...'
+            ? 'Fetching toilets...'
             : `There ${word1} ${this.props.restroomsTotalNumber} ${word2} matching your criteria`}
         </Text>
       </View>

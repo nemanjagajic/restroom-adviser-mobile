@@ -19,7 +19,7 @@ import PropTypes from 'prop-types';
 
 class MapPickLocation extends PureComponent {
   static navigationOptions = {
-    headerTitle: 'Pick restroom location'
+    headerTitle: 'Pick toilet location'
   };
 
   state = {

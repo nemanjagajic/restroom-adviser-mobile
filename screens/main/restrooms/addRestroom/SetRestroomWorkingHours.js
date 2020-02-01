@@ -9,7 +9,7 @@ import GestureRecognizer from 'react-native-swipe-gestures';
 
 class SetRestroomWorkingHours extends PureComponent {
   static navigationOptions = {
-    headerTitle: 'Set restroom working hours',
+    headerTitle: 'Set toilet working hours',
     headerTintColor: Colors.headerTintColor,
     headerStyle: {
       backgroundColor: '#fff'

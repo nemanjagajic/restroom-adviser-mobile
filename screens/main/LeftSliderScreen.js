@@ -26,7 +26,7 @@ class LeftSliderScreen extends React.PureComponent {
             style={styles.button}
           >
             <Icon.Ionicons name="md-albums" size={24} style={styles.icon} color={'#808080'} />
-            <Text style={styles.buttonText}>{'My restrooms'}</Text>
+            <Text style={styles.buttonText}>{'My toilets'}</Text>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => this.props.navigation.navigate('ActivityDrawer')}
@@ -40,7 +40,7 @@ class LeftSliderScreen extends React.PureComponent {
             style={styles.button}
           >
             <Icon.Ionicons name="md-bookmarks" size={24} style={styles.icon} color={'#808080'} />
-            <Text style={styles.buttonText}>{'Bookmarked restrooms'}</Text>
+            <Text style={styles.buttonText}>{'Bookmarked toilets'}</Text>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => this.props.navigation.navigate('ChangePassword')}
