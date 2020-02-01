@@ -32,7 +32,7 @@ class SignInScreen extends React.PureComponent {
   };
 
   render() {
-    const { signInError, facebookLogin, googleLogin } = this.props;
+    const { signInError, googleLogin } = this.props;
 
     return (
       <View style={styles.container}>
@@ -43,12 +43,6 @@ class SignInScreen extends React.PureComponent {
           style={styles.button}
           textStyle={styles.white}
           onPress={googleLogin}
-        />
-        <ButtonCustom
-          title={'Log in with Facebook'}
-          style={styles.button}
-          textStyle={styles.white}
-          onPress={facebookLogin}
         />
         <ButtonCustom
           title={'Sign up'}
