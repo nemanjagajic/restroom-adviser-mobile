@@ -177,7 +177,7 @@ class RestroomDetails extends PureComponent {
           ) : (
             <View style={styles.image}>
               <Ionicons name="md-images" color={'#ccc'} size={100} />
-              <Text style={styles.noImagesText}>No images have been added for this restroom</Text>
+              <Text style={styles.noImagesText}>No images have been added for this toilet</Text>
             </View>
           )}
         </Swiper>
@@ -285,7 +285,7 @@ class RestroomDetails extends PureComponent {
             {this.state.deleteConfirmationVisible ? (
               <View style={styles.deleteConfirmationWrapper}>
                 <Text style={styles.deleteConfirmationText}>
-                  {this.props.isDeletingRestroom ? 'Deleting restroom...' : 'Are you sure?'}
+                  {this.props.isDeletingRestroom ? 'Deleting toilet...' : 'Are you sure?'}
                 </Text>
                 {!this.props.isDeletingRestroom && (
                   <View style={styles.deleteButtonsWrapper}>
