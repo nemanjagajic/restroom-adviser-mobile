@@ -20,7 +20,7 @@ import {
   setCommentUnliked,
   unlikeComment
 } from '../../../../store/actions/UserActions';
-import { isAddingLikeInfoSelector } from '../../../../store/selectors/UserSelector';
+import { isAddingLikeInfoSelector, userSelector } from '../../../../store/selectors/UserSelector';
 import CommentBottomOptions from '../../../../components/comments/CommentBottomOptions';
 
 class RestroomComments extends PureComponent {
@@ -119,6 +119,7 @@ class RestroomComments extends PureComponent {
             likeComment={this.props.likeComment}
             setCommentUnliked={this.props.setCommentUnliked}
             unlikeComment={this.props.unlikeComment}
+            loggedUser={this.props.user}
           />
         )}
       </View>
@@ -139,7 +140,8 @@ RestroomComments.propTypes = {
   unlikeComment: PropTypes.func,
   setCommentLiked: PropTypes.func,
   setCommentUnliked: PropTypes.func,
-  isAddingLikeInfo: PropTypes.bool
+  isAddingLikeInfo: PropTypes.bool,
+  user: PropTypes.object
 };
 
 const mapStateToProps = state => ({
@@ -148,7 +150,8 @@ const mapStateToProps = state => ({
   isFetchingNewComments: isFetchingNewCommentsSelector(state),
   commentsTotalNumber: commentsTotalNumberSelector(state),
   comments: restroomCommentsSelector(state),
-  isAddingLikeInfo: isAddingLikeInfoSelector(state)
+  isAddingLikeInfo: isAddingLikeInfoSelector(state),
+  user: userSelector(state)
 });
 
 const mapDispatchToProps = {

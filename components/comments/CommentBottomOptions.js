@@ -35,9 +35,11 @@ const CommentBottomOptions = props => {
             <Text style={styles.like}>Unlike</Text>
           </TouchableOpacity>
         )}
-        <TouchableOpacity>
-          <Text style={styles.delete}>Delete</Text>
-        </TouchableOpacity>
+        {props.openedComment.user_id === props.loggedUser.id && (
+          <TouchableOpacity>
+            <Text style={styles.delete}>Delete</Text>
+          </TouchableOpacity>
+        )}
       </View>
     </View>
   );
@@ -49,26 +51,35 @@ CommentBottomOptions.propTypes = {
   setCommentLiked: PropTypes.func,
   likeComment: PropTypes.func,
   setCommentUnliked: PropTypes.func,
-  unlikeComment: PropTypes.func
+  unlikeComment: PropTypes.func,
+  loggedUser: PropTypes.object
 };
 
 const styles = StyleSheet.create({
   delete: {
+    borderColor: '#e6e6e6',
+    borderRadius: 20,
+    borderWidth: 1,
     color: '#ff6666',
     fontSize: 18,
+    margin: 10,
     padding: 10,
     textAlign: 'center',
-    width: 200
+    width: 120
   },
   dimmedBackground: {
     flex: 1
   },
   like: {
-    color: '#808080',
+    borderColor: '#e6e6e6',
+    borderRadius: 20,
+    borderWidth: 1,
+    color: '#999999',
     fontSize: 18,
+    margin: 10,
     padding: 10,
     textAlign: 'center',
-    width: 200
+    width: 120
   },
   modal: {
     alignItems: 'center',
@@ -77,6 +88,7 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 20,
     bottom: 0,
     elevation: 2,
+    flexDirection: 'row',
     height: 200,
     justifyContent: 'center',
     marginTop: 150,
