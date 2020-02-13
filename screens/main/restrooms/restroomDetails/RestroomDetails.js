@@ -209,7 +209,7 @@ class RestroomDetails extends PureComponent {
                   emptyStarColor={Colors.mainColor}
                   fullStarColor={Colors.mainColor}
                 />
-                <Text style={styles.ratingsText}>Tap to open voting or view rating details</Text>
+                <Text style={styles.ratingsText}>Tap to leave rating or view rating details</Text>
               </View>
             </TouchableOpacity>
             <View style={styles.descriptionContainer}>

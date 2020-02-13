@@ -106,6 +106,7 @@ class CommentsList extends PureComponent {
                 setCommentLiked={this.props.setCommentLiked}
                 setCommentUnliked={this.props.setCommentUnliked}
                 isAddingLikeInfo={this.props.isAddingLikeInfo}
+                openCommentOptions={this.props.openCommentOptions}
               />
             );
           }}
@@ -154,7 +155,8 @@ CommentsList.propTypes = {
   unlikeComment: PropTypes.func,
   setCommentLiked: PropTypes.func,
   setCommentUnliked: PropTypes.func,
-  isAddingLikeInfo: PropTypes.bool
+  isAddingLikeInfo: PropTypes.bool,
+  openCommentOptions: PropTypes.func
 };
 
 const styles = StyleSheet.create({

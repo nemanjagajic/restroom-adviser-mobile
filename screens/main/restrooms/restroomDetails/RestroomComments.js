@@ -21,6 +21,7 @@ import {
   unlikeComment
 } from '../../../../store/actions/UserActions';
 import { isAddingLikeInfoSelector } from '../../../../store/selectors/UserSelector';
+import CommentBottomOptions from '../../../../components/comments/CommentBottomOptions';
 
 class RestroomComments extends PureComponent {
   static navigationOptions = {
@@ -36,7 +37,8 @@ class RestroomComments extends PureComponent {
     isFilterModalVisible: false,
     selectedFilterRating: null,
     appliedFilterRating: null,
-    searchValue: ''
+    searchValue: '',
+    openedComment: null
   };
 
   componentDidMount() {
@@ -73,6 +75,18 @@ class RestroomComments extends PureComponent {
     }
   };
 
+  openCommentOptions = comment => {
+    this.setState({
+      openedComment: comment
+    });
+  };
+
+  closeCommentOptions = () => {
+    this.setState({
+      openedComment: null
+    });
+  };
+
   render() {
     const shouldShowComments =
       this.props.navigation.getParam('isFromActivity') && this.props.isFetchingComments;
@@ -91,11 +105,22 @@ class RestroomComments extends PureComponent {
           setCommentLiked={this.props.setCommentLiked}
           setCommentUnliked={this.props.setCommentUnliked}
           isAddingLikeInfo={this.props.isAddingLikeInfo}
+          openCommentOptions={this.openCommentOptions}
         />
         <CommentInput
           onAddComment={this.handleAddComment}
           isAddingDisabled={this.props.isAddingComment}
         />
+        {this.state.openedComment && (
+          <CommentBottomOptions
+            openedComment={this.state.openedComment}
+            closeCommentOptions={this.closeCommentOptions}
+            setCommentLiked={this.props.setCommentLiked}
+            likeComment={this.props.likeComment}
+            setCommentUnliked={this.props.setCommentUnliked}
+            unlikeComment={this.props.unlikeComment}
+          />
+        )}
       </View>
     );
   }

@@ -1,5 +1,13 @@
 import React from 'react';
-import { StyleSheet, View, Dimensions, Text, Image, TouchableOpacity } from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Dimensions,
+  Text,
+  Image,
+  TouchableOpacity,
+  TouchableHighlight
+} from 'react-native';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 
@@ -25,35 +33,41 @@ class Comment extends React.PureComponent {
   render() {
     const { content, user, created_at: createdAt, numberOfLikes, isLikedByMe } = this.props.item;
     return (
-      // eslint-disable-next-line react-native/no-inline-styles
-      <View style={[styles.container, { marginTop: this.props.index === 0 ? 10 : 0 }]}>
-        <Image
-          style={user.avatar ? styles.image : styles.imageWithBorder}
-          source={
-            user.avatar
-              ? {
-                uri: user.avatar.startsWith('http')
-                  ? user.avatar
-                  : `${IMAGE_BASE_URL}${user.avatar}`
-              }
-              : poopEmojiIcon
-          }
-        />
-        <View style={styles.commentWrapper}>
-          <Text style={styles.userFullName}>{`${user.first_name}  ${user.last_name}`}</Text>
-          <Text style={styles.content}>{content}</Text>
-          <Text style={styles.createdAtText}>{moment(createdAt).fromNow()}</Text>
+      <TouchableHighlight
+        onLongPress={() => this.props.openCommentOptions(this.props.item)}
+        activeOpacity={1}
+        underlayColor="white"
+      >
+        {/* eslint-disable-next-line react-native/no-inline-styles */}
+        <View style={[styles.container, { marginTop: this.props.index === 0 ? 10 : 0 }]}>
+          <Image
+            style={user.avatar ? styles.image : styles.imageWithBorder}
+            source={
+              user.avatar
+                ? {
+                  uri: user.avatar.startsWith('http')
+                    ? user.avatar
+                    : `${IMAGE_BASE_URL}${user.avatar}`
+                }
+                : poopEmojiIcon
+            }
+          />
+          <View style={styles.commentWrapper}>
+            <Text style={styles.userFullName}>{`${user.first_name}  ${user.last_name}`}</Text>
+            <Text style={styles.content}>{content}</Text>
+            <Text style={styles.createdAtText}>{moment(createdAt).fromNow()}</Text>
+          </View>
+          <View style={styles.likeWrapper}>
+            <TouchableOpacity
+              onPress={this.handleLikePressed}
+              hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+            >
+              <Image style={styles.likeButton} source={isLikedByMe ? likeFilled : likeOutlined} />
+            </TouchableOpacity>
+            <Text style={styles.likeNumberText}>{numberOfLikes}</Text>
+          </View>
         </View>
-        <View style={styles.likeWrapper}>
-          <TouchableOpacity
-            onPress={this.handleLikePressed}
-            hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
-          >
-            <Image style={styles.likeButton} source={isLikedByMe ? likeFilled : likeOutlined} />
-          </TouchableOpacity>
-          <Text style={styles.likeNumberText}>{numberOfLikes}</Text>
-        </View>
-      </View>
+      </TouchableHighlight>
     );
   }
 }
@@ -65,7 +79,8 @@ Comment.propTypes = {
   unlikeComment: PropTypes.func,
   setCommentLiked: PropTypes.func,
   setCommentUnliked: PropTypes.func,
-  isAddingLikeInfo: PropTypes.bool
+  isAddingLikeInfo: PropTypes.bool,
+  openCommentOptions: PropTypes.func
 };
 
 const styles = StyleSheet.create({
