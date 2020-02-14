@@ -15,6 +15,7 @@ import poopEmojiIcon from '../../assets/images/poop-emoji.png';
 import likeFilled from '../../assets/images/filled.png';
 import likeOutlined from '../../assets/images/outlined.png';
 import config from '../../config';
+import { Ionicons } from '@expo/vector-icons';
 const { IMAGE_BASE_URL } = config;
 
 class Comment extends React.PureComponent {
@@ -65,6 +66,13 @@ class Comment extends React.PureComponent {
               <Image style={styles.likeButton} source={isLikedByMe ? likeFilled : likeOutlined} />
             </TouchableOpacity>
             <Text style={styles.likeNumberText}>{numberOfLikes}</Text>
+            <Ionicons
+              onPress={() => this.props.openCommentOptions(this.props.item)}
+              style={styles.iconMore}
+              name="ios-more"
+              color="#ccc"
+              size={20}
+            />
           </View>
         </View>
       </TouchableHighlight>
@@ -109,6 +117,9 @@ const styles = StyleSheet.create({
     fontSize: 12,
     paddingRight: 10,
     paddingTop: 10
+  },
+  iconMore: {
+    padding: 10
   },
   image: {
     borderRadius: 50,
