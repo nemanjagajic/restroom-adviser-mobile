@@ -20,6 +20,16 @@ const CommentBottomOptions = props => {
     props.unlikeComment(props.openedComment);
   };
 
+  const handleDeletePressed = () => {
+    props.deleteComment({
+      comment: props.openedComment,
+      reloadComments: () => {
+        props.reloadComments();
+        props.closeCommentOptions();
+      }
+    });
+  };
+
   return (
     <View style={styles.modalWrapper}>
       <TouchableWithoutFeedback onPress={props.closeCommentOptions}>
@@ -36,8 +46,12 @@ const CommentBottomOptions = props => {
           </TouchableOpacity>
         )}
         {props.openedComment.user_id === props.loggedUser.id && (
-          <TouchableOpacity>
-            <Text style={styles.delete}>Delete</Text>
+          <TouchableOpacity disabled={props.isDeletingComment} onPress={handleDeletePressed}>
+            {!props.isDeletingComment ? (
+              <Text style={styles.delete}>Delete</Text>
+            ) : (
+              <Text style={styles.deleting}>Deleting...</Text>
+            )}
           </TouchableOpacity>
         )}
       </View>
@@ -52,7 +66,10 @@ CommentBottomOptions.propTypes = {
   likeComment: PropTypes.func,
   setCommentUnliked: PropTypes.func,
   unlikeComment: PropTypes.func,
-  loggedUser: PropTypes.object
+  loggedUser: PropTypes.object,
+  deleteComment: PropTypes.func,
+  reloadComments: PropTypes.func,
+  isDeletingComment: PropTypes.bool
 };
 
 const styles = StyleSheet.create({
@@ -61,6 +78,17 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     borderWidth: 1,
     color: '#ff6666',
+    fontSize: 18,
+    margin: 10,
+    padding: 10,
+    textAlign: 'center',
+    width: 120
+  },
+  deleting: {
+    borderColor: '#e6e6e6',
+    borderRadius: 20,
+    borderWidth: 1,
+    color: '#ccc',
     fontSize: 18,
     margin: 10,
     padding: 10,

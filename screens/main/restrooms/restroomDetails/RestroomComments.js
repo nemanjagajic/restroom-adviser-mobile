@@ -15,12 +15,17 @@ import CommentsList from '../../../../components/comments/CommentsList';
 import Colors from '../../../../constants/Colors';
 import { FETCHING_LIMIT } from '../../../../constants/Restrooms';
 import {
+  deleteComment,
   likeComment,
   setCommentLiked,
   setCommentUnliked,
   unlikeComment
 } from '../../../../store/actions/UserActions';
-import { isAddingLikeInfoSelector, userSelector } from '../../../../store/selectors/UserSelector';
+import {
+  isAddingLikeInfoSelector,
+  isDeletingCommentSelector,
+  userSelector
+} from '../../../../store/selectors/UserSelector';
 import CommentBottomOptions from '../../../../components/comments/CommentBottomOptions';
 
 class RestroomComments extends PureComponent {
@@ -120,6 +125,9 @@ class RestroomComments extends PureComponent {
             setCommentUnliked={this.props.setCommentUnliked}
             unlikeComment={this.props.unlikeComment}
             loggedUser={this.props.user}
+            deleteComment={this.props.deleteComment}
+            reloadComments={this.reloadComments}
+            isDeletingComment={this.props.isDeletingComment}
           />
         )}
       </View>
@@ -141,7 +149,9 @@ RestroomComments.propTypes = {
   setCommentLiked: PropTypes.func,
   setCommentUnliked: PropTypes.func,
   isAddingLikeInfo: PropTypes.bool,
-  user: PropTypes.object
+  user: PropTypes.object,
+  deleteComment: PropTypes.func,
+  isDeletingComment: PropTypes.bool
 };
 
 const mapStateToProps = state => ({
@@ -151,7 +161,8 @@ const mapStateToProps = state => ({
   commentsTotalNumber: commentsTotalNumberSelector(state),
   comments: restroomCommentsSelector(state),
   isAddingLikeInfo: isAddingLikeInfoSelector(state),
-  user: userSelector(state)
+  user: userSelector(state),
+  isDeletingComment: isDeletingCommentSelector(state)
 });
 
 const mapDispatchToProps = {
@@ -160,7 +171,8 @@ const mapDispatchToProps = {
   likeComment,
   unlikeComment,
   setCommentLiked,
-  setCommentUnliked
+  setCommentUnliked,
+  deleteComment
 };
 
 const styles = StyleSheet.create({

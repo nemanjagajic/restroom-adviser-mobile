@@ -47,3 +47,8 @@ export const isAddingLikeInfoSelector = createSelector(
   userStateSelector,
   users => users.isAddingLikeInfo
 );
+
+export const isDeletingCommentSelector = createSelector(
+  userStateSelector,
+  user => user.isDeletingComment
+);

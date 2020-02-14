@@ -30,7 +30,9 @@ import {
   setAddingLikeInfo,
   setAddingLikeInfoFinished,
   setCommentUnliked,
-  setCommentLiked
+  setCommentLiked,
+  setDeletingComment,
+  setDeletingCommentFinished
 } from '../actions/UserActions';
 import { profileService } from '../../services/ProfileService';
 import {
@@ -294,5 +296,24 @@ export function* unlikeComment({ payload }) {
     console.log(error);
   } finally {
     yield put(setAddingLikeInfoFinished());
+  }
+}
+
+export function* deleteComment({ payload }) {
+  const user = yield select(userSelector);
+  yield put(setDeletingComment());
+
+  try {
+    yield call(userService.deleteComment, {
+      user,
+      comment: payload.comment
+    });
+
+    payload.reloadComments();
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.log(error);
+  } finally {
+    yield put(setDeletingCommentFinished());
   }
 }

@@ -17,7 +17,9 @@ import {
   ADD_MY_RATINGS,
   RESET_MY_RATINGS,
   SET_ADDING_LIKE_INFO,
-  SET_ADDING_LIKE_INFO_FINISHED
+  SET_ADDING_LIKE_INFO_FINISHED,
+  SET_DELETING_COMMENT,
+  SET_DELETING_COMMENT_FINISHED
 } from '../actions/ActionTypes';
 
 const initialState = {
@@ -32,7 +34,8 @@ const initialState = {
   isFetchingMyNewRatings: false,
   ratings: [],
   ratingsTotalNumber: 0,
-  isAddingLikeInfo: false
+  isAddingLikeInfo: false,
+  isDeletingComment: false
 };
 
 export default (state = initialState, action) => {
@@ -123,6 +126,16 @@ export default (state = initialState, action) => {
       return {
         ...state,
         isAddingLikeInfo: false
+      };
+    case SET_DELETING_COMMENT:
+      return {
+        ...state,
+        isDeletingComment: true
+      };
+    case SET_DELETING_COMMENT_FINISHED:
+      return {
+        ...state,
+        isDeletingComment: false
       };
     default:
       return state;

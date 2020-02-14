@@ -4,7 +4,8 @@ const ENDPOINTS = {
   COMMENTS: '/user/{userId}/comments',
   RATINGS: '/user/{userId}/ratings',
   LIKE_COMMENT: '/user/{userId}/comments/{commentId}/like',
-  UNLIKE_COMMENT: '/user/{userId}/comments/{commentId}/unlike'
+  UNLIKE_COMMENT: '/user/{userId}/comments/{commentId}/unlike',
+  COMMENT_DELETE: '/user/{userId}/comments/{commentId}'
 };
 
 class UserService extends ApiService {
@@ -29,6 +30,12 @@ class UserService extends ApiService {
   unlikeComment = ({ user, comment }) => {
     return this.apiClient.post(
       ENDPOINTS.UNLIKE_COMMENT.replace('{userId}', user.id).replace('{commentId}', comment.id)
+    );
+  };
+
+  deleteComment = ({ user, comment }) => {
+    return this.apiClient.delete(
+      ENDPOINTS.COMMENT_DELETE.replace('{userId}', user.id).replace('{commentId}', comment.id)
     );
   };
 }
