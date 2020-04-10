@@ -83,14 +83,13 @@ class CommentsList extends PureComponent {
     return (
       <View>
         <FlatList
-          style={
-            // eslint-disable-next-line react-native/no-inline-styles
-            {
+          style={{
+            ...(!this.props.isActivityItem && {
               marginBottom: this.state.isKeyboardOpened
                 ? this.state.keyboardEndCoordinates + 120
                 : 50
-            }
-          }
+            })
+          }}
           contentContainerStyle={styles.container}
           data={this.props.comments}
           renderItem={comment => {
